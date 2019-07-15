@@ -4,7 +4,9 @@ import store from './store'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import Vuetify from 'vuetify'
-Vue.use(Vuetify) 
+Vue.use(Vuetify, {
+  iconfont: 'md'
+}) 
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue) 

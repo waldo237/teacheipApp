@@ -80,6 +80,7 @@ import 'vuetify/dist/vuetify.min.css'
 import Menu from '@/components/menu.vue'
 
 export default {
+  
  name: 'site-heade',
  components: {
    Menu
