@@ -4,9 +4,10 @@
       <div id="primary" class="content-area">
         <main id="main" class="site-main">
           <div class="entry-content">
-            <h1 class="display-3" style="text-align:center; margin-left: 15%">Lesson plan repository</h1>
+            <h1 class="display-2" style="text-align:center; margin-left: 15%;">Lesson plan repository</h1>
             <!-- search engine -->
             <form
+              id="search"
               class="form-inline md-form form-sm active-cyan active-cyan-2 mt-2"
               style="margin:1%;font-size: 200%; width: 120%;"
             >
@@ -51,7 +52,7 @@
               src="../assets/loading.gif"
               id="loading"
               alt="loading"
-              style="height: 100px; width: 100px;position: relative; left: 50%;"
+              style="height: 80px; width: 80px;position: relative; left: 50%;"
             />
             <!-- table-->
             <div
@@ -146,6 +147,10 @@ export default {
     table: function() {
       $(document).ready(async function() {
         $("#tblReportResultsDemographics").hide();
+        $("#search").hide();
+        $("#level").hide();
+        $("#series").hide();
+
         const res = await axios.get(
           "https://script.google.com/macros/s/AKfycbxCKtyJP8X3vpOXTDCaENAesVXa8gWwzw4BSAnk6iIGWz8FFMqi/exec"
         );
@@ -155,6 +160,10 @@ export default {
         if (ready) {
           $("#loading").fadeOut();
           $("#tblReportResultsDemographics").fadeIn();
+          $("#search").fadeIn();
+        $("#level").fadeIn();
+        $("#series").fadeIn();
+
         }
       });
 

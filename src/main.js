@@ -4,8 +4,11 @@ import store from './store'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import Vuetify from 'vuetify'
+import VeeValidate from 'vee-validate';
+ 
+Vue.use(VeeValidate);
 Vue.use(Vuetify, {
-  iconfont: 'md'
+  iconfont: 'sm'
 }) 
 
 Vue.config.productionTip = false

@@ -1,8 +1,8 @@
  
  <template>
   <div>
-    <v-toolbar app style="background-color:white" >
-      <v-toolbar-side-icon class="gray--text" @click="drawer = !drawer"  v-on-clickaway="away"></v-toolbar-side-icon>
+    <v-toolbar app style="background-color:white">
+      <v-toolbar-side-icon class="gray--text" @click="drawer = !drawer" v-on-clickaway="away"></v-toolbar-side-icon>
       <div class="logo-text">
         <span class="teach">Teach</span>
         <span class="acronym">EIP</span>
@@ -21,52 +21,60 @@
           :to="item.link"
           :class="item.class"
         >{{ item.title }}</router-link>
-         <v-btn @click="openPopUp" class="sign-up">REGISTER</v-btn>
+        <v-btn @click="toggleSU" class="sign-up">REGISTER</v-btn>
+        <v-btn @click="toggleSI" class="sign-in">SIGN IN</v-btn>
       </v-toolbar-items>
 
       <!-- sandwich menu when minimized -->
       <v-menu class="hidden-lg-and-up" v-model="sandwich">
-        <v-toolbar-side-icon slot="activator"  v-on-clickaway="hideMenu"></v-toolbar-side-icon>
-        <v-list >
+        <v-toolbar-side-icon slot="activator" v-on-clickaway="hideMenu"></v-toolbar-side-icon>
+        <v-list>
           <router-link
             tag="v-btn"
             v-for="item in navbar"
             :key="item.icon"
             :to="item.link"
             :class="item.class"
-          >{{ item.title }}<v-icon>{{item.icon}}</v-icon>
+          >
+            {{ item.title }}
+            <v-icon>{{item.icon}}</v-icon><br>
           </router-link>
         </v-list>
       </v-menu>
     </v-toolbar>
     <!-- this is the side-menu -->
     <v-navigation-drawer v-model="drawer" app class="indingo">
-            <v-icon>dashboard</v-icon>            
-             <v-list-tile-title></v-list-tile-title>
+      <v-card>
+      <v-card-title><v-icon>dashboard</v-icon>DASHBOARD</v-card-title>
+      
+       </v-card>
+
+      <v-list-tile-title></v-list-tile-title>
       <v-list-tile v-for="item in navbar" :key="item.class">
-          <v-list-tile-action>
-            <v-icon>{{item.icon}}</v-icon>
-          </v-list-tile-action>
-             <v-list-tile-title>{{item.title}}</v-list-tile-title>
+        <v-list-tile-action>
+          <v-icon>{{item.icon}}</v-icon>
+        </v-list-tile-action>
+        <v-list-tile-title>{{item.title}}</v-list-tile-title>
       </v-list-tile>
     </v-navigation-drawer>
     <!-- popup-register -->
-    <popupRegister/>
+    <popupRegister />
+    <signInForm />
 
     <!-- popup-register -->
   </div>
-  
 </template>
 
 
 <script>
 import { directive as onClickaway } from "vue-clickaway";
-import popupRegister from '@/components/popup-signup.vue'
+import popupRegister from "@/components/popup-signup.vue";
+import signInForm from "@/components/popup-signin.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "navbar",
-  components: {popupRegister},
-
+  components: { popupRegister,signInForm },
   template: '<p v-on-clickaway="away">Click away</p>',
   directives: {
     onClickaway: onClickaway
@@ -92,47 +100,54 @@ export default {
           link: "/lesson plans",
           class: "lesson-plan"
         },
-          // {
-          //   icon: "person",
-          //   title: "REGISTER",
-          //   link: "/register",
-          //   class: "sign-up",
-          // },
         {
-          icon: "exit_to_app",
-          title: "SIGN IN",
-          link: "/sign in",
-          class: "sign-in",
+          icon: "person",
+          title: "EMPLOYEES",
+          link: "/register",
+          class: "employees",
         },
+        // {
+        //   icon: "exit_to_app",
+        //   title: "SIGN IN",
+        //   link: "/sign in",
+        //   class: "sign-in"
+        // }
       ],
       drawer: false,
-      sandwich: false,
+      sandwich: false
     };
   },
-  props:['dialog'],
   methods: {
     away: function() {
-     if(this.drawer){this.drawer = false;}
+      if (this.drawer) {
+        this.drawer = false;
+      }
     },
     hideMenu: function() {
-     if(this.sandwich){this.sandwich = false;}
+      if (this.sandwich) {
+        this.sandwich = false;
+      }
     },
-    openPopUp: function(){
-      console.log(this.$props.dialog)
-     
+    onResize: function(){
+      window.addEventListener('resize', ()=>{
+        this.sandwich = false;
+      })
+    },
+    ...mapActions(["toggleSI", "toggleSU"])
   },
-  
-}};
+  created:function(){
+    this.onResize();
+  }
+};
 </script>
- 
 <style>
-.sign-in{
+.sign-in {
   color: white !important;
   background-color: rgb(19, 83, 147) !important;
 }
-.sign-up{
+.sign-up {
   color: white !important;
-  background-color: rgb(209,60,52)  !important;
+  background-color: rgb(209, 60, 52) !important;
 }
 .nav-link:hover {
   background-color: rgb(19, 83, 147);
@@ -189,7 +204,6 @@ export default {
   font-weight: bolder;
   color: #c6192a;
 }
-
 
 @media screen and (max-width: 800px) {
   .logo-text:hover .full-title {
