@@ -1,7 +1,7 @@
  
  <template>
-  <div id="app">
-    <v-toolbar app style="background-color:white" data-app>
+  <div>
+    <v-toolbar app style="background-color:white" >
       <v-toolbar-side-icon class="gray--text" @click="drawer = !drawer"  v-on-clickaway="away"></v-toolbar-side-icon>
       <div class="logo-text">
         <span class="teach">Teach</span>
@@ -10,8 +10,8 @@
           <img src="../../src/assets/mescyt-1024x878.png" alt="mescyt" />with The English Immersion Program
         </span>
       </div>
-
       <v-spacer></v-spacer>
+      <!-- navigation bar -->
       <v-toolbar-items class="hidden-md-and-down">
         <router-link
           tag="v-btn"
@@ -21,7 +21,10 @@
           :to="item.link"
           :class="item.class"
         >{{ item.title }}</router-link>
+         <v-btn @click="openPopUp" class="sign-up">REGISTER</v-btn>
       </v-toolbar-items>
+
+      <!-- sandwich menu when minimized -->
       <v-menu class="hidden-lg-and-up" v-model="sandwich">
         <v-toolbar-side-icon slot="activator"  v-on-clickaway="hideMenu"></v-toolbar-side-icon>
         <v-list >
@@ -31,42 +34,39 @@
             :key="item.icon"
             :to="item.link"
             :class="item.class"
-          >{{ item.title }}</router-link>
+          >{{ item.title }}<v-icon>{{item.icon}}</v-icon>
+          </router-link>
         </v-list>
       </v-menu>
     </v-toolbar>
+    <!-- this is the side-menu -->
     <v-navigation-drawer v-model="drawer" app class="indingo">
-            <v-icon>dashboard</v-icon>
+            <v-icon>dashboard</v-icon>            
              <v-list-tile-title></v-list-tile-title>
       <v-list-tile v-for="item in navbar" :key="item.class">
-       
           <v-list-tile-action>
             <v-icon>{{item.icon}}</v-icon>
           </v-list-tile-action>
-           <v-tile-content>
              <v-list-tile-title>{{item.title}}</v-list-tile-title>
-      <!-- <router-link
-          tag="v-btn"
-          style="background-color:white"
-          v-for="item in navbar"
-          :key="item.icon"
-          :to="item.link"
-          :class="item.class"
-        >{{ item.title }}</router-link> -->
-
-        </v-tile-content>
-
       </v-list-tile>
     </v-navigation-drawer>
+    <!-- popup-register -->
+    <popupRegister/>
+
+    <!-- popup-register -->
   </div>
+  
 </template>
 
 
 <script>
 import { directive as onClickaway } from "vue-clickaway";
+import popupRegister from '@/components/popup-signup.vue'
 
 export default {
   name: "navbar",
+  components: {popupRegister},
+
   template: '<p v-on-clickaway="away">Click away</p>',
   directives: {
     onClickaway: onClickaway
@@ -92,32 +92,37 @@ export default {
           link: "/lesson plans",
           class: "lesson-plan"
         },
-          {
-            icon: "sign-up",
-            title: "REGISTER",
-            link: "/sign-up",
-            class: "sign-up",
-          },
+          // {
+          //   icon: "person",
+          //   title: "REGISTER",
+          //   link: "/register",
+          //   class: "sign-up",
+          // },
         {
-          icon: "login",
+          icon: "exit_to_app",
           title: "SIGN IN",
           link: "/sign in",
           class: "sign-in",
         },
       ],
       drawer: false,
-      sandwich: false
+      sandwich: false,
     };
   },
+  props:['dialog'],
   methods: {
     away: function() {
      if(this.drawer){this.drawer = false;}
     },
     hideMenu: function() {
      if(this.sandwich){this.sandwich = false;}
-    }
-  }
-};
+    },
+    openPopUp: function(){
+      console.log(this.$props.dialog)
+     
+  },
+  
+}};
 </script>
  
 <style>
