@@ -1,5 +1,5 @@
 import dialog from './modules/dialog'
-import employee from './modules/employee'
+import employee from './modules/users'
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex);

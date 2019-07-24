@@ -13,9 +13,7 @@
       <v-spacer></v-spacer>
       <!-- navigation bar -->
       <v-toolbar-items class="hidden-md-and-down">
-        <div v-if="checkIsLoggedIn">
-          
-        </div>
+        <v-toolbar-items class="hidden-md-and-down" v-if="!checkIsLoggedIn">
         <router-link
           tag="v-btn"
           style="background-color:white"
@@ -24,8 +22,19 @@
           :to="item.link"
           :class="item.class"
         >{{ item.title }}</router-link>
+        </v-toolbar-items>
         <v-btn @click="toggleSU" class="sign-up"  v-if="!checkIsLoggedIn">REGISTER</v-btn>
         <v-btn @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn">SIGN IN</v-btn>
+        <v-toolbar-items class="hidden-md-and-down" v-if="checkIsLoggedIn">
+        <router-link
+          tag="v-btn"
+          style="background-color:white"
+          v-for="item in privateNav"
+          :key="item.icon"
+          :to="item.link"
+          :class="item.class"
+        >{{ item.title }} <v-icon>{{item.icon}}</v-icon><br></router-link>
+        </v-toolbar-items>
         <!-- log out -->
         <v-btn
           tag="v-btn"
@@ -133,7 +142,7 @@ export default {
         {
           icon: "dashboard",
           title: "DASHBOARD",
-          link: `dashboard/:${this.getUser}`,
+          link: `dashboard/${this.getCurrentUser}`,
           class: "sign-in",
         },
       
@@ -168,12 +177,12 @@ export default {
     },
     ...mapActions(["toggleSI", "toggleSU", 'toggleIsLoggedIn'])
   },
-  computed: mapGetters(['checkIsLoggedIn', 'getUsers']),
+  computed: mapGetters(['checkIsLoggedIn', 'getUsers', 'geCurrentUsers']),
   created:function(){
     if(auth.auth().currentUser){
-   
+   console.log(auth.auth().currentUser)
      this.toggleIsLoggedIn()
-      this.currentUser = auth.auth().currentUser
+     this.$store.commit('setCurrentUser',auth.auth().currentUser)
     }
     this.onResize();
   }

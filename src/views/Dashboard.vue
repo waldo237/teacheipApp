@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <v-layout row>
-        <v-flex xs14 sm6 offset-sm3>
+        <v-flex xs12 sm6 offset-sm3>
           <v-card>
             <v-toolbar class="sign-in">
               <v-avatar>
@@ -11,7 +11,7 @@
                   alt="Waldo"
                 />
               </v-avatar>
-              <v-toolbar-title>Dashboard</v-toolbar-title>
+              <v-toolbar-title>Hello, {{getCurrentUser.name}}. Welcome to your workstation.</v-toolbar-title>
 
               <v-spacer></v-spacer>
 
