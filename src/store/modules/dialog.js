@@ -1,16 +1,21 @@
 
 const state = {
-    
+    isLoggedIn: false,
     SUDialog: false,
     SIDialog: false,
     employees: []
 };
 const getters = {
+    
+    checkIsLoggedIn: (state) => state.isLoggedIn,
     getSUDialog: (state) => state.SUDialog,
     getSIDialog: (state) => state.SIDialog,
     getEmployees: (state) =>state.employees
 };
 const actions = {
+    toggleIsLoggedIn ({commit}){
+        commit('setLoggedIn', !state.isLoggedIn);
+    },
     toggleSU ({commit}){
 
         commit('setSUDialog', !state.SUDialog);
@@ -26,6 +31,7 @@ const actions = {
     }
 };
 const mutations = {
+    setLoggedIn: (state, value) =>(state.isLoggedIn = value),
     setSUDialog: (state, value) =>(state.SUDialog = value),
     setSIDialog: (state, value) =>(state.SIDialog = value),
     setEmployees: (state, value) =>(state.employees = value),

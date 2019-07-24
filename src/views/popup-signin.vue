@@ -49,7 +49,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import firebase from  'firebase';
+import auth from  'firebase';
 
 export default {
   data: () => {
@@ -59,14 +59,14 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["toggleSI"]),
+    ...mapActions(["toggleSI","toggleIsLoggedIn"]),
     register(e) {
       
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(async user=>{
+      auth.auth().signInWithEmailAndPassword(this.email, this.password).then(async user=>{
         await alert(`Successful logged in ${this.email}`);
-           await this.toggleSI();  
-
-          await this.$router.push(`/dashboard/${this.getParams}`);
+        await this.toggleSI();  
+        await this.$router.push(`/dashboard/${this.getParams}`);
+        await this.toggleIsLoggedIn()
       },
       err =>{alert(err.message)}
       ),

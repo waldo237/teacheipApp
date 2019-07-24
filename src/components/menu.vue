@@ -13,22 +13,25 @@
       <v-spacer></v-spacer>
       <!-- navigation bar -->
       <v-toolbar-items class="hidden-md-and-down">
+        <div v-if="checkIsLoggedIn">
+          
+        </div>
         <router-link
           tag="v-btn"
           style="background-color:white"
-          v-for="item in navbar"
+          v-for="item in publicNav"
           :key="item.icon"
           :to="item.link"
           :class="item.class"
         >{{ item.title }}</router-link>
-        <v-btn @click="toggleSU" class="sign-up">REGISTER</v-btn>
-        <v-btn @click="toggleSI" class="sign-in">SIGN IN</v-btn>
+        <v-btn @click="toggleSU" class="sign-up"  v-if="!checkIsLoggedIn">REGISTER</v-btn>
+        <v-btn @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn">SIGN IN</v-btn>
         <!-- log out -->
         <v-btn
           tag="v-btn"
           class="sign-up"
           @click="logout"          
-        >Log out <v-icon>exit_to_app</v-icon></v-btn>
+         v-if="checkIsLoggedIn">Log out <v-icon>exit_to_app</v-icon></v-btn>
         <!-- log out -->
       </v-toolbar-items>
 
@@ -40,7 +43,7 @@
         <v-list class="tiles">
           <router-link
             tag="v-btn"
-            v-for="item in navbar"
+            v-for="item in publicNav"
             :key="item.icon"
             :to="item.link"
             :class="item.class"
@@ -63,7 +66,7 @@
        </v-card>
 
       <v-list-tile-title></v-list-tile-title>
-      <v-list-tile v-for="item in navbar" :key="item.class">
+      <v-list-tile v-for="item in publicNav" :key="item.class">
         <v-list-tile-action>
           <v-icon>{{item.icon}}</v-icon>
         </v-list-tile-action>
@@ -81,12 +84,14 @@
 
 <script>
 import { directive as onClickaway } from "vue-clickaway";
-import popupRegister from "@/components/popup-signup.vue";
-import signInForm from "@/components/popup-signin.vue";
-import { mapActions } from "vuex";
-import firebase from 'firebase'
+import popupRegister from "@/views/popup-signup.vue";
+import signInForm from "@/views/popup-signin.vue";
+import { mapActions, mapGetters } from "vuex";
+import auth from 'firebase'
+import { async } from 'q';
+import { get } from 'http';
 export default {
-  name: "navbar",
+  name: "menu1",
   components: { popupRegister,signInForm },
   template: '<p v-on-clickaway="away">Click away</p>',
   directives: {
@@ -94,7 +99,7 @@ export default {
   },
   data() {
     return {
-      navbar: [
+      publicNav: [
         {
           icon: "home",
           title: "HOME",
@@ -107,11 +112,16 @@ export default {
           link: "/about",
           class: "about"
         },
+
+      ],
+      privateNav: [
+
         {
           icon: "folder",
           title: "LESSON PLANS",
           link: "/lesson plans",
           class: "lesson-plan"
+          
         },
         {
           icon: "person",
@@ -120,15 +130,14 @@ export default {
           class: "employees",
         },
        
-
-        // {
-        //   icon: "exit_to_app",
-        //   title: "SIGN IN",
-        //   link: "/sign in",
-        //   class: "sign-in"
-        // }
+        {
+          icon: "dashboard",
+          title: "DASHBOARD",
+          link: `dashboard/:${this.getUser}`,
+          class: "sign-in",
+        },
+      
       ],
-       isLoggedIn: false,
        currentUser: false,
       drawer: false,
       sandwich: false
@@ -136,9 +145,10 @@ export default {
   },
   methods: {
     logout(){
-      firebase.auth().signOut().then(()=>{
+      auth.auth().signOut().then(async()=>{
         alert(' you are logged out')
         this.$router.push('/')
+        this.toggleIsLoggedIn()
       })
     },
     away: function() {
@@ -156,9 +166,15 @@ export default {
         this.sandwich = false;
       })
     },
-    ...mapActions(["toggleSI", "toggleSU"])
+    ...mapActions(["toggleSI", "toggleSU", 'toggleIsLoggedIn'])
   },
+  computed: mapGetters(['checkIsLoggedIn', 'getUsers']),
   created:function(){
+    if(auth.auth().currentUser){
+   
+     this.toggleIsLoggedIn()
+      this.currentUser = auth.auth().currentUser
+    }
     this.onResize();
   }
 };

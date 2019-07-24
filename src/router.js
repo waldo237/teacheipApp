@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import firebase from 'firebase';
+import auth from 'firebase';
 Vue.use(Router)
 
 let router = new Router({
@@ -9,15 +9,19 @@ let router = new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      meta:{
+        requiresGuest: true
+      }
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      meta:{
+        requiresGuest: true
+      }
     },{
       path: '/lesson plans',
       name: 'lesson plans',
@@ -28,12 +32,13 @@ let router = new Router({
     },{
       path: '/register',
       name: 'register',
-      component: () => import(/* webpackChunkName: "about" */ './views/Register.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/empoyeeChart.vue'),
       meta:{
         requiresAuth: true
       }
       
-    },{
+    }
+    ,{
       path: '/dashboard/:id',
       name: 'dashboard',
       component: () => import(/* webpackChunkName: "about" */ './views/Dashboard.vue'),
@@ -41,6 +46,24 @@ let router = new Router({
         requiresAuth: true
       }
     }
+    ,{
+      path: '/signin',
+      name: 'signin',
+      component: () => import(/* webpackChunkName: "about" */ './views/popup-signin.vue'),
+      meta:{
+        requiresGuest: true
+      }
+    }
+    ,{
+      path: '/signup',
+      name: 'signup',
+      component: () => import(/* webpackChunkName: "about" */ './views/popup-signup.vue'),
+      meta:{
+        requiresGuest: true
+      }
+    }
+   
+ 
   ]
 })
 
@@ -49,12 +72,12 @@ router.beforeEach((to, from, next) => {
   // Check for requiresAuth guard
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // Check if NO logged user
-    if (!firebase.auth().currentUser) {
+    if (!auth.auth().currentUser) {
       // Go to login
       next({
-        path: '/home',
+        path: '/',
         query: {
-          redirect: to.fullPath
+          redirect: to.hash
         }
       });
     } else {
@@ -63,7 +86,7 @@ router.beforeEach((to, from, next) => {
     }
   } else if (to.matched.some(record => record.meta.requiresGuest)) {
     // Check if NO logged user
-    if (firebase.auth().currentUser) {
+    if (auth.auth().currentUser) {
       // Go to login
       next({
         path: '/dashboard',
