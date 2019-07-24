@@ -26,9 +26,11 @@
       </v-toolbar-items>
 
       <!-- sandwich menu when minimized -->
-      <v-menu class="hidden-lg-and-up" v-model="sandwich">
+      <transition name="sandwich">
+      <v-menu class="hidden-lg-and-up" v-model="sandwich" >
         <v-toolbar-side-icon slot="activator" v-on-clickaway="hideMenu"></v-toolbar-side-icon>
-        <v-list>
+        <transition name="tiles">
+        <v-list class="tiles">
           <router-link
             tag="v-btn"
             v-for="item in navbar"
@@ -40,7 +42,11 @@
             <v-icon>{{item.icon}}</v-icon><br>
           </router-link>
         </v-list>
+
+        </transition>
       </v-menu>
+
+      </transition>
     </v-toolbar>
     <!-- this is the side-menu -->
     <v-navigation-drawer v-model="drawer" app class="indingo">
@@ -141,6 +147,23 @@ export default {
 };
 </script>
 <style>
+@import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
+.tiles{
+  animation-duration: 0.5s;
+  animation-name: bounceInRight;
+  animation-timing-function: ease-in-out;
+  display: block;
+  font-size: 40px;
+  color: white;
+}
+.tiles:after{
+  animation-duration: 0.5s;
+  animation-name: bounceInLeft;
+  animation-timing-function: ease-out;
+  display: block;
+  font-size: 40px;
+  color: white;
+}
 .sign-in {
   color: white !important;
   background-color: rgb(19, 83, 147) !important;
