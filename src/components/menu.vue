@@ -23,6 +23,13 @@
         >{{ item.title }}</router-link>
         <v-btn @click="toggleSU" class="sign-up">REGISTER</v-btn>
         <v-btn @click="toggleSI" class="sign-in">SIGN IN</v-btn>
+        <!-- log out -->
+        <v-btn
+          tag="v-btn"
+          class="sign-up"
+          @click="logout"          
+        >Log out <v-icon>exit_to_app</v-icon></v-btn>
+        <!-- log out -->
       </v-toolbar-items>
 
       <!-- sandwich menu when minimized -->
@@ -77,7 +84,7 @@ import { directive as onClickaway } from "vue-clickaway";
 import popupRegister from "@/components/popup-signup.vue";
 import signInForm from "@/components/popup-signin.vue";
 import { mapActions } from "vuex";
-
+import firebase from 'firebase'
 export default {
   name: "navbar",
   components: { popupRegister,signInForm },
@@ -112,6 +119,8 @@ export default {
           link: "/register",
           class: "employees",
         },
+       
+
         // {
         //   icon: "exit_to_app",
         //   title: "SIGN IN",
@@ -119,11 +128,19 @@ export default {
         //   class: "sign-in"
         // }
       ],
+       isLoggedIn: false,
+       currentUser: false,
       drawer: false,
       sandwich: false
     };
   },
   methods: {
+    logout(){
+      firebase.auth().signOut().then(()=>{
+        alert(' you are logged out')
+        this.$router.push('/')
+      })
+    },
     away: function() {
       if (this.drawer) {
         this.drawer = false;

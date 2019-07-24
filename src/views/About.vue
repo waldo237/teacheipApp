@@ -28,41 +28,19 @@
             standardization.
           </p>
           </transition>
-            <p v-for="(employee,i) in employees" :key="i">{{employee.name}} <router-link 
+            <!-- <p v-for="(employee,i) in employees" :key="i">{{employee.name}} <router-link 
             class="secondary-content"
             v-bind:to="{name: 'dashboard', params:{id: employee.id}}">
             <v-icon>remove_red_eye</v-icon>
-            </router-link> </p>
+            </router-link> </p> -->
         </div>
       </div>
     </v-layout>
   </div>
 </template>
 <script>
-import db from  '../components/firebaseInit';
-
 export default {
-data(){
-  return{
-    employees: []
-  }
-},
-created () {
-  db.collection('Employees').get().then(querySnapshot =>{
-    querySnapshot.forEach(doc =>{
-      const data = {
-        'id': doc.id,
-        'name': doc.data().name,
-        'email': doc.data().email,
-        'position': doc.data().position,
-        'level': doc.data().level,
-      
-      }
-      this.employees.push(data);
-})
-    
-  })
-}
+
 
 }
 

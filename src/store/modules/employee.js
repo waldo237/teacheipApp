@@ -2,16 +2,15 @@ import db from '../../components/firebaseInit';
 
 const state = {
     users: [],
-    params:{}
+    params: {},
 };
 const getters = {
     getUsers: (state) => state.users,
-    getParams: (state) => state.params
+    getParams: (state) => state.params,
 };
 const actions = {
     async fetchUsers({ commit }) {
         console.log(state.params)
-
         db.collection('Employees')
             .where('id', '==', state.params).get().then((querySnapshot) => {
                 querySnapshot.forEach(async (doc) => {
@@ -20,11 +19,24 @@ const actions = {
                 })
             })
     },
+    async fetchAllUsers({ commit }) {
+        db.collection('Employees').get().then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+                const data = {
+                    'id': doc.id,
+                    'name': doc.data().name,
+                    'email': doc.data().email,
+                    'position': doc.data().position,
+                    'level': doc.data().level,
+                }
+                commit('setUsers', data);
+            })
+        })
+    }
 };
 const mutations = {
     setUsers: (state, value) => (state.users.push(value)),
-    setParams: (state, value) => (state.params =value),
-
+    setParams: (state, value) => (state.params = value),
 };
 
 export default {

@@ -134,9 +134,10 @@ export default {
   },
   methods: {
     async submit(e) {
-      firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(user=>{
-        alert(`Account created for ${user.email}`);
-        this.$router.push('/dasboard');
+      firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(async user=>{
+        alert(`Account created for ${this.email}`);
+       await this.$router.push('/dashboard');
+         this.toggleSU();
       },
       err =>{alert(err.message)}
       ),

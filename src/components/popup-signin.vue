@@ -8,7 +8,7 @@
         </v-toolbar>
         <v-card-text>
           <v-form>
-            <v-text-field prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
+            <v-text-field prepend-icon="person" name="login" label="Login" type="text" v-model="email"></v-text-field>
             <v-text-field
             autocomplete
               prepend-icon="lock"
@@ -16,6 +16,7 @@
               label="Password"
               id="passwordin"
               type="password"
+              v-model="password"
             ></v-text-field>
             <v-label for="password">
               <a href="#" class="float-right">Forgot Password?</a>
@@ -61,15 +62,17 @@ export default {
     ...mapActions(["toggleSI"]),
     register(e) {
       
-      firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(user=>{
-        alert(`Account created for ${user.email}`);
-        this.$router.push('/dasboard');
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(async user=>{
+        await alert(`Successful logged in ${this.email}`);
+           await this.toggleSI();  
+
+          await this.$router.push(`/dashboard/${this.getParams}`);
       },
       err =>{alert(err.message)}
       ),
       e.preventDefault();
     }
   },
-  computed: mapGetters(["getSIDialog"])
+  computed: mapGetters(['getSIDialog','getParams'])
 };
 </script>
