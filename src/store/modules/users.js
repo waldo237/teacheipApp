@@ -2,11 +2,14 @@ import db from '../../components/firebaseInit';
 
 const state = {
     users: [],
+    currentUser: {},
     params: {},
 };
 const getters = {
     getUsers: (state) => state.users,
     getParams: (state) => state.params,
+    getCurrentUser: (state) => state.currentUser,
+    
 };
 const actions = {
     async fetchUsers({ commit }) {
@@ -37,6 +40,7 @@ const actions = {
 const mutations = {
     setUsers: (state, value) => (state.users.push(value)),
     setParams: (state, value) => (state.params = value),
+    setCurrentUser: (state, value) => (state.currentUser = value),
 };
 
 export default {

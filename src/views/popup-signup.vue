@@ -48,8 +48,10 @@
             ></v-text-field>
 
             <v-layout row wrap class="policy">
-              <v-flex sm1 class="checkbox">
+              <v-flex sm9 >
+                <a href="/" class="policy">I have read and agree to your policy</a>
                 <v-checkbox
+                class="checkbox"
                   v-model="checkbox"
                   v-validate="'required'"
                   :error-messages="errors.collect('checkbox')"
@@ -58,10 +60,9 @@
                   type="checkbox"
                   required
                 ></v-checkbox>
+
               </v-flex>
-              <v-flex xs5 class="policy" id="linkp">
-                <a href="/">I have read and agree to your policy</a>
-              </v-flex>
+            
             </v-layout>
             <v-card-actions>
               <v-divider></v-divider>
@@ -70,6 +71,11 @@
               <v-btn @click="submit" class="sign-in">submit</v-btn>
               <v-divider></v-divider>
             </v-card-actions>
+           <v-layout row justify-center>
+              <v-btn @click="update" ><v-avatar>
+                <v-img src="https://i1.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?fit=1000%2C1000&ssl=1&w=640"></v-img>
+              </v-avatar>sign in with google</v-btn>
+           </v-layout>
           </v-card-text>
         </v-card>
       </v-form>
@@ -78,16 +84,17 @@
 </template>
 <style scoped>
 .policy {
+  font-size: 80%;
+  margin: 0px;
+  padding: 0px;
+  color: blue !important;
+  margin-left: 2%;
+}
+.checkbox {
   margin: 0px;
   padding: 0px;
 }
-.checkbox {
-  margin-bottom: 0%;
-}
-.linkp {
-  margin-top: 10%;
-  font-size: 60%;
-}
+
 </style>
 
 <script>
@@ -96,6 +103,7 @@ import Vue from "vue";
 import VeeValidate from "vee-validate";
 Vue.use(VeeValidate);
 import auth from "firebase";
+import { async } from 'q';
 
 export default {
   $_veeValidate: {
@@ -129,24 +137,52 @@ export default {
   },
   methods: {
     async submit(e) {
-      auth
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
-          async user => {
-            alert(`Account created for ${this.email}`);
-            await this.$router.push("/dashboard");
-            this.toggleSU();
-            this.toggleIsLoggedIn();
-          },
-          err => {
-            alert(err.message);
-          }
-        ),
-        e.preventDefault();
+      e.preventDefault();
       let passed = await this.$validator.validateAll();
       if (passed) {
+        auth
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then(
+            async user => {
+              // =============================================================
+              await this.toggleSU();
+              await this.runAlert(); 
+              this.$store.dispatch('setAlertMessage','Account created for ');
+              this.$router.push("/dashboard");
+              this.toggleIsLoggedIn();
+              this.$store.commit('setCurrentUser',auth.auth().currentUser)
+            },
+           async err => {
+              await this.$store.dispatch('setAlertMessage',err.message);
+                             this.runAlert(); 
+            }
+          )
       }
+    },
+    update(user) {
+      var provider = new auth.auth.GoogleAuthProvider();
+      provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+      auth
+        .auth()
+        .signInWithPopup(provider)
+        .then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // ...
+        })
+        .catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+        });
     },
     clear() {
       this.name = "";
@@ -156,23 +192,10 @@ export default {
       this.checkbox = null;
       this.$validator.reset();
     },
-    onSignIn(googleUser) {
-      // Useful data for your client-side scripts:
-      var profile = googleUser.getBasicProfile();
-      console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-      console.log("Full Name: " + profile.getName());
-      console.log("Given Name: " + profile.getGivenName());
-      console.log("Family Name: " + profile.getFamilyName());
-      console.log("Image URL: " + profile.getImageUrl());
-      console.log("Email: " + profile.getEmail());
-
-      // The ID token you need to pass to your backend:
-      var id_token = googleUser.getAuthResponse().id_token;
-      console.log("ID Token: " + id_token);
-    },
-    ...mapActions(["toggleSU", "toggleIsLoggedIn"])
+    ...mapActions(["toggleSU", "toggleIsLoggedIn", 'runAlert'])
   },
   computed: mapGetters(["getSUDialog"])
+  
 };
 </script>
 

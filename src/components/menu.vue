@@ -85,6 +85,7 @@
     <!-- popup-register -->
     <popupRegister />
     <signInForm />
+    <alerting/>
 
     <!-- popup-register -->
   </div>
@@ -95,13 +96,14 @@
 import { directive as onClickaway } from "vue-clickaway";
 import popupRegister from "@/views/popup-signup.vue";
 import signInForm from "@/views/popup-signin.vue";
+import alerting from "@/components/alerts.vue";
 import { mapActions, mapGetters } from "vuex";
 import auth from 'firebase'
 import { async } from 'q';
 import { get } from 'http';
 export default {
   name: "menu1",
-  components: { popupRegister,signInForm },
+  components: { popupRegister,signInForm, alerting },
   template: '<p v-on-clickaway="away">Click away</p>',
   directives: {
     onClickaway: onClickaway
@@ -177,15 +179,17 @@ export default {
     },
     ...mapActions(["toggleSI", "toggleSU", 'toggleIsLoggedIn'])
   },
-  computed: mapGetters(['checkIsLoggedIn', 'getUsers', 'geCurrentUsers']),
+  computed: mapGetters(['checkIsLoggedIn', 'getUsers', 'getCurrentUser']),
   created:function(){
     if(auth.auth().currentUser){
-   console.log(auth.auth().currentUser)
+   auth.auth().currentUser.updateProfile({displayName:'waldo milanes'})
      this.toggleIsLoggedIn()
      this.$store.commit('setCurrentUser',auth.auth().currentUser)
+        
     }
     this.onResize();
   }
+  
 };
 </script>
 <style>

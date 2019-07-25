@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <v-app>
-      <v-layout row>
-        <v-flex xs12 sm6 offset-sm3>
+      <v-layout row class="dashboard">
+        <v-flex xs10 sm7 offset-sm3>
           <v-card>
             <v-toolbar class="sign-in">
               <v-avatar>
@@ -11,7 +11,7 @@
                   alt="Waldo"
                 />
               </v-avatar>
-              <v-toolbar-title>Hello, {{getCurrentUser.name}}. Welcome to your workstation.</v-toolbar-title>
+              <v-toolbar-title>Hello, {{getCurrentUser.displayName}}. Welcome to your workstation.</v-toolbar-title>
 
               <v-spacer></v-spacer>
 
@@ -114,7 +114,7 @@ export default {
   methods: {
     ...mapActions(["fetchUsers", "setParams"])
   },
-  computed: mapGetters(["getUsers", "getParams"]),
+  computed: mapGetters(["getUsers", "getParams",'getCurrentUser' ]),
   async created() {
     await this.$store.commit("setParams", JSON.stringify(route));
     this.fetchUsers();
@@ -126,7 +126,9 @@ export default {
 };
 </script>
 <style scoped>
-v-app {
-  margin-left: 30%;
+.dashboard{
+  margin-left: 5%;
+  margin-right: 7%;
+  
 }
 </style>

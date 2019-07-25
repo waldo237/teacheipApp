@@ -8,9 +8,15 @@
         </v-toolbar>
         <v-card-text>
           <v-form>
-            <v-text-field prepend-icon="person" name="login" label="Login" type="text" v-model="email"></v-text-field>
             <v-text-field
-            autocomplete
+              prepend-icon="person"
+              name="login"
+              label="Login"
+              type="text"
+              v-model="email"
+            ></v-text-field>
+            <v-text-field
+              autocomplete
               prepend-icon="lock"
               name="password"
               label="Password"
@@ -25,31 +31,29 @@
               <v-spacer></v-spacer>
               <v-btn class="sign-up" @click="toggleSI">Cancel</v-btn>
               <v-btn class="sign-in" @click="register">Login</v-btn>
-
             </v-card-actions>
           </v-form>
-  <v-divider></v-divider>
-  <v-layout justify-center style="font-size:70%">
-    <div> Or sign in with </div>
-  </v-layout>
-  <v-layout justify-center>
-
-           <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  </v-layout>
+          <v-divider></v-divider>
+          <v-layout justify-center style="font-size:70%">
+            <div>Or sign in with</div>
+          </v-layout>
+          <v-layout justify-center>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          </v-layout>
         </v-card-text>
       </v-card>
     </v-flex>
   </v-dialog>
 </template>
 <style scoped>
-.g-signin2{
+.g-signin2 {
   margin: 0 auto;
 }
 </style>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import auth from  'firebase';
+import auth from "firebase";
 
 export default {
   data: () => {
@@ -59,20 +63,32 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["toggleSI","toggleIsLoggedIn"]),
+    ...mapActions(["toggleSI", "toggleIsLoggedIn", "runAlert",'setAlertMessage','setAlert']),
+    showAlert(message, icon, classy){
+      this.$store.commit('setAlertType',{icon: icon, class: classy})
+            this.runAlert(message);
+    },
     register(e) {
-      
-      auth.auth().signInWithEmailAndPassword(this.email, this.password).then(async user=>{
-        await alert(`Successful logged in ${this.email}`);
-        await this.toggleSI();  
-        await this.$router.push(`/dashboard/${this.getParams}`);
-        await this.toggleIsLoggedIn()
-      },
-      err =>{alert(err.message)}
-      ),
-      e.preventDefault();
+      auth
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(
+          async user => {
+            await  this.showAlert(`Successful logged in ${this.email}`, 'info', 'info');
+            await this.toggleIsLoggedIn();
+            await this.toggleSI();
+             this.$router.push(`/dashboard/${auth.auth().currentUser.uid}`);
+            this.$store.commit("setCurrentUser", auth.auth().currentUser);
+            setTimeout(()=>{ this.$store.commit('setAlert', false) }, 2000);
+          },
+          async err => {
+            // -------------------------------------------------------
+            this.showAlert(err.message, 'warning', 'warning')
+          }
+        ),
+        e.preventDefault();
     }
   },
-  computed: mapGetters(['getSIDialog','getParams'])
+  computed: mapGetters(["getSIDialog", "getParams", "isAlert"])
 };
 </script>
