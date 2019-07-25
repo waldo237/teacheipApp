@@ -1,9 +1,9 @@
 <template>
   <v-layout row justify-center>
-    <v-dialog v-model="getSUDialog" persistent max-width="600px">
+    <v-dialog v-model="getSUDialog" persistent max-width="500px">
       <v-form>
         <v-card>
-          <v-card-title>
+          <v-card-title class="sign-up">
             <span class="headline">
               <v-icon>new_releases</v-icon>New profile
             </span>
@@ -48,7 +48,7 @@
             ></v-text-field>
 
             <v-layout row wrap class="policy">
-              <v-flex sm9 >
+              <v-flex sm10 >
                 <a href="/" class="policy">I have read and agree to your policy</a>
                 <v-checkbox
                 class="checkbox"
@@ -65,19 +65,18 @@
             
             </v-layout>
             <v-card-actions>
-              <v-divider></v-divider>
-              <v-btn class="sign-up" flat @click="toggleSU">Close</v-btn>
-              <v-btn @click="clear">clear</v-btn>
-              <v-btn @click="submit" class="sign-in">submit</v-btn>
-              <v-divider class="mx-4"
-     
-        horizontal></v-divider>
-            </v-card-actions>
-           <v-layout row justify-center>
+                <v-layout row justify-center>
               <v-btn @click="update" ><v-avatar>
                 <v-img src="https://i1.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?fit=1000%2C1000&ssl=1&w=640"></v-img>
-              </v-avatar>sign in with google</v-btn>
+              </v-avatar>oogle</v-btn>
            </v-layout>
+              <v-divider class="mx-12"></v-divider>
+              <v-btn @click="clear">clear</v-btn>
+              <v-btn class="sign-up" flat @click="toggleSU">Close</v-btn>
+              <v-btn @click="submit" class="sign-in">submit</v-btn>
+        
+            </v-card-actions>
+         
           </v-card-text>
         </v-card>
       </v-form>
