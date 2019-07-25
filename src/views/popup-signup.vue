@@ -69,7 +69,9 @@
               <v-btn class="sign-up" flat @click="toggleSU">Close</v-btn>
               <v-btn @click="clear">clear</v-btn>
               <v-btn @click="submit" class="sign-in">submit</v-btn>
-              <v-divider></v-divider>
+              <v-divider class="mx-4"
+     
+        horizontal></v-divider>
             </v-card-actions>
            <v-layout row justify-center>
               <v-btn @click="update" ><v-avatar>
@@ -136,6 +138,10 @@ export default {
     this.$validator.localize("en", this.dictionary);
   },
   methods: {
+        showAlert(message, icon, classy){
+      this.$store.commit('setAlertType',{icon: icon, class: classy})
+            this.runAlert(message);
+    },
     async submit(e) {
       e.preventDefault();
       let passed = await this.$validator.validateAll();
@@ -145,17 +151,16 @@ export default {
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(
             async user => {
-              // =============================================================
+              await this.showAlert("Congratulations! Your account was created successfully",'done', 'success')
+              await this.toggleIsLoggedIn();
               await this.toggleSU();
-              await this.runAlert(); 
-              this.$store.dispatch('setAlertMessage','Account created for ');
-              this.$router.push("/dashboard");
-              this.toggleIsLoggedIn();
+              this.$router.push(`/dashboard/${auth.auth().currentUser.uid}`);
               this.$store.commit('setCurrentUser',auth.auth().currentUser)
+              setTimeout(()=>{ this.$store.commit('setAlert', false) }, 2000);
+
             },
            async err => {
-              await this.$store.dispatch('setAlertMessage',err.message);
-                             this.runAlert(); 
+               this.showAlert(err.message, 'warning', 'warning')
             }
           )
       }

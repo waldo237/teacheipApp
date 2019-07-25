@@ -14,65 +14,68 @@
       <!-- navigation bar -->
       <v-toolbar-items class="hidden-md-and-down">
         <v-toolbar-items class="hidden-md-and-down" v-if="!checkIsLoggedIn">
-        <router-link
-          tag="v-btn"
-          style="background-color:white"
-          v-for="item in publicNav"
-          :key="item.icon"
-          :to="item.link"
-          :class="item.class"
-        >{{ item.title }}</router-link>
-        </v-toolbar-items>
-        <v-btn @click="toggleSU" class="sign-up"  v-if="!checkIsLoggedIn">REGISTER</v-btn>
-        <v-btn @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn">SIGN IN</v-btn>
-        <v-toolbar-items class="hidden-md-and-down" v-if="checkIsLoggedIn">
-        <router-link
-          tag="v-btn"
-          style="background-color:white"
-          v-for="item in privateNav"
-          :key="item.icon"
-          :to="item.link"
-          :class="item.class"
-        >{{ item.title }} <v-icon>{{item.icon}}</v-icon><br></router-link>
-        </v-toolbar-items>
-        <!-- log out -->
-        <v-btn
-          tag="v-btn"
-          class="sign-up"
-          @click="logout"          
-         v-if="checkIsLoggedIn">Log out <v-icon>exit_to_app</v-icon></v-btn>
-        <!-- log out -->
-      </v-toolbar-items>
-
-      <!-- sandwich menu when minimized -->
-      <transition name="sandwich">
-      <v-menu class="hidden-lg-and-up" v-model="sandwich" >
-        <v-toolbar-side-icon slot="activator" v-on-clickaway="hideMenu"></v-toolbar-side-icon>
-        <transition name="tiles">
-        <v-list class="tiles">
           <router-link
             tag="v-btn"
+            style="background-color:white"
             v-for="item in publicNav"
+            :key="item.icon"
+            :to="item.link"
+            :class="item.class"
+          >{{ item.title }}</router-link>
+        </v-toolbar-items>
+        <v-btn @click="toggleSU" class="sign-up" v-if="!checkIsLoggedIn">REGISTER</v-btn>
+        <v-btn @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn">SIGN IN</v-btn>
+        <v-toolbar-items class="hidden-md-and-down" v-if="checkIsLoggedIn">
+          <router-link
+            tag="v-btn"
+            style="background-color:white"
+            v-for="item in privateNav"
             :key="item.icon"
             :to="item.link"
             :class="item.class"
           >
             {{ item.title }}
-            <v-icon>{{item.icon}}</v-icon><br>
+            <v-icon>{{item.icon}}</v-icon>
+            <br />
           </router-link>
-        </v-list>
+        </v-toolbar-items>
+        <!-- log out -->
+        <v-btn tag="v-btn" class="sign-up" @click="logout" v-if="checkIsLoggedIn">
+          Log out
+          <v-icon>exit_to_app</v-icon>
+        </v-btn>
+        <!-- log out -->
+      </v-toolbar-items>
 
-        </transition>
-      </v-menu>
-
+      <!-- sandwich menu when minimized -->
+      <transition name="sandwich">
+        <v-menu class="hidden-lg-and-up" v-model="sandwich">
+          <v-toolbar-side-icon slot="activator" v-on-clickaway="hideMenu"></v-toolbar-side-icon>
+          <transition name="tiles">
+            <v-list class="tiles">
+              <router-link
+                tag="v-btn"
+                v-for="item in publicNav"
+                :key="item.icon"
+                :to="item.link"
+                :class="item.class"
+              >
+                {{ item.title }}
+                <v-icon>{{item.icon}}</v-icon>
+                <br />
+              </router-link>
+            </v-list>
+          </transition>
+        </v-menu>
       </transition>
     </v-toolbar>
     <!-- this is the side-menu -->
     <v-navigation-drawer v-model="drawer" app class="indingo">
       <v-card>
-      <v-card-title><v-icon>dashboard</v-icon>DASHBOARD</v-card-title>
-      
-       </v-card>
+        <v-card-title>
+          <v-icon>dashboard</v-icon>DASHBOARD
+        </v-card-title>
+      </v-card>
 
       <v-list-tile-title></v-list-tile-title>
       <v-list-tile v-for="item in publicNav" :key="item.class">
@@ -85,7 +88,7 @@
     <!-- popup-register -->
     <popupRegister />
     <signInForm />
-    <alerting/>
+    <alerting />
 
     <!-- popup-register -->
   </div>
@@ -98,12 +101,12 @@ import popupRegister from "@/views/popup-signup.vue";
 import signInForm from "@/views/popup-signin.vue";
 import alerting from "@/components/alerts.vue";
 import { mapActions, mapGetters } from "vuex";
-import auth from 'firebase'
-import { async } from 'q';
-import { get } from 'http';
+import auth from "firebase";
+import { async } from "q";
+import { get } from "http";
 export default {
   name: "menu1",
-  components: { popupRegister,signInForm, alerting },
+  components: { popupRegister, signInForm, alerting },
   template: '<p v-on-clickaway="away">Click away</p>',
   directives: {
     onClickaway: onClickaway
@@ -122,45 +125,53 @@ export default {
           title: "ABOUT",
           link: "/about",
           class: "about"
-        },
-
+        }
       ],
       privateNav: [
-
         {
           icon: "folder",
           title: "LESSON PLANS",
           link: "/lesson plans",
           class: "lesson-plan"
-          
         },
         {
           icon: "person",
           title: "EMPLOYEES",
           link: "/register",
-          class: "employees",
+          class: "employees"
         },
-       
+
         {
           icon: "dashboard",
           title: "DASHBOARD",
           link: `dashboard/${this.getCurrentUser}`,
-          class: "sign-in",
-        },
-      
+          class: "sign-in"
+        }
       ],
-       currentUser: false,
+      currentUser: false,
       drawer: false,
       sandwich: false
     };
   },
   methods: {
-    logout(){
-      auth.auth().signOut().then(async()=>{
-        alert(' you are logged out')
-        this.$router.push('/')
-        this.toggleIsLoggedIn()
-      })
+    showAlert(message, icon, classy) {
+      this.$store.commit("setAlertType", { icon: icon, class: classy });
+      this.runAlert(message);
+    },
+    async logout() {
+        await this.showAlert(
+            "Are you sure you want to log out",
+            "help_outline",
+            "warning"
+          );
+      auth
+        .auth()
+        .signOut()
+        .then(async () => {
+  
+          this.$router.push("/");
+          this.toggleIsLoggedIn();
+        });
     },
     away: function() {
       if (this.drawer) {
@@ -172,29 +183,27 @@ export default {
         this.sandwich = false;
       }
     },
-    onResize: function(){
-      window.addEventListener('resize', ()=>{
+    onResize: function() {
+      window.addEventListener("resize", () => {
         this.sandwich = false;
-      })
+      });
     },
-    ...mapActions(["toggleSI", "toggleSU", 'toggleIsLoggedIn'])
+    ...mapActions(["toggleSI", "toggleSU", "toggleIsLoggedIn", 'runAlert'])
   },
-  computed: mapGetters(['checkIsLoggedIn', 'getUsers', 'getCurrentUser']),
-  created:function(){
-    if(auth.auth().currentUser){
-   auth.auth().currentUser.updateProfile({displayName:'waldo milanes'})
-     this.toggleIsLoggedIn()
-     this.$store.commit('setCurrentUser',auth.auth().currentUser)
-        
+  computed: mapGetters(["checkIsLoggedIn", "getUsers", "getCurrentUser"]),
+  created: function() {
+    if (auth.auth().currentUser) {
+      auth.auth().currentUser.updateProfile({ displayName: "waldo milanes" });
+      this.toggleIsLoggedIn();
+      this.$store.commit("setCurrentUser", auth.auth().currentUser);
     }
     this.onResize();
   }
-  
 };
 </script>
 <style>
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
-.tiles{
+.tiles {
   animation-duration: 0.5s;
   animation-name: bounceInRight;
   animation-timing-function: ease-in-out;
@@ -202,7 +211,7 @@ export default {
   font-size: 40px;
   color: white;
 }
-.tiles:after{
+.tiles:after {
   animation-duration: 0.5s;
   animation-name: bounceInLeft;
   animation-timing-function: ease-out;
