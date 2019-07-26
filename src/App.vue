@@ -1,7 +1,6 @@
 <template>
   <div id="app" data-app>
     <div id="nav">
-
       <header id="masthead" class="site-heade">
         <div class="header-wrapper">
           <div class="site-branding">
@@ -77,6 +76,9 @@ backgroud-color: black;
   color: white;
 }
 
+
+
+
 </style>
 
 
@@ -88,18 +90,17 @@ import 'vuetify/dist/vuetify.min.css'
 import Menu from '@/components/menu.vue'
 
 export default {
-  
  name: 'site-heade',
+ data(){
+   return{
+   }
+ },
  components: {
    Menu,
  },
- methods:{
-   init: function(){
-
- }
- }, 
- created: function(){
-        this.init()
+   
+ created(){
+        
     },
 }
 </script>

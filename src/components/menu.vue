@@ -1,6 +1,10 @@
  
  <template>
   <div>
+                <v-alert v-model="log" class="connection-off" ><v-icon>signal_wifi_off</v-icon> You are currently offline</v-alert>
+                <v-alert v-model="online" type="success" class="connection-on"><v-icon>check_circle_outline</v-icon>Back online!</v-alert>
+  
+
     <v-toolbar app style="background-color:white">
       <v-toolbar-side-icon class="gray--text" @click="drawer = !drawer" v-on-clickaway="away"></v-toolbar-side-icon>
       <div class="logo-text">
@@ -104,6 +108,7 @@ import { mapActions, mapGetters } from "vuex";
 import auth from "firebase";
 import { async } from "q";
 import { get } from "http";
+import { setTimeout } from 'timers';
 export default {
   name: "menu1",
   components: { popupRegister, signInForm, alerting },
@@ -150,7 +155,10 @@ export default {
       ],
       currentUser: false,
       drawer: false,
-      sandwich: false
+      sandwich: false,
+      log: false,
+      online: false,
+
     };
   },
   methods: {
@@ -187,13 +195,30 @@ export default {
       window.addEventListener("resize", () => {
         this.sandwich = false;
       });
-    },
+    },init(){
+  // const status = document.getElementById("status");
+  const updateOnlineStatus= async (event)=> {
+      this.log = navigator.online ? false : true;
+      if(navigator.onLine){
+        this.log = false;
+        this.online =true;
+       setTimeout(async()=>{
+        this.online =false;
+        }, 2000);
+        // this.online = navigator.onLine ? false : true;
+
+      }
+  }
+    window.addEventListener('online',  updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+  }, 
     ...mapActions(["toggleSI", "toggleSU", "toggleIsLoggedIn", 'runAlert'])
   },
   computed: mapGetters(["checkIsLoggedIn", "getUsers", "getCurrentUser"]),
   created: function() {
+    this.init()
     if (auth.auth().currentUser) {
-      auth.auth().currentUser.updateProfile({ displayName: "waldo milanes" });
+      // auth.auth().currentUser.updateProfile({ displayName: "waldo milanes" });
       this.toggleIsLoggedIn();
       this.$store.commit("setCurrentUser", auth.auth().currentUser);
     }
@@ -203,6 +228,34 @@ export default {
 </script>
 <style>
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
+
+.connection-on {
+  width: 100%;
+  z-index: 1;
+  position: fixed;
+  top:35px;
+  height:60px;
+  padding: 0%;
+  text-align: center;
+  animation-duration: 1.5s;
+  animation-name: heartBeat;
+  animation-timing-function: ease-in-out;
+  display: block;
+  color: white;
+}
+.connection-off {
+  z-index: 1;
+  position: fixed;
+  top:35px;
+  height:49px;
+  text-align: center;
+  animation-duration: 1.5s;
+  animation-name: bounceInDown;
+  animation-timing-function: ease-in-out;
+  display: block;
+  color: white;
+}
+
 .tiles {
   animation-duration: 0.5s;
   animation-name: bounceInRight;

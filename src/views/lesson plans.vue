@@ -139,22 +139,19 @@
 </style>
 <script>
 import $ from 'jquery';
-
-import { async } from 'q';
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: "site",
+ computed: mapGetters(['getLessonPlans']),
   methods: {
-    table: function() {
+    ...mapActions(['fetchLessonPlans']),
+    table(lp) {
       $(document).ready(async function() {
         $("#tblReportResultsDemographics").hide();
         $("#search").hide();
         $("#level").hide();
         $("#series").hide();
-
-        const res = await axios.get(
-          "https://script.google.com/macros/s/AKfycbxCKtyJP8X3vpOXTDCaENAesVXa8gWwzw4BSAnk6iIGWz8FFMqi/exec"
-        );
-        const jres = await res.data;
+        const jres = lp;
         let ready = false;
         ready = await interset(jres);
         if (ready) {
@@ -305,10 +302,12 @@ export default {
       });
     }
   },
-  created: function() {
-    this.table();
+  async created() {
+    await this.fetchLessonPlans();
+    this.table(this.getLessonPlans);
     this.search();
     this.selectMenu();
+     console.log(this.getLessonPlans)
   }
 };
 </script>

@@ -104,7 +104,6 @@ import Vue from "vue";
 import VeeValidate from "vee-validate";
 Vue.use(VeeValidate);
 import auth from "firebase";
-import { async } from 'q';
 
 export default {
   $_veeValidate: {
