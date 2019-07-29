@@ -307,7 +307,6 @@ export default {
     this.table(this.getLessonPlans);
     this.search();
     this.selectMenu();
-     console.log(this.getLessonPlans)
   }
 };
 </script>

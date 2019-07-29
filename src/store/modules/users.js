@@ -1,5 +1,5 @@
 import db from '../../components/firebaseInit';
-
+import auth from 'firebase'
 const state = {
     users: [],
     currentUser: {},
@@ -13,7 +13,6 @@ const getters = {
 };
 const actions = {
     async fetchUsers({ commit }) {
-        console.log(state.params)
         db.collection('Employees')
             .where('id', '==', state.params).get().then((querySnapshot) => {
                 querySnapshot.forEach(async (doc) => {
@@ -35,7 +34,7 @@ const actions = {
                 commit('setUsers', data);
             })
         })
-    }
+    },
 };
 const mutations = {
     setUsers: (state, value) => (state.users.push(value)),

@@ -39,7 +39,7 @@ let router = new Router({
       
     }
     ,{
-      path: '/dashboard/:id',
+      path: '/dashboard/',
       name: 'dashboard',
       component: () => import(/* webpackChunkName: "about" */ './views/Dashboard.vue'),
       meta:{
@@ -54,12 +54,20 @@ let router = new Router({
         requiresGuest: true
       }
     }
-    ,{
+,{
       path: '/signup',
       name: 'signup',
       component: () => import(/* webpackChunkName: "about" */ './views/popup-signup.vue'),
       meta:{
         requiresGuest: true
+      }
+    }
+,{
+      path: '/updateProfile',
+      name: 'updateProfile',
+      component: () => import(/* webpackChunkName: "about" */ './views/updateProfile.vue'),
+      meta:{
+        requiresAuth: true
       }
     }
    

@@ -2,10 +2,18 @@
   <v-dialog v-model="getSIDialog" persistent max-width="500px">
     <v-flex>
       <v-card class="elevation-12">
-        <v-toolbar class="sign-in">
-          <v-toolbar-title></v-toolbar-title>
+        <v-layout align-content-start>
+
+        <v-toolbar >
           <v-spacer></v-spacer>
+          <v-toolbar-title class="logo"> <v-icon>lock_open</v-icon>  <span class="teach">Teach</span>
+        <span class="acronym">EIP</span></v-toolbar-title>
+         
         </v-toolbar>
+        </v-layout>
+          <v-badge>
+            Sign in to do operations
+          </v-badge>
         <v-card-text>
           <v-form>
             <v-text-field
@@ -34,20 +42,15 @@
             </v-card-actions>
           </v-form>
           <v-divider></v-divider>
-          <v-layout justify-center style="font-size:70%">
-            <div>Or sign in with</div>
-          </v-layout>
-          <v-layout justify-center>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-          </v-layout>
+   
         </v-card-text>
       </v-card>
     </v-flex>
   </v-dialog>
 </template>
 <style scoped>
-.g-signin2 {
-  margin: 0 auto;
+.logo {
+ text-align: center;
 }
 </style>
 
@@ -73,7 +76,7 @@ export default {
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(
-          async user => {
+          async () => {
             await  this.showAlert(`Successful logged in ${this.email}`, 'info', 'info');
             await this.toggleIsLoggedIn();
             await this.toggleSI();

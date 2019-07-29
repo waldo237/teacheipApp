@@ -1,12 +1,22 @@
  
  <template>
   <div>
-                <v-alert v-model="log" class="connection-off" ><v-icon>signal_wifi_off</v-icon> You are currently offline</v-alert>
-                <v-alert v-model="online" type="success" class="connection-on"><v-icon>check_circle_outline</v-icon>Back online!</v-alert>
-  
+    <!-- alerts online/offline -->
+    <v-alert v-model="log" class="connection-off">
+      <v-icon>signal_wifi_off</v-icon>You are currently offline
+    </v-alert>
+    <v-alert v-model="online" type="success" class="connection-on">
+      <v-icon>check_circle_outline</v-icon>Back online!
+    </v-alert>
+    <!-- alerts online/offline ends-->
 
+    <!-- complete navigation starts -->
     <v-toolbar app style="background-color:white">
+      <!--  sandwich menu for side bar/menu-->
       <v-toolbar-side-icon class="gray--text" @click="drawer = !drawer" v-on-clickaway="away"></v-toolbar-side-icon>
+      <!-- sandwich menu -->
+
+      <!-- logo starts -->
       <div class="logo-text">
         <span class="teach">Teach</span>
         <span class="acronym">EIP</span>
@@ -14,8 +24,11 @@
           <img src="../../src/assets/mescyt-1024x878.png" alt="mescyt" />with The English Immersion Program
         </span>
       </div>
+      <!-- logo ends -->
+
       <v-spacer></v-spacer>
-      <!-- navigation bar -->
+
+      <!-- expanded navigation bar  starts-->
       <v-toolbar-items class="hidden-md-and-down">
         <v-toolbar-items class="hidden-md-and-down" v-if="!checkIsLoggedIn">
           <router-link
@@ -29,6 +42,8 @@
         </v-toolbar-items>
         <v-btn @click="toggleSU" class="sign-up" v-if="!checkIsLoggedIn">REGISTER</v-btn>
         <v-btn @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn">SIGN IN</v-btn>
+
+        <!-- private navigation elements starts -->
         <v-toolbar-items class="hidden-md-and-down" v-if="checkIsLoggedIn">
           <router-link
             tag="v-btn"
@@ -43,13 +58,23 @@
             <br />
           </router-link>
         </v-toolbar-items>
-        <!-- log out -->
-        <v-btn tag="v-btn" class="sign-up" @click="logout" v-if="checkIsLoggedIn">
-          Log out
-          <v-icon>exit_to_app</v-icon>
+        <!-- private navigation elements ends -->
+
+        <!-- profile avatar starts -->
+        <v-btn depressed fab color="white" class="avatar-button"  @click="profileModel = !profileModel" v-if="checkIsLoggedIn">
+        <v-avatar>
+              <img
+                :src="getCurrentUser.photoURL"
+                alt="Waldo"
+              />
+        </v-avatar>
         </v-btn>
-        <!-- log out -->
+        <!-- profile avatar ends -->
       </v-toolbar-items>
+      <!-- expanded navigation bar ends-->
+               <v-list-tile>
+              <profile class="profile" v-if="profileModel" v-on-clickaway="closeProfile"/>
+          </v-list-tile>
 
       <!-- sandwich menu when minimized -->
       <transition name="sandwich">
@@ -73,7 +98,9 @@
         </v-menu>
       </transition>
     </v-toolbar>
-    <!-- this is the side-menu -->
+    <!-- complete navigation ends -->
+
+    <!--side-menu starts-->
     <v-navigation-drawer v-model="drawer" app class="indingo">
       <v-card>
         <v-card-title>
@@ -89,12 +116,13 @@
         <v-list-tile-title>{{item.title}}</v-list-tile-title>
       </v-list-tile>
     </v-navigation-drawer>
-    <!-- popup-register -->
+    <!--side-menu ends-->
+
+    <!-- communication dialogs -->
     <popupRegister />
     <signInForm />
     <alerting />
-
-    <!-- popup-register -->
+    <!-- communication dialogs -->
   </div>
 </template>
 
@@ -104,20 +132,22 @@ import { directive as onClickaway } from "vue-clickaway";
 import popupRegister from "@/views/popup-signup.vue";
 import signInForm from "@/views/popup-signin.vue";
 import alerting from "@/components/alerts.vue";
+import profile from "@/components/profile.vue";
 import { mapActions, mapGetters } from "vuex";
 import auth from "firebase";
 import { async } from "q";
 import { get } from "http";
-import { setTimeout } from 'timers';
+import { setTimeout } from "timers";
 export default {
   name: "menu1",
-  components: { popupRegister, signInForm, alerting },
+  components: { popupRegister, signInForm, alerting, profile },
   template: '<p v-on-clickaway="away">Click away</p>',
   directives: {
     onClickaway: onClickaway
   },
   data() {
     return {
+      // public routes that guest are able to access
       publicNav: [
         {
           icon: "home",
@@ -130,8 +160,9 @@ export default {
           title: "ABOUT",
           link: "/about",
           class: "about"
-        }
+        },
       ],
+      // private access routes
       privateNav: [
         {
           icon: "folder",
@@ -149,7 +180,7 @@ export default {
         {
           icon: "dashboard",
           title: "DASHBOARD",
-          link: `dashboard/${this.getCurrentUser}`,
+          link: `/dashboard/`,
           class: "sign-in"
         }
       ],
@@ -158,7 +189,7 @@ export default {
       sandwich: false,
       log: false,
       online: false,
-
+      profileModel: false
     };
   },
   methods: {
@@ -167,19 +198,23 @@ export default {
       this.runAlert(message);
     },
     async logout() {
-        await this.showAlert(
-            "Are you sure you want to log out",
-            "help_outline",
-            "warning"
-          );
+      await this.showAlert(
+        "Are you sure you want to log out",
+        "help_outline",
+        "warning"
+      );
       auth
         .auth()
         .signOut()
         .then(async () => {
-  
           this.$router.push("/");
           this.toggleIsLoggedIn();
         });
+    },
+    closeProfile: function() {
+      if (this.profileModel) {
+        this.profileModel = false;
+      }
     },
     away: function() {
       if (this.drawer) {
@@ -195,50 +230,60 @@ export default {
       window.addEventListener("resize", () => {
         this.sandwich = false;
       });
-    },init(){
-  // const status = document.getElementById("status");
-  const updateOnlineStatus= async (event)=> {
-      this.log = navigator.online ? false : true;
-      if(navigator.onLine){
-        this.log = false;
-        this.online =true;
-       setTimeout(async()=>{
-        this.online =false;
-        }, 2000);
-        // this.online = navigator.onLine ? false : true;
-
-      }
-  }
-    window.addEventListener('online',  updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
-  }, 
-    ...mapActions(["toggleSI", "toggleSU", "toggleIsLoggedIn", 'runAlert'])
+    },
+    init() {
+      const updateOnlineStatus = async event => {
+        this.log = navigator.online ? false : true;
+        if (navigator.onLine) {
+          this.log = false;
+          this.online = true;
+          setTimeout(async () => {
+            this.online = false;
+          }, 2000);
+        }
+      };
+      window.addEventListener("online", updateOnlineStatus);
+      window.addEventListener("offline", updateOnlineStatus);
+    },
+    ...mapActions(["toggleSI", "toggleSU", "toggleIsLoggedIn", "runAlert"])
   },
   computed: mapGetters(["checkIsLoggedIn", "getUsers", "getCurrentUser"]),
   created: function() {
-    this.init()
+    this.init();
     if (auth.auth().currentUser) {
-      // auth.auth().currentUser.updateProfile({ displayName: "waldo milanes" });
       this.toggleIsLoggedIn();
       this.$store.commit("setCurrentUser", auth.auth().currentUser);
     }
     this.onResize();
+    this.profileModel = false;
   }
 };
 </script>
 <style>
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
 
+.profile {
+  width: 20%;
+  z-index: 1;
+  position: fixed;
+  top: 100%;
+  right: 2%;
+  text-align: center;
+  animation-duration: 1.5s;
+  animation-name: bounceIn;
+  animation-timing-function: ease-in-out;
+  display: block;
+}
 .connection-on {
   width: 100%;
   z-index: 1;
   position: fixed;
-  top:35px;
-  height:60px;
+  top: 35px;
+  height: 60px;
   padding: 0%;
   text-align: center;
   animation-duration: 1.5s;
-  animation-name: heartBeat;
+  animation-name: bounceIn;
   animation-timing-function: ease-in-out;
   display: block;
   color: white;
@@ -246,8 +291,8 @@ export default {
 .connection-off {
   z-index: 1;
   position: fixed;
-  top:35px;
-  height:49px;
+  top: 35px;
+  height: 49px;
   text-align: center;
   animation-duration: 1.5s;
   animation-name: bounceInDown;

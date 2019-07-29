@@ -3,6 +3,7 @@ const state = {
     isLoggedIn: false,
     SUDialog: false,
     SIDialog: false,
+    editProfile: true,
     alert: false,
     alertType: {},
     alertMessage: '',
@@ -47,6 +48,7 @@ const mutations = {
     setAlertMessage: (state, value) =>(state.alertMessage = value),
     setAlertType: (state, value) =>(state.alertType = value),
     setAlert: (state, value) =>(state.alert = value),
+    setEditProfile:  (state, value) =>(state.editProfile = value),
 };
 
 export default{

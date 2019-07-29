@@ -5,12 +5,6 @@
         <v-flex xs10 sm7 offset-sm3>
           <v-card>
             <v-toolbar class="sign-in">
-              <v-avatar>
-                <img
-                  src="https://lh3.googleusercontent.com/a-/AAuE7mAscdoJabqX9smH2RyVSYxyLt0FKzhNEtvnjHVmgW8=s96"
-                  alt="Waldo"
-                />
-              </v-avatar>
               <v-toolbar-title>Hello, {{getCurrentUser.displayName}}. Welcome to your workstation.</v-toolbar-title>
 
               <v-spacer></v-spacer>
@@ -23,7 +17,7 @@
             <v-list two-line subheader>
               <v-subheader inset>Folders</v-subheader>
 
-              <v-list-tile v-for="item in items" :key="item.title" avatar @click>
+              <v-list-tile v-for="item in items" :key="item.title" avatar >
                 <v-list-tile-avatar>
                   <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
                 </v-list-tile-avatar>
@@ -44,7 +38,7 @@
 
               <v-subheader inset>Files</v-subheader>
 
-              <v-list-tile v-for="item in items2" :key="item.title" avatar @click>
+              <v-list-tile v-for="item in items2" :key="item.title" avatar >
                 <v-list-tile-avatar>
                   <v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
                 </v-list-tile-avatar>

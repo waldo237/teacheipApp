@@ -12,7 +12,7 @@
             <v-text-field
               prepend-icon="person"
               v-model="name"
-              v-validate="'required|max:10'"
+              v-validate="'required|max:20'"
               :counter="10"
               :error-messages="errors.collect('name')"
               label="Name"
@@ -48,10 +48,10 @@
             ></v-text-field>
 
             <v-layout row wrap class="policy">
-              <v-flex sm10 >
+              <v-flex sm10>
                 <a href="/" class="policy">I have read and agree to your policy</a>
                 <v-checkbox
-                class="checkbox"
+                  class="checkbox"
                   v-model="checkbox"
                   v-validate="'required'"
                   :error-messages="errors.collect('checkbox')"
@@ -60,23 +60,23 @@
                   type="checkbox"
                   required
                 ></v-checkbox>
-
               </v-flex>
-            
             </v-layout>
             <v-card-actions>
-                <v-layout row justify-center>
-              <v-btn @click="update" ><v-avatar>
-                <v-img src="https://i1.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?fit=1000%2C1000&ssl=1&w=640"></v-img>
-              </v-avatar>oogle</v-btn>
-           </v-layout>
+              <v-layout row justify-center>
+                <v-btn @click="signWithGoogle">
+                  <v-avatar>
+                    <v-img
+                      src="https://i1.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?fit=1000%2C1000&ssl=1&w=640"
+                    ></v-img>
+                  </v-avatar>oogle
+                </v-btn>
+              </v-layout>
               <v-divider class="mx-12"></v-divider>
               <v-btn @click="clear">clear</v-btn>
               <v-btn class="sign-up" flat @click="toggleSU">Close</v-btn>
               <v-btn @click="submit" class="sign-in">submit</v-btn>
-        
             </v-card-actions>
-         
           </v-card-text>
         </v-card>
       </v-form>
@@ -95,7 +95,6 @@
   margin: 0px;
   padding: 0px;
 }
-
 </style>
 
 <script>
@@ -148,13 +147,19 @@ export default {
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(
-            async user => {
-              await this.showAlert("Congratulations! Your account was created successfully",'done', 'success')
+            async () => {
+              await this.showAlert("Congratulations! Your account was created successfully. We have sent an email to activate account",'done', 'success')
+              await auth.auth().currentUser.sendEmailVerification()
               await this.toggleIsLoggedIn();
+              await auth.auth().currentUser.updateProfile({ displayName: this.name});
               await this.toggleSU();
+              // redirect with curresponding id
               this.$router.push(`/dashboard/${auth.auth().currentUser.uid}`);
+              // update name
+
+              await 
               this.$store.commit('setCurrentUser',auth.auth().currentUser)
-              setTimeout(()=>{ this.$store.commit('setAlert', false) }, 2000);
+              setTimeout(()=>{ this.$store.commit('setAlert', false) }, 5000);
 
             },
            async err => {
@@ -163,29 +168,29 @@ export default {
           )
       }
     },
-    update(user) {
-      var provider = new auth.auth.GoogleAuthProvider();
-      provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
-      auth
-        .auth()
-        .signInWithPopup(provider)
-        .then(function(result) {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          var token = result.credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-          // ...
-        })
-        .catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-        });
+    signWithGoogle() {
+      // var provider = new auth.auth.GoogleAuthProvider();
+      // provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+      // auth
+      //   .auth()
+      //   .signInWithPopup(provider)
+      //   .then(function(result) {
+      //     // This gives you a Google Access Token. You can use it to access the Google API.
+      //     var token = result.credential.accessToken;
+      //     // The signed-in user info.
+      //     var user = result.user;
+      //     // ...
+      //   })
+      //   .catch(function(error) {
+      //     // Handle Errors here.
+      //     var errorCode = error.code;
+      //     var errorMessage = error.message;
+      //     // The email of the user's account used.
+      //     var email = error.email;
+      //     // The firebase.auth.AuthCredential type that was used.
+      //     var credential = error.credential;
+      //     // ...
+      //   });
     },
     clear() {
       this.name = "";
