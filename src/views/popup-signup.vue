@@ -154,12 +154,12 @@ export default {
               await auth.auth().currentUser.updateProfile({ displayName: this.name});
               await this.toggleSU();
               // redirect with curresponding id
-              this.$router.push(`/dashboard/${auth.auth().currentUser.uid}`);
+              this.$router.push(`/dashboard/`);
               // update name
 
               await 
               this.$store.commit('setCurrentUser',auth.auth().currentUser)
-              setTimeout(()=>{ this.$store.commit('setAlert', false) }, 5000);
+              setTimeout(()=>{ this.$store.commit('setAlert', false) }, 3000);
 
             },
            async err => {

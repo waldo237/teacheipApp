@@ -1,5 +1,6 @@
 import db from '../../components/firebaseInit';
 import auth from 'firebase'
+
 const state = {
     users: [],
     currentUser: {},
@@ -35,6 +36,12 @@ const actions = {
             })
         })
     },
+    /**
+     * universal function that logs out the user from the auth system
+     * 
+     * */
+   
+
 };
 const mutations = {
     setUsers: (state, value) => (state.users.push(value)),

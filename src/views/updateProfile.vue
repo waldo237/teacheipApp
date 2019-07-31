@@ -19,51 +19,48 @@
             <v-btn  text @click="save" class="sign-up">Save</v-btn>
           </v-toolbar-items>
         </v-toolbar>
-
-
         <v-list three-line subheader class="ml-5">
-            
           <v-subheader class="title">User Information</v-subheader>
           <v-list-tile class="information-piece p-5">
-          <v-list-tile-content>
+            <v-list-tile-content>
               <v-avatar><img :src="getCurrentUser.photoURL"
-        :alt="getCurrentUser.displayName"/>
+              :alt="getCurrentUser.displayName"/>
             </v-avatar>             
-    <v-btn small color ="sign-up" @click="$refs.inputUpload.click()"><v-icon small>edit</v-icon>Upload</v-btn>
-<input v-show="false" ref="inputUpload" type="file" @change="uploadPhoto" >
+            <v-btn small color ="sign-up" @click="$refs.inputUpload.click()"><v-icon small>edit</v-icon>Upload</v-btn>
+            <input v-show="false" ref="inputUpload" type="file" @change="uploadPhoto" >
    
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
-        <v-divider></v-divider>
-        <v-list three-line subheader class="ml-5 ">
+          <v-divider></v-divider>
+          <v-list three-line subheader class="ml-5 ">
 
-      <v-list-tile-title class="subtitle-1"> </v-list-tile-title>
-       <!-- drop url starts -->
-       <v-text-field
-            :value="getCurrentUser.photoURL"
-              label= URL:
-              outlined
-              id="photo">
-          </v-text-field>
-    <!-- drop url ends -->
-        <v-flex xs12 sm6 md3>
+          <v-list-tile-title class="subtitle-1"> </v-list-tile-title>
+          <!-- drop url starts -->
           <v-text-field
-          :value="getCurrentUser.displayName"
-            label= NAME:
-            outlined
-           id="displayName">
-           </v-text-field>
-        </v-flex>
-          <v-flex xs12 sm6 md3>
-            <v-text-field
-            :value="getCurrentUser.phoneNumber"
-              label= PHONE NUMBER:
-              outlined
-              id="phoneNumber">
-          </v-text-field>
-        </v-flex>
-        </v-list>
+                :value="getCurrentUser.photoURL"
+                  label= URL:
+                  outlined
+                  id="photo">
+              </v-text-field>
+            <!-- drop url ends -->
+              <v-flex xs12 sm6 md3>
+                <v-text-field
+                :value="getCurrentUser.displayName"
+                  label= NAME:
+                  outlined
+                id="displayName">
+                </v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md3>
+                <v-text-field
+                :value="getCurrentUser.phoneNumber"
+                  label= PHONE NUMBER:
+                  outlined
+                  id="phoneNumber">
+              </v-text-field>
+            </v-flex>
+          </v-list>
         <v-divider></v-divider>
       </v-card>
     </v-dialog>

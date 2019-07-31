@@ -4,9 +4,13 @@
       <v-card class="elevation-12">
         <v-card-text>
           <v-form>
-            <v-card-text><v-icon>{{getAlertType.icon}}</v-icon>{{getAlertMessage}} </v-card-text>
-            <v-btn class="sign-up" @click="setAlert">Close</v-btn>
-            <v-btn v-bind:class= getAlertType.class @click="setAlert">Okay</v-btn>
+            <v-card-text>
+              <v-icon>{{getAlertType.icon}}</v-icon>
+              {{getAlertMessage}}
+            </v-card-text>
+            <v-btn class="sign-up" @click="toggleAlert">Close</v-btn>
+            <v-btn v-bind:class="getAlertType.class" @click="toggleAlert" v-if="!getInteract">Okay</v-btn>
+            <v-btn :class="getAlertType.class" @click="setYes" v-else>Yes</v-btn>
           </v-form>
         </v-card-text>
       </v-card>
@@ -17,13 +21,29 @@
 </style>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-
+import { mapGetters, mapActions, mapMutations } from "vuex";
+import auth from 'firebase';
 export default {
   name: "alerting",
   methods: {
-    ...mapActions(["runAlert", "setAlert"])
+    ...mapActions(["runAlert", "toggleAlert", "toggleIsLoggedIn"]),
+    async setYes() {
+      await auth
+        .auth()
+        .signOut()
+        .then(async () => {
+          await this.$router.push("/");
+          await this.toggleIsLoggedIn();
+          await this.$store.commit('setAlert', false)
+        });
+    }
   },
-  computed: mapGetters(["isAlert", "getParams", "getAlertMessage",'getAlertType']),
+  computed: mapGetters([
+    "isAlert",
+    "getParams",
+    "getAlertMessage",
+    "getAlertType",
+    "getInteract"
+  ])
 };
 </script>

@@ -1,20 +1,21 @@
 // this component will manage all operations that are related to profile
 <template>
   <v-list class="tile" v-if="checkIsLoggedIn">
-    <v-avatar>
-      <img
-        :src="getCurrentUser.photoURL"
-        alt="Waldo"
-      />
-    </v-avatar>
+    <!-- photo display starts -->
+      <v-avatar>
+        <img
+          :src="getCurrentUser.photoURL"
+          :alt="getCurrentUser.displayName"/>
+      </v-avatar>
+    <!-- photo display ends -->
     <v-list-tile-title class="title text-md-center">{{getCurrentUser.displayName}}</v-list-tile-title>
     <v-list-tile-sub-title class="email">{{getCurrentUser.email}}</v-list-tile-sub-title>
       <v-card-actions class="justify-center">
-       
-     <editor/>
+       <!-- editor dialog starts -->
+          <editor/>
+       <!-- editor dialog ends -->
       </v-card-actions>
-      <v-card-actions class="justify-center">
-
+        <v-card-actions class="justify-center">
         <v-btn tag="v-btn" class="sign-up" @click="logout">
           Log out
           <v-icon>exit_to_app</v-icon>
@@ -30,30 +31,26 @@ import auth from "firebase";
 export default {
   components: {editor},
   methods: {
-    showAlert(message, icon, classy) {
+    showAlert(message, icon, classy, interact) {
       this.$store.commit("setAlertType", { icon: icon, class: classy });
       this.runAlert(message);
+      this.$store.commit('setInteract', interact);
     },
     async logout() {
       await this.showAlert(
-        "Are you sure you want to log out",
+        " Are you sure you want to log out?",
         "help_outline",
-        "warning"
+        "warning",
+        true
       );
-      auth
-        .auth()
-        .signOut()
-        .then(async () => {
-          this.$router.push("/");
-          this.toggleIsLoggedIn();
-        });
+      
     },
     ...mapActions(["toggleIsLoggedIn", "runAlert"]),
             toggleEditProfile(){
             this.$store.commit('setEditProfile', !this.editProfile)
         }
   },
-  computed: mapGetters(["checkIsLoggedIn", "getUsers", "getCurrentUser"]), ...mapState(['editProfile']),
+  computed: mapGetters(["checkIsLoggedIn", "getUsers", "getCurrentUser", "getYes"]), ...mapState(['editProfile']),
   created: function() {
 
   }

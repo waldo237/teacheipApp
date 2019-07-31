@@ -13,7 +13,7 @@
     <!-- complete navigation starts -->
     <v-toolbar app style="background-color:white">
       <!--  sandwich menu for side bar/menu-->
-      <v-toolbar-side-icon class="gray--text" @click="drawer = !drawer" v-on-clickaway="away"></v-toolbar-side-icon>
+      <v-toolbar-side-icon class="gray--text" @click="drawer = !drawer" v-on-clickaway="away" v-if="checkIsLoggedIn"></v-toolbar-side-icon>
       <!-- sandwich menu -->
 
       <!-- logo starts -->
@@ -29,12 +29,12 @@
       <v-spacer></v-spacer>
 
       <!-- expanded navigation bar  starts-->
-      <v-toolbar-items class="hidden-md-and-down">
-        <v-toolbar-items class="hidden-md-and-down" v-if="!checkIsLoggedIn">
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-toolbar-items class="hidden-sm-and-down" v-if="!checkIsLoggedIn">
           <router-link
             tag="v-btn"
             style="background-color:white"
-            v-for="item in publicNav"
+            v-for="item in getNavigation.publicNav"
             :key="item.icon"
             :to="item.link"
             :class="item.class"
@@ -44,11 +44,11 @@
         <v-btn @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn">SIGN IN</v-btn>
 
         <!-- private navigation elements starts -->
-        <v-toolbar-items class="hidden-md-and-down" v-if="checkIsLoggedIn">
+        <v-toolbar-items class="hidden-sm-and-down" v-if="checkIsLoggedIn">
           <router-link
             tag="v-btn"
             style="background-color:white"
-            v-for="item in privateNav"
+            v-for="item in getNavigation.privateNav"
             :key="item.icon"
             :to="item.link"
             :class="item.class"
@@ -78,13 +78,13 @@
 
       <!-- sandwich menu when minimized -->
       <transition name="sandwich">
-        <v-menu class="hidden-lg-and-up" v-model="sandwich">
+        <v-menu class="hidden-md-and-up" v-model="sandwich">
           <v-toolbar-side-icon slot="activator" v-on-clickaway="hideMenu"></v-toolbar-side-icon>
           <transition name="tiles">
             <v-list class="tiles">
               <router-link
                 tag="v-btn"
-                v-for="item in publicNav"
+                v-for="item in getNavigation.publicNav"
                 :key="item.icon"
                 :to="item.link"
                 :class="item.class"
@@ -101,7 +101,11 @@
     <!-- complete navigation ends -->
 
     <!--side-menu starts-->
-    <v-navigation-drawer v-model="drawer" app class="indingo">
+      <v-navigation-drawer v-model="drawer" app class="indingo" v-if="checkIsLoggedIn">
+    <sidemenu />
+      </v-navigation-drawer>
+
+    <!-- <v-navigation-drawer v-model="drawer" app class="indingo" v-if="checkIsLoggedIn">
       <v-card>
         <v-card-title>
           <v-icon>dashboard</v-icon>DASHBOARD
@@ -109,13 +113,13 @@
       </v-card>
 
       <v-list-tile-title></v-list-tile-title>
-      <v-list-tile v-for="item in publicNav" :key="item.class">
+      <v-list-tile v-for="item in getNavigation.publicNav" :key="item.class">
         <v-list-tile-action>
           <v-icon>{{item.icon}}</v-icon>
         </v-list-tile-action>
         <v-list-tile-title>{{item.title}}</v-list-tile-title>
       </v-list-tile>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <!--side-menu ends-->
 
     <!-- communication dialogs -->
@@ -133,6 +137,7 @@ import popupRegister from "@/views/popup-signup.vue";
 import signInForm from "@/views/popup-signin.vue";
 import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
+import sidemenu from "@/components/sidemenu.vue";
 import { mapActions, mapGetters } from "vuex";
 import auth from "firebase";
 import { async } from "q";
@@ -140,50 +145,13 @@ import { get } from "http";
 import { setTimeout } from "timers";
 export default {
   name: "menu1",
-  components: { popupRegister, signInForm, alerting, profile },
+  components: { popupRegister, signInForm, alerting, profile,sidemenu },
   template: '<p v-on-clickaway="away">Click away</p>',
   directives: {
     onClickaway: onClickaway
   },
   data() {
     return {
-      // public routes that guest are able to access
-      publicNav: [
-        {
-          icon: "home",
-          title: "HOME",
-          link: "/",
-          class: "home"
-        },
-        {
-          icon: "people_outline",
-          title: "ABOUT",
-          link: "/about",
-          class: "about"
-        },
-      ],
-      // private access routes
-      privateNav: [
-        {
-          icon: "folder",
-          title: "LESSON PLANS",
-          link: "/lesson plans",
-          class: "lesson-plan"
-        },
-        {
-          icon: "person",
-          title: "EMPLOYEES",
-          link: "/register",
-          class: "employees"
-        },
-
-        {
-          icon: "dashboard",
-          title: "DASHBOARD",
-          link: `/dashboard/`,
-          class: "sign-in"
-        }
-      ],
       currentUser: false,
       drawer: false,
       sandwich: false,
@@ -247,7 +215,7 @@ export default {
     },
     ...mapActions(["toggleSI", "toggleSU", "toggleIsLoggedIn", "runAlert"])
   },
-  computed: mapGetters(["checkIsLoggedIn", "getUsers", "getCurrentUser"]),
+  computed: mapGetters(["checkIsLoggedIn", "getUsers", "getCurrentUser", "getNavigation"]),
   created: function() {
     this.init();
     if (auth.auth().currentUser) {
@@ -269,8 +237,8 @@ export default {
   top: 100%;
   right: 2%;
   text-align: center;
-  animation-duration: 1.5s;
-  animation-name: bounceIn;
+  animation-duration: 0.1s;
+  animation-name: fadeIn;
   animation-timing-function: ease-in-out;
   display: block;
 }

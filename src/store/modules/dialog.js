@@ -7,6 +7,8 @@ const state = {
     alert: false,
     alertType: {},
     alertMessage: '',
+    interact: false,
+    yes: false
 };
 const getters = {
     
@@ -15,7 +17,9 @@ const getters = {
     getSIDialog: (state) => state.SIDialog,
     getAlertMessage: (state) =>state.alertMessage,
     getAlertType: (state) =>state.alertType,
-    isAlert: (state) =>state.alert
+    getInteract: (state) =>state.interact,
+    isAlert: (state) =>state.alert,
+    getYes:(state) => state.yes
 };
 const actions = {
     async runAlert({commit}, message){
@@ -26,7 +30,7 @@ const actions = {
     setAlertMessage ({commit}, message){
         commit('setAlertMessage', message);
     },
-    setAlert ({commit}){
+    toggleAlert ({commit}){
         state.alert = !state.alert;
     },
     toggleIsLoggedIn ({commit}){
@@ -49,6 +53,8 @@ const mutations = {
     setAlertType: (state, value) =>(state.alertType = value),
     setAlert: (state, value) =>(state.alert = value),
     setEditProfile:  (state, value) =>(state.editProfile = value),
+    setInteract:  (state, value) =>(state.interact = value),
+    setYes:  (state, value) =>(state.interact = value),
 };
 
 export default{

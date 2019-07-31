@@ -77,10 +77,10 @@ export default {
         .signInWithEmailAndPassword(this.email, this.password)
         .then(
           async () => {
-            await  this.showAlert(`Successful logged in ${this.email}`, 'info', 'info');
+            await  this.showAlert(`Successfully logged in ${this.email}`, 'info', 'info');
             await this.toggleIsLoggedIn();
             await this.toggleSI();
-             this.$router.push(`/dashboard/${auth.auth().currentUser.uid}`);
+             this.$router.push(`/dashboard/`);
             this.$store.commit("setCurrentUser", auth.auth().currentUser);
             setTimeout(()=>{ this.$store.commit('setAlert', false) }, 2000);
           },
