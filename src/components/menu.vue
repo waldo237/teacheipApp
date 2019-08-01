@@ -11,7 +11,7 @@
     <!-- alerts online/offline ends-->
 
     <!-- complete navigation starts -->
-    <v-toolbar app style="background-color:white">
+    <v-toolbar app style="background-color:white" >
       <!--  sandwich menu for side bar/menu-->
       <v-toolbar-side-icon class="gray--text" @click="drawer = !drawer" v-on-clickaway="away" v-if="checkIsLoggedIn"></v-toolbar-side-icon>
       <!-- sandwich menu -->
@@ -214,6 +214,7 @@ export default {
       window.addEventListener("offline", updateOnlineStatus);
     },
     ...mapActions(["toggleSI", "toggleSU", "toggleIsLoggedIn", "runAlert"])
+    
   },
   computed: mapGetters(["checkIsLoggedIn", "getUsers", "getCurrentUser", "getNavigation"]),
   created: function() {

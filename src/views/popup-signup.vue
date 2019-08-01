@@ -10,10 +10,11 @@
           </v-card-title>
           <v-card-text>
             <v-text-field
+            
               prepend-icon="person"
               v-model="name"
               v-validate="'required|max:20'"
-              :counter="10"
+              :counter="20"
               :error-messages="errors.collect('name')"
               label="Name"
               data-vv-name="name"
@@ -34,8 +35,10 @@
               name="password"
               label="Password"
               id="password"
-              type="password"
               v-model="password"
+              :type="showPassword ? 'text': 'password' "
+              :append-icon="showPassword ? 'visibility': 'visibility_off'"
+              @click:append="showPassword = !showPassword"
             ></v-text-field>
             <v-text-field
               autocomplete
@@ -43,8 +46,10 @@
               name="repeat"
               label="Repeat Password"
               id="repeat"
-              type="password"
               v-model="repeat"
+              :type="showPassword ? 'text': 'password' "
+              :append-icon="showPassword ? 'visibility': 'visibility_off'"
+              @click:append="showPassword = !showPassword"
             ></v-text-field>
 
             <v-layout row wrap class="policy">
@@ -64,18 +69,19 @@
             </v-layout>
             <v-card-actions>
               <v-layout row justify-center>
-                <v-btn @click="signWithGoogle">
+<!--                 
+                <v-btn  class="elevation-12" @click="signWithGoogle" >
                   <v-avatar>
                     <v-img
                       src="https://i1.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?fit=1000%2C1000&ssl=1&w=640"
                     ></v-img>
                   </v-avatar>oogle
-                </v-btn>
+                </v-btn> -->
               </v-layout>
               <v-divider class="mx-12"></v-divider>
-              <v-btn @click="clear">clear</v-btn>
-              <v-btn class="sign-up" flat @click="toggleSU">Close</v-btn>
-              <v-btn @click="submit" class="sign-in">submit</v-btn>
+              <v-btn   class="elevation-12" @click="clear">clear</v-btn>
+              <v-btn   class="sign-up elevation-12" flat @click="toggleSU">Close</v-btn>
+              <v-btn   class="sign-in elevation-12" @click="submit" >submit</v-btn>
             </v-card-actions>
           </v-card-text>
         </v-card>
@@ -114,6 +120,7 @@ export default {
     password: "",
     repeat: "",
     checkbox: null,
+    showPassword: false,
     dictionary: {
       attributes: {
         email: "E-mail Address"

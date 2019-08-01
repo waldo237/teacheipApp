@@ -83,9 +83,9 @@ backgroud-color: black;
 
 
 <script>
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import 'datatables.net-responsive-bs4'
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'datatables.net-responsive-bs4'
 import 'vuetify/dist/vuetify.min.css'
 import Menu from '@/components/menu.vue'
 
