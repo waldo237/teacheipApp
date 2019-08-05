@@ -10,18 +10,18 @@ let router = new Router({
       path: '/',
       name: 'home',
       component: Home,
-      meta:{
-        requiresGuest: true
-      }
+      // meta:{
+      //   requiresGuest: true
+      // }
     },
     {
       path: '/about',
       name: 'about',
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
-      meta:{
-        requiresGuest: true
-      }
+      // meta:{
+      //   requiresGuest: true
+      // }
     },{
       path: '/lesson plans',
       name: 'lesson plans',

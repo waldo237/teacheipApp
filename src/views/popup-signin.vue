@@ -1,5 +1,4 @@
 <template>
-<v-app>
   <v-dialog v-model="getSIDialog"  persistent max-width="500px" @keydown.enter="register">
     <v-flex>
       <v-card class="elevation-12 m-1 p-2">
@@ -8,7 +7,6 @@
           <v-spacer></v-spacer>
           <v-toolbar-title class="logo"> <v-icon>lock_open</v-icon>  <span class="teach">Teach</span>
         <span class="acronym">EIP</span></v-toolbar-title>
-         
         </v-toolbar>
         </v-layout>
         
@@ -47,18 +45,16 @@
               <v-btn class="sign-in elevation-12" @click="register" :loading="loading">Login</v-btn>
             </v-card-actions>
           </v-form>
-   
         </v-card-text>
       </v-card>
     </v-flex>
   </v-dialog>
-</v-app>
 
 </template>
 <style scoped>
-.logo {
+/* .logo {
  text-align: center;
-}
+} */
 </style>
 
 <script>
@@ -105,6 +101,7 @@ async    register(e) {
         e.preventDefault();
     }
   },
-  computed: mapGetters(["getSIDialog"])
+  computed: mapGetters(["getSIDialog"]),
+
 };
 </script>

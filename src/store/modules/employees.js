@@ -9,9 +9,14 @@ const getters = {
 const actions = {
    
     async fetchEmployees({commit}){
-        const response = await 
-        axios.get('https://script.google.com/macros/s/AKfycbxFPRq-4fY_oUSdkIkzf-4grcdcHSbbiZUNpsjzDVKhFvyFn0c/exec');
-            commit('setEmployees', response.data);  
+        try {
+            const response = await 
+            axios.get('https://script.google.com/macros/s/AKfycbxFPRq-4fY_oUSdkIkzf-4grcdcHSbbiZUNpsjzDVKhFvyFn0c/exec');
+                commit('setEmployees', response.data);  
+            
+        } catch (error) {
+            console.log('Could not connect because of internet is off');        
+        }
     }
 };
 const mutations = {
