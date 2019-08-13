@@ -1,18 +1,17 @@
 <template>
-  <div class="about">
+  <div class="about ma-5 mt-1 ">
     <v-layout id="inspire" row justify-center>
       <div style="display: inline-block;   width: 70%;">
         <div
+        class="elevation-24"
           style="background-color:rgb(19,83,147);box-shadow:0 8px 16px 0 rgba(0,0,0,0.281), 0 12px 30px 0 rgba(0,0,0,0.281);text-align:justify;line-height:1.3;"
         >
             <v-layout justify-space-around>
         <v-flex xs5>
           <v-layout column>
-            <transition name="img">
-            <v-img src="https://media.giphy.com/media/LnEuDtpBRuQNIPU2ZD/giphy.gif" aspect-ratio="1.9"  alt="We bring change!"
+            <v-img src="https://media.giphy.com/media/LnEuDtpBRuQNIPU2ZD/giphy.gif" aspect-ratio="1.8"  alt="We bring change!"
             class="img"></v-img>
 
-            </transition>
           </v-layout>
         </v-flex>
         </v-layout>
@@ -28,11 +27,6 @@
             standardization.
           </p>
           </transition>
-            <!-- <p v-for="(employee,i) in employees" :key="i">{{employee.name}} <router-link 
-            class="secondary-content"
-            v-bind:to="{name: 'dashboard', params:{id: employee.id}}">
-            <v-icon>remove_red_eye</v-icon>
-            </router-link> </p> -->
         </div>
       </div>
     </v-layout>
@@ -65,22 +59,11 @@ box-shadow:0 14px 20px 0 rgba(0,0,0,0.425), 0 18px 34px 0 rgba(0,0,0,0.480);
 
 .para:hover{
 animation-duration: 1s;
-  animation-name:wobble ;
+  animation-name:pulse ;
   display: block;
   font-size: 40px;
   color: white;
 
 }
 
-@keyframes bounce-in{
-0%{
-  transform: scale(0);
-}
-50%{
-  transform: scale(1.5);
-}
-100%{
-  transform: scale(1);
-}
-}
 </style>

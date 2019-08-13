@@ -12,9 +12,12 @@
         
         <v-card-text>
           <v-form>
-          <v-card-text class="text-center text-uppercase font-weight-bold pa-1 grey--text text--lighten-1">
+            <div class="pl-5">
+          <v-card-text class="text-center pl-5 text-uppercase font-weight-bold pa-1 grey--text">
             Sign in to do operations
           </v-card-text>
+
+            </div>
             <v-text-field
               clearable
               prepend-icon="person"
@@ -36,13 +39,13 @@
               @click:append="showPassword =!showPassword"
               solo
             ></v-text-field>
-            <v-label for="password">
-              <a href="#" class="float-right">Forgot Password?</a>
+            <v-label for="password" >
+              <a href="#" class="float-right " >Forgot Password?</a>
             </v-label>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn class="sign-up elevation-10" @click="toggleSI"  >Cancel</v-btn>
-              <v-btn class="sign-in elevation-12" @click="register" :loading="loading">Login</v-btn>
+              <v-btn class="sign-up elevation-20" @click="toggleSI"  >Cancel</v-btn>
+              <v-btn class="sign-in elevation-20" @click="register" :loading="loading">Login</v-btn>
             </v-card-actions>
           </v-form>
         </v-card-text>

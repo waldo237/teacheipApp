@@ -30,7 +30,7 @@
 
       <!-- expanded navigation bar  starts-->
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-toolbar-items class="hidden-sm-and-down" v-if="checkIsLoggedIn">
+        <v-toolbar-items class="hidden-sm-and-down">
           <router-link
             tag="v-btn"
             style="background-color:white"
@@ -42,7 +42,6 @@
         </v-toolbar-items>
         <v-btn @click="toggleSU" class="sign-up" v-if="!checkIsLoggedIn">REGISTER</v-btn>
         <v-btn @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn">SIGN IN</v-btn>
-
 
         <!-- profile avatar starts -->
         <v-btn
@@ -61,8 +60,6 @@
 
       </v-toolbar-items>
       <!-- expanded navigation bar ends-->
-
-
       <!-- sandwich menu when minimized -->
         <!-- <v-menu class="hidden-md-and-up" v-model="sandwich"> -->
           <!-- <v-toolbar-side-icon slot="activator" v-on-clickaway="hideMenu"></v-toolbar-side-icon> -->
@@ -109,7 +106,7 @@
     <!-- complete navigation ends -->
 
     <!--side-menu starts-->
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer v-model="drawer" app v-if="checkIsLoggedIn">
       <sidemenu />
     </v-navigation-drawer>
     <!--side-menu ends-->
@@ -118,6 +115,7 @@
     <popupRegister />
     <signInForm />
     <alerting />
+ 
     <!-- communication dialogs -->
       <!-- profile insertion starts-->
   </div>
@@ -166,6 +164,7 @@ export default {
         "help_outline",
         "warning"
       );
+          this.drawer = await false;
       auth
         .auth()
         .signOut()
@@ -180,7 +179,7 @@ export default {
       }
     },
     away: function() {
-      if (this.drawer) {
+      if (this.drawer && checkIsLoggedIn) {
         this.drawer = !this.drawer;
       }
     },
@@ -315,37 +314,23 @@ export default {
 .logo-text:hover .acronym {
   display: none;
 }
-@keyframes example {
-  0% {
-    transform: scale(1, 1) translateY(0);
-  }
-  10% {
-    transform: scale(1.1, 0.9) translateY(0);
-  }
-  30% {
-    transform: scale(0.9, 1.1) translateY(-100px);
-  }
-  50% {
-    transform: scale(1, 1) translateY(0);
-  }
-  100% {
-    transform: scale(1, 1) translateY(0);
-  }
-}
 .logo-text:hover .full-title {
   display: inline;
   color: #135393;
   font-weight: 900;
-  animation-name: example;
-  animation-duration: infinite 2s;
-  transform: translated(0, 2, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
+  animation-duration: 0.5s;
+  animation-name: zoomInUp;
+   animation-timing-function: ease-in-out;
+
 }
 .logo-text:hover .teach {
   font-size: 120%;
   font-weight: bolder;
   color: #c6192a;
+   animation-duration: 0.5s;
+  animation-name: zoomInUp;
+    animation-timing-function: ease-in-out;
+
 }
 
 @media screen and (max-width: 800px) {

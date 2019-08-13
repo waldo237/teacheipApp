@@ -3,6 +3,25 @@
     <v-dialog v-model="getSUDialog" persistent max-width="500px">
       <v-form>
         <v-card>
+          <!--  the policy dialogue starts-->
+          <template>
+            <v-layout justify-center>
+              <v-dialog v-model="policy" width="900px">
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">Politicas de TeachEIP.com</span>
+                  </v-card-title>
+                    <Policy/>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green darken-1" text @click="policy = false">Disagree</v-btn>
+                    <v-btn color="green darken-1" text @click="policy = false">Agree</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-layout>
+          </template>
+          <!--  the policy dialogue ends-->
           <v-toolbar class="sign-up elevation-10" dense>
             <span class="headline">
               <v-icon class="mr-3">new_releases</v-icon>New profile
@@ -64,7 +83,7 @@
             <v-layout row wrap class="policy">
               <v-flex sm1>
                 <v-checkbox
-                  class="checkbox ma-0 pa-0"
+                  class="checkbox mt-2 pa-0"
                   v-model="checkbox"
                   v-validate="'required'" :error-messages="errors.collect('checkbox')"
                   value="1"
@@ -73,7 +92,7 @@
                   required
                 ></v-checkbox>
               </v-flex>
-              <a href="/" class="policy ma-0 pa-0">I have read and agree to your policy</a>
+              <v-btn color="white" depressed @click="policy= true" class="policy ma-0 pa-0 ">I have read and agree to your policy</v-btn>
               <v-card-actions class="ml-5">
                 <v-flex xl12>
                   <v-btn class="sign-up elevation-12 mx-2" flat @click="toggleSU">Close</v-btn>
@@ -103,6 +122,7 @@
 </style>
 
 <script>
+import Policy from "@/views/Useterms.vue";
 import { mapGetters, mapActions } from "vuex";
 import Vue from "vue";
 import VeeValidate from "vee-validate";
@@ -113,12 +133,16 @@ export default {
   $_veeValidate: {
     validator: "new"
   },
+  components:{
+    Policy
+  },
   data: () => ({
     positions: [
       { text: "Teacher", value: "teacher" },
       { text: "Coordinator", value: "coordinator" },
       { text: "Supervisor", value: "supervisor" }
     ],
+    policy: false,
     position: false,
     name: "",
     email: "",
@@ -191,30 +215,7 @@ export default {
           );
       }
     },
-    signWithGoogle() {
-      // var provider = new auth.auth.GoogleAuthProvider();
-      // provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
-      // auth
-      //   .auth()
-      //   .signInWithPopup(provider)
-      //   .then(function(result) {
-      //     // This gives you a Google Access Token. You can use it to access the Google API.
-      //     var token = result.credential.accessToken;
-      //     // The signed-in user info.
-      //     var user = result.user;
-      //     // ...
-      //   })
-      //   .catch(function(error) {
-      //     // Handle Errors here.
-      //     var errorCode = error.code;
-      //     var errorMessage = error.message;
-      //     // The email of the user's account used.
-      //     var email = error.email;
-      //     // The firebase.auth.AuthCredential type that was used.
-      //     var credential = error.credential;
-      //     // ...
-      //   });
-    },
+  
     clear() {
       this.name = "";
       this.email = "";

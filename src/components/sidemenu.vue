@@ -18,7 +18,7 @@
           :to="item.link"
           class="list"
         >
-          <v-list-tile-content class="list-item ml-4" v-if="!getNavigation.academic.subfolders">
+          <v-list-tile-content  class="list-item ml-4" v-if="!getNavigation.academic.subfolders">
             <v-list-tile-title class="font-weight-bold caption">
               <v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
               {{ item.title }}
@@ -54,7 +54,7 @@
       <v-list-group value="true">
         <template v-slot:activator>
           <v-list-tile-title class="ml-4">
-            <v-icon color="rgb(209, 60, 52)" class="mr-2">workk</v-icon>Administrative
+            <v-icon color="rgb(209, 60, 52)" class="mr-2">work</v-icon>Administrative
           </v-list-tile-title>
         </template>
         <v-list-tile
@@ -70,18 +70,28 @@
             </v-list-tile-title>
           </v-list-tile-content>
           <!-- subfolders -->
-          <v-expansion-panel v-else class="sub mt-4 font-weight-bold caption text--lighten-1">
+          
+          <v-expansion-panel
+            accordion
+            popout
+            multiple
+            v-else
+            class="sub mt-4 font-weight-bold caption"
+          >
             <v-expansion-panel-content>
-              <div slot="header" class=" ml-1 "><v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
-              {{ item.title }}</div>
+              <div slot="header" class="mr-4">
+                <v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
+                {{ item.title }}
+              </div>
               <v-list-tile
+              
                 v-for="(item, i) in item.subfolders"
                 :key="i"
                 :to="item.link"
                 class="list"
-                tag="li"
+               
               >
-                <v-list-tile-content class="list-item ml-2">
+                <v-list-tile-content class="list-item ml-5">
                   <v-list-tile-title class="font-weight-bold caption">{{ item.title }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
@@ -166,13 +176,12 @@
   z-index: 1;
   position: relative;
   background-color: white;
-  
 }
 .list-item {
   color: rgba(0, 0, 0, 0.699) !important;
 }
 .list:hover {
-  background-color: rgb(209, 60, 52);
+  background-color: rgb(206, 206, 206);
   animation-duration: 0.1s;
   animation-name: pulse;
   animation-timing-function: ease-in-out;
