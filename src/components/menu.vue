@@ -18,7 +18,7 @@
 
       <!-- logo starts -->
       <div class="logo-text">
-        <span class="teach">Teach</span>
+        <span class="teach ">Teach</span>
         <span class="acronym">EIP</span>
         <span class="full-title">
           <img src="../../src/assets/mescyt-1024x878.png" alt="mescyt" />with The English Immersion Program
@@ -29,7 +29,7 @@
       <v-spacer></v-spacer>
 
       <!-- expanded navigation bar  starts-->
-      <v-toolbar-items class="hidden-sm-and-down">
+      <v-toolbar-items class="hidden-sm-and-down mx-auto">
         <v-toolbar-items class="hidden-sm-and-down">
           <router-link
             tag="v-btn"
@@ -57,47 +57,47 @@
           </v-avatar>
         </v-btn>
         <!-- profile avatar ends -->
-
       </v-toolbar-items>
       <!-- expanded navigation bar ends-->
-      <!-- sandwich menu when minimized -->
-        <!-- <v-menu class="hidden-md-and-up" v-model="sandwich"> -->
-          <!-- <v-toolbar-side-icon slot="activator" v-on-clickaway="hideMenu"></v-toolbar-side-icon> -->
-        <!-- private navigation elements starts -->
-        <!-- <v-toolbar-items class="hidden-sm-and-up" v-if="checkIsLoggedIn">
-            <v-list>
-                <v-btn
-                  depressed
-                  fab
-                  color="white"
-                  class="avatar-button"
-                  @click="profileModel = !profileModel"
-                  v-if="checkIsLoggedIn"
-                >
-                  <v-avatar>
-                    <img :src="getCurrentUser.photoURL" alt="Waldo" />
-                  </v-avatar>
-                </v-btn>
-                <v-list v-for="(item, i) in getNavigation.academic" :key="i">
-                  <v-list-tile>
-                    <router-link
-                      v-if="item.field == 'academic'"
-                      tag="v-btn"
-                      style="background-color:white"
-                      :to="item.link"
-                      :class="item.class"
-                    >
-                      <v-icon class="mr-1">{{item.icon}}</v-icon>
-                      {{ item.title }}
-                    </router-link>
-                  </v-list-tile>
-                </v-list>
-            </v-list>
-         
-        </v-toolbar-items> -->
-        <!-- private navigation elements ends -->
-        <!-- </v-menu> -->
-    
+      <!--  minimized menu starts-->
+      <v-toolbar-side-icon
+        class="hidden-md-and-up mx-auto"
+        slot
+        @click="sandwich = true"
+      ></v-toolbar-side-icon>
+        <v-list class="minimized elevation-24" v-if="sandwich" v-on-clickaway="hideMenu">
+          <v-list-tile @click="profileModel = !profileModel"
+            v-if="checkIsLoggedIn">
+          <v-btn
+            depressed
+            fab
+            class="avatar-button mx-auto my-3"
+     
+          >
+            <v-avatar >
+              <img :src="getCurrentUser.photoURL" :alt="getCurrentUser.displayName" />
+            </v-avatar>
+
+          </v-btn>
+          </v-list-tile>
+          <v-list-tile
+            tag="v-btn"
+            style="background-color:white"
+            v-for="item in getNavigation.publicNav"
+            :key="item.icon"
+            :to="item.link"
+            class="elevation-12"
+          > <span class="mx-auto">
+
+           {{ item.title }}
+          </span>
+          </v-list-tile>
+          <v-list-tile @click="toggleSU" class="sign-up" v-if="!checkIsLoggedIn"><span class="mx-auto">REGISTER</span></v-list-tile>
+          <v-list-tile @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn"><span class="mx-auto">SIGN IN</span></v-list-tile>
+      </v-list>
+        
+
+      <!--  minimized menu ends-->
       <v-list-tile>
         <profile class="profile" v-if="profileModel" v-on-clickaway="closeProfile" />
       </v-list-tile>
@@ -115,9 +115,9 @@
     <popupRegister />
     <signInForm />
     <alerting />
- 
+
     <!-- communication dialogs -->
-      <!-- profile insertion starts-->
+    <!-- profile insertion starts-->
   </div>
 </template>
 
@@ -164,7 +164,7 @@ export default {
         "help_outline",
         "warning"
       );
-          this.drawer = await false;
+      this.drawer = await false;
       auth
         .auth()
         .signOut()
@@ -229,15 +229,27 @@ export default {
 <style>
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
 
+.minimized {
+ width:  250px;
+  z-index: 1;
+  position: fixed;
+  top: 100%;
+  right: 10px;
+  text-align: center;
+  animation-duration: 0.1s;
+  animation-name: slideInDown;
+  animation-timing-function: ease-in-out;
+  display: block;
+}
 .profile {
-  width: 20%;
+  width: 250px;
   z-index: 1;
   position: fixed;
   top: 100%;
   right: 2%;
   text-align: center;
   animation-duration: 0.1s;
-  animation-name: fadeIn;
+  animation-name: slideInDown;
   animation-timing-function: ease-in-out;
   display: block;
 }
@@ -252,7 +264,7 @@ export default {
   animation-name: bounceIn;
   animation-timing-function: ease-in-out;
   display: block;
-  background-color: rgb(76,175,80) !important;
+  background-color: rgb(76, 175, 80) !important;
 }
 .connection-off {
   z-index: 1;
@@ -264,25 +276,9 @@ export default {
   animation-name: bounceInDown;
   animation-timing-function: ease-in-out;
   display: block;
-  background-color:rgb(255,82,82) !important;
+  background-color: rgb(255, 82, 82) !important;
 }
 
-.tiles {
-  animation-duration: 0.5s;
-  animation-name: bounceInRight;
-  animation-timing-function: ease-in-out;
-  display: block;
-  font-size: 40px;
-  color: white;
-}
-.tiles:after {
-  animation-duration: 0.5s;
-  animation-name: bounceInLeft;
-  animation-timing-function: ease-out;
-  display: block;
-  font-size: 40px;
-  color: white;
-}
 .sign-in {
   color: white !important;
   background-color: rgb(19, 83, 147) !important;
@@ -311,6 +307,9 @@ export default {
 .teach {
   color: #135393;
 }
+.logo-text{
+  font-size:140%;
+}
 .logo-text:hover .acronym {
   display: none;
 }
@@ -320,20 +319,17 @@ export default {
   font-weight: 900;
   animation-duration: 0.5s;
   animation-name: zoomInUp;
-   animation-timing-function: ease-in-out;
-
+  animation-timing-function: ease-in-out;
 }
 .logo-text:hover .teach {
-  font-size: 120%;
   font-weight: bolder;
   color: #c6192a;
-   animation-duration: 0.5s;
+  animation-duration: 0.5s;
   animation-name: zoomInUp;
-    animation-timing-function: ease-in-out;
-
+  animation-timing-function: ease-in-out;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 960px) {
   .logo-text:hover .full-title {
     font-size: 70%;
   }

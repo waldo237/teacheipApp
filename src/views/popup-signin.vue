@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="getSIDialog"  persistent max-width="500px" @keydown.enter="register">
+  <v-dialog v-model="getSIDialog"  persistent max-width="500px" @keydown.enter="signIn">
     <v-flex>
       <v-card class="elevation-12 m-1 p-2">
         <v-layout align-content-start>
@@ -25,7 +25,6 @@
               label="Login"
               type="text"
               v-model="email"
-              solo
             ></v-text-field>
             <v-text-field
               autocomplete
@@ -37,7 +36,6 @@
               :type="showPassword ? 'text': 'password'"
               v-model="password"
               @click:append="showPassword =!showPassword"
-              solo
             ></v-text-field>
             <v-label for="password" >
               <a href="#" class="float-right " >Forgot Password?</a>
@@ -45,7 +43,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn class="sign-up elevation-20" @click="toggleSI"  >Cancel</v-btn>
-              <v-btn class="sign-in elevation-20" @click="register" :loading="loading">Login</v-btn>
+              <v-btn class="sign-in elevation-20" @click="signIn" :loading="loading">Login</v-btn>
             </v-card-actions>
           </v-form>
         </v-card-text>
@@ -55,9 +53,7 @@
 
 </template>
 <style scoped>
-/* .logo {
- text-align: center;
-} */
+
 </style>
 
 <script>
@@ -79,7 +75,7 @@ export default {
       this.$store.commit('setAlertType',{icon: icon, class: classy})
             this.runAlert(message);
     },
-async    register(e) {
+async    signIn(e) {
       this.loading = await true;    
       auth
         .auth()

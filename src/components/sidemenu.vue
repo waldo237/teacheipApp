@@ -12,74 +12,29 @@
             <v-icon color="rgb(209, 60, 52)" class="mr-2">school</v-icon>Academic
           </v-list-tile-title>
         </template>
-        <v-list-tile
+          <v-list-tile
           v-for="(item, i) in getNavigation.academic"
           :key="i"
-          :to="item.link"
           class="list"
-        >
-          <v-list-tile-content  class="list-item ml-4" v-if="!getNavigation.academic.subfolders">
-            <v-list-tile-title class="font-weight-bold caption">
-              <v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
-              {{ item.title }}
-            </v-list-tile-title>
-          </v-list-tile-content>
-          <!-- subfolders -->
-          <v-list-group value="true" v-if="getNavigation.academic.subfolders">
-            <template v-slot:activator>
-              <v-list-tile-title class="ml-4">
-                <v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
-                {{ item.title }}
-              </v-list-tile-title>
-            </template>
-            <v-list-tile
-              v-for="(item, i) in getNavigation.academic.subfolders"
-              :key="i"
-              :to="item.link"
-              class="list"
-            >
-              <v-list-tile-content class="list-item ml-4">
-                <v-list-tile-title class="font-weight-bold caption">{{ item.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list-group>
-        </v-list-tile>
-      </v-list-group>
-    </v-list>
-    <!-- ACADEMIC ends -->
-
-    <!-- ADMINISTRATIVE starts -->
-    <v-list>
-      <!-- ACADEMIC starts -->
-      <v-list-group value="true">
-        <template v-slot:activator>
-          <v-list-tile-title class="ml-4">
-            <v-icon color="rgb(209, 60, 52)" class="mr-2">work</v-icon>Administrative
-          </v-list-tile-title>
-        </template>
-        <v-list-tile
-          v-for="(item, i) in getNavigation.administrative"
-          :key="i"
-          :to="item.link"
-          class="list"
-        >
-          <v-list-tile-content class="list-item ml-4" v-if="!item.subfolders">
-            <v-list-tile-title class="font-weight-bold caption">
-              <v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
-              {{ item.title }}
-            </v-list-tile-title>
-          </v-list-tile-content>
-          <!-- subfolders -->
           
+        >
+        
+          <v-list-tile  v-if="!item.subfolders" :to="item.link" style ="width: 100%">
+            <v-list-tile-title class="font-weight-bold caption ml-2">
+              <v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
+              {{ item.title }}
+            </v-list-tile-title>
+          </v-list-tile>
+          <!-- subfolders -->
           <v-expansion-panel
             accordion
-            popout
-            multiple
+           focusable
             v-else
-            class="sub mt-4 font-weight-bold caption"
+            class="sub my-auto font-weight-bold caption elevation-0"
+            
           >
-            <v-expansion-panel-content>
-              <div slot="header" class="mr-4">
+            <v-expansion-panel-content >
+              <div slot="header" class="mr-4" >
                 <v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
                 {{ item.title }}
               </div>
@@ -97,24 +52,59 @@
               </v-list-tile>
             </v-expansion-panel-content>
           </v-expansion-panel>
-          <!-- <v-list-group no-action sub-group value="true" v-if="item.subfolders" >
-            <template v-slot:activator subgroup >
-              <v-list-tile-title class="mr-5">
+        </v-list-tile>
+      </v-list-group>
+    </v-list>
+    <!-- ACADEMIC ends -->
+
+    <!-- ADMINISTRATIVE starts -->
+    <v-list>
+      <v-list-group value="true">
+        <template v-slot:activator>
+          <v-list-tile-title class="ml-4">
+            <v-icon color="rgb(209, 60, 52)" class="mr-2">work</v-icon>Administrative
+          </v-list-tile-title>
+        </template>
+        <v-list-tile
+          v-for="(item, i) in getNavigation.administrative"
+          :key="i"
+          class="list"
+          
+        >
+        
+          <v-list-tile  v-if="!item.subfolders" :to="item.link" style ="width: 100%">
+            <v-list-tile-title class="font-weight-bold caption ml-2">
+              <v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
+              {{ item.title }}
+            </v-list-tile-title>
+          </v-list-tile>
+          <!-- subfolders -->
+          <v-expansion-panel
+            accordion
+           focusable
+            v-else
+            class="sub my-auto font-weight-bold caption elevation-0"
+            
+          >
+            <v-expansion-panel-content >
+              <div slot="header" class="mr-4" >
                 <v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
                 {{ item.title }}
-              </v-list-tile-title>
-            </template>
-            <v-list-tile
-              v-for="(item, i) in item.subfolders"
-              :key="i"
-              :to="item.link"
-              class="list"
-            >
-              <v-list-tile-content class="list-item ml-4">
-                <v-list-tile-title class="font-weight-bold caption">{{ item.title }}</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list-group>-->
+              </div>
+              <v-list-tile
+              
+                v-for="(item, i) in item.subfolders"
+                :key="i"
+                :to="item.link"
+                class="list"
+               
+              >
+                <v-list-tile-content class="list-item ml-5">
+                  <v-list-tile-title class="font-weight-bold caption">{{ item.title }}</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
         </v-list-tile>
       </v-list-group>
     </v-list>
@@ -123,53 +113,6 @@
 </template>
 
 
-  <!-- <v-layout wrap justify-space-around>
-    <v-list-tile-title class="font-weight-bold headlne mt-5 grey--text">
-      <v-icon class="mr-2 font-weight-bold ">device_hub</v-icon>WORKSTATION
-    </v-list-tile-title>
-    <v-btn
-      depressed
-      fab
-      color="white"
-      class="avatar-button"
-      @click="profileModel = !profileModel"
-      v-if="checkIsLoggedIn"
-    >
-      <v-avatar>
-        <img :src="getCurrentUser.photoURL" alt="Waldo" />
-      </v-avatar>
-    </v-btn>
-    <v-menu
-      bottom
-      origin="center center"
-      transition="scale-transition"
-      open-on-hover
-      :close-on-click="closeOnClick"
-      :close-on-content-click="closeOnContentClick"
-      :offset-x="offsetX"
-      :offset-y="offsetY"
-    >
-      <template v-slot:activator="{ on }">
-        <v-btn class="mt-5" color="info" dark v-on="on">
-          <v-icon>school</v-icon>ACADEMIC
-        </v-btn>
-      </template>
-      <v-list v-for="(item, i) in getNavigation.privateNav" :key="i">
-        <v-list-tile>
-          <router-link
-            v-if="item.field == 'academic'"
-            tag="v-btn"
-            style="background-color:white"
-            :to="item.link"
-            :class="item.class"
-          >
-            <v-icon class="mr-1">{{item.icon}}</v-icon>
-            {{ item.title }}
-          </router-link>
-        </v-list-tile>
-      </v-list>
-    </v-menu>
-  </v-layout> -->
 <style scoped>
 .sub {
   width: 100%;
@@ -180,18 +123,15 @@
 .list-item {
   color: rgba(0, 0, 0, 0.699) !important;
 }
-.list:hover {
+/* .list:hover {
   background-color: rgb(206, 206, 206);
   animation-duration: 0.1s;
   animation-name: pulse;
   animation-timing-function: ease-in-out;
   display: block;
   font-size: 40px;
-}
-.list-item:hover {
-  text-decoration-style: none !important;
-  color: white !important;
-}
+} */
+
 </style>
 
    

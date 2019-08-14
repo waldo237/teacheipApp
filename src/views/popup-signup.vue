@@ -81,8 +81,9 @@
             </v-flex>
 
             <v-layout row wrap class="policy">
-              <v-flex sm1>
+              <v-flex sm1 xs1>
                 <v-checkbox
+                
                   class="checkbox mt-2 pa-0"
                   v-model="checkbox"
                   v-validate="'required'" :error-messages="errors.collect('checkbox')"
@@ -92,11 +93,11 @@
                   required
                 ></v-checkbox>
               </v-flex>
-              <v-btn color="white" depressed @click="policy= true" class="policy ma-0 pa-0 ">I have read and agree to your policy</v-btn>
+              <v-btn  color="white" depressed @click="policy= true" class="policy ma-0 pa-0 ">I have read and agree to your policy</v-btn>
               <v-card-actions class="ml-5">
-                <v-flex xl12>
+                <v-flex xl12  xs12>
                   <v-btn class="sign-up elevation-12 mx-2" flat @click="toggleSU">Close</v-btn>
-                  <v-btn class="elevation-12 mx-2" @click="clear">clear</v-btn>
+                  <v-btn class="elevation-12 mx-2 hidden-sm-and-down" @click="clear">clear</v-btn>
                   <v-btn class="sign-in elevation-12 mx-3" @click="submit">submit</v-btn>
                 </v-flex>
               </v-card-actions>
