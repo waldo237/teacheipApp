@@ -14,8 +14,8 @@
                     <Policy/>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="green darken-1" text @click="policy = false">Disagree</v-btn>
-                    <v-btn color="green darken-1" text @click="policy = false">Agree</v-btn>
+                    <v-btn class="sign-up" text @click="policy = false">Disagree</v-btn>
+                    <v-btn class="sign-in" text @click="policy = false">Agree</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -69,8 +69,10 @@
               :append-icon="showRepeat ? 'visibility': 'visibility_off'"
               @click:append="showRepeat = !showRepeat"
             ></v-text-field>
+            <!-- position selector starts -->
             <v-flex xs>
               <v-select
+                v-model="select"
                 :items="positions"
                 text="text"
                 value="value"
@@ -79,11 +81,12 @@
                 return-object
               ></v-select>
             </v-flex>
+            <!-- position selector ends -->
 
             <v-layout row wrap class="policy">
+              <!-- checkbox and policy starts -->
               <v-flex sm1 xs1>
                 <v-checkbox
-                
                   class="checkbox mt-2 pa-0"
                   v-model="checkbox"
                   v-validate="'required'" :error-messages="errors.collect('checkbox')"
@@ -94,6 +97,9 @@
                 ></v-checkbox>
               </v-flex>
               <v-btn  color="white" depressed @click="policy= true" class="policy ma-0 pa-0 ">I have read and agree to your policy</v-btn>
+              <!-- checkbox and policy ends -->
+
+              <!-- buttons box starts -->
               <v-card-actions class="ml-5">
                 <v-flex xl12  xs12>
                   <v-btn class="sign-up elevation-12 mx-2" flat @click="toggleSU">Close</v-btn>
@@ -101,6 +107,7 @@
                   <v-btn class="sign-in elevation-12 mx-3" @click="submit">submit</v-btn>
                 </v-flex>
               </v-card-actions>
+              <!-- buttons box ends -->
             </v-layout>
           </v-card-text>
         </v-card>
@@ -110,7 +117,7 @@
 </template>
 <style scoped>
 .policy {
-  font-size: 80%;
+  font-size: 90%;
   margin: 0px;
   padding: 0px;
   color: blue !important;
@@ -222,6 +229,7 @@ export default {
       this.email = "";
       this.password = "";
       this.repeat = "";
+      this.select = "";
       this.checkbox = null;
       this.position = "";
       this.$validator.reset();

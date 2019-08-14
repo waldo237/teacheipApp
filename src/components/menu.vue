@@ -1,14 +1,6 @@
  
  <template>
   <div>
-    <!-- alerts online/offline -->
-    <v-alert v-model="log" class="connection-off mt-2">
-      <v-icon>signal_wifi_off</v-icon>You are currently offline
-    </v-alert>
-    <v-alert v-model="online" class="connection-on mt-2">
-      <v-icon>check_circle_outline</v-icon>Back online!
-    </v-alert>
-    <!-- alerts online/offline ends-->
 
     <!-- complete navigation starts -->
     <v-toolbar app style="background-color:white">
@@ -20,7 +12,7 @@
       <div class="logo-text">
         <span class="teach ">Teach</span>
         <span class="acronym">EIP</span>
-        <span class="full-title">
+        <span class="full-title mt-1">
           <img src="../../src/assets/mescyt-1024x878.png" alt="mescyt" />with The English Immersion Program
         </span>
       </div>
@@ -124,15 +116,14 @@
 
 <script>
 import { directive as onClickaway } from "vue-clickaway";
-import popupRegister from "@/views/popup-signup.vue";
-import signInForm from "@/views/popup-signin.vue";
+import popupRegister from "@/views/RegisterView.vue";
+import signInForm from "@/views/LogInView.vue";
 import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
 import sidemenu from "@/components/sidemenu.vue";
 import { mapActions, mapGetters } from "vuex";
 import auth from "firebase";
 import { async } from "q";
-import { get } from "http";
 import { setTimeout } from "timers";
 export default {
   name: "menu1",
@@ -146,8 +137,6 @@ export default {
       currentUser: false,
       drawer: false,
       sandwich: false,
-      log: false,
-      online: false,
       profileModel: false,
       signIn: false
       // sandwich menu element models
@@ -193,20 +182,7 @@ export default {
         this.sandwich = false;
       });
     },
-    init() {
-      const updateOnlineStatus = async event => {
-        this.log = navigator.online ? false : true;
-        if (navigator.onLine) {
-          this.log = false;
-          this.online = true;
-          setTimeout(async () => {
-            this.online = false;
-          }, 2000);
-        }
-      };
-      window.addEventListener("online", updateOnlineStatus);
-      window.addEventListener("offline", updateOnlineStatus);
-    },
+ 
     ...mapActions(["toggleSI", "toggleSU", "toggleIsLoggedIn", "runAlert"])
   },
   computed: mapGetters([
@@ -216,7 +192,7 @@ export default {
     "getNavigation"
   ]),
   created: function() {
-    this.init();
+    
     if (auth.auth().currentUser) {
       this.toggleIsLoggedIn();
       this.$store.commit("setCurrentUser", auth.auth().currentUser);
@@ -253,31 +229,7 @@ export default {
   animation-timing-function: ease-in-out;
   display: block;
 }
-.connection-on {
-  width: 100%;
-  z-index: 1;
-  position: fixed;
-  top: 35px;
-  height: 49px;
-  text-align: center;
-  animation-duration: 1.5s;
-  animation-name: bounceIn;
-  animation-timing-function: ease-in-out;
-  display: block;
-  background-color: rgb(76, 175, 80) !important;
-}
-.connection-off {
-  z-index: 1;
-  position: fixed;
-  top: 35px;
-  height: 49px;
-  text-align: center;
-  animation-duration: 1.5s;
-  animation-name: bounceInDown;
-  animation-timing-function: ease-in-out;
-  display: block;
-  background-color: rgb(255, 82, 82) !important;
-}
+
 
 .sign-in {
   color: white !important;
@@ -297,7 +249,7 @@ export default {
   display: none;
 }
 .full-title img {
-  height: 96px;
+  width: 55px;
 }
 .acronym {
   color: #c6192a;
@@ -312,17 +264,20 @@ export default {
 }
 .logo-text:hover .acronym {
   display: none;
+  
 }
 .logo-text:hover .full-title {
   display: inline;
   color: #135393;
-  font-weight: 900;
+  font-family:'Oswald', sans-serif;
+  font-weight: 400;
   animation-duration: 0.5s;
   animation-name: zoomInUp;
   animation-timing-function: ease-in-out;
 }
 .logo-text:hover .teach {
   font-weight: bolder;
+  font-family:'Oswald', sans-serif;
   color: #c6192a;
   animation-duration: 0.5s;
   animation-name: zoomInUp;

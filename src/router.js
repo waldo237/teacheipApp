@@ -21,14 +21,14 @@ let router = new Router({
     },{
       path: '/lesson plans',
       name: 'lesson plans',
-      component: () => import(/* webpackChunkName: "about" */ './views/lesson plans.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/LessonPlans.vue'),
       meta:{
         requiresAuth: true
       }
     },{
       path: '/register',
       name: 'register',
-      component: () => import(/* webpackChunkName: "about" */ './views/empoyeeChart.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/EmployeeChart.vue'),
       meta:{
         requiresAuth: true
       }
@@ -45,7 +45,7 @@ let router = new Router({
     ,{
       path: '/signin',
       name: 'signin',
-      component: () => import(/* webpackChunkName: "about" */ './views/popup-signin.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/LogInView.vue'),
       meta:{
         requiresGuest: true
       }
@@ -53,7 +53,7 @@ let router = new Router({
 ,{
       path: '/signup',
       name: 'signup',
-      component: () => import(/* webpackChunkName: "about" */ './views/popup-signup.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/RegisterView.vue'),
       meta:{
         requiresGuest: true
       }
@@ -61,7 +61,7 @@ let router = new Router({
 ,{
       path: '/updateProfile',
       name: 'updateProfile',
-      component: () => import(/* webpackChunkName: "about" */ './views/updateProfile.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/ProfileEditorView.vue'),
       meta:{
         requiresAuth: true
       }

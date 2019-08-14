@@ -1,5 +1,14 @@
 <template>
   <div id="app" data-app >
+        <!-- alerts online/offline -->
+    <v-alert v-model="log" class="connection-off mt-3">
+      <v-icon class="mr-2">signal_wifi_off</v-icon>You are currently offline
+    </v-alert>
+    <v-alert v-model="online" type="success" icon="false" class="connection-on mt-3">
+      <v-icon class="mr-2">check_circle_outline</v-icon>Back online!
+    </v-alert>
+    <!-- alerts online/offline ends-->
+
       <v-layout id="masthead" align-center class="text-no-wrap text-center mt-4 ">
         <v-flex xl6 lg6 md8 sm6  ma-auto  class="d-flex align-center mt-5">
           <v-card flat class="text-center " id="logo" >
@@ -13,15 +22,15 @@
                 aspect-ratio="1"
                 id="img-mescyt"
                 class="grey lighten-2 mx-auto"
-                max-width="200"
-                max-height="150"
+                max-width="180"
+                max-height="130"
               ></v-img>
             </a>
             </v-flex>
             <v-card flat >
               <transition >
-              <v-card-title xs10 class=" titles display-2 font-weight-bold">
-                <a href="https://teacheip.com/" rel="home" class="mx-auto site-title blue--text text--darken-4">
+              <v-card-title xs10 class=" titles display-2 font-weight-medium">
+                <a href="https://teacheip.com/" rel="home" class="mx-auto site-title ">
                   Direccion de Lenguas
                   Extranjeras
                 </a>
@@ -90,6 +99,10 @@ padding: 0%;
 
 .titles{
   font-family: 'Oswald', sans-serif !important;
+  
+}
+.titles a{
+  color:#135393 !important;
 }
 .titles:hover{
   color: #d13c34;
@@ -103,6 +116,31 @@ a{
   text-decoration: none;
   
 }
+.connection-on {
+  width: 100%;
+  z-index: 1;
+  position: fixed;
+  top: 35px;
+  height: 49px;
+  text-align: center;
+  animation-duration: 1.5s;
+  animation-name: slideInUp;
+  animation-timing-function: ease-in-out;
+  background-color: rgb(76, 175, 80) !important;
+}
+.connection-off {
+  width: 100%;
+  z-index: 1;
+  position: fixed;
+  top: 35px;
+  height: 49px;
+  text-align: center;
+  animation-duration: 1.5s;
+  animation-name: bounceInDown;
+  animation-timing-function: ease-in-out;
+  display: block;
+  background-color: rgb(255, 82, 82) !important;
+}
 </style>
 
 
@@ -114,15 +152,33 @@ export default {
  name: 'site-heade',
  data(){
    return{
+      log: false,
+      online: false,
    }
  },
  components: {
    Menu, 
    Footer
  },
+ methods: {
+      init() {
+      const updateOnlineStatus = async event => {
+        this.log = navigator.online ? false : true;
+        if (navigator.onLine) {
+          this.log = false;
+          this.online = true;
+          setTimeout(async () => {
+            this.online = false;
+          }, 3000);
+        }
+      };
+      window.addEventListener("online", updateOnlineStatus);
+      window.addEventListener("offline", updateOnlineStatus);
+    },
+ },
    
  created(){
-        
+       this.init(); 
     },
 }
 </script>

@@ -26,7 +26,7 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
-import editor from "../views/updateProfile.vue";
+import editor from "../views/ProfileEditorView.vue";
 import auth from "firebase";
 export default {
   components: {editor},

@@ -10,13 +10,12 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.0-rc.25",
+    "axios": "^0.19.0",
     "core-js": "^2.6.5",
-    "datatables.net-responsive-bs4": "^2.2.3",
     "firebase": "^6.3.1",
     "gh-pages": "^2.0.1",
     "jquery": "^3.4.1",
+    "moment": "^2.24.0",
     "vee-validate": "^2.2.13",
     "vue": "^2.6.10",
     "vue-clickaway": "^2.2.2",

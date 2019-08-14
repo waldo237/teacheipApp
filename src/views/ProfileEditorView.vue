@@ -114,7 +114,6 @@ import {mapGetters} from 'vuex'
         this.profile.updatePhoneNumber = await document.querySelector('#phoneNumber').value
         this.profile.photoURL  = await document.querySelector('#photo').value
          await auth.auth().currentUser.updateProfile(this.profile);
-        //  await auth.auth().currentUser.updatePhoneNumber(this.verify(this.profile.updatePhoneNumber));
           await this.$store.commit("setCurrentUser", auth.auth().currentUser);
           this.dialog = false;
         }

@@ -1,7 +1,7 @@
 
-
+ 
 <template>
-  <div>
+  <div class="mb-5 pb-5">
  <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details class="search"></v-text-field>
     <v-layout justify-center persistent>
