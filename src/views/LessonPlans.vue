@@ -8,7 +8,6 @@
 
           <!-- search engine -->
           <form   id="search" class="form-inline">
-              
             <i  aria-hidden="true"></i>
             <v-text-field
               @keyup="searching"
@@ -32,84 +31,88 @@
             ></v-img>
             
             <!-- loading image ends -->
-             <v-snackbar
-             class="error"
-              v-model="snackbar"
-              color
-              multi-line
-              :timeout="6000"
-              top='top'
-         
-            >
-               "Please select both fields to continue using the filter"
-              <v-btn
-                dark
-                text
-                @click="snackbar = false"
-              >
-                Close
-              </v-btn>
-            </v-snackbar>
-            
-            <select id="level" class="sign-up elevation-24 pa-2 mt-3 mx-5" @change="selectMenu">
-              <option selected>
-                <span>select Level</span>
-              </option>
-            </select>
-            <select
-            @change="selectMenu"
-              id="series"
-              class="sign-up elevation-24 pa-2 mt-3 mx-5"
-              data-toggle="tooltip"
-              data-html="true"
-              title="Please select all fields"
-            >
-              <option selected>select series</option>
-              <option>Interchange</option>
-              <option>Double Click</option>
-              <option>Passages</option>
-            </select>
-          </v-flex>
-          <!--/Blue select-->
-          <!-- table-->
-            <div style="overflow-x:auto;" class="mb-5">
-
-        	<table id="tblReportResultsDemographics" class="table table-striped mb-5 pb-3 "
-										cellspacing="2" 
+            <!-- snackbar for communicating with user  starts-->
+              <v-snackbar
+                class="error"
+                  v-model="snackbar"
+                  color
+                  multi-line
+                  :timeout="6000"
+                  top='top'
+              
+                  >
+                    "Please select both fields to continue using the filter"
+                    <v-btn
+                      dark
+                      text
+                      @click="snackbar = false"
                     >
-                  <thead >
-                  <tr class="subtitle-1">
-                    <th><v-layout class="mx-2" justify-right>Series</v-layout></th>
-                    <th><v-layout class="mx-2" justify-right>File</v-layout></th>
-                    <th><v-layout class="mx-2" justify-right>Level</v-layout></th>
-                    <th><v-layout class="mx-2" justify-right>Download</v-layout></th>
-                    <th><v-layout class="mx-2">Type</v-layout></th>
-                    <th><v-layout class="mx-auto" justify-right>Size</v-layout></th>
-                    <th><v-layout class="mx-2" justify-right>Link</v-layout></th>
-                    <th><v-layout class="mx-2" justify-right>Last Udated</v-layout></th>
-                    <th><v-layout class="mx-2" justify-right>Owner</v-layout></th>
-                  </tr>
-                </thead>
-                <tbody v-for="item in getLessonPlans" :key="item.download" class="tBody" >
-                  <tr class="lessonPlan" >
-                  <td ><v-layout class="mx-2 " justify-right>{{ item.Name }}</v-layout> </td>
-                  <td ><v-flex class="ma-2 text-truncate" style="max-width:150px">{{ item.parents }}</v-flex> </td>
-                    <td><v-layout class="mx-2" justify-right>{{ item.level }}</v-layout> </td>
-                    <td ><v-layout class="mx-2" justify-right><a :href="item.download">download</a></v-layout>  </td>
-                    <td><v-layout class="mx-auto" justify-right style="max-width:50px">{{ item.Type }}</v-layout> </td>
-                    <td><v-layout class="mx-auto" justify-right>{{ item.Size }}</v-layout> </td>
-                    <td ><v-layout class="mx-2" justify-right><a :href="item.Link">Link</a></v-layout>  </td>
-                    <td><v-layout class="mx-2" justify-right style="min-width:100px">{{ago(item["Last Updated"])}}</v-layout> </td>
-                    <td ><v-layout class="mx-2" justify-right>{{ item.Owner }}</v-layout> </td>
-                  </tr>
-                </tbody >
-            </table>
-            </div>
-    </v-card>
-  </div>
+                      Close
+                    </v-btn>
+              </v-snackbar>
+                
+            <!-- snackbar for communicating with user ends-->
+            <!-- dropdown menus to find info starts -->
+              <select id="level" class="sign-up elevation-24 pa-2 mt-3 mx-5" @change="selectMenu">
+                <option selected>
+                  <span>select Level</span>
+                </option>
+              </select>
+              <select
+                    @change="selectMenu"
+                    id="series"
+                    class="sign-up elevation-24 pa-2 mt-3 mx-5"
+                    data-toggle="tooltip"
+                    data-html="true"
+                    title="Please select all fields"
+                    >
+                    <option selected>select series</option>
+                    <option>Interchange</option>
+                    <option>Double Click</option>
+                    <option>Passages</option>
+              </select>
+            <!-- dropdown menus to find info ends -->
+          </v-flex>
+          <!-- table starts-->
+                <div style="overflow-x:auto;" class="mb-5">
+                  <table id="tblReportResultsDemographics" class="table table-striped mb-5 pb-3 "
+                            cellspacing="2" 
+                            >
+                          <thead >
+                          <tr class="subtitle-1">
+                            <th><v-layout class="mx-2" justify-right>Series</v-layout></th>
+                            <th><v-layout class="mx-2" justify-right>File</v-layout></th>
+                            <th><v-layout class="mx-2" justify-right>Level</v-layout></th>
+                            <th><v-layout class="mx-2" justify-right>Download</v-layout></th>
+                            <th><v-layout class="mx-2">Type</v-layout></th>
+                            <th><v-layout class="mx-auto" justify-right>Size</v-layout></th>
+                            <th><v-layout class="mx-2" justify-right>Link</v-layout></th>
+                            <th><v-layout class="mx-2" justify-right>Last Udated</v-layout></th>
+                            <th><v-layout class="mx-2" justify-right>Owner</v-layout></th>
+                          </tr>
+                        </thead>
+                        <tbody v-for="item in getLessonPlans" :key="item.download" class="tBody" >
+                          <tr class="lessonPlan" >
+                          <td ><v-layout class="mx-2 " justify-right>{{ item.Name }}</v-layout> </td>
+                          <td ><v-flex class="ma-2 text-truncate" style="max-width:150px">{{ item.parents }}</v-flex> </td>
+                            <td><v-layout class="mx-2" justify-right>{{ item.level }}</v-layout> </td>
+                            <td ><v-layout class="mx-2" justify-right><a :href="item.download">download</a></v-layout>  </td>
+                            <td><v-layout class="mx-auto" justify-right style="max-width:50px">{{ item.Type }}</v-layout> </td>
+                            <td><v-layout class="mx-auto" justify-right>{{ item.Size }}</v-layout> </td>
+                            <td ><v-layout class="mx-2" justify-right><a :href="item.Link">Link</a></v-layout>  </td>
+                            <td><v-layout class="mx-2" justify-right style="min-width:100px">{{ago(item["Last Updated"])}}</v-layout> </td>
+                            <td ><v-layout class="mx-2" justify-right>{{ item.Owner }}</v-layout> </td>
+                          </tr>
+                        </tbody >
+                    </table>
+                    </div>
+            </v-card>
+          </div>
+        <!-- table ends-->
 
  
 </template>
+
 <style scoped>
 @media screen  and (max-width: 960px)  {
  .table{
@@ -128,9 +131,13 @@
     margin: auto !important;
   }
 }
-
 </style>
+
 <script>
+/**
+ * TODO
+ * make loading image disappear when data is done loading
+  */
 import $ from 'jquery';
 import moment from 'moment'
 import {mapActions, mapGetters} from 'vuex'
@@ -146,16 +153,27 @@ export default {
  computed: mapGetters(['getLessonPlans']),
   methods: {
     ...mapActions(['fetchLessonPlans']),
+  /**
+   * ago
+   * converts dates into how long ago
+   * @param {Date} time
+   * @returns {String}
+   */
+    ago(time){ return  moment(time,"YYYYMMDD").fromNow()},
 
-     ago(time){ return  moment(time,"YYYYMMDD").fromNow()},
-    table(lp) {
+  /**
+   * populateLevel
+   * populates the 'level' dropdowns
+   * @param {Date} time
+   * @returns {String}
+   */
+    populateLevel(lp) {
        lp.forEach(async function(datarow) {
           for (const property in datarow) {
             if (property === "level") {
               const option = await document.createElement("option");
               const series = document.querySelector("#level");
               option.textContent = datarow[property];
-
               if (!series.textContent.includes(option.textContent)) {
                 series.appendChild(option);
               }
@@ -164,6 +182,7 @@ export default {
         });
         return true;
     },
+// triggers an error if both dropdowns are not selected
    showError() {
      const series = $("#series")
        .val()
@@ -178,7 +197,9 @@ export default {
       this.snackbar= false;
      }
    },
+  //  showError ends
 
+// excludes the data that are not selected in dropdown menu
     selectMenu: function(){
         this.showError();
         const series = $("#series")
@@ -216,6 +237,7 @@ export default {
           }
         });
     },
+    // select menu ends
     async  searching() {
         let word = await this.searcher;
 
@@ -227,12 +249,12 @@ export default {
               .indexOf(word) > -1
           );
         });
-    
     },
   },
+  // methods ends
   async created() {
     await this.fetchLessonPlans();
-    this.table(this.getLessonPlans);
+    this.populateLevel(this.getLessonPlans);
   }
 };
 </script>

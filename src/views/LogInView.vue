@@ -9,7 +9,6 @@
         <span class="acronym">EIP</span></v-toolbar-title>
         </v-toolbar>
         </v-layout>
-        
         <v-card-text>
           <v-form>
             <div class="pl-5">

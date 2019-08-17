@@ -18,12 +18,6 @@ const state = {
     // administrative access routes
     administrative: [
       {
-        icon: "alarm",
-        title: "UPCOMING EVENTS",
-        link: `/upcoming events/`,
-        class: "sign-in"
-      },
-      {
         icon: "healing",
         title: "CENTERS STATUS",
         link: `/centers status/`,
