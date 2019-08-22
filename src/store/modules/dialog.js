@@ -8,7 +8,8 @@ const state = {
     alertType: {},
     alertMessage: '',
     interact: false,
-    yes: false
+    yes: false,
+
 };
 const getters = {
     
@@ -19,7 +20,7 @@ const getters = {
     getAlertType: (state) =>state.alertType,
     getInteract: (state) =>state.interact,
     isAlert: (state) =>state.alert,
-    getYes:(state) => state.yes
+    getYes:(state) => state.yes,
 };
 const actions = {
     async runAlert({commit}, message){

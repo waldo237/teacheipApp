@@ -1,6 +1,6 @@
  
  <template>
-  <div>
+  <div >
 
     <!-- complete navigation starts -->
     <v-toolbar app style="background-color:white">
@@ -44,9 +44,14 @@
           @click="profileModel = !profileModel"
           v-if="checkIsLoggedIn"
         >
-          <v-avatar>
-            <img :src="getCurrentUser.photoURL" :alt="getCurrentUser.displayName" />
-          </v-avatar>
+          <v-avatar v-if="getCurrentUser.photoURL !== 'https://generic.jpg'">
+                <img :src="getCurrentUser.photoURL"
+              :alt="getCurrentUser.displayName" />
+            </v-avatar>    
+              <v-avatar color="red" v-else>
+              <span class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("")}}</span>
+
+            </v-avatar>   
         </v-btn>
         <!-- profile avatar ends -->
       </v-toolbar-items>
@@ -66,9 +71,14 @@
             class="avatar-button mx-auto my-3"
      
           >
-            <v-avatar >
-              <img :src="getCurrentUser.photoURL" :alt="getCurrentUser.displayName" />
-            </v-avatar>
+           <v-avatar v-if="getCurrentUser.photoURL!== 'https://generic.jpg'">
+                <img :src="getCurrentUser.photoURL"
+              :alt="getCurrentUser.displayName" />
+            </v-avatar>    
+              <v-avatar color="red" v-else>
+              <span class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("")}}</span>
+
+            </v-avatar>   
 
           </v-btn>
           </v-list-tile>
@@ -189,7 +199,7 @@ export default {
     "checkIsLoggedIn",
     "getUsers",
     "getCurrentUser",
-    "getNavigation"
+    "getNavigation",
   ]),
   created: function() {
     

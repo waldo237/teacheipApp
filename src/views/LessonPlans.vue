@@ -53,10 +53,11 @@
                 
             <!-- snackbar for communicating with user ends-->
             <!-- dropdown menus to find info starts -->
-              <select id="level" class="sign-up elevation-24 pa-2 mt-3 mx-5" @change="selectMenu">
+              <select id="level" class="sign-up elevation-24 pa-2 mt-3 mx-5" @change="selectMenu" >
                 <option selected>
                   <span>select Level</span>
                 </option>
+                <!-- <option  v-for="item in getLessonPlans" :key="item.download" > <span v-show="filterLP(item.level)">{{item.level}}</span> </option> -->
               </select>
               <select
                     @change="selectMenu"
@@ -91,8 +92,8 @@
                             <th><v-layout class="mx-2" justify-right>Owner</v-layout></th>
                           </tr>
                         </thead>
-                        <tbody v-for="item in getLessonPlans" :key="item.download" class="tBody" >
-                          <tr class="lessonPlan" >
+                        <tbody v-for="item in getLessonPlans" :key="item.download" class="tBody" @loadstart="populateLevel(getLessonPlans)">
+                          <tr class="lessonPlan" @readystatechange="loading = false">
                           <td ><v-layout class="mx-2 " justify-right>{{ item.Name }}</v-layout> </td>
                           <td ><v-flex class="ma-2 text-truncate" style="max-width:150px">{{ item.parents }}</v-flex> </td>
                             <td><v-layout class="mx-2" justify-right>{{ item.level }}</v-layout> </td>
@@ -141,6 +142,7 @@
 import $ from 'jquery';
 import moment from 'moment'
 import {mapActions, mapGetters} from 'vuex'
+import { setTimeout } from 'timers';
 export default {
   name: "site",
   data(){
@@ -153,6 +155,10 @@ export default {
  computed: mapGetters(['getLessonPlans']),
   methods: {
     ...mapActions(['fetchLessonPlans']),
+    filterLP(level){
+      const series = document.querySelector("#level");
+     return (!series.textContent.includes(level))
+    },
   /**
    * ago
    * converts dates into how long ago
@@ -183,6 +189,9 @@ export default {
         return true;
     },
 // triggers an error if both dropdowns are not selected
+eventTrigger(){
+this.$emit('done');
+},
    showError() {
      const series = $("#series")
        .val()
@@ -240,7 +249,6 @@ export default {
     // select menu ends
     async  searching() {
         let word = await this.searcher;
-
        const done =await $(".lessonPlan").filter(function() {
           $(this).toggle(
             $(this)
@@ -250,11 +258,18 @@ export default {
           );
         });
     },
+    
   },
   // methods ends
   async created() {
     await this.fetchLessonPlans();
     this.populateLevel(this.getLessonPlans);
-  }
+  },
+  watch: {
+    'getLessonPlans': function (val, oldVal) {
+      this.loading = false;
+ 
+},
+    }
 };
 </script>

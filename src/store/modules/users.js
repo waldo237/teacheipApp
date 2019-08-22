@@ -1,15 +1,18 @@
 import db from '../../components/firebaseInit';
 import auth from 'firebase'
+import { async } from 'q';
 
 const state = {
     users: [],
     currentUser: {},
+    userDB: {},
     params: {},
 };
 const getters = {
     getUsers: (state) => state.users,
     getParams: (state) => state.params,
     getCurrentUser: (state) => state.currentUser,
+    getUserDB: (state) => state.userDB,
     
 };
 const actions = {
@@ -31,6 +34,7 @@ const actions = {
                     'email': doc.data().email,
                     'position': doc.data().position,
                     'level': doc.data().level,
+                
                 }
                 commit('setUsers', data);
             })
@@ -44,9 +48,10 @@ const actions = {
 
 };
 const mutations = {
-    setUsers: (state, value) => (state.users.push(value)),
+setUsers: (state, value) =>{state.users.push(value); },
+setUserDB: async (state, value) =>{state.userDB = await value;  await db.collection('Employees').doc().set(value)},
     setParams: (state, value) => (state.params = value),
-    setCurrentUser: (state, value) => (state.currentUser = value),
+    setCurrentUser:  (state, value) => (state.currentUser = value),
 };
 
 export default {

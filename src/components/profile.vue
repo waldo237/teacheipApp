@@ -2,11 +2,14 @@
 <template>
   <v-list class="tile" v-if="checkIsLoggedIn">
     <!-- photo display starts -->
-      <v-avatar>
-        <img
-          :src="getCurrentUser.photoURL"
-          :alt="getCurrentUser.displayName"/>
-      </v-avatar>
+      <v-avatar v-if="getCurrentUser.photoURL!== 'https://generic.jpg'">
+                <img :src="getCurrentUser.photoURL"
+              :alt="getCurrentUser.displayName" />
+            </v-avatar>    
+              <v-avatar color="red" v-else>
+              <span class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("")}}</span>
+
+            </v-avatar> 
     <!-- photo display ends -->
     <v-list-tile-title class="title text-md-center">{{getCurrentUser.displayName}}</v-list-tile-title>
     <v-list-tile-sub-title class="email">{{getCurrentUser.email}}</v-list-tile-sub-title>

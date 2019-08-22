@@ -11,11 +11,11 @@
                   <v-card-title>
                     <span class="headline">Politicas de TeachEIP.com</span>
                   </v-card-title>
-                    <Policy/>
+                  <Policy />
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn class="sign-up" text @click="policy = false">Disagree</v-btn>
-                    <v-btn class="sign-in" text @click="policy = false">Agree</v-btn>
+                    <v-btn class="sign-up" text @click="unCheckIt">Disagree</v-btn>
+                    <v-btn class="sign-in" text @click="checkIt">Agree</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -27,7 +27,7 @@
               <v-icon class="mr-3">new_releases</v-icon>New profile
             </span>
           </v-toolbar>
-          <v-card-text class="px-4">
+          <v-card-text class="px-4 pt-0">
             <v-text-field
               prepend-icon="person"
               v-model="name"
@@ -47,19 +47,36 @@
               data-vv-name="email"
               required
             ></v-text-field>
+            <div >
+              <v-text-field
+                @keyup="validateNum"
+                type="tel"
+                hint="Phone Number (Format: 809-999-9999)"
+                prepend-icon="phone"
+                v-model="phoneNumber"
+                :error="err"
+                label="Phone Number"
+                required
+              ></v-text-field>
+            </div>
             <v-text-field
               autocomplete
               prepend-icon="lock"
               name="password"
               label="Password"
               id="password"
+              required
+              passEError
               v-model="password"
+              hint="Your password should be at least 6 characters"
               :type="showPassword ? 'text': 'password' "
               :append-icon="showPassword ? 'visibility': 'visibility_off'"
               @click:append="showPassword = !showPassword"
             ></v-text-field>
             <v-text-field
+            @keyup="valRepeat"
               autocomplete
+              :error="errRepeat"
               prepend-icon="lock"
               name="repeat"
               label="Repeat Password"
@@ -70,14 +87,13 @@
               @click:append="showRepeat = !showRepeat"
             ></v-text-field>
             <!-- position selector starts -->
-            <v-flex xs>
+            <v-flex xs class="my-0">
               <v-select
                 v-model="select"
                 :items="positions"
                 text="text"
                 value="value"
                 label="Position"
-
                 return-object
               ></v-select>
             </v-flex>
@@ -89,19 +105,25 @@
                 <v-checkbox
                   class="checkbox mt-2 pa-0"
                   v-model="checkbox"
-                  v-validate="'required'" :error-messages="errors.collect('checkbox')"
-                  value="1"
+                  v-validate="'required'"
+                  :error-messages="errors.collect('checkbox')"
+                  :value="checkbox"
                   data-vv-name="checkbox"
                   type="checkbox"
                   required
                 ></v-checkbox>
               </v-flex>
-              <v-btn  color="white" depressed @click="policy= true" class="policy ma-0 pa-0 ">I have read and agree to your policy</v-btn>
+              <v-btn
+                color="white"
+                depressed
+                @click="policy= true"
+                class="policy ma-0 pa-0"
+              >I have read and agree to your policy</v-btn>
               <!-- checkbox and policy ends -->
 
               <!-- buttons box starts -->
               <v-card-actions class="ml-5">
-                <v-flex xl12  xs12>
+                <v-flex xl12 xs12>
                   <v-btn class="sign-up elevation-12 mx-2" flat @click="toggleSU">Close</v-btn>
                   <v-btn class="elevation-12 mx-2 hidden-sm-and-down" @click="clear">clear</v-btn>
                   <v-btn class="sign-in elevation-12 mx-3" @click="submit">submit</v-btn>
@@ -141,23 +163,29 @@ export default {
   $_veeValidate: {
     validator: "new"
   },
-  components:{
+  components: {
     Policy
   },
   data: () => ({
     positions: [
       { text: "Teacher", value: "teacher" },
       { text: "Coordinator", value: "coordinator" },
-      { text: "Supervisor", value: "supervisor" }
+      { text: "Supervisor", value: "supervisor" },
+      { text: "Manager", value: "manager" }
     ],
+    profile: {},
     policy: false,
     position: false,
     name: "",
+    phoneNumber: "",
     email: "",
     password: "",
     repeat: "",
     select: "",
+    err: false,
+    errRepeat: false,
     checkbox: null,
+    user:{},
     showPassword: false,
     showRepeat: false,
     dictionary: {
@@ -181,6 +209,28 @@ export default {
     this.$validator.localize("en", this.dictionary);
   },
   methods: {
+    validateNum() {
+      if (!this.phoneNumber.match(/^[2-9]\d{2}-\d{3}-\d{4}$/)) {
+        this.err = true;
+      } else {
+        this.err = false;
+      }
+    },
+    valRepeat() {
+      if (password.value!==repeat.value) {
+        this.errRepeat = true;
+      } else {
+        this.errRepeat = false;
+      }
+    },
+    checkIt() {
+      this.policy = false;
+      this.checkbox = "1";
+    },
+    unCheckIt() {
+      this.policy = false;
+      this.checkbox = null;
+    },
     showAlert(message, icon, classy) {
       this.$store.commit("setAlertType", { icon: icon, class: classy });
       this.runAlert(message);
@@ -188,31 +238,48 @@ export default {
     async submit(e) {
       e.preventDefault();
       let passed = await this.$validator.validateAll();
+      this.validateNum();
       if (passed) {
         auth
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(
             async () => {
+              await auth.auth().currentUser.sendEmailVerification();
+              await this.toggleIsLoggedIn();
+
+              this.profile.displayName = await this.name;
+              this.profile.updatePhoneNumber = this.phoneNumber;
+              this.profile.photoURL = await "https://generic.jpg";
+              // update profile auth
+              await auth.auth().currentUser.updateProfile(this.profile);
+                   await this.$store.commit(
+                  "setCurrentUser",
+                  auth.auth().currentUser
+                );
+              // update userdb
+               this.user.id=  await auth.auth().currentUser.uid
+                this.user.email= await this.email,
+               this.user.level= await 2,
+               this.user.name=  await this.name,
+               this.user.position= await this.position,
+               this.$store.commit('setUserDB', this.user)
+              this.dialog = false;
+
+              // await auth
+              //   .auth()
+              //   .currentUser.updateProfile({ displayName: this.name });
               await this.showAlert(
                 "Congratulations! Your account was created successfully. We have sent an email to activate account",
                 "done",
                 "success"
               );
-              await auth.auth().currentUser.sendEmailVerification();
-              await this.toggleIsLoggedIn();
-              await auth
-                .auth()
-                .currentUser.updateProfile({ displayName: this.name });
               await this.toggleSU();
               // redirect with curresponding id
               this.$router.push(`/dashboard/`);
               // update name
 
-              await this.$store.commit(
-                "setCurrentUser",
-                auth.auth().currentUser
-              );
+           
               setTimeout(() => {
                 this.$store.commit("setAlert", false);
               }, 3000);
@@ -223,20 +290,27 @@ export default {
           );
       }
     },
-  
+
     clear() {
       this.name = "";
       this.email = "";
+      this.phoneNumber = "";
       this.password = "";
       this.repeat = "";
       this.select = "";
       this.checkbox = null;
       this.position = "";
       this.$validator.reset();
+      this.err = false;
+      this.errRepeat = false;
     },
-    ...mapActions(["toggleSU", "toggleIsLoggedIn", "runAlert"])
+    ...mapActions(["toggleSU", "toggleIsLoggedIn", "runAlert","fetchAllUsers"])
   },
-  computed: mapGetters(["getSUDialog"])
+  created(){
+    this.fetchAllUsers()
+    // console.log(this.getUsers);
+  },
+  computed: mapGetters(["getSUDialog", "getCurrentUser", "getUserDB", "getUsers"])
 };
 </script>
 
