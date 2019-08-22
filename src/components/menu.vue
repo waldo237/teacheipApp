@@ -49,7 +49,7 @@
               :alt="getCurrentUser.displayName" />
             </v-avatar>    
               <v-avatar color="red" v-else>
-              <span class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("")}}</span>
+              <span  class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()}}</span>
 
             </v-avatar>   
         </v-btn>
@@ -64,11 +64,11 @@
       ></v-toolbar-side-icon>
         <v-list class="minimized elevation-24" v-if="sandwich" v-on-clickaway="hideMenu">
           <v-list-tile @click="profileModel = !profileModel"
-            v-if="checkIsLoggedIn">
+            v-if="checkIsLoggedIn" class="pb-1 white">
           <v-btn
             depressed
             fab
-            class="avatar-button mx-auto my-3"
+            class="avatar-button mx-auto my-0 pt-0"
      
           >
            <v-avatar v-if="getCurrentUser.photoURL!== 'https://generic.jpg'">
@@ -76,7 +76,7 @@
               :alt="getCurrentUser.displayName" />
             </v-avatar>    
               <v-avatar color="red" v-else>
-              <span class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("")}}</span>
+              <span  class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()}}</span>
 
             </v-avatar>   
 

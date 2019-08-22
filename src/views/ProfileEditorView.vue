@@ -28,7 +28,7 @@
               :alt="getCurrentUser.displayName" />
             </v-avatar>    
               <v-avatar color="red" v-else>
-              <span class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("")}}</span>
+              <span class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()}}</span>
 
             </v-avatar>    
           

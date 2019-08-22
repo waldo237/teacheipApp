@@ -1,5 +1,47 @@
 <template>
-  <v-layout row justify-center>
+  <v-layout>
+    <!-- pendingForVerification dialog starts -->
+    <v-dialog v-model="dialog" fullscreen persistent>
+      <v-layout justify-center>
+        <v-card min-width="100%" min-height="100%" class="pb-5 mb-5">
+          <v-toolbar color="white elevation-24">
+            <v-layout justify-start>
+              <v-toolbar-title>Waiting for email Verification</v-toolbar-title>
+            </v-layout>
+            <v-layout justify-center class="pr-5 mr-5">
+              <span class="teach display-1">Teach</span>
+              <span class="acronym display-1 mr-5 pr-5">EIP</span>
+            </v-layout>
+            <v-spacer></v-spacer>
+            <span class="acronym"></span>
+          </v-toolbar>
+          <v-layout justify-center class="ml-5">
+            <v-img
+              alt="Oh man! more waiting?"
+              src="https://media0.giphy.com/media/26DNhSJnqWFdgPgMo/source.gif"
+              lazy-src="https://media0.giphy.com/media/26DNhSJnqWFdgPgMo/source.gif"
+              aspect-ratio="1"
+              max-width="400"
+              max-height="400"
+            ></v-img>
+          </v-layout>
+
+          <v-layout class="pt-0" justify-center>
+            <v-list-tile
+              class="title"
+              justify-center
+            >We have sent an email to the provided email address, please go to your inbox and click on its link to continue!</v-list-tile>
+          </v-layout>
+
+          <v-layout class="pt-1" justify-center>
+            <v-list-tile-action>
+              <v-btn block class="sign-up mx-5 px-5 elevation-24" :disabled="disabled" @click="loadIt()">Continue</v-btn>
+            </v-list-tile-action>
+          </v-layout>
+        </v-card>
+      </v-layout>
+    </v-dialog>
+    <!-- pendingForVerification dialog ends -->
     <v-dialog v-model="getSUDialog" persistent max-width="500px">
       <v-form>
         <v-card>
@@ -47,7 +89,7 @@
               data-vv-name="email"
               required
             ></v-text-field>
-            <div >
+            <div>
               <v-text-field
                 @keyup="validateNum"
                 type="tel"
@@ -74,7 +116,7 @@
               @click:append="showPassword = !showPassword"
             ></v-text-field>
             <v-text-field
-            @keyup="valRepeat"
+              @keyup="valRepeat"
               autocomplete
               :error="errRepeat"
               prepend-icon="lock"
@@ -91,6 +133,7 @@
               <v-select
                 v-model="select"
                 :items="positions"
+                :error="isSelected"
                 text="text"
                 value="value"
                 label="Position"
@@ -158,6 +201,7 @@ import Vue from "vue";
 import VeeValidate from "vee-validate";
 Vue.use(VeeValidate);
 import auth from "firebase";
+import { async } from "q";
 
 export default {
   $_veeValidate: {
@@ -185,9 +229,12 @@ export default {
     err: false,
     errRepeat: false,
     checkbox: null,
-    user:{},
+    user: {},
     showPassword: false,
     showRepeat: false,
+    isSelected: false,
+    dialog: false,
+    disabled: true,
     dictionary: {
       attributes: {
         email: "E-mail Address"
@@ -212,15 +259,26 @@ export default {
     validateNum() {
       if (!this.phoneNumber.match(/^[2-9]\d{2}-\d{3}-\d{4}$/)) {
         this.err = true;
+        return false;
       } else {
         this.err = false;
+        return true;
       }
     },
     valRepeat() {
-      if (password.value!==repeat.value) {
+      if (password.value !== repeat.value) {
         this.errRepeat = true;
       } else {
         this.errRepeat = false;
+      }
+    },
+    valSelect() {
+      if (this.select) {
+        this.isSelected = false;
+        return true;
+      } else {
+        this.isSelected = true;
+        return false;
       }
     },
     checkIt() {
@@ -239,58 +297,63 @@ export default {
       e.preventDefault();
       let passed = await this.$validator.validateAll();
       this.validateNum();
-      if (passed) {
+      this.valSelect();
+      if (passed && this.validateNum() && this.valSelect()) {
         auth
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
-          .then(
-            async () => {
-              await auth.auth().currentUser.sendEmailVerification();
-              await this.toggleIsLoggedIn();
-
-              this.profile.displayName = await this.name;
-              this.profile.updatePhoneNumber = this.phoneNumber;
-              this.profile.photoURL = await "https://generic.jpg";
-              // update profile auth
-              await auth.auth().currentUser.updateProfile(this.profile);
-                   await this.$store.commit(
-                  "setCurrentUser",
-                  auth.auth().currentUser
-                );
-              // update userdb
-               this.user.id=  await auth.auth().currentUser.uid
-                this.user.email= await this.email,
-               this.user.level= await 2,
-               this.user.name=  await this.name,
-               this.user.position= await this.position,
-               this.$store.commit('setUserDB', this.user)
-              this.dialog = false;
-
-              // await auth
-              //   .auth()
-              //   .currentUser.updateProfile({ displayName: this.name });
-              await this.showAlert(
-                "Congratulations! Your account was created successfully. We have sent an email to activate account",
-                "done",
-                "success"
-              );
-              await this.toggleSU();
-              // redirect with curresponding id
-              this.$router.push(`/dashboard/`);
-              // update name
-
-           
-              setTimeout(() => {
-                this.$store.commit("setAlert", false);
-              }, 3000);
-            },
-            async err => {
-              this.showAlert(err.message, "warning", "warning");
-            }
-          );
+          .then(async credentials => {
+            await auth.auth().currentUser.sendEmailVerification();
+            this.dialog = true;
+          });
       }
     },
+    loadIt() {
 
+        async () => {
+          if (auth.auth().currentUser.emailVerified == true) {
+            await this.toggleIsLoggedIn();
+
+            this.profile.displayName = await this.name;
+            this.profile.updatePhoneNumber = this.phoneNumber;
+            this.profile.photoURL = await "https://generic.jpg";
+            // update profile auth
+            await auth.auth().currentUser.updateProfile(this.profile);
+            await this.$store.commit("setCurrentUser", auth.auth().currentUser);
+            // update userdb
+            this.user.id = await auth.auth().currentUser.uid;
+            (this.user.email = await this.email),
+              (this.user.level = await 2),
+              (this.user.name = await this.name),
+              (this.user.position = await this.select),
+              this.$store.commit("setUserDB", this.user);
+            this.dialog = false;
+
+            // await auth
+            //   .auth()
+            //   .currentUser.updateProfile({ displayName: this.name });
+            await this.showAlert(
+              "Congratulations! Your account was created successfully. We have sent an email to activate account",
+              "done",
+              "success"
+            );
+            await this.toggleSU();
+            // redirect with curresponding id
+            this.$router.push(`/dashboard/`);
+            // update name
+
+            setTimeout(() => {
+              this.$store.commit("setAlert", false);
+            }, 3000);
+          } else {
+            alert("you can't log in");
+          }
+        },
+          async err => {
+            this.showAlert(err.message, "warning", "warning");
+          };
+      
+    },
     clear() {
       this.name = "";
       this.email = "";
@@ -304,13 +367,25 @@ export default {
       this.err = false;
       this.errRepeat = false;
     },
-    ...mapActions(["toggleSU", "toggleIsLoggedIn", "runAlert","fetchAllUsers"])
+    ...mapActions(["toggleSU", "toggleIsLoggedIn", "runAlert", "fetchAllUsers"])
   },
-  created(){
-    this.fetchAllUsers()
-    // console.log(this.getUsers);
+  created() {
+    this.fetchAllUsers();
+    if (auth.auth().currentUser.emailVerified) {
+      this.dialog=false;
+      this.disabled=false;
+      this.loadIt()
+      }else{
+        this.dialog=true;
+      this.disabled=true;
+      }
   },
-  computed: mapGetters(["getSUDialog", "getCurrentUser", "getUserDB", "getUsers"])
+  computed: mapGetters([
+    "getSUDialog",
+    "getCurrentUser",
+    "getUserDB",
+    "getUsers"
+  ])
 };
 </script>
 
