@@ -34,6 +34,7 @@
         </v-toolbar-items>
         <v-btn @click="toggleSU" class="sign-up" v-if="!checkIsLoggedIn">REGISTER</v-btn>
         <v-btn @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn">SIGN IN</v-btn>
+          <v-btn  class="black-blue white--text" v-if="checkIsLoggedIn" to="/dashboard"> <v-icon color="white" class="mr-0">dashboard</v-icon><span class="ml-1">DASHBOARD</span></v-btn>
 
         <!-- profile avatar starts -->
         <v-btn
@@ -94,6 +95,7 @@
            {{ item.title }}
           </span>
           </v-list-tile>
+          <v-list-tile class="black-blue white--text" tag="v-btn" v-if="checkIsLoggedIn" to="/dashboard"> <v-icon color="white" class="mr-0">dashboard</v-icon> <span class="mx-auto">DASHBOARD</span></v-list-tile>
           <v-list-tile @click="toggleSU" class="sign-up" v-if="!checkIsLoggedIn"><span class="mx-auto">REGISTER</span></v-list-tile>
           <v-list-tile @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn"><span class="mx-auto">SIGN IN</span></v-list-tile>
       </v-list>
@@ -146,7 +148,7 @@ export default {
       drawer: false,
       sandwich: false,
       profileModel: false,
-      signIn: false
+      signIn: false,
       // sandwich menu element models
     };
   },
@@ -222,7 +224,13 @@ export default {
   display: block;
 }
 
-
+.black-blue{
+  background: linear-gradient(
+    1deg,
+    rgb(5, 30, 58),
+    rgb(0, 0, 0) 78%
+  ); 
+}
 .sign-in {
   color: white !important;
   background-color: rgb(19, 83, 147) !important;

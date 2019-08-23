@@ -1,10 +1,10 @@
 <template>
   <div class="mx-5 mb-5 pb-5 wrapper">
-    <v-layout class="mx-5 py-1 mt-3 elevation-10 justify-center wrapper-div sign-up" wrap>
+    <!-- <v-layout class="mx-5 py-1 mt-3 elevation-10 justify-center wrapper-div sign-up" wrap>
       <v-card class="display-1 sign-up" flat>
         <v-icon class="white--text mb-1" large>dashboard</v-icon>Dashboard
       </v-card>
-    </v-layout>
+    </v-layout> -->
     <v-layout class="mx-5 mb-5 pa-3 px-2 pb-5 pt-1 elevation-24 main-card" wrap>
       <v-layout class="mx-2 px-1 justify-center " flat wrap>
         <!-- upcoming events starts -->
@@ -158,9 +158,7 @@
           
         >
           <v-sparkline
-          style="
-  transform: rotate(-90deg) ;
-	transform-origin: left top ;"
+      
             :labels="labels"
             :value="value"
             color="white"
@@ -220,16 +218,16 @@ export default {
         { name: "UASD Santiago (CURSA)" }
       ],
       labels: [
-        'Basic 1-midterm',
-        'Basic 1-final',
-        'Basic 2-midterm',
-        'Basic 2-final',
-       'Intermediate 1-midterm',
-        'Intermediate 1-final',
-       'Intermediate 2-midterm',
-        'Intermediate 2-final',
-       'Advanced 1-midterm',
-        'Advanced 1-final',
+        'Bc1-m',
+        'Bc1-f',
+        'Bc2-m',
+        'Bc2-f',
+       'In1-m',
+        'In1-f',
+       'In2-m',
+        'In2-f',
+       'Ad1-m',
+        'Ad1-f',
        
       ],
       value: [
@@ -288,8 +286,8 @@ export default {
   background: rgb(79, 177, 83) !important;
   background: linear-gradient(
     90deg,
-    rgba(79, 177, 83, 1) 42%,
-    rgba(92, 250, 29, 0.904) 100%,
+    rgb(27, 117, 30) 42%,
+    rgba(55, 180, 5, 0.904) 100%,
     rgb(28, 28, 218) 100%
   ) !important;
 }
