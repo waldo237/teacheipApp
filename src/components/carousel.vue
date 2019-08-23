@@ -1,24 +1,14 @@
 <template>
-<div id="app">
-  <v-app id="inspire">
-    <v-carousel>
+<div id="app mb-0">
+    <v-carousel dark >
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
         :src="item.src"
-      ></v-carousel-item>
+      > </v-carousel-item>
     </v-carousel>
-  </v-app>
 </div>
-<!--  
-        <div class="hero">
-          <div class="hero-area-wrapper">
-            <div >Connect with other teachers, coordinators, supervisors, directors</div>
-          <v-btn large href="https://join.slack.com/t/englishimmers-em06602/shared_invite/enQtNjgwNzUxMTkzMjk2LTJlZGU3OGViYjAzYTI4NWMzZGUwNjMyNWQ2MGMwNTIxYzk2YzFjYzYwN2QyZDUxM2Q2YzM5ZDU4NWU4ZjcxMTU" >Start</v-btn>
 
-          
-          </div>
-        </div> -->
 </template>
 
 <style>
@@ -28,25 +18,23 @@ height: 80%;}
 </style>
 
 <script>
+
 export default {
   name: "HelloWorld",
-  props: {
-    msg: String
-  },
   data () {
     return {
       items: [
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
+          src: 'http://www.bachillere.com/wp-content/uploads/2018/11/Graduacion-Ingles-de-Inmersion-2018-Bachillere.jpg'
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
+          src: 'https://oinvestigacion.com/wp-content/uploads/2019/05/6fc8d995-graduacion.jpg'
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
+          src: 'https://ultimasnoticias.com.do/wp-content/uploads/2018/11/Feria-de-empleos.jpeg'
         },
         {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
+          src: 'https://eipschool.files.wordpress.com/2019/08/certificate-1.jpg'
         }
       ]
     }

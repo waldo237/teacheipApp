@@ -41,7 +41,7 @@
           fab
           color="white"
           class="avatar-button"
-          @click="profileModel = !profileModel"
+          @click="profileModel = true"
           v-if="checkIsLoggedIn"
         >
           <v-avatar v-if="getCurrentUser.photoURL !== 'https://generic.jpg'">
@@ -63,7 +63,7 @@
         @click="sandwich = true"
       ></v-toolbar-side-icon>
         <v-list class="minimized elevation-24" v-if="sandwich" v-on-clickaway="hideMenu">
-          <v-list-tile @click="profileModel = !profileModel"
+          <v-list-tile @click="profileModel = true"
             v-if="checkIsLoggedIn" class="pb-1 white">
           <v-btn
             depressed
@@ -190,7 +190,7 @@ export default {
       if(auth.auth().currentUser.emailVerified) this.$store.commit('setLoggedIn', true); this.$store.commit("setCurrentUser", auth.auth().currentUser);
     }
     this.onResize();
-    this.profileModel = false;
+    // this.profileModel = false;
   }
 };
 </script>

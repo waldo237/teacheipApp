@@ -9,7 +9,7 @@
     </v-alert>
     <!-- alerts online/offline ends-->
 
-      <v-layout id="masthead" align-center class="text-no-wrap text-center mt-4 ">
+      <v-layout id="masthead" align-center class="text-no-wrap text-center mt-4">
         <v-flex xl6 lg6 md8 sm6  ma-auto  class="d-flex align-center mt-5">
           <v-card flat class="text-center " id="logo" >
             <v-flex lg5 md8 sm12 xs3 ma-auto class="d-flex align-center">
@@ -29,7 +29,7 @@
             </v-flex>
             <v-card flat >
               <transition >
-              <v-card-title xs10 class=" titles display-2 font-weight-medium">
+              <v-card-title xs10 class=" titles display-2 font-weight-medium  pb-2">
                 <a href="https://teacheip.com/" rel="home" class="mx-auto site-title ">
                   Direccion de Lenguas
                   Extranjeras
@@ -37,7 +37,7 @@
                 <div class="mx-auto">
 
                 <v-card-text
-                class="title page-title"
+                class="title page-title mb-0 pb-0"
                 xl8 lg5 >
                 An
                 Academic Community for the English Immersion Program

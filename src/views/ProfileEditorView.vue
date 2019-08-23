@@ -10,11 +10,9 @@
             <v-icon>close</v-icon>
           </v-btn>
           <v-toolbar-title>Settings</v-toolbar-title>
-          <v-spacer></v-spacer><span class="teach">Teach</span>
-        <span class="acronym">EIP</span>
-         <v-spacer></v-spacer>
-        <span class="acronym"></span>
-          
+          <v-spacer></v-spacer><span class="teach title">Teach</span>
+          <span class="acronym title">EIP</span>
+          <v-spacer></v-spacer>
           <v-toolbar-items >
             <v-btn  text @click="save" class="sign-up">Save</v-btn>
           </v-toolbar-items>
@@ -35,40 +33,40 @@
             <v-btn small class="ma-3" color ="sign-up" @click="$refs.inputUpload.click()"><v-icon small>edit</v-icon>Upload</v-btn>
             <input v-show="false" ref="inputUpload" type="file" @change="uploadPhoto" id="file" accept="image/x-png,image/gif,image/jpeg">
             
-          </v-list-tile>
+            </v-list-tile>
         </v-layout>
         <v-layout justify-center>
           <!-- snackbar to notify completion starts -->
           <v-snackbar
-          class="error"
-            v-model="snackbar"
-            color
-            multi-line
-            :timeout="6000"
-            top='top'
-            >
-            "The photo has been uploaded, it will show in a few seconds "
-            <v-btn
-              dark
-              text
-              @click="snackbar = false"
-            >
-              Close
-            </v-btn>
-      </v-snackbar>
+            class="error"
+              v-model="snackbar"
+              color
+              multi-line
+              :timeout="6000"
+              top='top'
+              >
+              "The photo has been uploaded, it will show in a few seconds "
+              <v-btn
+                dark
+                text
+                @click="snackbar = false"
+              >
+                Close
+              </v-btn>
+            </v-snackbar>
           <!-- snackbar to notify completion ends -->
       
-              <v-progress-linear
-              height="25"
-              v-model="progress"
-               reactive
-              color="red"
-              class="mx-5"
-              v-if="progress>0"
-              >
-               
-              <strong>{{Math.ceil(progress) }}%</strong>
-          </v-progress-linear>
+          <v-progress-linear
+                height="25"
+                v-model="progress"
+                reactive
+                color="red"
+                class="mx-5"
+                v-if="progress>0"
+                >
+                
+                <strong>{{Math.ceil(progress) }}%</strong>
+            </v-progress-linear>
 
         </v-layout>
           <v-divider></v-divider>
@@ -81,8 +79,8 @@
                 :value="getCurrentUser.displayName"
                   label= NAME:
                   outlined
-              id="displayNameInput">
-                </v-text-field>
+                id="displayNameInput">
+                 </v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md3>
                 <v-text-field
@@ -90,7 +88,7 @@
                   label= PHONE NUMBER:
                   outlined
                    id="phoneNumberInput">
-              </v-text-field>
+                  </v-text-field>
             </v-flex>
           </v-list>
         <v-divider></v-divider>
@@ -129,24 +127,26 @@ import { async } from 'q';
             this.$store.commit('setEditProfile', !this.editProfile)
         },
     async  uploadPhoto(e){
-          // Create a root reference
-        const ref = await auth.storage().ref(`${auth.auth().currentUser.uid}/profilePicture/${auth.auth().currentUser.displayName}`);
-        // upload the photo
-       await ref.put(e.target.files[0]).on('state_changed', async (snapshot)=> {
-        //  make the progress element increment as data goes up
-           this.progress = await ( snapshot.bytesTransferred / snapshot.totalBytes)* 100;
-          //  display snackbar when upload is done
-                 if(Math.ceil(this.progress) > 99) {this.snackbar = true};
-          });
-          // access picture and assign it to variable
-          setTimeout(async()=>{
-            await auth.storage().ref(`${auth.auth().currentUser.uid}/profilePicture/${auth.auth().currentUser.displayName}`).getDownloadURL().then((url)=>{
-              this.url = url
-            }).catch((err)=>{
-              console.log(`there was an Error ${err}`);
-            });
-
-          }, 4000)
+      try {
+        // Create a root reference
+      const reference = await `${auth.auth().currentUser.uid}/profilePicture/${auth.auth().currentUser.displayName}`
+      const ref = await auth.storage().ref(reference);
+      // upload the photo
+     await ref.put(e.target.files[0]).on('state_changed', async (snapshot)=> {
+      //  make the progress element increment as data goes up
+         this.progress = await ( snapshot.bytesTransferred / snapshot.totalBytes)* 100;
+        //  display snackbar when upload is done
+               if(Math.ceil(this.progress) > 99) {
+                 this.snackbar = true; 
+                 await auth.storage().ref(reference).getDownloadURL().then(async url=>{
+                 this.url = await url
+              }).catch((err)=>{
+                console.log(`there was an Error ${err}`);
+              });};
+        });        
+      } catch (error) {
+        
+      }
         },
        async save(){
         //  populate the empty profile object
