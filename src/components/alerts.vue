@@ -26,14 +26,14 @@ import auth from 'firebase';
 export default {
   name: "alerting",
   methods: {
-    ...mapActions(["runAlert", "toggleAlert", "toggleIsLoggedIn"]),
+    ...mapActions(["runAlert", "toggleAlert"]),
     async setYes() {
       await auth
         .auth()
         .signOut()
         .then(async () => {
           await this.$router.push("/");
-          await this.toggleIsLoggedIn();
+          await this.$store.commit('setLoggedIn', false)
           await this.$store.commit('setAlert', false)
         });
     }

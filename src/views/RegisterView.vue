@@ -1,47 +1,6 @@
 <template>
   <v-layout>
-    <!-- pendingForVerification dialog starts -->
-    <v-dialog v-model="dialog" fullscreen persistent>
-      <v-layout justify-center>
-        <v-card min-width="100%" min-height="100%" class="pb-5 mb-5">
-          <v-toolbar color="white elevation-24">
-            <v-layout justify-start>
-              <v-toolbar-title>Waiting for email Verification</v-toolbar-title>
-            </v-layout>
-            <v-layout justify-center class="pr-5 mr-5">
-              <span class="teach display-1">Teach</span>
-              <span class="acronym display-1 mr-5 pr-5">EIP</span>
-            </v-layout>
-            <v-spacer></v-spacer>
-            <span class="acronym"></span>
-          </v-toolbar>
-          <v-layout justify-center class="ml-5">
-            <v-img
-              alt="Oh man! more waiting?"
-              src="https://media0.giphy.com/media/26DNhSJnqWFdgPgMo/source.gif"
-              lazy-src="https://media0.giphy.com/media/26DNhSJnqWFdgPgMo/source.gif"
-              aspect-ratio="1"
-              max-width="400"
-              max-height="400"
-            ></v-img>
-          </v-layout>
-
-          <v-layout class="pt-0" justify-center>
-            <v-list-tile
-              class="title"
-              justify-center
-            >We have sent an email to the provided email address, please go to your inbox and click on its link to continue!</v-list-tile>
-          </v-layout>
-
-          <v-layout class="pt-1" justify-center>
-            <v-list-tile-action>
-              <v-btn block class="sign-up mx-5 px-5 elevation-24" :disabled="disabled" @click="loadIt()">Continue</v-btn>
-            </v-list-tile-action>
-          </v-layout>
-        </v-card>
-      </v-layout>
-    </v-dialog>
-    <!-- pendingForVerification dialog ends -->
+  
     <v-dialog v-model="getSUDialog" persistent max-width="500px">
       <v-form>
         <v-card>
@@ -169,7 +128,7 @@
                 <v-flex xl12 xs12>
                   <v-btn class="sign-up elevation-12 mx-2" flat @click="toggleSU">Close</v-btn>
                   <v-btn class="elevation-12 mx-2 hidden-sm-and-down" @click="clear">clear</v-btn>
-                  <v-btn class="sign-in elevation-12 mx-3" @click="submit">submit</v-btn>
+                  <v-btn class="sign-in elevation-12 mx-3" @click="submit" :loading="loading">submit</v-btn>
                 </v-flex>
               </v-card-actions>
               <!-- buttons box ends -->
@@ -233,8 +192,7 @@ export default {
     showPassword: false,
     showRepeat: false,
     isSelected: false,
-    dialog: false,
-    disabled: true,
+    loading: false,
     dictionary: {
       attributes: {
         email: "E-mail Address"
@@ -266,7 +224,7 @@ export default {
       }
     },
     valRepeat() {
-      if (password.value !== repeat.value) {
+      if (this.password.value !== this.repeat.value) {
         this.errRepeat = true;
       } else {
         this.errRepeat = false;
@@ -302,18 +260,12 @@ export default {
         auth
           .auth()
           .createUserWithEmailAndPassword(this.email, this.password)
-          .then(async credentials => {
+          .then(async () => {
+             this.loading= await true;
             await auth.auth().currentUser.sendEmailVerification();
-            this.dialog = true;
-          });
-      }
-    },
-    loadIt() {
-
+           
+          }).then(
         async () => {
-          if (auth.auth().currentUser.emailVerified == true) {
-            await this.toggleIsLoggedIn();
-
             this.profile.displayName = await this.name;
             this.profile.updatePhoneNumber = this.phoneNumber;
             this.profile.photoURL = await "https://generic.jpg";
@@ -333,7 +285,7 @@ export default {
             //   .auth()
             //   .currentUser.updateProfile({ displayName: this.name });
             await this.showAlert(
-              "Congratulations! Your account was created successfully. We have sent an email to activate account",
+              "Congratulations! Your account was created successfully. But you must validate it through your email to continue",
               "done",
               "success"
             );
@@ -342,18 +294,20 @@ export default {
             this.$router.push(`/dashboard/`);
             // update name
 
+            this.loading= await false;
             setTimeout(() => {
               this.$store.commit("setAlert", false);
             }, 3000);
-          } else {
-            alert("you can't log in");
-          }
         },
           async err => {
+            this.loading= await false;
             this.showAlert(err.message, "warning", "warning");
-          };
-      
+
+          }
+      );
+      }
     },
+ 
     clear() {
       this.name = "";
       this.email = "";
@@ -367,18 +321,11 @@ export default {
       this.err = false;
       this.errRepeat = false;
     },
-    ...mapActions(["toggleSU", "toggleIsLoggedIn", "runAlert", "fetchAllUsers"])
+    ...mapActions(["toggleSU", "runAlert", "fetchAllUsers"])
   },
   created() {
     this.fetchAllUsers();
-    if (auth.auth().currentUser.emailVerified) {
-      this.dialog=false;
-      this.disabled=false;
-      this.loadIt()
-      }else{
-        this.dialog=true;
-      this.disabled=true;
-      }
+   
   },
   computed: mapGetters([
     "getSUDialog",

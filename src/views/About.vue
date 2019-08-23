@@ -4,7 +4,7 @@
       <div class="elevation-24 ma-5 sign-in">
         <v-layout justify-space-around>
           <v-flex xs10>
-            <v-card-media column>
+            <v-card column>
               <v-img
                 src="https://media.giphy.com/media/LnEuDtpBRuQNIPU2ZD/giphy.gif"
                 alt="We bring change!"
@@ -15,7 +15,7 @@
                 max-width="580"
                 max-height="430"
               ></v-img>
-            </v-card-media>
+            </v-card>
           </v-flex>
         </v-layout>
 

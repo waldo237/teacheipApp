@@ -69,7 +69,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["toggleSI", "toggleIsLoggedIn", "runAlert",'setAlertMessage','setAlert']),
+    ...mapActions(["toggleSI",  "runAlert",'setAlertMessage','setAlert']),
     showAlert(message, icon, classy){
       this.$store.commit('setAlertType',{icon: icon, class: classy})
             this.runAlert(message);
@@ -82,13 +82,13 @@ async    signIn(e) {
         .then(
           async () => {
             await  this.showAlert(`Successfully logged in ${this.email}`, 'info', 'info');
-            await this.toggleIsLoggedIn();
+
             await this.$store.commit('setSIDialog', false)
              this.$router.push(`/dashboard/`);
             this.$store.commit("setCurrentUser", auth.auth().currentUser);
             this.loading = await false;    
 
-            setTimeout(()=>{ this.$store.commit('setAlert', false) }, 1000);
+            setTimeout(()=>{ this.$store.commit('setAlert', false) }, 4000);
           },
           async err => {
             // -------------------------------------------------------

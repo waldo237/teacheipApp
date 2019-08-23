@@ -249,6 +249,7 @@ export default {
   },
   computed: mapGetters(["getUsers", "getParams", "getCurrentUser"]),
   async created() {
+    await this.$store.commit('setLoggedIn', true)
     await this.$store.commit("setParams", JSON.stringify(route));
     this.fetchUsers();
   },

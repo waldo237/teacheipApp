@@ -34,9 +34,7 @@ const actions = {
     toggleAlert ({commit}){
         state.alert = !state.alert;
     },
-    toggleIsLoggedIn ({commit}){
-        commit('setLoggedIn', !state.isLoggedIn);
-    },
+   
     toggleSU ({commit}){
 
         commit('setSUDialog', !state.SUDialog);

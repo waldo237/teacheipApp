@@ -133,8 +133,6 @@ import profile from "@/components/profile.vue";
 import sidemenu from "@/components/sidemenu.vue";
 import { mapActions, mapGetters } from "vuex";
 import auth from "firebase";
-import { async } from "q";
-import { setTimeout } from "timers";
 export default {
   name: "menu1",
   components: { popupRegister, signInForm, alerting, profile, sidemenu },
@@ -157,21 +155,6 @@ export default {
       this.$store.commit("setAlertType", { icon: icon, class: classy });
       this.runAlert(message);
     },
-    async logout() {
-      await this.showAlert(
-        "Are you sure you want to log out",
-        "help_outline",
-        "warning"
-      );
-      this.drawer = await false;
-      auth
-        .auth()
-        .signOut()
-        .then(async () => {
-          this.$router.push("/");
-          this.toggleIsLoggedIn();
-        });
-    },
     closeProfile: function() {
       if (this.profileModel) {
         this.profileModel = false;
@@ -193,7 +176,7 @@ export default {
       });
     },
  
-    ...mapActions(["toggleSI", "toggleSU", "toggleIsLoggedIn", "runAlert"])
+    ...mapActions(["toggleSI", "toggleSU", "runAlert"])
   },
   computed: mapGetters([
     "checkIsLoggedIn",
@@ -204,8 +187,7 @@ export default {
   created: function() {
     
     if (auth.auth().currentUser) {
-      this.toggleIsLoggedIn();
-      this.$store.commit("setCurrentUser", auth.auth().currentUser);
+      if(auth.auth().currentUser.emailVerified) this.$store.commit('setLoggedIn', true); this.$store.commit("setCurrentUser", auth.auth().currentUser);
     }
     this.onResize();
     this.profileModel = false;

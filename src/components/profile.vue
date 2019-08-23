@@ -11,7 +11,7 @@
 
             </v-avatar> 
     <!-- photo display ends -->
-    <v-list-tile-title class="title text-md-center">{{getCurrentUser.displayName}}</v-list-tile-title>
+    <v-list-tile-title class="title mx-5 px-1">{{getCurrentUser.displayName}}</v-list-tile-title>
     <v-list-tile-sub-title class="email">{{getCurrentUser.email}}</v-list-tile-sub-title>
       <v-card-actions class="justify-center">
        <!-- editor dialog starts -->
@@ -48,7 +48,7 @@ export default {
       );
       
     },
-    ...mapActions(["toggleIsLoggedIn", "runAlert"]),
+    ...mapActions([ "runAlert"]),
             toggleEditProfile(){
             this.$store.commit('setEditProfile', !this.editProfile)
         }

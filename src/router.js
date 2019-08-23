@@ -72,6 +72,12 @@ let router = new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/Useterms.vue'),
   
     }
+,{
+      path: '/pendingVerification',
+      name: 'pendingVerification',
+      component: () => import(/* webpackChunkName: "about" */ './views/PendingVerificationView.vue'),
+
+    }
    
  
   ]
@@ -83,9 +89,18 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // Check if NO logged user
     if (!auth.auth().currentUser) {
+      
       // Go to login
       next({
         path: '/',
+        query: {
+          redirect: to.hash
+        }
+      });
+    } else if(!auth.auth().currentUser.emailVerified) {
+      // Proceed to route
+      next({
+        path: '/pendingVerification',
         query: {
           redirect: to.hash
         }
@@ -94,7 +109,9 @@ router.beforeEach((to, from, next) => {
       // Proceed to route
       next();
     }
-  } else if (to.matched.some(record => record.meta.requiresGuest)) {
+  } 
+  
+  else if (to.matched.some(record => record.meta.requiresGuest)) {
     // Check if NO logged user
     if (auth.auth().currentUser) {
       // Go to login
