@@ -181,7 +181,6 @@ export default {
        this.init();
     },
     mounted(){
-             console.log(process.env.NODE_ENV) 
 
     }
 }

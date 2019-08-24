@@ -3,8 +3,8 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import Vuetify from 'vuetify'
-import dotenv from 'dotenv'
-dotenv.config();
+// import dotenv from 'dotenv'
+// dotenv.config();
 import VeeValidate from 'vee-validate';
 import  {auth} from 'firebase/app'; 
 import './components/firebaseInit'; 

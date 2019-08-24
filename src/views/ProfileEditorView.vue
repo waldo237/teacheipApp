@@ -142,7 +142,7 @@ import { async } from 'q';
                  this.url = await url
               }).catch((err)=>{
                 console.log(`there was an Error ${err}`);
-              });};
+              });}
         });        
       } catch (error) {
         
