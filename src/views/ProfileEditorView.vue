@@ -101,7 +101,8 @@
 </style>
 
 <script>
-import auth from 'firebase'
+import {firebase, auth} from 'firebase'
+import 'firebase/storage';
 import {mapGetters, mapMutations} from 'vuex'
 import { setTimeout } from 'timers';
 import { async } from 'q';
@@ -129,8 +130,8 @@ import { async } from 'q';
     async  uploadPhoto(e){
       try {
         // Create a root reference
-      const reference = await `${auth.auth().currentUser.uid}/profilePicture/${auth.auth().currentUser.displayName}`
-      const ref = await auth.storage().ref(reference);
+      const reference = await `${auth().currentUser.uid}/profilePicture/${auth().currentUser.displayName}`
+      const ref = await storage().ref(reference);
       // upload the photo
      await ref.put(e.target.files[0]).on('state_changed', async (snapshot)=> {
       //  make the progress element increment as data goes up
@@ -138,7 +139,7 @@ import { async } from 'q';
         //  display snackbar when upload is done
                if(Math.ceil(this.progress) > 99) {
                  this.snackbar = true; 
-                 await auth.storage().ref(reference).getDownloadURL().then(async url=>{
+                 await storage().ref(reference).getDownloadURL().then(async url=>{
                  this.url = await url
               }).catch((err)=>{
                 console.log(`there was an Error ${err}`);
@@ -154,12 +155,12 @@ import { async } from 'q';
         if( document.querySelector("#phoneNumberInput").value)  this.profile.updatePhoneNumber =  await document.querySelector("#phoneNumberInput").value;
         if( this.url) this.profile.photoURL = this.url;
             // pass profile object to auth.currentUser
-           await auth.auth().currentUser.updateProfile(this.profile);
-          //  await auth.auth().currentUser.updatePhoneNumber(this.profile.updatePhoneNumber);
+           await auth().currentUser.updateProfile(this.profile);
+          //  await auth().currentUser.updatePhoneNumber(this.profile.updatePhoneNumber);
             //  pass the Auth.CurrentUser to Local CurrentUser
            await this.$store.commit(
                 "setCurrentUser",
-                auth.auth().currentUser
+                auth().currentUser
               );
         this.dialog = false;
         }  

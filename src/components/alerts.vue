@@ -22,14 +22,13 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
-import auth from 'firebase';
+import {firebase,auth} from 'firebase';
 export default {
   name: "alerting",
   methods: {
     ...mapActions(["runAlert", "toggleAlert"]),
     async setYes() {
-      await auth
-        .auth()
+      await auth()
         .signOut()
         .then(async () => {
           await this.$router.push("/");

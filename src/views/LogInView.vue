@@ -57,8 +57,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import auth from "firebase";
-
+import {firebase, auth} from "firebase/app";
 export default {
   data: () => {
     return {
@@ -76,8 +75,7 @@ export default {
     },
 async    signIn(e) {
       this.loading = await true;    
-      auth
-        .auth()
+      auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(
           async () => {
@@ -85,7 +83,7 @@ async    signIn(e) {
 
             await this.$store.commit('setSIDialog', false)
              this.$router.push(`/dashboard/`);
-            this.$store.commit("setCurrentUser", auth.auth().currentUser);
+            this.$store.commit("setCurrentUser", auth().currentUser);
             this.loading = await false;    
 
             setTimeout(()=>{ this.$store.commit('setAlert', false) }, 4000);

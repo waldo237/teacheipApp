@@ -134,7 +134,7 @@ import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
 import sidemenu from "@/components/sidemenu.vue";
 import { mapActions, mapGetters } from "vuex";
-import auth from "firebase";
+import {firebase, auth} from "firebase/app";
 export default {
   name: "menu1",
   components: { popupRegister, signInForm, alerting, profile, sidemenu },
@@ -187,9 +187,9 @@ export default {
     "getNavigation",
   ]),
   created: function() {
-    
-    if (auth.auth().currentUser) {
-      if(auth.auth().currentUser.emailVerified) this.$store.commit('setLoggedIn', true); this.$store.commit("setCurrentUser", auth.auth().currentUser);
+  
+    if (auth().currentUser) {
+      if(auth().currentUser.emailVerified) this.$store.commit('setLoggedIn', true); this.$store.commit("setCurrentUser", auth().currentUser);
     }
     this.onResize();
     // this.profileModel = false;

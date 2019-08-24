@@ -51,7 +51,7 @@
 </style>
  
 <script>
-import auth from "firebase";
+import {firebase, auth} from "firebase/app";
 import { mapGetters, mapMutations } from "vuex";
 import { setTimeout, setInterval } from "timers";
 import { async } from "q";
@@ -75,8 +75,8 @@ export default {
   created() {
     if (!this.isDone) {
       setInterval(async ()=>{
-        await auth.auth().currentUser.reload();
-        if (auth.auth().currentUser.emailVerified) {
+        await auth().currentUser.reload();
+        if (auth().currentUser.emailVerified) {
         console.log("fuck")
           this.disabled = false;
         }

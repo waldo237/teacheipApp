@@ -159,9 +159,8 @@ import { mapGetters, mapActions } from "vuex";
 import Vue from "vue";
 import VeeValidate from "vee-validate";
 Vue.use(VeeValidate);
-import auth from "firebase";
+import {firebase, auth} from "firebase/app";
 import { async } from "q";
-
 export default {
   $_veeValidate: {
     validator: "new"
@@ -257,12 +256,12 @@ export default {
       this.validateNum();
       this.valSelect();
       if (passed && this.validateNum() && this.valSelect()) {
-        auth
-          .auth()
+       
+          auth()
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(async () => {
              this.loading= await true;
-            await auth.auth().currentUser.sendEmailVerification();
+            await auth().currentUser.sendEmailVerification();
            
           }).then(
         async () => {
@@ -270,20 +269,16 @@ export default {
             this.profile.updatePhoneNumber = this.phoneNumber;
             this.profile.photoURL = await "https://generic.jpg";
             // update profile auth
-            await auth.auth().currentUser.updateProfile(this.profile);
-            await this.$store.commit("setCurrentUser", auth.auth().currentUser);
+            await auth().currentUser.updateProfile(this.profile);
+            await this.$store.commit("setCurrentUser", auth().currentUser);
             // update userdb
-            this.user.id = await auth.auth().currentUser.uid;
+            this.user.id = await auth().currentUser.uid;
             (this.user.email = await this.email),
               (this.user.level = await 2),
               (this.user.name = await this.name),
               (this.user.position = await this.select),
               this.$store.commit("setUserDB", this.user);
             this.dialog = false;
-
-            // await auth
-            //   .auth()
-            //   .currentUser.updateProfile({ displayName: this.name });
             await this.showAlert(
               "Congratulations! Your account was created successfully. But you must validate it through your email to continue",
               "done",

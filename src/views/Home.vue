@@ -89,7 +89,7 @@
             max-width="300px"
             min-width="300px"
           >
-            <v-card-title class="sign-in elevation-20">
+            <v-card-title class="blue-cards elevation-24">
               <v-layout justify-center>
                 <v-avatar size="150" class="ma-1">
                   <img
@@ -157,7 +157,7 @@ export default {
 };
 </script>
 <style>
-@import url("https://fonts.googleapis.com/css?family=Playfair+Display&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Francois+One&display=swap");
 .the-program {
   background: #135393 !important;
   background: linear-gradient(50deg, #135393, #d13c34) !important;
@@ -168,8 +168,8 @@ export default {
   border-radius: 8px !important;
 }
 .main-title {
-  font-family: "Playfair Display", serif !important;
-  font-style: italic !important;
+  font-family: "Francois One", serif !important;
+  /* font-style: italic !important; */
   color:#135393
 }
 .testimony-text {
@@ -178,6 +178,11 @@ export default {
 }
 .flip {
   transform: rotate(180deg) scaleX(1) !important;
+}
+.blue-cards{
+  background: linear-gradient(0deg, rgba(3,15,27,1) 33%, rgb(20, 91, 161) 100%);
+  color: white;
+  
 }
 </style>
 

@@ -30,7 +30,7 @@
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
 import editor from "../views/ProfileEditorView.vue";
-import auth from "firebase";
+import {firebase, auth} from "firebase/app";
 export default {
   components: {editor},
   methods: {

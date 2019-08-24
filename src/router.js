@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import auth from 'firebase';
+import {firebase, auth} from 'firebase';
 Vue.use(Router)
-
 let router = new Router({
   routes: [
     {
@@ -88,7 +87,7 @@ router.beforeEach((to, from, next) => {
   // Check for requiresAuth guard
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // Check if NO logged user
-    if (!auth.auth().currentUser) {
+    if (!auth().currentUser) {
       
       // Go to login
       next({
@@ -97,7 +96,7 @@ router.beforeEach((to, from, next) => {
           redirect: to.hash
         }
       });
-    } else if(!auth.auth().currentUser.emailVerified) {
+    } else if(!auth().currentUser.emailVerified) {
       // Proceed to route
       next({
         path: '/pendingVerification',
@@ -113,7 +112,7 @@ router.beforeEach((to, from, next) => {
   
   else if (to.matched.some(record => record.meta.requiresGuest)) {
     // Check if NO logged user
-    if (auth.auth().currentUser) {
+    if (auth().currentUser) {
       // Go to login
       next({
         path: '/dashboard',

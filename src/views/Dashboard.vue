@@ -5,7 +5,7 @@
         <v-icon class="white--text mb-1" large>dashboard</v-icon>Dashboard
       </v-card>
     </v-layout> -->
-    <v-layout class="mx-5 mb-5 pa-3 px-2 pb-5 pt-1 elevation-24 main-card" wrap>
+    <v-layout class="mx-5 mb-5 pa-3 px-2 pb-5 pt-1  main-card" wrap>
       <v-layout class="mx-2 px-1 justify-center " flat wrap>
         <!-- upcoming events starts -->
         <v-card
@@ -15,7 +15,7 @@
           max-width="400px"
           min-width="380px"
           >
-          <v-card-title primary-title class="justify-center yellow darken-4 elevation-12 py-2">
+          <v-card-title primary-title class="justify-center orangish elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
               <v-icon large class="mr-2">alarm</v-icon>Upcoming events
             </h3>
@@ -31,7 +31,7 @@
           max-width="400px"
           min-width="380px"
           >
-          <v-card-title primary-title class="instructions justify-center elevation-12 py-2">
+          <v-card-title primary-title class="instructions justify-center elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
               <v-icon large class="mx-2">sms</v-icon>Task Report
             </h3>
@@ -103,7 +103,7 @@
           min-width="240px"
           style="overflow:auto;"
           >
-          <v-card-title primary-title class="justify-center centers darken-4 elevation-12 py-2" >
+          <v-card-title primary-title class="justify-center centers darken-4 elevation-12 py-1" >
             <h3 class="title white--text text--accent-2">
               <v-icon large class="mr-2 white--text">location_city</v-icon>Centers
             </h3>
@@ -145,7 +145,7 @@
           max-width="500px"
           min-width="500px"
         >
-          <v-card-title primary-title class="justify-center statistics-right darken-4 elevation-12 py-2">
+          <v-card-title primary-title class="justify-center statistics-right darken-4 elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
               <v-icon large class="mr-2 white--text">location_city</v-icon>Scores history in your centers
             </h3>
@@ -174,11 +174,11 @@
             <!-- statistics ends -->
             <!-- statistics starts -->
             <v-card
-              class=" ml-2 mt-2 elevation-24 grids statistics-card"
+              class=" ml-3 mt-2 elevation-24 grids statistics-card"
               max-width="500px"
               min-width="500px"
             >
-          <v-card-title primary-title class="justify-center statistics darken-4 elevation-12 py-2">
+          <v-card-title primary-title class="justify-center statistics darken-4 elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
               <v-icon large class="mr-2 white--text">location_city</v-icon>Weekly Attendance in centers
             </h3>
@@ -270,26 +270,24 @@ export default {
   background: rgb(116, 49, 110);
   background: linear-gradient(
     90deg,
-    rgb(247, 27, 100) 14%,
-    rgb(206, 172, 19) 78%
+    rgb(0, 0, 0) 20%,
+    rgb(119, 128, 0) 78%
   );
 }
 .centers {
-  background: rgb(116, 49, 110);
-  background: linear-gradient(
-    90deg,
-    rgba(116, 49, 110, 1) 14%,
-    rgba(16, 16, 177, 1) 78%
-  );
+ background: linear-gradient(0deg, rgba(2,2,32,1) 33%, rgba(88,17,254,1) 100%);
 }
 .instructions {
   background: rgb(79, 177, 83) !important;
   background: linear-gradient(
-    90deg,
+    0deg,
     rgb(27, 117, 30) 42%,
-    rgba(55, 180, 5, 0.904) 100%,
+    rgba(59, 200, 4, 0.904) 100%,
     rgb(28, 28, 218) 100%
   ) !important;
+}
+.orangish{
+background: linear-gradient(0deg, rgba(5,69,70,1) 34%, rgba(218,153,13,1) 100%)!important;
 }
 .grids {
   border-radius: 5px !important;

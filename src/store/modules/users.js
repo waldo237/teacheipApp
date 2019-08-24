@@ -1,6 +1,5 @@
 import db from '../../components/firebaseInit';
-import auth from 'firebase'
-import { async } from 'q';
+
 
 const state = {
     users: [],

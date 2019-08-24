@@ -2,14 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
-// import BootstrapVue from 'bootstrap-vue'
 import Vuetify from 'vuetify'
 import VeeValidate from 'vee-validate';
-import auth from 'firebase'; 
+import {firebase, auth} from 'firebase/app'; 
 import './components/firebaseInit'; 
  
 let app;
-auth.auth().onAuthStateChanged((user)=>{
+auth().onAuthStateChanged((user)=>{
   if(!app){
     app = new Vue({
       store,
