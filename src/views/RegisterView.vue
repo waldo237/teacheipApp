@@ -159,7 +159,7 @@ import { mapGetters, mapActions } from "vuex";
 import Vue from "vue";
 import VeeValidate from "vee-validate";
 Vue.use(VeeValidate);
-import {firebase, auth} from "firebase/app";
+import {auth} from "firebase/app";
 import { async } from "q";
 export default {
   $_veeValidate: {

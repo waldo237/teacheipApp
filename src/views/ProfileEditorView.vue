@@ -101,8 +101,7 @@
 </style>
 
 <script>
-import {firebase, auth} from 'firebase'
-import 'firebase/storage';
+import {storage, auth} from 'firebase'
 import {mapGetters, mapMutations} from 'vuex'
 import { setTimeout } from 'timers';
 import { async } from 'q';

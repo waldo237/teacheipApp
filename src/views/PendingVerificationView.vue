@@ -51,7 +51,7 @@
 </style>
  
 <script>
-import {firebase, auth} from "firebase/app";
+import {auth} from "firebase/app";
 import { mapGetters, mapMutations } from "vuex";
 import { setTimeout, setInterval } from "timers";
 import { async } from "q";

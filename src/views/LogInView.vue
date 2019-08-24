@@ -57,7 +57,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import {firebase, auth} from "firebase/app";
+import {auth} from "firebase/app";
 export default {
   data: () => {
     return {

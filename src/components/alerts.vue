@@ -22,7 +22,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
-import {firebase,auth} from 'firebase';
+import {auth} from 'firebase';
 export default {
   name: "alerting",
   methods: {
