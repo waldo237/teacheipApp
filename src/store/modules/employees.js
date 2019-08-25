@@ -10,8 +10,8 @@ const actions = {
    
     async fetchEmployees({commit}){
         try {
-            const response = await 
-            axios.get('https://script.google.com/macros/s/AKfycbxFPRq-4fY_oUSdkIkzf-4grcdcHSbbiZUNpsjzDVKhFvyFn0c/exec');
+            const response = await
+            axios.get(process.env.EMPLOYEES);
                 commit('setEmployees', response.data);  
             
         } catch (error) {
