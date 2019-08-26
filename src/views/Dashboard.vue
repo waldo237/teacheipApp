@@ -1,11 +1,11 @@
 <template>
-  <div class="mx-5 mb-5 pb-5 wrapper">
+  <!-- <div class="mx-5 mb-5 pb-5 wrapper"> -->
     <!-- <v-layout class="mx-5 py-1 mt-3 elevation-10 justify-center wrapper-div sign-up" wrap>
       <v-card class="display-1 sign-up" flat>
         <v-icon class="white--text mb-1" large>dashboard</v-icon>Dashboard
       </v-card>
     </v-layout>-->
-    <v-layout class="mx-5 mb-5 pa-3 px-2 pb-5 pt-1 main-card" wrap>
+    <v-layout class="mx-3 mb-5 pa-3 px-2 pb-5 pt-1 main-card" wrap>
       <v-layout class="mx-2 px-1 justify-center" flat wrap>
         <!-- upcoming events starts -->
         <v-card
@@ -17,7 +17,7 @@
         >
           <v-card-title primary-title class="justify-center orangish elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
-              <v-icon large class="mr-2">alarm</v-icon>Upcoming events
+              <v-icon color="white" medium class="mr-2">alarm</v-icon>Upcoming events
             </h3>
           </v-card-title>
           <v-card-text class="title">{{direccion.notification}} </v-card-text>
@@ -33,7 +33,7 @@
         >
           <v-card-title primary-title class="instructions justify-center elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
-              <v-icon large class="mx-2">sms</v-icon>Task Report
+              <v-icon color="white" medium class="mx-2">sms</v-icon>Task Report
             </h3>
           </v-card-title>
           <v-card-text class="justify-center">
@@ -102,10 +102,10 @@
           max-width="240px"
           min-width="240px"
           style="overflow:auto;"
-        >
+          >
           <v-card-title primary-title class="justify-center centers darken-4 elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
-              <v-icon large class="mr-2 white--text">location_city</v-icon>Centers
+              <v-icon color="white" medium class="mr-2 white--text">location_city</v-icon>Centers
             </h3>
           </v-card-title>
 
@@ -138,19 +138,19 @@
         <!-- centers ends -->
       </v-layout>
       <!-- statistics layout starts -->
-      <v-layout class="mx-5 mb-5 pb-5 justify-start" flat wrap>
+      <v-layout class="mx-5 mb-5 pb-5" flat wrap justify-center>
         <!-- statistics starts -->
         <v-card
-          class="mr-2 mt-2 elevation-24 grids statistics-card"
-          max-width="500px"
+          class="mx-2 mt-2 elevation-24 grids statistics-card"
+    
           min-width="500px"
-        >
+          >
           <v-card-title
             primary-title
             class="justify-center statistics-right darken-4 elevation-12 py-1"
           >
             <h3 class="title white--text text--accent-2">
-              <v-icon large class="mr-2 white--text">location_city</v-icon>Scores history in your centers
+              <v-icon large class="mr-2 white--text">equalizer</v-icon>Scores history in your centers
             </h3>
           </v-card-title>
           <div>
@@ -168,13 +168,13 @@
         <!-- statistics ends -->
         <!-- statistics starts -->
         <v-card
-          class="ml-3 mt-2 elevation-24 grids statistics-card"
-          max-width="500px"
+          class="mx-2 mt-2 elevation-24 grids statistics-card"
+          max-height="170px"
           min-width="500px"
-        >
+          >
           <v-card-title primary-title class="justify-center statistics darken-4 elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
-              <v-icon large class="mr-2 white--text">location_city</v-icon>Weekly Attendance in centers
+              <v-icon large class="mr-2 white--text">timeline</v-icon>Weekly Attendance in centers
             </h3>
           </v-card-title>
           <div style="overflow-x:auto;" class="mb-5">
@@ -196,7 +196,7 @@
       </v-layout>
       <!-- statistics layout ends -->
     </v-layout>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -316,7 +316,7 @@ export default {
     margin-top: 5% !important;
   }
   .statistics-card {
-    min-width: 340px !important;
+    min-width: 380px !important;
     margin: 0 !important;
     padding: 0% !important;
     margin-top: 5% !important;
