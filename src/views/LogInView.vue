@@ -79,7 +79,7 @@ async    signIn(e) {
         .signInWithEmailAndPassword(this.email, this.password)
         .then(
           async () => {
-            await  this.showAlert(`Successfully logged in ${this.email}`, 'info', 'info');
+            await  this.showAlert(`Successfully logged in ${this.email}`, 'info', 'info sign-in');
 
             await this.$store.commit('setSIDialog', false)
              this.$router.push(`/dashboard/`);
@@ -91,7 +91,7 @@ async    signIn(e) {
           async err => {
             // -------------------------------------------------------
             this.loading = await false;  
-            this.showAlert(err.message, 'warning', 'warning')
+            this.showAlert(err.message, 'warning', 'warning orange')
           }
         ),
         e.preventDefault();

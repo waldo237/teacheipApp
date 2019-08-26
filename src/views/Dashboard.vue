@@ -4,9 +4,9 @@
       <v-card class="display-1 sign-up" flat>
         <v-icon class="white--text mb-1" large>dashboard</v-icon>Dashboard
       </v-card>
-    </v-layout> -->
-    <v-layout class="mx-5 mb-5 pa-3 px-2 pb-5 pt-1  main-card" wrap>
-      <v-layout class="mx-2 px-1 justify-center " flat wrap>
+    </v-layout>-->
+    <v-layout class="mx-5 mb-5 pa-3 px-2 pb-5 pt-1 main-card" wrap>
+      <v-layout class="mx-2 px-1 justify-center" flat wrap>
         <!-- upcoming events starts -->
         <v-card
           class="justify-center mx-1 elevation-24 grids"
@@ -14,13 +14,13 @@
           max-height="350px"
           max-width="400px"
           min-width="380px"
-          >
+        >
           <v-card-title primary-title class="justify-center orangish elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
               <v-icon large class="mr-2">alarm</v-icon>Upcoming events
             </h3>
           </v-card-title>
-          <v-card-text>May 6, 2010 - Note that this article is about creating rounded corners in Photoshop. ... (V), (CTRL+D) (CTRL+T), (CTRL+ENTER) you can get bloody quick at doing this ... The lazy radius problem occurs when your curve doesn't go a full 90 ...</v-card-text>
+          <v-card-text class="title">{{direccion.notification}} </v-card-text>
         </v-card>
         <!-- upcoming events ends -->
         <!-- intructions start -->
@@ -30,7 +30,7 @@
           max-height="350px"
           max-width="400px"
           min-width="380px"
-          >
+        >
           <v-card-title primary-title class="instructions justify-center elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
               <v-icon large class="mx-2">sms</v-icon>Task Report
@@ -102,13 +102,13 @@
           max-width="240px"
           min-width="240px"
           style="overflow:auto;"
-          >
-          <v-card-title primary-title class="justify-center centers darken-4 elevation-12 py-1" >
+        >
+          <v-card-title primary-title class="justify-center centers darken-4 elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
               <v-icon large class="mr-2 white--text">location_city</v-icon>Centers
             </h3>
           </v-card-title>
-          
+
           <div class="mb-2">
             <table class="mx-2">
               <thead>
@@ -137,57 +137,64 @@
         </v-card>
         <!-- centers ends -->
       </v-layout>
-   <!-- statistics layout starts -->
-      <v-layout class="mx-5 mb-5  pb-5  justify-start " flat wrap>
-   <!-- statistics starts -->
+      <!-- statistics layout starts -->
+      <v-layout class="mx-5 mb-5 pb-5 justify-start" flat wrap>
+        <!-- statistics starts -->
         <v-card
-          class=" mr-2 mt-2 elevation-24 grids statistics-card"
+          class="mr-2 mt-2 elevation-24 grids statistics-card"
           max-width="500px"
           min-width="500px"
         >
-          <v-card-title primary-title class="justify-center statistics-right darken-4 elevation-12 py-1">
+          <v-card-title
+            primary-title
+            class="justify-center statistics-right darken-4 elevation-12 py-1"
+          >
             <h3 class="title white--text text--accent-2">
               <v-icon large class="mr-2 white--text">location_city</v-icon>Scores history in your centers
             </h3>
           </v-card-title>
           <div>
-        <v-sheet
-          class="v-sheet--offset mx-auto"
-          color="black"
-          elevation="12"
-          
+            <v-sheet class="v-sheet--offset mx-auto" color="black" elevation="12">
+              <v-sparkline
+                :labels="labels"
+                :value="value"
+                color="white"
+                line-width="3"
+                padding="16"
+              ></v-sparkline>
+            </v-sheet>
+          </div>
+        </v-card>
+        <!-- statistics ends -->
+        <!-- statistics starts -->
+        <v-card
+          class="ml-3 mt-2 elevation-24 grids statistics-card"
+          max-width="500px"
+          min-width="500px"
         >
-          <v-sparkline
-      
-            :labels="labels"
-            :value="value"
-            color="white"
-            line-width="3"
-            padding="16"
-
-          ></v-sparkline>
-        </v-sheet>
-
-
-              </div>
-            </v-card>
-            <!-- statistics ends -->
-            <!-- statistics starts -->
-            <v-card
-              class=" ml-3 mt-2 elevation-24 grids statistics-card"
-              max-width="500px"
-              min-width="500px"
-            >
           <v-card-title primary-title class="justify-center statistics darken-4 elevation-12 py-1">
             <h3 class="title white--text text--accent-2">
               <v-icon large class="mr-2 white--text">location_city</v-icon>Weekly Attendance in centers
             </h3>
           </v-card-title>
-          <div style="overflow-x:auto;" class="mb-5"></div>
+          <div style="overflow-x:auto;" class="mb-5">
+               <div>
+            <v-sheet class="v-sheet--offset mx-auto"  elevation="12">
+              <v-sparkline
+              class=" black--text"
+                :labels="days"
+                :value="attendance"
+               
+                line-width="3"
+                padding="16"
+              ></v-sparkline>
+            </v-sheet>
+          </div>
+          </div>
         </v-card>
         <!-- statistics ends -->
       </v-layout>
-   <!-- statistics layout ends -->
+      <!-- statistics layout ends -->
     </v-layout>
   </div>
 </template>
@@ -201,6 +208,9 @@ export default {
     return {
       date: new Date().toISOString().substr(0, 10),
       menu: false,
+      direccion:{
+        notification:'Zomnia and Giseh have set up a meeting  on Tuesday, August 27th at 9:00 am at Jean Piaget, Santiago.'
+      },
       centers: [
         { name: "Centro de Formación Integral de Clase (CEFORMA) " },
         { name: "Centro de Maimón Puerto Plata" },
@@ -218,28 +228,26 @@ export default {
         { name: "UASD Santiago (CURSA)" }
       ],
       labels: [
-        'Bc1-m',
-        'Bc1-f',
-        'Bc2-m',
-        'Bc2-f',
-       'In1-m',
-        'In1-f',
-       'In2-m',
-        'In2-f',
-       'Ad1-m',
-        'Ad1-f',
-       
+        "Bc1-m",
+        "Bc1-f",
+        "Bc2-m",
+        "Bc2-f",
+        "In1-m",
+        "In1-f",
+        "In2-m",
+        "In2-f",
+        "Ad1-m",
+        "Ad1-f"
       ],
-      value: [
-        200,
-        675,
-        410,
-        390,
-        310,
-        460,
-        250,
-        240,
+      days: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
       ],
+      value: [200, 675, 410, 390, 310, 460, 250, 240],
+      attendance: [675, 500, 650, 675, 310]
     };
   },
   methods: {
@@ -247,7 +255,7 @@ export default {
   },
   computed: mapGetters(["getUsers", "getParams", "getCurrentUser"]),
   async created() {
-    await this.$store.commit('setLoggedIn', true)
+    await this.$store.commit("setLoggedIn", true);
     await this.$store.commit("setParams", JSON.stringify(route));
     this.fetchUsers();
   },
@@ -260,22 +268,18 @@ export default {
 <style scoped>
 .statistics-right {
   background: rgb(116, 49, 110);
-  background: linear-gradient(
-    90deg,
-    rgb(153, 23, 0) 14%,
-    rgb(0, 0, 0) 78%
-  );
+  background: linear-gradient(90deg, rgb(153, 23, 0) 14%, rgb(0, 0, 0) 78%);
 }
 .statistics {
   background: rgb(116, 49, 110);
-  background: linear-gradient(
-    90deg,
-    rgb(0, 0, 0) 20%,
-    rgb(119, 128, 0) 78%
-  );
+  background: linear-gradient(90deg, rgb(0, 0, 0) 20%, rgb(119, 128, 0) 78%);
 }
 .centers {
- background: linear-gradient(0deg, rgba(2,2,32,1) 33%, rgba(88,17,254,1) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(2, 2, 32, 1) 33%,
+    rgba(88, 17, 254, 1) 100%
+  );
 }
 .instructions {
   background: rgb(79, 177, 83) !important;
@@ -286,8 +290,12 @@ export default {
     rgb(28, 28, 218) 100%
   ) !important;
 }
-.orangish{
-background: linear-gradient(0deg, rgba(5,69,70,1) 34%, rgba(218,153,13,1) 100%)!important;
+.orangish {
+  background: linear-gradient(
+    0deg,
+    rgba(5, 69, 70, 1) 34%,
+    rgba(218, 153, 13, 1) 100%
+  ) !important;
 }
 .grids {
   border-radius: 5px !important;
@@ -308,8 +316,9 @@ background: linear-gradient(0deg, rgba(5,69,70,1) 34%, rgba(218,153,13,1) 100%)!
     margin-top: 5% !important;
   }
   .statistics-card {
-    min-width: 400px !important;
-   padding: 0% !important;
+    min-width: 340px !important;
+    margin: 0 !important;
+    padding: 0% !important;
     margin-top: 5% !important;
   }
   .wrapper-div {

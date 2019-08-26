@@ -5,7 +5,7 @@
       <v-card min-width="100%" min-height="100%" class="pb-5 mb-5">
         <v-toolbar color="white elevation-24">
           <v-layout justify-start>
-            <v-toolbar-title>Waiting for email Verification</v-toolbar-title>
+            <v-toolbar-title class="hidden-sm-and-down">Waiting for email Verification</v-toolbar-title>
           </v-layout>
           <v-layout justify-center class="pr-5 mr-5">
             <span class="teach display-1">Teach</span>

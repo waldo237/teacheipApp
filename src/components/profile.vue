@@ -43,7 +43,7 @@ export default {
       await this.showAlert(
         " Are you sure you want to log out?",
         "help_outline",
-        "warning",
+        "warning orange",
         true
       );
       

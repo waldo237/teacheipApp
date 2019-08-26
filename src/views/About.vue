@@ -1,6 +1,6 @@
 <template>
   <v-layout id="inspire" row justify-center>
-    <div class="px-5 pb-5">
+    <div class="px-5 pb-5 content">
       <div class="elevation-24 ma-5 sign-in">
         <v-layout justify-space-around>
           <v-flex xs10>
@@ -39,7 +39,7 @@ export default {};
   font-family: "Oswald", sans-serif;
   font-family: "Lexend Exa", sans-serif;
   font-weight: lighter !important;
-  text-align:initial;
+  text-align: initial;
 }
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
 .img {
@@ -50,6 +50,13 @@ export default {};
 .img:active {
   animation-duration: 4s;
   animation-name: hinge;
+}
+@media screen and (max-width: 960px) {
+  .content {
+    padding: 0% !important;
+    margin: 0% !important;
+    margin-bottom: 10% !important;
+  }
 }
 
 /* The animation code */

@@ -282,7 +282,7 @@ export default {
             await this.showAlert(
               "Congratulations! Your account was created successfully. But you must validate it through your email to continue",
               "done",
-              "success"
+              "success green"
             );
             await this.toggleSU();
             // redirect with curresponding id
@@ -296,7 +296,7 @@ export default {
         },
           async err => {
             this.loading= await false;
-            this.showAlert(err.message, "warning", "warning");
+            this.showAlert(err.message, "warning", "warning orange");
 
           }
       );
