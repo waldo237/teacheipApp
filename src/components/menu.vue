@@ -5,7 +5,7 @@
     <!-- complete navigation starts -->
     <v-toolbar app style="background-color:white">
       <!--  sandwich menu for side bar/menu-->
-      <v-toolbar-side-icon @click="drawer= !drawer" v-if="checkIsLoggedIn"></v-toolbar-side-icon>
+      <v-toolbar-side-icon large @click="drawer= !drawer" v-if="checkIsLoggedIn"></v-toolbar-side-icon>
       <!-- sandwich menu -->
 
       <!-- logo starts -->
@@ -59,6 +59,8 @@
       <!-- expanded navigation bar ends-->
       <!--  minimized menu starts-->
       <v-toolbar-side-icon
+        large
+        
         class="hidden-md-and-up mx-auto"
         slot
         @click="sandwich = true"
