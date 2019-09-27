@@ -1,6 +1,5 @@
 <template>
   <v-layout>
-  
     <v-dialog v-model="getSUDialog" persistent max-width="500px">
       <v-form>
         <v-card>
@@ -320,7 +319,7 @@ export default {
   },
   created() {
     this.fetchAllUsers();
-   
+  //  why are you fetching them?
   },
   computed: mapGetters([
     "getSUDialog",

@@ -26,5 +26,5 @@ Vue.use(Vuetify, {
 Vue.config.productionTip = false
 // Vue.use(BootstrapVue) 
 
-global.vm = app;
+// global.vm = app;
 
