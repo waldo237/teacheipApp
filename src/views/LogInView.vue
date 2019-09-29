@@ -21,7 +21,7 @@
               clearable
               prepend-icon="person"
               name="login"
-              label="Login"
+              label="Email"
               type="text"
               v-model="email"
             ></v-text-field>

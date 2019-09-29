@@ -56,7 +56,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .search{
      margin: 0 auto;
      width: 80%; 

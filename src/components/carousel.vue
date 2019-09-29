@@ -11,7 +11,7 @@
 
 </template>
 
-<style>
+<style scoped>
 .hero{
   background-color: rgba(0, 0, 0, 0.459);
 height: 80%;}

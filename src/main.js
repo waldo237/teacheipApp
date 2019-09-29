@@ -3,9 +3,7 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import Vuetify from 'vuetify'
-// import dotenv from 'dotenv'
-// dotenv.config();
-import VeeValidate from 'vee-validate';
+// import VeeValidate from 'vee-validate';
 import  {auth} from 'firebase/app'; 
 import './components/firebaseInit'; 
  
@@ -19,12 +17,10 @@ auth().onAuthStateChanged((user)=>{
     }).$mount('#app')
   }
 })
-Vue.use(VeeValidate);
 Vue.use(Vuetify, {
   iconfont: 'sm'
 }) 
+// Vue.use(VeeValidate);
 Vue.config.productionTip = false
-// Vue.use(BootstrapVue) 
 
-// global.vm = app;
 

@@ -31,9 +31,9 @@ export default {
       await auth()
         .signOut()
         .then(async () => {
-          await this.$router.push("/");
           await this.$store.commit('setLoggedIn', false)
           await this.$store.commit('setAlert', false)
+          await this.$router.push("/");
         });
     }
   },

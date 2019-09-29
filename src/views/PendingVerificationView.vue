@@ -77,7 +77,6 @@ export default {
       setInterval(async ()=>{
         await auth().currentUser.reload();
         if (auth().currentUser.emailVerified) {
-        console.log("fuck")
           this.disabled = false;
         }
       }, 1000);

@@ -156,7 +156,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Francois+One&display=swap");
 .the-program {
   background: #135393 !important;

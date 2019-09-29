@@ -33,7 +33,7 @@
 <script>
 export default {};
 </script>
-<style>
+<style scoped>
 @import url("https://fonts.googleapis.com/css?family=Lexend+Exa|Oswald&display=swap");
 .big-words {
   font-family: "Oswald", sans-serif;

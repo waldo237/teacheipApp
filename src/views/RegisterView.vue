@@ -2,9 +2,40 @@
   <v-layout>
     <v-dialog v-model="getSUDialog" persistent max-width="500px">
       <v-form>
-        <v-card>
+        <v-card width="500px" height="150px">
+          <v-layout align-content-start>
+            <v-toolbar dense>
+              <v-spacer></v-spacer>
+              <v-toolbar-title class="logo">
+                <v-icon>lock_open</v-icon>
+                <span class="teach">Teach</span>
+                <span class="acronym">EIP</span>
+              </v-toolbar-title>
+              <v-btn icon @click="toggleSU">
+                <v-icon>close</v-icon>
+              </v-btn>
+            </v-toolbar>
+          </v-layout>
+          <v-card-text class="pa-3">
+            <v-btn @click="google" class="font-weight-bold elevation-10">
+              <img
+                src="https://www.solarwinds.com/-/media/solarwinds/swdcv2/licensed-products/service-desk/integrations/sd-integrations-logo-google-single-sign-on.ashx?la=en&rev=aab01f816f1c4af5b415d614081150ee&hash=80ED17DEB435A7EFFC9C29101FBC92C5B05FD5D2"
+                width="25px"
+                class="mr-2"
+                alt
+              /> sign in with google
+            </v-btn>
+            <v-btn @click="facebook" class="pa-0">
+              <img
+                src="https://scontent-mia3-1.xx.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?_nc_cat=105&_nc_oc=AQnI3MUZbcszVmz_wlcN3NxoTulZduqDs2cWXVrHJKPOxljjS8UgOb4KZzIt9i7-Rog&_nc_ht=scontent-mia3-1.xx&oh=c88d20b766fc7095a9db17e30678ccfb&oe=5DF01DEA"
+                width="205px"
+                class="ma-0 elevation-10"
+                alt
+              /> 
+            </v-btn>
+          </v-card-text>
           <!--  the policy dialogue starts-->
-          <template>
+          <!-- <template>
             <v-layout justify-center>
               <v-dialog v-model="policy" width="900px">
                 <v-card>
@@ -20,9 +51,9 @@
                 </v-card>
               </v-dialog>
             </v-layout>
-          </template>
+          </template>-->
           <!--  the policy dialogue ends-->
-          <v-toolbar class="sign-up elevation-10" dense>
+          <!-- <v-toolbar class="sign-up elevation-10" dense>
             <span class="headline">
               <v-icon class="mr-3">new_releases</v-icon>New profile
             </span>
@@ -38,16 +69,7 @@
               data-vv-name="name"
               required
             ></v-text-field>
-            <v-text-field
-              prepend-icon="email"
-              v-model="email"
-              v-validate="'required|email'"
-              :error-messages="errors.collect('email')"
-              label="E-mail"
-              data-vv-name="email"
-              required
-            ></v-text-field>
-            <div>
+        
               <v-text-field
                 @keyup="validateNum"
                 type="tel"
@@ -58,7 +80,16 @@
                 label="Phone Number"
                 required
               ></v-text-field>
-            </div>
+            <v-text-field
+              prepend-icon="email"
+              v-model="email"
+              v-validate="'required|email'"
+              :error-messages="errors.collect('email')"
+              label="E-mail"
+              data-vv-name="email"
+              required
+            ></v-text-field>
+        
             <v-text-field
               autocomplete
               prepend-icon="lock"
@@ -86,8 +117,8 @@
               :append-icon="showRepeat ? 'visibility': 'visibility_off'"
               @click:append="showRepeat = !showRepeat"
             ></v-text-field>
-            <!-- position selector starts -->
-            <v-flex xs class="my-0">
+          <!-- position selector starts-->
+          <!-- <v-flex xs class="my-0">
               <v-select
                 v-model="select"
                 :items="positions"
@@ -97,12 +128,13 @@
                 label="Position"
                 return-object
               ></v-select>
-            </v-flex>
-            <!-- position selector ends -->
+          </v-flex>-->
 
-            <v-layout row wrap class="policy">
-              <!-- checkbox and policy starts -->
-              <v-flex sm1 xs1>
+          <!-- position selector ends -->
+
+          <!-- <v-layout row wrap class="policy"> -->
+          <!-- checkbox and policy starts -->
+          <!-- <v-flex sm1 xs1>
                 <v-checkbox
                   class="checkbox mt-2 pa-0"
                   v-model="checkbox"
@@ -119,20 +151,20 @@
                 depressed
                 @click="policy= true"
                 class="policy ma-0 pa-0"
-              >I have read and agree to your policy</v-btn>
-              <!-- checkbox and policy ends -->
+          >I have read and agree to your policy</v-btn>-->
+          <!-- checkbox and policy ends -->
 
-              <!-- buttons box starts -->
-              <v-card-actions class="ml-5">
+          <!-- buttons box starts -->
+          <!-- <v-card-actions class="ml-5">
                 <v-flex xl12 xs12>
                   <v-btn class="sign-up elevation-12 mx-2" flat @click="toggleSU">Close</v-btn>
                   <v-btn class="elevation-12 mx-2 hidden-sm-and-down" @click="clear">clear</v-btn>
                   <v-btn class="sign-in elevation-12 mx-3" @click="submit" :loading="loading">submit</v-btn>
                 </v-flex>
               </v-card-actions>
-              <!-- buttons box ends -->
-            </v-layout>
-          </v-card-text>
+          <!-- buttons box ends-->
+          <!-- </v-layout>
+          </v-card-text>-->
         </v-card>
       </v-form>
     </v-dialog>
@@ -158,8 +190,12 @@ import { mapGetters, mapActions } from "vuex";
 import Vue from "vue";
 import VeeValidate from "vee-validate";
 Vue.use(VeeValidate);
-import {auth} from "firebase/app";
+import { auth } from "firebase/app";
+import firebase from "firebase";
 import { async } from "q";
+const provider = new firebase.auth.GoogleAuthProvider();   
+const providerF = new firebase.auth.FacebookAuthProvider();   
+
 export default {
   $_veeValidate: {
     validator: "new"
@@ -212,8 +248,50 @@ export default {
     this.$validator.localize("en", this.dictionary);
   },
   methods: {
+    async facebook(){
+    firebase.auth().signInWithPopup(providerF).then(function(result) {
+      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+    });
+    },
+    async google() {
+      await firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const token = result.credential.accessToken;
+          // The signed-in user info.
+          const user = result.user;
+        })
+        .catch(function(error) {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          const credential = error.credential;
+        });
+      await this.toggleSU();
+      // redirect with curresponding id
+      await this.$router.push(`/dashboard/`);
+      // update name
+    },
     validateNum() {
-      if (!this.phoneNumber.match(/^[2-9]\d{2}-\d{3}-\d{4}$/)) {
+      if (!this.phoneNumber.match(/^[2-9]\d{2}\d{3}\d{4}$/)) {
         this.err = true;
         return false;
       } else {
@@ -255,53 +333,51 @@ export default {
       this.validateNum();
       this.valSelect();
       if (passed && this.validateNum() && this.valSelect()) {
-       
-          auth()
+        auth()
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(async () => {
-             this.loading= await true;
+            this.loading = await true;
             await auth().currentUser.sendEmailVerification();
-           
-          }).then(
-        async () => {
-            this.profile.displayName = await this.name;
-            this.profile.updatePhoneNumber = this.phoneNumber;
-            this.profile.photoURL = await "https://generic.jpg";
-            // update profile auth
-            await auth().currentUser.updateProfile(this.profile);
-            await this.$store.commit("setCurrentUser", auth().currentUser);
-            // update userdb
-            this.user.id = await auth().currentUser.uid;
-            (this.user.email = await this.email),
-              (this.user.level = await 2),
-              (this.user.name = await this.name),
-              (this.user.position = await this.select),
+          })
+          .then(
+            async () => {
+              this.profile.displayName = await this.name;
+              this.profile.updatePhoneNumber = this.phoneNumber;
+              this.profile.photoURL = await "https://generic.jpg";
+              // update profile auth
+              await auth().currentUser.updateProfile(this.profile);
+              await this.$store.commit("setCurrentUser", auth().currentUser);
+              // update userdb
+              this.user.id = await auth().currentUser.uid;
+              this.user.email = await this.email;
+              this.user.level = await 2;
+              this.user.name = await this.name;
+              this.user.position = await this.select;
               this.$store.commit("setUserDB", this.user);
-            this.dialog = false;
-            await this.showAlert(
-              "Congratulations! Your account was created successfully. But you must validate it through your email to continue",
-              "done",
-              "success green"
-            );
-            await this.toggleSU();
-            // redirect with curresponding id
-            this.$router.push(`/dashboard/`);
-            // update name
+              this.dialog = false;
+              await this.showAlert(
+                "Congratulations! Your account was created successfully. But you must validate it through your email to continue",
+                "done",
+                "success green"
+              );
+              await this.toggleSU();
+              // redirect with curresponding id
+              this.$router.push(`/dashboard/`);
+              // update name
 
-            this.loading= await false;
-            setTimeout(() => {
-              this.$store.commit("setAlert", false);
-            }, 3000);
-        },
-          async err => {
-            this.loading= await false;
-            this.showAlert(err.message, "warning", "warning orange");
-
-          }
-      );
+              this.loading = await false;
+              setTimeout(() => {
+                this.$store.commit("setAlert", false);
+              }, 3000);
+            },
+            async err => {
+              this.loading = await false;
+              this.showAlert(err.message, "warning", "warning orange");
+            }
+          );
       }
     },
- 
+
     clear() {
       this.name = "";
       this.email = "";
@@ -319,7 +395,7 @@ export default {
   },
   created() {
     this.fetchAllUsers();
-  //  why are you fetching them?
+    //  why are you fetching them?
   },
   computed: mapGetters([
     "getSUDialog",
