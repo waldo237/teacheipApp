@@ -1,39 +1,40 @@
 <template>
   <v-layout>
-    <v-dialog v-model="getSUDialog" persistent max-width="500px">
+    <v-dialog v-model="getSUDialog" persistent max-width="465px" min-width="465px" lass="round">
       <v-form>
-        <v-card width="500px" height="150px">
+        <v-card width="465px" height="150px" color="#135393" min-width="465px" class="round">
           <v-layout align-content-start>
-            <v-toolbar dense>
-              <v-spacer></v-spacer>
+            <v-toolbar dense class="elevation-24 round">
               <v-toolbar-title class="logo">
                 <v-icon>lock_open</v-icon>
                 <span class="teach">Teach</span>
                 <span class="acronym">EIP</span>
               </v-toolbar-title>
+              <v-spacer></v-spacer>
               <v-btn icon @click="toggleSU">
                 <v-icon>close</v-icon>
               </v-btn>
             </v-toolbar>
           </v-layout>
-          <v-card-text class="pa-3">
-            <v-btn @click="google" class="font-weight-bold elevation-10">
+          <v-layout class="pt-4 px-1" align-center>
+            <v-btn @click="google" class="font-weight-bold elevation-24 round">
               <img
                 src="https://www.solarwinds.com/-/media/solarwinds/swdcv2/licensed-products/service-desk/integrations/sd-integrations-logo-google-single-sign-on.ashx?la=en&rev=aab01f816f1c4af5b415d614081150ee&hash=80ED17DEB435A7EFFC9C29101FBC92C5B05FD5D2"
                 width="25px"
                 class="mr-2"
                 alt
-              /> sign in with google
+              />sign up with google
             </v-btn>
-            <v-btn @click="facebook" class="pa-0">
+            <v-btn @click="facebook" class="pa-0 px-2 font-weight-bold  elevation-24 round">
               <img
-                src="https://scontent-mia3-1.xx.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?_nc_cat=105&_nc_oc=AQnI3MUZbcszVmz_wlcN3NxoTulZduqDs2cWXVrHJKPOxljjS8UgOb4KZzIt9i7-Rog&_nc_ht=scontent-mia3-1.xx&oh=c88d20b766fc7095a9db17e30678ccfb&oe=5DF01DEA"
-                width="205px"
-                class="ma-0 elevation-10"
+                src="https://image.flaticon.com/icons/png/512/124/124010.png"
+                width="27px"
+                class="mr-2 elevation-10"
                 alt
-              /> 
+              />
+              sign up with Faceboook
             </v-btn>
-          </v-card-text>
+          </v-layout>
           <!--  the policy dialogue starts-->
           <!-- <template>
             <v-layout justify-center>
@@ -182,6 +183,10 @@
   margin: 0px;
   padding: 0px;
 }
+.round{
+    border-radius: 5px !important;
+
+}
 </style>
 
 <script>
@@ -193,8 +198,8 @@ Vue.use(VeeValidate);
 import { auth } from "firebase/app";
 import firebase from "firebase";
 import { async } from "q";
-const provider = new firebase.auth.GoogleAuthProvider();   
-const providerF = new firebase.auth.FacebookAuthProvider();   
+const provider = new firebase.auth.GoogleAuthProvider();
+const providerF = new firebase.auth.FacebookAuthProvider();
 
 export default {
   $_veeValidate: {
@@ -248,23 +253,27 @@ export default {
     this.$validator.localize("en", this.dictionary);
   },
   methods: {
-    async facebook(){
-    firebase.auth().signInWithPopup(providerF).then(function(result) {
-      // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
-      // ...
-    }).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
-      // ...
-    });
+    async facebook() {
+      firebase
+        .auth()
+        .signInWithPopup(providerF)
+        .then(function(result) {
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // ...
+        })
+        .catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+        });
     },
     async google() {
       await firebase
@@ -285,9 +294,10 @@ export default {
           // The firebase.auth.AuthCredential type that was used.
           const credential = error.credential;
         });
+        await this.$store.commit('setLanding', true)
+      await this.$router.push(`/landing/`);
       await this.toggleSU();
       // redirect with curresponding id
-      await this.$router.push(`/dashboard/`);
       // update name
     },
     validateNum() {

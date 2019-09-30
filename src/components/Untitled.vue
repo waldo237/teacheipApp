@@ -2,16 +2,22 @@
   <v-treeview
     :items="getNavigation.administrative"
     activatable
-  shaped
-  dense
+    shaped
+    dense
   >
     <template v-slot:prepend="{ item, subfolders }">
-    <v-list-tile-content class="list-item ml-4">
-            <v-list-tile-title class="font-weight-bold caption">
-              <v-icon color="rgb(19,83,147)" small class="mr-2">{{item.icon}}</v-icon>
-              {{ item.title }}
-            </v-list-tile-title>
-          </v-list-tile-content>
+      <v-list-tile-content class="list-item ml-4">
+        <v-list-tile-title class="font-weight-bold caption">
+          <v-icon
+            color="rgb(19,83,147)"
+            small
+            class="mr-2"
+          >
+            {{ item.icon }}
+          </v-icon>
+          {{ item.title }}
+        </v-list-tile-title>
+      </v-list-tile-content>
     </template>
   </v-treeview>
 </template>

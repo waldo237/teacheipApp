@@ -1,14 +1,13 @@
 <template>
-<div id="app mb-0">
-    <v-carousel dark >
+  <div id="app mb-0">
+    <v-carousel dark>
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
         :src="item.src"
-      > </v-carousel-item>
+      />
     </v-carousel>
-</div>
-
+  </div>
 </template>
 
 <style scoped>

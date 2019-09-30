@@ -1,11 +1,17 @@
  
- <template>
-  <div >
-
+<template>
+  <div>
     <!-- complete navigation starts -->
-    <v-toolbar app style="background-color:white">
+    <v-toolbar
+      app
+      style="background-color:white"
+    >
       <!--  sandwich menu for side bar/menu-->
-      <v-toolbar-side-icon large @click="drawer= !drawer" v-if="checkIsLoggedIn"></v-toolbar-side-icon>
+      <v-toolbar-side-icon
+        large
+        @click="drawer= !drawer"
+        v-if="checkIsLoggedIn"
+      />
       <!-- sandwich menu -->
 
       <!-- logo starts -->
@@ -13,16 +19,30 @@
         <span class="teach ">Teach</span>
         <span class="acronym">EIP</span>
         <span class="full-title mt-1">
-          <img src="../../src/assets/mescyt-1024x878.png" alt="mescyt" />with The English Immersion Program
+          <img
+            src="../../src/assets/mescyt-1024x878.png"
+            alt="mescyt"
+          >with The English Immersion Program
         </span>
       </div>
       <!-- logo ends -->
 
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <!-- expanded navigation bar  starts-->
       <v-toolbar-items class="hidden-sm-and-down mx-auto">
-        <v-btn  class="black-blue white--text" v-if="checkIsLoggedIn" to="/dashboard"> <v-icon color="white" class="mr-0">dashboard</v-icon><span class="ml-1">DASHBOARD</span></v-btn>
+        <v-btn
+          class="black-blue white--text"
+          v-if="checkIsLoggedIn"
+          to="/dashboard"
+        >
+          <v-icon
+            color="white"
+            class="mr-0"
+          >
+            dashboard
+          </v-icon><span class="ml-1">DASHBOARD</span>
+        </v-btn>
         <v-toolbar-items class="hidden-sm-and-down">
           <router-link
             tag="v-btn"
@@ -31,10 +51,24 @@
             :key="item.icon"
             :to="item.link"
             :class="item.class"
-          >{{ item.title }}</router-link>
+          >
+            {{ item.title }}
+          </router-link>
         </v-toolbar-items>
-        <v-btn @click="toggleSU" class="sign-up" v-if="!checkIsLoggedIn">REGISTER</v-btn>
-        <v-btn @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn">SIGN IN</v-btn>
+        <v-btn
+          @click="toggleSU"
+          class="sign-up"
+          v-if="!checkIsLoggedIn"
+        >
+          REGISTER
+        </v-btn>
+        <v-btn
+          @click="toggleSI"
+          class="sign-in"
+          v-if="!checkIsLoggedIn"
+        >
+          SIGN IN
+        </v-btn>
 
         <!-- profile avatar starts -->
         <v-btn
@@ -46,13 +80,17 @@
           v-if="checkIsLoggedIn"
         >
           <v-avatar v-if="getCurrentUser.photoURL !== 'https://generic.jpg'">
-                <img :src="getCurrentUser.photoURL"
-              :alt="getCurrentUser.displayName" />
-            </v-avatar>    
-              <v-avatar color="red" v-else>
-              <span  class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()}}</span>
-
-            </v-avatar>   
+            <img
+              :src="getCurrentUser.photoURL"
+              :alt="getCurrentUser.displayName"
+            >
+          </v-avatar>    
+          <v-avatar
+            color="red"
+            v-else
+          >
+            <span class="white--text headline">{{ getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase() }}</span>
+          </v-avatar>   
         </v-btn>
         <!-- profile avatar ends -->
       </v-toolbar-items>
@@ -64,55 +102,97 @@
         class="hidden-md-and-up mx-auto"
         slot
         @click="sandwich = true"
-      ></v-toolbar-side-icon>
-        <v-list class="minimized elevation-24" v-if="sandwich" v-on-clickaway="hideMenu">
-          <v-list-tile @click="profileModel = true"
-            v-if="checkIsLoggedIn" class="pb-1 white">
+      />
+      <v-list
+        class="minimized elevation-24"
+        v-if="sandwich"
+        v-on-clickaway="hideMenu"
+      >
+        <v-list-tile
+          @click="profileModel = true"
+          v-if="checkIsLoggedIn"
+          class="pb-1 white"
+        >
           <v-btn
             depressed
             fab
             class="avatar-button mx-auto my-0 pt-0"
-     
           >
-           <v-avatar v-if="getCurrentUser.photoURL!== 'https://generic.jpg'">
-                <img :src="getCurrentUser.photoURL"
-              :alt="getCurrentUser.displayName" />
+            <v-avatar v-if="getCurrentUser.photoURL!== 'https://generic.jpg'">
+              <img
+                :src="getCurrentUser.photoURL"
+                :alt="getCurrentUser.displayName"
+              >
             </v-avatar>    
-              <v-avatar color="red" v-else>
-              <span  class="white--text headline">{{getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()}}</span>
-
-            </v-avatar>   
-
+            <v-avatar
+              color="red"
+              v-else
+            >
+              <span class="white--text headline">{{ getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase() }}</span>
+            </v-avatar>
           </v-btn>
-          </v-list-tile>
-            <v-list-tile class="black-blue white--text" tag="v-btn" v-if="checkIsLoggedIn" to="/dashboard"> <v-icon color="white" class="mr-0">dashboard</v-icon> <span class="mx-auto">DASHBOARD</span></v-list-tile>
-          <v-list-tile
-            tag="v-btn"
-            style="background-color:white"
-            v-for="item in getNavigation.publicNav"
-            :key="item.icon"
-            :to="item.link"
-            class="elevation-12"
-            > <span class="mx-auto">
+        </v-list-tile>
+        <v-list-tile
+          class="black-blue white--text"
+          tag="v-btn"
+          v-if="checkIsLoggedIn"
+          to="/dashboard"
+        >
+          <v-icon
+            color="white"
+            class="mr-0"
+          >
+            dashboard
+          </v-icon> <span class="mx-auto">DASHBOARD</span>
+        </v-list-tile>
+        <v-list-tile
+          tag="v-btn"
+          style="background-color:white"
+          v-for="item in getNavigation.publicNav"
+          :key="item.icon"
+          :to="item.link"
+          class="elevation-12"
+        >
+          <span class="mx-auto">
 
             {{ item.title }}
-            </span>
-          </v-list-tile>
-          <v-list-tile @click="toggleSU" class="sign-up" v-if="!checkIsLoggedIn"><span class="mx-auto">REGISTER</span></v-list-tile>
-          <v-list-tile @click="toggleSI" class="sign-in" v-if="!checkIsLoggedIn"><span class="mx-auto">SIGN IN</span></v-list-tile>
+          </span>
+        </v-list-tile>
+        <v-list-tile
+          @click="toggleSU"
+          class="sign-up"
+          v-if="!checkIsLoggedIn"
+        >
+          <span class="mx-auto">REGISTER</span>
+        </v-list-tile>
+        <v-list-tile
+          @click="toggleSI"
+          class="sign-in"
+          v-if="!checkIsLoggedIn"
+        >
+          <span class="mx-auto">SIGN IN</span>
+        </v-list-tile>
       </v-list>
         
 
       <!--  minimized menu ends-->
       <v-list-tile>
-        <profile class="profile" v-if="profileModel" v-on-clickaway="closeProfile" />
+        <profile
+          class="profile"
+          v-if="profileModel"
+          v-on-clickaway="closeProfile"
+        />
       </v-list-tile>
       <!-- profile insertion ends-->
     </v-toolbar>
     <!-- complete navigation ends -->
 
     <!--side-menu starts-->
-    <v-navigation-drawer v-model="drawer" app v-if="checkIsLoggedIn">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      v-if="checkIsLoggedIn"
+    >
       <sidemenu />
     </v-navigation-drawer>
     <!--side-menu ends-->
@@ -138,7 +218,7 @@ import sidemenu from "@/components/sidemenu.vue";
 import { mapActions, mapGetters } from "vuex";
 import  {auth} from "firebase/app";
 export default {
-  name: "menu1",
+  name: "Menu1",
   components: { popupRegister, signInForm, alerting, profile, sidemenu },
   template: '<p v-on-clickaway="away">Click away</p>',
   directives: {

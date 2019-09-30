@@ -1,20 +1,60 @@
 <template>
-  <div id="app" data-app>
-        <!-- alerts online/offline -->
-    <v-alert v-model="log" class="connection-off mt-3">
-      <v-icon class="mr-2">signal_wifi_off</v-icon>You are currently offline
+  <div
+    id="app"
+    data-app
+  >
+    <!-- alerts online/offline -->
+    <v-alert
+      v-model="log"
+      class="connection-off mt-3"
+      >
+      <v-icon class="mr-2">
+        signal_wifi_off
+      </v-icon>You are currently offline
     </v-alert>
-    <v-alert v-model="online" type="success" icon="false" class="connection-on mt-3">
-      <v-icon class="mr-2">check_circle_outline</v-icon>Back online!
+    <v-alert
+      v-model="online"
+      type="success"
+      icon="false"
+      class="connection-on mt-3"
+    >
+      <v-icon class="mr-2">
+        check_circle_outline
+      </v-icon>Back online!
     </v-alert>
     <!-- alerts online/offline ends-->
 
-      <v-layout id="masthead" align-center class="text-no-wrap text-center mt-4">
-        <v-flex xl6 lg6 md8 sm6  ma-auto  class="d-flex align-center mt-5">
-          <v-card flat class="text-center " id="logo" >
-            <v-flex lg5 md8 sm12 xs3 ma-auto class="d-flex align-center">
-            <a href="https://teacheip.com/" rel="home">
-               <v-img
+    <v-layout
+      id="masthead"
+      align-center
+      class="text-no-wrap text-center mt-4"
+    >
+      <v-flex
+        xl6
+        lg6
+        md8
+        sm6
+        ma-auto
+        class="d-flex align-center mt-5"
+      >
+        <v-card
+          flat
+          class="text-center "
+          id="logo"
+        >
+          <v-flex
+            lg5
+            md8
+            sm12
+            xs3
+            ma-auto
+            class="d-flex align-center"
+          >
+            <a
+              href="https://teacheip.com/"
+              rel="home"
+            >
+              <v-img
                 
                 alt="Direccion de Lenguas Extranjeras"
                 src="https://eipschool.files.wordpress.com/2019/06/mescyt-revela-nueva-imagen-institucional.jpeg"
@@ -24,40 +64,47 @@
                 class="grey lighten-2 mx-auto"
                 max-width="180"
                 max-height="130"
-              ></v-img>
+              />
             </a>
-            </v-flex>
-            <v-card flat >
-              <transition >
-              <v-card-title xs10 class=" titles display-2 font-weight-medium  pb-2">
-                <a href="https://teacheip.com/" rel="home" class="mx-auto site-title ">
+          </v-flex>
+          <v-card flat>
+            <transition>
+              <v-card-title
+                xs10
+                class=" titles display-2 font-weight-medium  pb-2"
+              >
+                <a
+                  href="https://teacheip.com/"
+                  rel="home"
+                  class="mx-auto site-title "
+                >
                   Direccion de Lenguas
                   Extranjeras
                 </a>
                 <div class="mx-auto">
-
-                <v-card-text
-                class="title page-title mb-0 pb-0"
-                xl8 lg5 >
-                An
-                Academic Community for the English Immersion Program
-              </v-card-text>
+                  <v-card-text
+                    class="title page-title mb-0 pb-0"
+                    xl8
+                    lg5
+                  >
+                    An
+                    Academic Community for the English Immersion Program
+                  </v-card-text>
                 </div>
               </v-card-title>
-              </transition>
-              
-            </v-card>
-            <!-- .site-branding-text -->
+            </transition>
           </v-card>
-          <!-- .site-branding -->
-        </v-flex >
-        <!-- .header-wrapper -->
-       <Menu/>       
-        <!-- .menu-wrapper -->
-      </v-layout>
+          <!-- .site-branding-text -->
+        </v-card>
+        <!-- .site-branding -->
+      </v-flex>
+      <!-- .header-wrapper -->
+      <Menu />       
+      <!-- .menu-wrapper -->
+    </v-layout>
  
     <router-view />
-    <Footer/>
+    <Footer />
   </div>
 </template>
 <style>
@@ -149,7 +196,7 @@ import 'vuetify/dist/vuetify.min.css'
 import Menu from '@/components/menu.vue'
 import Footer from '@/components/footer.vue';
 export default {
- name: 'site-heade',
+ name: 'SiteHeade',
  data(){
    return{
       log: false,

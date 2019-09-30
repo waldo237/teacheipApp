@@ -1,5 +1,9 @@
 <template>
-  <v-layout id="inspire" row justify-center>
+  <v-layout
+    id="inspire"
+    row
+    justify-center
+  >
     <div class="px-5 pb-5 content">
       <div class="elevation-24 ma-5 sign-in">
         <v-layout justify-space-around>
@@ -14,12 +18,15 @@
                 class="grey lighten-2 mx-auto mt-3"
                 max-width="580"
                 max-height="430"
-              ></v-img>
+              />
             </v-card>
           </v-flex>
         </v-layout>
 
-        <v-card xs8 class="pa-4 big-words ma-2 sign-in white--text text-justify elevation-24">
+        <v-card
+          xs8
+          class="pa-4 big-words ma-2 sign-in white--text text-justify elevation-24"
+        >
           The English Immersion Program has had an
           exponential
           growth since its creation in 2004. It operates nationwide even in very remote areas. This platform allows

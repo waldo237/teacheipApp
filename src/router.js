@@ -43,6 +43,14 @@ let router = new Router({
       }
     }
     ,{
+      path: '/landing/',
+      name: 'landing',
+      component: () => import(/* webpackChunkName: "about" */ './views/Landing.vue'),
+      meta:{
+        requiresAuth: true
+      }
+    }
+    ,{
       path: '/signin',
       name: 'signin',
       component: () => import(/* webpackChunkName: "about" */ './views/LogInView.vue'),

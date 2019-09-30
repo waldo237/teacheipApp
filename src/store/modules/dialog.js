@@ -9,6 +9,7 @@ const state = {
     alertMessage: '',
     interact: false,
     yes: false,
+    landing: true,
 
 };
 const getters = {
@@ -19,6 +20,7 @@ const getters = {
     getAlertMessage: (state) =>state.alertMessage,
     getAlertType: (state) =>state.alertType,
     getInteract: (state) =>state.interact,
+    getLanding: (state) =>state.landing,
     isAlert: (state) =>state.alert,
     getYes:(state) => state.yes,
 };
@@ -45,6 +47,7 @@ const actions = {
     }
 };
 const mutations = {
+    setLanding: (state, value) =>(state.landing = value),
     setLoggedIn: (state, value) =>(state.isLoggedIn = value),
     setSUDialog: (state, value) =>(state.SUDialog = value),
     setSIDialog: (state, value) =>(state.SIDialog = value),

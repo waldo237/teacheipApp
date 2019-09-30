@@ -2,9 +2,19 @@
  
 <template>
   <div class="mb-5 pb-5">
- <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details class="search"></v-text-field>
-    <v-layout justify-center persistent>
+    <v-spacer />
+    <v-text-field
+      v-model="search"
+      append-icon="search"
+      label="Search"
+      single-line
+      hide-details
+      class="search"
+    />
+    <v-layout
+      justify-center
+      persistent
+    >
       <v-data-table
         style="width: 80%"
         :headers="headers"
@@ -13,11 +23,24 @@
         class="elevation-2"
       >
         <template v-slot:items="props">
-          <td class="text-xs-left" id="name">{{ props.item.name }}</td>
-          <td class="text-xs-left">{{ props.item.email }}</td>
-          <td class="text-xs-left">{{ props.item.center }}</td>
-          <td class="text-xs-left">{{ props.item.pronvince }}</td>
-          <td class="text-xs-left">{{ props.item.posicion }}</td>
+          <td
+            class="text-xs-left"
+            id="name"
+          >
+            {{ props.item.name }}
+          </td>
+          <td class="text-xs-left">
+            {{ props.item.email }}
+          </td>
+          <td class="text-xs-left">
+            {{ props.item.center }}
+          </td>
+          <td class="text-xs-left">
+            {{ props.item.pronvince }}
+          </td>
+          <td class="text-xs-left">
+            {{ props.item.posicion }}
+          </td>
         </template>
       </v-data-table>
     </v-layout>
