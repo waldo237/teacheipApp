@@ -88,14 +88,27 @@
         </v-layout>
       </v-card>
     </v-layout>
+<!-- stuudent -->
     <v-dialog
       v-model="studentForm"
       persistent :overlay="false"
       min-width="700px"
-      transition="dialog-transition"
-    >
-      <Student />
+      transition="dialog-transition">
+      <Student @close-student="studentForm= false"/>
     </v-dialog>
+
+    <!-- teacher -->
+      <v-dialog
+      v-model="teacherForm"
+      persistent :overlay="false"
+      min-width="700px"
+      transition="dialog-transition">
+      <Teacher @close-teacher="teacherForm= false"/>
+    </v-dialog>
+
+    <!-- coordinator -->
+    <!-- supervisor -->
+    <!-- manager -->
   </v-dialog>
 
   <!-- pendingForVerification dialog ends -->
@@ -108,9 +121,10 @@
 import { auth } from "firebase/app";
 import { mapGetters } from "vuex";
 import Student from "../components/authenticationForms/student.vue";
+import Teacher from "../components/authenticationForms/teacher.vue";
 export default {
   name: "Landing",
-  components: {Student},
+  components: {Student, Teacher},
   data() {
     return {
       select: "",
@@ -118,6 +132,10 @@ export default {
       date: new Date().toISOString().substr(0, 10),
       menu: false,
       studentForm: false,
+      teacherForm: false,
+      coordinatorForm: false,
+      supervisorForm: false,
+      managerForm: false,
       actors: [
         {
           text: "Student",
