@@ -5,8 +5,8 @@
       <small>Please type in your cedula number in the filed</small>
     </v-stepper-step>
     <v-stepper-content step="1" color="blue">
-        <!-- form starts -->
-        <v-form v-model="valid">
+    <!-- form starts -->
+    <v-form v-model="valid">
       <v-card color="grey lighten-2" class="mb-12" height="100px">
           <v-container>
             <v-layout>
@@ -18,43 +18,62 @@
                   label="ID (cedula)"
                   required
                   maxlength="13"
+                  type="text"
+                  @keydown="prevent"
                   @keyup="addDash"
                 ></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
       </v-card> 
-      <v-btn class="sign-in" @click="verify">verify</v-btn>
+      <v-btn class="sign-in" :disabled=checkID @click="verify">verify</v-btn>
       <v-btn class="sign-up" @click="close" text>Cancel</v-btn>
-        </v-form>
-        <!-- form ends -->
+    </v-form>
+    <!-- form ends -->
     </v-stepper-content>
   </v-stepper>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
       valid: false,
       cedulaRules: [],
       cedula: "",
+      checkID: false,
       e6: 1
     };
   },
   methods: {
-    close() {
+  close() {
       this.$emit("close-student");
     },
-    addDash () {
-         // Remove dash (-) if mistakenly entered.
-
-      this.cedula =  this.cedula.replace(/(\d{3})\-?(\d{7})\-?(\d{1})/g,'$1-$2-$3');
-      
+    addDash() {
+      this.cedula = this.cedula.replace(
+        /(\d{3})\-?(\d{7})\-?(\d{1})/,
+        "$1-$2-$3"
+      );
+      this.isCorrect();
     },
-    verify(){
-      
+    prevent() {
+      const e = event || window.event;
+      const key = e.keyCode || e.which;
+      if (key < 48 || key > 57) {
+        if (key != 8) {
+          if (e.preventDefault) e.preventDefault();
+          e.returnValue = false;
+        }
+      }
+    },
+    verify() {},
+    isCorrect() {
+      this.checkID = (!this.cedula.match(/^((\d{3})\-?(\d{7})\-?(\d{1}))$/)) ? true: false;
     }
+  },
+  created() {
+    this.checkID = true;
   }
 };
 </script>

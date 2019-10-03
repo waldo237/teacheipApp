@@ -2,7 +2,7 @@
   <v-layout>
     <v-dialog v-model="getSUDialog" persistent max-width="465px" min-width="465px" lass="round">
       <v-form>
-        <v-card width="465px" height="150px" color="#135393" min-width="465px" class="round">
+        <v-card width="465px" height="250px" color="#135393" min-width="465px" class="round">
           <v-layout align-content-start>
             <v-toolbar dense class="elevation-24 round">
               <v-toolbar-title class="logo">
@@ -25,7 +25,7 @@
                 alt
               />sign up with google
             </v-btn>
-            <v-btn @click="facebook" class="pa-0 px-2 font-weight-bold  elevation-24 round">
+            <v-btn @click="facebook" class="pa-0 px-2 font-weight-bold elevation-24 round">
               <img
                 src="https://image.flaticon.com/icons/png/512/124/124010.png"
                 width="27px"
@@ -33,6 +33,16 @@
                 alt
               />
               sign up with Faceboook
+            </v-btn>
+          </v-layout>
+          <v-layout class="pt-4 px-1" align-end wrap>
+            <v-btn @click="microsoft" class="font-weight-bold elevation-24 round">
+              <img
+                src="https://icon-library.net/images/microsoft-logo-icon/microsoft-logo-icon-17.jpg"
+                width="25px"
+                class="mr-2"
+                alt
+              />Continue with Microsoft
             </v-btn>
           </v-layout>
           <!--  the policy dialogue starts-->
@@ -183,9 +193,8 @@
   margin: 0px;
   padding: 0px;
 }
-.round{
-    border-radius: 5px !important;
-
+.round {
+  border-radius: 5px !important;
 }
 </style>
 
@@ -200,6 +209,7 @@ import firebase from "firebase";
 import { async } from "q";
 const provider = new firebase.auth.GoogleAuthProvider();
 const providerF = new firebase.auth.FacebookAuthProvider();
+const providerMicrosoft = new firebase.auth.OAuthProvider("microsoft.com");
 
 export default {
   $_veeValidate: {
@@ -253,25 +263,36 @@ export default {
     this.$validator.localize("en", this.dictionary);
   },
   methods: {
+    async microsoft() {
+      firebase
+        .auth()
+        .signInWithPopup(providerMicrosoft)
+        .then(function(result) {
+          console.log("diatre");
+        })
+        .catch(function(error) {
+          // Handle error.
+        });
+    },
     async facebook() {
       firebase
         .auth()
         .signInWithPopup(providerF)
-        .then(function(result) {
+        .then(result => {
           // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-          var token = result.credential.accessToken;
+          const token = result.credential.accessToken;
           // The signed-in user info.
-          var user = result.user;
+          const user = result.user;
           // ...
         })
-        .catch(function(error) {
+        .catch(error => {
           // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
+          const errorCode = error.code;
+          const errorMessage = error.message;
           // The email of the user's account used.
-          var email = error.email;
+          const email = error.email;
           // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
+          const credential = error.credential;
           // ...
         });
     },
@@ -294,7 +315,7 @@ export default {
           // The firebase.auth.AuthCredential type that was used.
           const credential = error.credential;
         });
-        await this.$store.commit('setLanding', true)
+      await this.$store.commit("setLanding", true);
       await this.$router.push(`/landing/`);
       await this.toggleSU();
       // redirect with curresponding id

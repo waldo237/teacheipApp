@@ -32,8 +32,7 @@
       <!-- form ends -->
     </v-stepper-content>
 
-    <v-stepper-step :complete="e6 > 2" step="2" color="green">Type in your C-secret code</v-stepper-step>
-
+    <v-stepper-step :complete="e6 > 2" step="2" color="green">Type in your Employee credentials</v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
       <v-form v-model="valid">
@@ -41,22 +40,49 @@
           <v-container>
             <v-layout>
               <v-flex xs12 md4>
+                <v-text-field 
+              name="employeeId"
+              id="employeeId"
+              autocomplete
+              prepend-icon="lock"
+              :append-icon="!showPassword ? 'visibility_off':'visibility'"
+              :type="showPassword ? 'text': 'password'"
+                @click:append="showPassword =!showPassword"
+                v-model="employeeCode" label="Employee code" required maxlength="8"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card>
+        <v-btn class="sign-in" @click="verifyECode">Continue</v-btn>
+        <v-btn class="sign-up" @click="close" text>Cancel</v-btn>
+      </v-form>
+      <!-- form ends -->
+    </v-stepper-content>
+
+    <v-stepper-step :complete="e6 > 3" step="3" color="green">Type in your department credentials</v-stepper-step>
+    <v-stepper-content step="3">
+      <!-- form starts -->
+      <v-form v-model="valid">
+        <v-card color="grey lighten-2" class="mb-12" height="100px">
+          <v-container>
+            <v-layout>
+              <v-flex xs12 md4>
                 <v-text-field
-                  v-model="cCode"
-                  label="C-secret code"
-                  required
-                  autocomplete
-                  maxlength="8"
+                autocomplete
                   prepend-icon="lock"
-                  :append-icon="!showPassword ? 'visibility_off':'visibility'"
-                  :type="showPassword ? 'text': 'password'"
-                  @click:append="showPassword =!showPassword"
+                  :append-icon="!showPassword2 ? 'visibility_off':'visibility'"
+                  :type="showPassword2 ? 'text': 'password'"
+                  @click:append="showPassword2 =!showPassword2"
+                  v-model="departmentCode"
+                  label="Department code"
+                  required
+                  maxlength="8"
                 ></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
         </v-card>
-        <v-btn class="sign-in" @click="close">Continue</v-btn>
+        <v-btn class="sign-in" @click="verifyDCode">Continue</v-btn>
         <v-btn class="sign-up" @click="close" text>Cancel</v-btn>
       </v-form>
       <!-- form ends -->
@@ -71,18 +97,29 @@ export default {
       valid: false,
       cedulaRules: [],
       cedula: "",
-      cCode: "",
+      employeeCode: "",
+      departmentCode: "",
       e6: 1,
-      showPassword: false
+      showPassword: false,
+      showPassword2: false,
+      loading: false
     };
   },
   methods: {
     close() {
-      this.$emit("close-teacher");
+      this.$emit("close-manager");
     },
     verifyID() {
       // TODO Verification process of cedula
-      this.e6 = 2;
+      this.e6++;
+    },
+    verifyECode() {
+      // TODO Verification process of cedula
+      this.e6++;
+    },
+    verifyDCode() {
+      // TODO Verification process of cedula
+      this.e6++;
     },
     verifycCode() {
       // TODO verification process of cCode

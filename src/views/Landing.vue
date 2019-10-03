@@ -107,8 +107,29 @@
     </v-dialog>
 
     <!-- coordinator -->
+     <v-dialog
+      v-model="coordinatorForm"
+      persistent :overlay="false"
+      min-width="700px"
+      transition="dialog-transition">
+      <Coordinator @close-coordinator="coordinatorForm= false"/>
+    </v-dialog>
     <!-- supervisor -->
+     <v-dialog
+      v-model="supervisorForm"
+      persistent :overlay="false"
+      min-width="700px"
+      transition="dialog-transition">
+      <Supervisor @close-supervisor="supervisorForm= false"/>
+    </v-dialog>
     <!-- manager -->
+     <v-dialog
+      v-model="managerForm"
+      persistent :overlay="false"
+      min-width="700px"
+      transition="dialog-transition">
+      <Manager @close-manager="managerForm= false"/>
+    </v-dialog>
   </v-dialog>
 
   <!-- pendingForVerification dialog ends -->
@@ -122,9 +143,12 @@ import { auth } from "firebase/app";
 import { mapGetters } from "vuex";
 import Student from "../components/authenticationForms/student.vue";
 import Teacher from "../components/authenticationForms/teacher.vue";
+import Coordinator from "../components/authenticationForms/coordinator.vue";
+import Supervisor from "../components/authenticationForms/supervisor.vue";
+import Manager from "../components/authenticationForms/manager.vue";
 export default {
   name: "Landing",
-  components: {Student, Teacher},
+  components: {Student, Teacher, Coordinator,Supervisor,Manager},
   data() {
     return {
       select: "",

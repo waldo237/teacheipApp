@@ -32,8 +32,7 @@
       <!-- form ends -->
     </v-stepper-content>
 
-    <v-stepper-step :complete="e6 > 2" step="2" color="green">Type in your C-secret code</v-stepper-step>
-
+<v-stepper-step :complete="e6 > 2" step="2" color="green">Type in your Coordinator code</v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
       <v-form v-model="valid">
@@ -41,16 +40,14 @@
           <v-container>
             <v-layout>
               <v-flex xs12 md4>
-                <v-text-field
-                  v-model="cCode"
-                  label="C-secret code"
-                  required
-                  autocomplete
-                  maxlength="8"
-                  prepend-icon="lock"
-                  :append-icon="!showPassword ? 'visibility_off':'visibility'"
-                  :type="showPassword ? 'text': 'password'"
-                  @click:append="showPassword =!showPassword"
+                <v-text-field v-model="cCode" 
+                label="Coordinator code" 
+                autocomplete
+                required maxlength="8"
+                prepend-icon="lock"
+              :append-icon="!showPassword ? 'visibility_off':'visibility'"
+              :type="showPassword ? 'text': 'password'"
+                @click:append="showPassword =!showPassword"
                 ></v-text-field>
               </v-flex>
             </v-layout>
@@ -72,21 +69,21 @@ export default {
       cedulaRules: [],
       cedula: "",
       cCode: "",
-      e6: 1,
-      showPassword: false
+      showPassword: false,
+      e6: 1
     };
   },
   methods: {
     close() {
-      this.$emit("close-teacher");
+      this.$emit("close-coordinator");
     },
-    verifyID() {
-      // TODO Verification process of cedula
-      this.e6 = 2;
-    },
-    verifycCode() {
-      // TODO verification process of cCode
-    },
+      verifyID(){
+        // TODO Verification process of cedula
+        this.e6 = 2
+      },
+      verifycCode(){
+        // TODO verification process of cCode
+      },
     addDash() {
       this.cedula = this.cedula.replace(
         /(\d{3})\-?(\d{7})\-?(\d{1})/,
@@ -105,9 +102,7 @@ export default {
       }
     },
     isCorrect() {
-      this.checkID = !this.cedula.match(/^((\d{3})\-?(\d{7})\-?(\d{1}))$/)
-        ? true
-        : false;
+      this.checkID = (!this.cedula.match(/^((\d{3})\-?(\d{7})\-?(\d{1}))$/)) ? true: false;
     }
   },
   created() {

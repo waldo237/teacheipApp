@@ -13,6 +13,6 @@ export default new Vuex.Store({
         users,
         employees,
         lessonPlans,
-        navigation
+        navigation,
     }
 })
