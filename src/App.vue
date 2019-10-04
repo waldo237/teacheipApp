@@ -26,10 +26,12 @@
 
     <v-layout
       id="masthead"
+    
       align-center
       class="text-no-wrap text-center mt-4"
     >
       <v-flex
+        v-if="getFullScreen"
         xl6
         lg6
         md8
@@ -194,6 +196,7 @@ a{
 <script>
 import 'vuetify/dist/vuetify.min.css'
 import Menu from '@/components/menu.vue'
+import {mapGetters} from 'vuex'
 import Footer from '@/components/footer.vue';
 export default {
  name: 'SiteHeade',
@@ -206,6 +209,7 @@ export default {
  components: {
    Menu, 
    Footer,
+
  },
  methods: {
       init() {
@@ -224,6 +228,8 @@ export default {
     },
  },
    
+    computed: mapGetters(["getFullScreen",]),
+ 
  created(){
        this.init();
     },

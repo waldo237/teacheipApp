@@ -24,21 +24,7 @@ const actions = {
                 })
             })
     },
-    async fetchAllUsers({ commit }) {
-        db.collection('Employees').get().then(querySnapshot => {
-            querySnapshot.forEach(doc => {
-                const data = {
-                    'id': doc.id,
-                    'name': doc.data().name,
-                    'email': doc.data().email,
-                    'position': doc.data().position,
-                    'level': doc.data().level,
-                
-                }
-                commit('setUsers', data);
-            })
-        })
-    },
+
     /**
      * universal function that logs out the user from the auth system
      * 

@@ -9,7 +9,7 @@
       <!--  sandwich menu for side bar/menu-->
       <v-toolbar-side-icon
         large
-        @click="drawer= !drawer"
+        @click.stop="turnOnSideMenu"
         v-if="checkIsLoggedIn"
       />
       <!-- sandwich menu -->
@@ -79,17 +79,17 @@
           @click="profileModel = true"
           v-if="checkIsLoggedIn"
         >
-          <v-avatar v-if="getCurrentUser.photoURL !== 'https://generic.jpg'">
+          <v-avatar v-if="getCurrentUser.photoURL">
             <img
               :src="getCurrentUser.photoURL"
               :alt="getCurrentUser.displayName"
             >
           </v-avatar>    
           <v-avatar
-            color="red"
+            :color="colorize"
             v-else
           >
-            <span class="white--text headline">{{ getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase() }}</span>
+            <span class="white--text headline" >{{ initialize }}</span>
           </v-avatar>   
         </v-btn>
         <!-- profile avatar ends -->
@@ -98,7 +98,6 @@
       <!--  minimized menu starts-->
       <v-toolbar-side-icon
         large
-        
         class="hidden-md-and-up mx-auto"
         slot
         @click="sandwich = true"
@@ -118,17 +117,17 @@
             fab
             class="avatar-button mx-auto my-0 pt-0"
           >
-            <v-avatar v-if="getCurrentUser.photoURL!== 'https://generic.jpg'">
+            <v-avatar v-if="getCurrentUser.photoURL">
               <img
                 :src="getCurrentUser.photoURL"
                 :alt="getCurrentUser.displayName"
               >
             </v-avatar>    
             <v-avatar
-              color="red"
+              :color="colorize"
               v-else
             >
-              <span class="white--text headline">{{ getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase() }}</span>
+              <span class="white--text headline">{{ initialize }}</span>
             </v-avatar>
           </v-btn>
         </v-list-tile>
@@ -186,22 +185,10 @@
       <!-- profile insertion ends-->
     </v-toolbar>
     <!-- complete navigation ends -->
-
-    <!--side-menu starts-->
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      v-if="checkIsLoggedIn"
-    >
-      <sidemenu />
-    </v-navigation-drawer>
-    <!--side-menu ends-->
-
     <!-- communication dialogs -->
     <popupRegister />
     <signInForm />
     <alerting />
-
     <!-- communication dialogs -->
     <!-- profile insertion starts-->
   </div>
@@ -214,13 +201,14 @@ import popupRegister from "@/views/RegisterView.vue";
 import signInForm from "@/views/LogInView.vue";
 import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
-import sidemenu from "@/components/sidemenu.vue";
+import colors from "@/assets/colors/colors.js";
 import { mapActions, mapGetters } from "vuex";
 import  {auth} from "firebase/app";
+import Sidemenu from "@/components/RoleComponents/supervisorComponents/sidemenu.vue";
+
 export default {
   name: "Menu1",
-  components: { popupRegister, signInForm, alerting, profile, sidemenu },
-  template: '<p v-on-clickaway="away">Click away</p>',
+  components: { popupRegister, signInForm, alerting, profile,Sidemenu },
   directives: {
     onClickaway: onClickaway
   },
@@ -231,7 +219,7 @@ export default {
       sandwich: false,
       profileModel: false,
       signIn: false,
-      // sandwich menu element models
+      toggled:false,
     };
   },
   methods: {
@@ -259,22 +247,49 @@ export default {
         this.sandwich = false;
       });
     },
- 
+    turnOnSideMenu:async function(){
+       this.toggled = await !this.toggled;
+      switch (this.getCurrentRole) {
+        // change hand coded
+        case "Teacher":
+            this.$store.commit('setTeacherSideMenu',  !this.getTeacherSideMenu);
+          break;
+        case "Coordinator":
+            this.$store.commit('setCoordinatorSideMenu',  !this.getCoordinatorSideMenu);
+          break;
+        case "Supervisor":
+            this.$store.commit('setSupervisorSideMenu',  !this.getSupervisorSideMenu);
+          break;
+        case "Manager":
+            this.$store.commit('setManagerSideMenu',  !this.getManagerSideMenu);
+          break;
+      }
+    },
     ...mapActions(["toggleSI", "toggleSU", "runAlert"])
   },
-  computed: mapGetters([
+  computed: {
+    initialize: function() {
+     return this.getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()
+    },
+    colorize: function() {
+      return colors[Math.floor(Math.random() * 280)];
+    },
+    ...mapGetters([
     "checkIsLoggedIn",
     "getUsers",
     "getCurrentUser",
     "getNavigation",
-  ]),
+    "getCurrentRole",
+    "getTeacherSideMenu",
+    "getCoordinatorSideMenu",
+    "getSupervisorSideMenu",
+    "getManagerSideMenu",
+  ])},
   created: function() {
-  
     if (auth().currentUser) {
       if(auth().currentUser.emailVerified) this.$store.commit('setLoggedIn', true); this.$store.commit("setCurrentUser", auth().currentUser);
     }
     this.onResize();
-    // this.profileModel = false;
   }
 };
 </script>

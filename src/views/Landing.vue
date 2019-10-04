@@ -3,10 +3,7 @@
   <v-dialog v-model="getLanding" fullscreen persistent hide-overlay v-if="checkIsLoggedIn">
     <v-layout justify-center>
       <v-card min-width="100%" min-height="100%">
-        <v-toolbar color="white elevation-24" dense>
-          <v-layout justify-start>
-            <v-toolbar-title class="hidden-sm-and-down">Role Wizzard</v-toolbar-title>
-          </v-layout>
+        <v-toolbar color="white elevation-24" dense app>
           <v-layout justify-center>
             <span class="acronym title mt-2">Hello,{{getCurrentUser.displayName}}. Welcome to</span>
             <span class="teach display-1">Teach</span>
@@ -14,8 +11,16 @@
           </v-layout>
           <v-spacer />
           <!-- profile avatar starts -->
-          <v-btn depressed fab color="white" class="avatar-button" v-if="checkIsLoggedIn">
-            <v-avatar v-if="getCurrentUser.photoURL">
+          <v-btn
+            depressed
+            fab
+            small
+            color="white"
+            class="avatar-button ma-0"
+            v-if="checkIsLoggedIn"
+            @click="closeProfile"
+          >
+            <v-avatar v-if="getCurrentUser.photoURL" size="45" >
               <img :src="getCurrentUser.photoURL" :alt="getCurrentUser.displayName" />
             </v-avatar>
             <v-avatar color="red" v-else>
@@ -24,8 +29,11 @@
               >{{ getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase() }}</span>
             </v-avatar>
           </v-btn>
-
           <span class="acronym" />
+
+          <v-list-tile v-on-clickaway="closeProfile">
+            <Profile  v-if="profileModel" class="profile"  />
+          </v-list-tile>
         </v-toolbar>
         <v-layout justify-center class="ml-5">
           <v-img
@@ -40,7 +48,7 @@
 
         <v-layout class="pt-0" justify-center>
           <v-layout class="mx-3 mb-5 pa-3 px-2 pt-0 main-card" wrap>
-            <v-layout class="mx-2 px-1 justify-center" flat wrap>
+            <v-layout class="mx-2 pb-5 px-1 justify-center" flat wrap>
               <!-- cards starts -->
               <v-card
                 class="justify-center mx-1 grids"
@@ -64,16 +72,15 @@
                 </v-flex>
                 <v-card-text class="justify-center pt-3">
                   <!-- Submit button starts -->
-                  <v-layout class="justify-end"  @click="show=true">
+                  <v-layout class="justify-end" @click="show=true">
                     <v-tooltip v-model="show" right v-if="select==''">
                       <template v-slot:activator="{ on }">
-                        <v-btn icon v-on="on">
-                        </v-btn>
+                        <v-btn icon v-on="on"></v-btn>
                       </template>
                       <span>Please select a role</span>
                     </v-tooltip>
                     <v-btn
-                     @click="formTrigger"
+                      @click="formTrigger"
                       :disabled="select==''"
                       class="justify-center mx-auto gradient font-weight-bold white--text grids"
                     >
@@ -88,50 +95,60 @@
         </v-layout>
       </v-card>
     </v-layout>
-<!-- stuudent -->
+    <!-- stuudent -->
     <v-dialog
       v-model="studentForm"
-      persistent :overlay="false"
+      persistent
+      :overlay="false"
       min-width="700px"
-      transition="dialog-transition">
-      <Student @close-student="studentForm= false"/>
+      transition="dialog-transition"
+    >
+      <Student @close-student="studentForm= false" />
     </v-dialog>
 
     <!-- teacher -->
-      <v-dialog
+    <v-dialog
       v-model="teacherForm"
-      persistent :overlay="false"
+      persistent
+      :overlay="false"
       min-width="700px"
-      transition="dialog-transition">
-      <Teacher @close-teacher="teacherForm= false"/>
+      transition="dialog-transition"
+    >
+      <Teacher @close-teacher="teacherForm= false" />
     </v-dialog>
 
     <!-- coordinator -->
-     <v-dialog
+    <v-dialog
       v-model="coordinatorForm"
-      persistent :overlay="false"
+      persistent
+      :overlay="false"
       min-width="700px"
-      transition="dialog-transition">
-      <Coordinator @close-coordinator="coordinatorForm= false"/>
+      transition="dialog-transition"
+    >
+      <Coordinator @close-coordinator="coordinatorForm= false" />
     </v-dialog>
     <!-- supervisor -->
-     <v-dialog
+    <v-dialog
       v-model="supervisorForm"
-      persistent :overlay="false"
+      persistent
+      :overlay="false"
       min-width="700px"
-      transition="dialog-transition">
-      <Supervisor @close-supervisor="supervisorForm= false"/>
+      transition="dialog-transition"
+    >
+      <Supervisor @close-supervisor="supervisorForm= false" />
     </v-dialog>
     <!-- manager -->
-     <v-dialog
+    <v-dialog
       v-model="managerForm"
-      persistent :overlay="false"
+      persistent
+      :overlay="false"
       min-width="700px"
-      transition="dialog-transition">
-      <Manager @close-manager="managerForm= false"/>
+      transition="dialog-transition"
+    >
+      <Manager @close-manager="managerForm= false" />
     </v-dialog>
+    <!--  minimized menu ends-->
   </v-dialog>
-
   <!-- pendingForVerification dialog ends -->
 </template>
 
@@ -139,6 +156,8 @@
 
 
 <script>
+import { directive as onClickaway } from "vue-clickaway";
+import Profile from "@/components/profile.vue";
 import { auth } from "firebase/app";
 import { mapGetters } from "vuex";
 import Student from "../components/authenticationForms/student.vue";
@@ -148,13 +167,16 @@ import Supervisor from "../components/authenticationForms/supervisor.vue";
 import Manager from "../components/authenticationForms/manager.vue";
 export default {
   name: "Landing",
-  components: {Student, Teacher, Coordinator,Supervisor,Manager},
+  components: { Student, Teacher, Coordinator, Supervisor, Manager, Profile },
+  template: '<p v-on-clickaway="away">Click away</p>',
+  directives: {
+    onClickaway: onClickaway
+  },
   data() {
     return {
       select: "",
       show: false,
-      date: new Date().toISOString().substr(0, 10),
-      menu: false,
+      profileModel: false,
       studentForm: false,
       teacherForm: false,
       coordinatorForm: false,
@@ -199,20 +221,22 @@ export default {
       ]
     };
   },
-  methods:{
-    formTrigger(){
-       for (const i in this.actors) {
-         if (this.select.value == this.actors[i].value) {
-           this.actors[i].form();
-         }
-       }
+  methods: {
+    formTrigger() {
+      for (const i in this.actors) {
+        if (this.select.value == this.actors[i].value) {
+          this.actors[i].form();
+        }
+      }
+    },
+    closeProfile() {
+      this.profileModel = !this.profileModel;
     }
   },
   computed: mapGetters(["getLanding", "checkIsLoggedIn", "getCurrentUser"]),
   created() {
     if (auth().currentUser) {
-      if (auth().currentUser.emailVerified)
-        this.$store.commit("setLoggedIn", true);
+      this.$store.commit("setLoggedIn", true);
       this.$store.commit("setCurrentUser", auth().currentUser);
     }
   }
@@ -236,6 +260,9 @@ export default {
 @media screen and (max-width: 960px) {
   .grids {
     margin-top: 5% !important;
+  }
+  .acronym{
+    font-size: 95% !important;
   }
 }
 @import url("https://fonts.googleapis.com/css?family=Lexend+Exa|Oswald&display=swap");

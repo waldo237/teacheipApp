@@ -75,6 +75,14 @@ let router = new Router({
       }
     }
 ,{
+      path: '/coordinatorDashboard',
+      name: 'coordinatorDashboard',
+      component: () => import(/* webpackChunkName: "about" */ './views/dashboards/CoordinatorDashboard.vue'),
+      meta:{
+        requiresAuth: true
+      }
+    }
+,{
       path: '/useterms',
       name: 'useterms',
       component: () => import(/* webpackChunkName: "about" */ './views/Useterms.vue'),

@@ -32,7 +32,7 @@
       <!-- form ends -->
     </v-stepper-content>
 
-  <v-stepper-step :complete="e6 > 3" step="3" color="green">Type in your Supervisor code</v-stepper-step>
+  <v-stepper-step :complete="e6 > 2" step="2" color="green">Type in your Supervisor code</v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
       <v-form v-model="valid">
