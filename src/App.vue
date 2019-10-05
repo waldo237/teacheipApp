@@ -38,6 +38,7 @@
         sm6
         ma-auto
         class="d-flex align-center mt-5"
+        v-cloak
       >
         <v-card
           flat
@@ -110,6 +111,9 @@
   </div>
 </template>
 <style>
+[v-cloak]{
+  display: none !important;
+}
 
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
 
