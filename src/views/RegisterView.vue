@@ -50,7 +50,7 @@
     </v-dialog>
   </v-layout>
 </template>
-<style scoped>
+<style>
 .round {
   border-radius: 5px !important;
 }

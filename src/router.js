@@ -21,14 +21,14 @@ let router = new Router({
     },{
       path: '/lesson plans',
       name: 'lesson plans',
-      component: () => import(/* webpackChunkName: "about" */ './views/LessonPlans.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/services/LessonPlanIterator.vue'),
       meta:{
         requiresAuth: true
       }
     },{
       path: '/register',
       name: 'register',
-      component: () => import(/* webpackChunkName: "about" */ './views/EmployeeChart.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/services/EmployeeChart.vue'),
       meta:{
         requiresAuth: true
       }
@@ -37,7 +37,7 @@ let router = new Router({
     ,{
       path: '/dashboard/',
       name: 'dashboard',
-      component: () => import(/* webpackChunkName: "about" */ './views/Dashboard.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/dashboards/SupervisorDashboard.vue'),
       meta:{
         requiresAuth: true
       }
