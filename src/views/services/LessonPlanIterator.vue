@@ -1,81 +1,108 @@
 <template>
-  <v-container fluid grid-list-md>
-    <v-layout wrap class="mx-5 px-5" align-content-center>
-          <v-text-field
-          class="mx-4"
-            label="Go ahead! find your lesson plan"
-            single-line
-            prepend-icon="search"
-            color="red"
-            clearable
-            v-model="searchTerms"
-          ></v-text-field>
+  <v-container
+    fluid
+    grid-list-md
+    class="py-5"
+  >
+    <v-layout
+      wrap
+      class="mx-5 px-5 round"
+      align-content-center
+       color="red lighten-5 "
+    >
+      <v-text-field
+        class="mx-4 mt-3"
+        label="Go ahead! find your lesson plan"
+        single-line
+        prepend-icon="search"
+        color="red"
+        clearable
+        v-model="searchTerms"
+      />
     </v-layout>
-    <v-layout wrap class="mx-5 px-5" align-content-center>
-        <v-overflow-btn
-          class=" px-auto mx-5 grey lighten-5 "
-          :items="series"
-          label="Select a Series"
-          color="red"
-          solo
-          flat
-          v-model="dropdownSeries"
-          
-        ></v-overflow-btn>
-        <v-overflow-btn
-          class=" px-auto mx-5 grey lighten-5 "
-          :items="level"
-          label="Select a Level"
-          color="red"
-          solo
-          flat
-           v-model="dropdownLevel"
-        ></v-overflow-btn>
-        <v-overflow-btn
-          class=" px-auto mx-5 grey lighten-5 "
-          :items="unit"
-          label="Select a Unit"
-          color="red"
-          solo
-          flat
-       v-model="dropdownUnit"
-        ></v-overflow-btn>
-        
-     
+    <v-layout
+      wrap
+      class="mx-5 px-5 round"
+      align-content-center
+    >
+      <v-overflow-btn
+        class=" px-auto mx-5 grey lighten-5 round"
+        :items="series"
+        label="Select a Series"
+        color="red"
+        prepend-icon="book"
+        solo
+        flat
+        v-model="dropdownSeries"
+      />
+      <v-overflow-btn
+        class=" px-auto mx-5 grey lighten-5 "
+        :items="level"
+        label="Select a Level"
+        color="red"
+        prepend-icon="trending_up"
+        solo
+        flat
+        v-model="dropdownLevel"
+      />
+      <v-overflow-btn
+        class=" px-auto mx-5 grey lighten-5 "
+        :items="unit"
+        label="Select a Unit"
+        prepend-icon="format_list_numbered_rtl"
+        color="red"
+        solo
+        flat
+        v-model="dropdownUnit"
+      />
     </v-layout>
         
-    <v-layout wrap class="ma-3 pa-4" align-content-center>
-        
-      <v-card v-for="item in displayedLessonPlans" :key="item.download"
-      max-width="380px"
-      min-width="380px"
-      class="my-2 mx-auto elevation-24 round"
-      
+    <v-layout
+      wrap
+      class="mx-3 px-4"
+      align-content-center
+    >
+      <v-card
+        v-for="item in displayedLessonPlans"
+        :key="item.download"
+        max-width="380px"
+        min-width="380px"
+        class="my-2 mx-auto elevation-10 round grey lighten-2"
       >
-        <v-card-title primary-title class="subtitle-1 blue-grey darken-4 font-weight-bold white--text"> Document Name: {{item.parents}}</v-card-title>
+        <v-card-title
+          primary-title
+          class="subtitle-1 blue-grey darken-3 font-weight-bold white--text"
+        >
+          Document Name: {{ item.parents }}
+        </v-card-title>
         <v-card-text>
-           <span class="font-weight-bold">Book Series </span> {{item.Name}}
-          <br/> <span class="font-weight-bold">Level: </span> {{item.level}}
-           <br/><span class="font-weight-bold">Type:</span> {{ item.Type }}
-           <br/><span class="font-weight-bold">Size: </span>{{ item.Size }}
-           <br/><span class="font-weight-bold">Last Updated: </span>{{ ago(item["Last Updated"]) }} 
-           <br/><span class="font-weight-bold">Posted by: </span> {{item.Owner}}
+          <span class="font-weight-bold">Book Series </span> {{ item.Name }}
+          <br> <span class="font-weight-bold">Level: </span> {{ item.level }}
+          <br><span class="font-weight-bold">Type:</span> {{ item.Type }}
+          <br><span class="font-weight-bold">Size: </span>{{ item.Size }}
+          <br><span class="font-weight-bold">Last Updated: </span>{{ ago(item["Last Updated"]) }} 
+          <br><span class="font-weight-bold">Posted by: </span> {{ item.Owner }}
         </v-card-text>
         <v-card-actions class="mx-5">
-             <a :href="item.Link" target="blank" > <v-icon>open_in_new</v-icon> View online</a>
-           <v-spacer/><a :href="item.download">  download <v-icon>get_app</v-icon></a> 
+          <a
+            :href="item.Link"
+            target="blank"
+          > <v-icon color="red">open_in_new</v-icon> View online</a>
+          <v-spacer /><a :href="item.download">  download <v-icon color="red">get_app</v-icon></a> 
         </v-card-actions>
       </v-card>
-     
     </v-layout>
-    <v-layout align-center class="mb-5 pb-5 mx-auto px-auto">
+    <v-layout
+      align-center
+      class="mb-5 pb-5 mx-auto px-auto"
+    >
       <v-pagination
-      class="mx-auto px-auto"
-      v-model="page"
-      :length="pages.length"
-      color="red"
-      circle
-    ></v-pagination>
+        class="mx-auto px-auto"
+        v-model="page"
+        :length="pages.length"
+        color="red"
+        circle
+      />
     </v-layout>
   </v-container>
 </template>

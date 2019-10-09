@@ -89,7 +89,7 @@
             :color="colorize"
             v-else
           >
-            <span class="white--text headline" >{{ initialize }}</span>
+            <span class="white--text headline">{{ initialize }}</span>
           </v-avatar>   
         </v-btn>
         <!-- profile avatar ends -->

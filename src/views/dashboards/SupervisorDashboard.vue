@@ -1,12 +1,24 @@
 <template>
-  <v-layout class="mx-3 mb-5 pa-3 px-2 pb-5 pt-1 main-card" wrap>
+  <v-layout
+    class="mx-3 mb-5 pa-3 px-2 pb-5 pt-1 main-card"
+    wrap
+  >
     <!--side-menu starts-->
-    <v-navigation-drawer app v-model="sideMenu" v-if="checkIsLoggedIn && getSupervisorSideMenu"  v-on-clickaway="away"> 
+    <v-navigation-drawer
+      app
+      v-model="sideMenu"
+      v-if="checkIsLoggedIn && getSupervisorSideMenu"
+      v-on-clickaway="away"
+    > 
       <Sidemenu />
     </v-navigation-drawer>
     <!--side-menu ends-->
 
-    <v-layout class="mx-2 px-1 justify-center" flat wrap>
+    <v-layout
+      class="mx-2 px-1 justify-center"
+      flat
+      wrap
+    >
       <!-- upcoming events starts -->
       <v-card
         class="justify-center mx-1 elevation-24 grids"
@@ -15,12 +27,23 @@
         max-width="400px"
         min-width="380px"
       >
-        <v-card-title primary-title class="justify-center orangish elevation-12 py-1">
+        <v-card-title
+          primary-title
+          class="justify-center orangish elevation-12 py-1"
+        >
           <h3 class="title white--text text--accent-2">
-            <v-icon color="white" medium class="mr-2">alarm</v-icon>Upcoming events
+            <v-icon
+              color="white"
+              medium
+              class="mr-2"
+            >
+              alarm
+            </v-icon>Upcoming events
           </h3>
         </v-card-title>
-        <v-card-text class="title">{{ direccion.notification }}</v-card-text>
+        <v-card-text class="title">
+          {{ direccion.notification }}
+        </v-card-text>
       </v-card>
       <!-- upcoming events ends -->
       <!-- intructions start -->
@@ -31,9 +54,18 @@
         max-width="400px"
         min-width="380px"
       >
-        <v-card-title primary-title class="instructions justify-center elevation-12 py-1">
+        <v-card-title
+          primary-title
+          class="instructions justify-center elevation-12 py-1"
+        >
           <h3 class="title white--text text--accent-2">
-            <v-icon color="white" medium class="mx-2">sms</v-icon>Task Report
+            <v-icon
+              color="white"
+              medium
+              class="mx-2"
+            >
+              sms
+            </v-icon>Task Report
           </h3>
         </v-card-title>
         <v-card-text class="justify-center">
@@ -59,10 +91,26 @@
                 disabled
               />
             </template>
-            <v-date-picker v-model="date" no-title scrollable>
+            <v-date-picker
+              v-model="date"
+              no-title
+              scrollable
+            >
               <v-spacer />
-              <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-              <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+              <v-btn
+                text
+                color="primary"
+                @click="menu = false"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                text
+                color="primary"
+                @click="$refs.menu.save(date)"
+              >
+                OK
+              </v-btn>
             </v-date-picker>
           </v-menu>
           <!-- date picker ends -->
@@ -86,7 +134,9 @@
           <v-layout class="justify-end">
             <v-btn
               class="justify-center mx-auto instructions font-weight-bold black--text elevation-24"
-            >submit</v-btn>
+            >
+              submit
+            </v-btn>
             <!-- Submit button ends -->
           </v-layout>
         </v-card-text>
@@ -103,9 +153,18 @@
         min-width="240px"
         style="overflow:auto;"
       >
-        <v-card-title primary-title class="justify-center centers darken-4 elevation-12 py-1">
+        <v-card-title
+          primary-title
+          class="justify-center centers darken-4 elevation-12 py-1"
+        >
           <h3 class="title white--text text--accent-2">
-            <v-icon color="white" medium class="mr-2 white--text">location_city</v-icon>Centers
+            <v-icon
+              color="white"
+              medium
+              class="mr-2 white--text"
+            >
+              location_city
+            </v-icon>Centers
           </h3>
         </v-card-title>
 
@@ -113,19 +172,29 @@
           <table class="mx-2">
             <thead>
               <tr>
-                <th class="text-left">Name</th>
+                <th class="text-left">
+                  Name
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in centers" :key="item.name">
+              <tr
+                v-for="(item, index) in centers"
+                :key="item.name"
+              >
                 <v-tooltip left>
                   <template v-slot:activator="{ on }">
-                    <td class="text-truncate" style="max-width:190px">
+                    <td
+                      class="text-truncate"
+                      style="max-width:190px"
+                    >
                       <v-btn
                         class="px-2 py-0 ma-0 caption"
                         flat
                         v-on="on"
-                      >{{ index+1 }} - {{ item.name }}</v-btn>
+                      >
+                        {{ index+1 }} - {{ item.name }}
+                      </v-btn>
                     </td>
                   </template>
                   <span>{{ item.name }}</span>
@@ -138,20 +207,43 @@
       <!-- centers ends -->
     </v-layout>
     <!-- statistics layout starts -->
-    <v-layout class="mx-5 mb-5 pb-5" flat wrap justify-center>
+    <v-layout
+      class="mx-5 mb-5 pb-5"
+      flat
+      wrap
+      justify-center
+    >
       <!-- statistics starts -->
-      <v-card class="mx-2 mt-2 elevation-24 grids statistics-card" min-width="500px">
+      <v-card
+        class="mx-2 mt-2 elevation-24 grids statistics-card"
+        min-width="500px"
+      >
         <v-card-title
           primary-title
           class="justify-center statistics-right darken-4 elevation-12 py-1"
         >
           <h3 class="title white--text text--accent-2">
-            <v-icon large class="mr-2 white--text">equalizer</v-icon>Scores history in your centers
+            <v-icon
+              large
+              class="mr-2 white--text"
+            >
+              equalizer
+            </v-icon>Scores history in your centers
           </h3>
         </v-card-title>
         <div>
-          <v-sheet class="v-sheet--offset mx-auto" color="black" elevation="12">
-            <v-sparkline :labels="labels" :value="value" color="white" line-width="3" padding="16" />
+          <v-sheet
+            class="v-sheet--offset mx-auto"
+            color="black"
+            elevation="12"
+          >
+            <v-sparkline
+              :labels="labels"
+              :value="value"
+              color="white"
+              line-width="3"
+              padding="16"
+            />
           </v-sheet>
         </div>
       </v-card>
@@ -162,14 +254,28 @@
         max-height="170px"
         min-width="500px"
       >
-        <v-card-title primary-title class="justify-center statistics darken-4 elevation-12 py-1">
+        <v-card-title
+          primary-title
+          class="justify-center statistics darken-4 elevation-12 py-1"
+        >
           <h3 class="title white--text text--accent-2">
-            <v-icon large class="mr-2 white--text">timeline</v-icon>Weekly Attendance in centers
+            <v-icon
+              large
+              class="mr-2 white--text"
+            >
+              timeline
+            </v-icon>Weekly Attendance in centers
           </h3>
         </v-card-title>
-        <div style="overflow-x:auto;" class="mb-5">
+        <div
+          style="overflow-x:auto;"
+          class="mb-5"
+        >
           <div>
-            <v-sheet class="v-sheet--offset mx-auto" elevation="12">
+            <v-sheet
+              class="v-sheet--offset mx-auto"
+              elevation="12"
+            >
               <v-sparkline
                 class="black--text"
                 :labels="days"

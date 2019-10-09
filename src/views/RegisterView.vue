@@ -1,48 +1,85 @@
 <template>
   <v-layout>
-    <v-dialog v-model="getSUDialog" persistent max-width="465px" min-width="465px" lass="round">
+    <v-dialog
+      v-model="getSUDialog"
+      persistent
+      max-width="465px"
+      min-width="465px"
+      lass="round"
+    >
       <v-form>
-        <v-card width="465px" height="250px" color="#135393" min-width="465px" class="round">
+        <v-card
+          width="465px"
+          height="250px"
+          color="#135393"
+          min-width="465px"
+          class="round"
+        >
           <v-layout align-content-start>
-            <v-toolbar dense class="elevation-24 round">
+            <v-toolbar
+              dense
+              class="elevation-24 round"
+            >
               <v-toolbar-title class="logo">
                 <v-icon>lock_open</v-icon>
                 <span class="teach">Teach</span>
                 <span class="acronym">EIP</span>
               </v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon @click="toggleSU">
+              <v-spacer />
+              <v-btn
+                icon
+                @click="toggleSU"
+              >
                 <v-icon>close</v-icon>
               </v-btn>
             </v-toolbar>
           </v-layout>
-          <v-layout class="pt-4 px-1" align-center>
-            <v-btn @click="google" class="font-weight-bold elevation-24 round" :loading=loading>
+          <v-layout
+            class="pt-4 px-1"
+            align-center
+          >
+            <v-btn
+              @click="google"
+              class="font-weight-bold elevation-24 round"
+              :loading="loading"
+            >
               <img
                 src="https://www.solarwinds.com/-/media/solarwinds/swdcv2/licensed-products/service-desk/integrations/sd-integrations-logo-google-single-sign-on.ashx?la=en&rev=aab01f816f1c4af5b415d614081150ee&hash=80ED17DEB435A7EFFC9C29101FBC92C5B05FD5D2"
                 width="25px"
                 class="mr-2"
                 alt
-              />sign up with google
+              >sign up with google
             </v-btn>
-            <v-btn @click="facebook" class="pa-0 px-2 font-weight-bold elevation-24 round" disabled>
+            <v-btn
+              @click="facebook"
+              class="pa-0 px-2 font-weight-bold elevation-24 round"
+              disabled
+            >
               <img
                 src="https://image.flaticon.com/icons/png/512/124/124010.png"
                 width="27px"
                 class="mr-2 elevation-10"
                 alt
-              />
+              >
               sign up with Faceboook
             </v-btn>
           </v-layout>
-          <v-layout class="pt-4 px-1" align-end wrap>
-            <v-btn @click="microsoft" class="font-weight-bold elevation-24 round" disabled>
+          <v-layout
+            class="pt-4 px-1"
+            align-end
+            wrap
+          >
+            <v-btn
+              @click="microsoft"
+              class="font-weight-bold elevation-24 round"
+              disabled
+            >
               <img
                 src="https://icon-library.net/images/microsoft-logo-icon/microsoft-logo-icon-17.jpg"
                 width="25px"
                 class="mr-2"
                 alt
-              />Continue with Microsoft
+              >Continue with Microsoft
             </v-btn>
           </v-layout>
         </v-card>

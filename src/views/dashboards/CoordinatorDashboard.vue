@@ -14,7 +14,7 @@
             </v-flex>
             <!-- <v-flex xs6 class="text-xs-center">
               <a href="#!" class="body-2 black--text">EDIT</a>
-            </v-flex> -->
+            </v-flex>-->
           </v-layout>
           <v-list-group
             v-else-if="item.children"
@@ -26,7 +26,7 @@
             <template v-slot:activator>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-list-tile-title >{{ item.text }}</v-list-tile-title>
+                  <v-list-tile-title>{{ item.text }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </template>
@@ -34,7 +34,7 @@
               <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-tile-action>
-              <v-list-tile-content >
+              <v-list-tile-content>
                 <v-list-tile-title>{{ child.text }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
@@ -50,14 +50,132 @@
         </template>
       </v-list>
     </v-navigation-drawer>
+    <!--############ CONTENT/ DASHBOARD ##############-->
     <v-content>
-      <v-container fluid fill-height>
+      <v-container fluid class="py-0 my-0">
         <v-layout justify-center align-center>
-          <v-tooltip right></v-tooltip>
-          <v-tooltip right></v-tooltip>
+          <v-card class="elevation-24 round">
+            <v-toolbar flat color="sign-in text-uppercase round" dark dense>
+              <v-toolbar-title>{{center.name}}</v-toolbar-title>
+            </v-toolbar>
+            <v-tabs vertical>
+              <v-tab>
+                <v-icon  large color="red">account_balance</v-icon>Main
+              </v-tab>
+              <v-tab>
+                <v-icon  large color="red">apps</v-icon>Processes
+              </v-tab>
+              <v-tab>
+                <v-icon  large color="red" class="mr-2">school</v-icon>Academic
+              </v-tab>
+              <v-tab>
+                <v-icon  large color="red" class="mr-2">business</v-icon>Administrative
+              </v-tab>
+
+              <v-tab-item>
+                <v-card flat height="600px" width="100%">
+                  <v-layout row wrap width="100%">
+                    <a @click="studentMenu=!studentMenu">
+                      <v-card class="px-auto pt-2 mt-1 mx-3 actionButton" width="80px">
+                        <img src="../../assets/dashboardImages/student.png" alt class="mx-2 mb-2" />
+                        <v-card-text class="px-auto py-0">Student</v-card-text>
+                      </v-card>
+                    </a>
+                    <a @click="teacherMenu=!teacherMenu">
+                      <v-card
+                        class="px-auto pt-2 mt-1 mx-3 actionButton"
+                        width="80px"
+                        height="108px"
+                      >
+                        <img
+                          src="../../assets/dashboardImages/teacher.png"
+                          alt
+                          width="78px"
+                          height="72px"
+                          class="mx-1"
+                        />
+                        <v-card-text class="px-auto py-0">Teacher</v-card-text>
+                      </v-card>
+                    </a>
+                  </v-layout>
+                  <!-- ####### STUDENT OPTIONS #######-->
+                  <v-list-tile dense v-if="studentMenu"  v-on-clickaway="closeStudent">
+                    <v-list-tile-action>
+                      <v-card class="studentMenu elevation-21" width="200px">
+                        <v-toolbar dense flat color="white" class="font-weight-black">
+                          <v-spacer />Student options
+                          <v-btn icon @click="studentMenu=!studentMenu">
+                            <v-icon>close</v-icon>
+                          </v-btn>
+                        </v-toolbar>
+                        <v-card-text
+                          v-for="(item, i) in studentOptions"
+                          :key="i"
+                          class="px-auto py-1"
+                        >
+                          <v-btn block flat class="py-1">
+                            <v-icon :color="item.color" class="mr-2">{{item.icon}}</v-icon>
+                            <span>{{item.title}}</span>
+                          </v-btn>
+                        </v-card-text>
+                      </v-card>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <!-- ####### STUDENT OPTIONS END #######-->
+                  
+                  <!-- ####### TEACHER OPTIONS #######-->
+                  <v-list-tile dense v-if="teacherMenu" v-on-clickaway="closeTeacher">
+                    <v-list-tile-action>
+                      <v-card class="teacherMenu elevation-21 yellow lighten-4" width="200px">
+                        <v-toolbar dense flat color="white" class="font-weight-black">
+                          <v-spacer />Teacher options
+                          <v-btn icon @click="teacherMenu=!teacherMenu">
+                            <v-icon>close</v-icon>
+                          </v-btn>
+                        </v-toolbar>
+                        <v-card-text
+                          v-for="(item, i) in teacherOptions"
+                          :key="i"
+                          class="px-auto py-1"
+                        >
+                          <v-btn block flat class="py-1 yellow lighten-4 px-1">
+                            <v-icon :color="item.color" class="mr-2">{{item.icon}}</v-icon>
+                            <span>{{item.title}}</span>
+                          </v-btn>
+                        </v-card-text>
+                      </v-card>
+                    </v-list-tile-action>
+                  </v-list-tile>
+                  <!-- ####### TEACHER OPTIONS END #######-->
+                  <v-card-text>
+
+                  </v-card-text>
+                </v-card>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card flat>
+                  <v-card-text>
+                    Here we will have a list of all procedures related to coordination
+                  </v-card-text>
+                </v-card>
+              </v-tab-item>
+              <v-tab-item>
+                <v-card flat>
+                  <v-card-text>
+                    <p>Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.</p>
+
+                    <p
+                      class="mb-0"
+                    >Cras sagittis. Phasellus nec sem in justo pellentesque facilisis. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nam at tortor in tellus interdum sagittis.</p>
+                  </v-card-text>
+                </v-card>
+              </v-tab-item>
+            </v-tabs>
+          </v-card>
         </v-layout>
       </v-container>
     </v-content>
+    <!-- ######### dialog ################ -->
     <v-btn fab bottom right color="pink" dark fixed @click="dialog = !dialog">
       <v-icon>add</v-icon>
     </v-btn>
@@ -71,17 +189,17 @@
                 <v-avatar size="40px" class="mr-3">
                   <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt />
                 </v-avatar>
-                <v-text-field placeholder="Name"></v-text-field>
+                <v-text-field placeholder="Name" />
               </v-layout>
             </v-flex>
             <v-flex xs6>
-              <v-text-field prepend-icon="business" placeholder="Company"></v-text-field>
+              <v-text-field prepend-icon="business" placeholder="Company" />
             </v-flex>
             <v-flex xs6>
-              <v-text-field placeholder="Job title"></v-text-field>
+              <v-text-field placeholder="Job title" />
             </v-flex>
             <v-flex xs12>
-              <v-text-field prepend-icon="mail" placeholder="Email"></v-text-field>
+              <v-text-field prepend-icon="mail" placeholder="Email" />
             </v-flex>
             <v-flex xs12>
               <v-text-field
@@ -89,16 +207,16 @@
                 prepend-icon="phone"
                 placeholder="(000) 000 - 0000"
                 mask="phone"
-              ></v-text-field>
+              />
             </v-flex>
             <v-flex xs12>
-              <v-text-field prepend-icon="notes" placeholder="Notes"></v-text-field>
+              <v-text-field prepend-icon="notes" placeholder="Notes" />
             </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
           <v-btn flat color="primary">More</v-btn>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-btn flat color="primary" @click="dialog = false">Cancel</v-btn>
           <v-btn flat @click="dialog = false">Save</v-btn>
         </v-card-actions>
@@ -117,6 +235,27 @@ export default {
   data: () => ({
     dialog: false,
     drawer: true,
+    studentMenu: false,
+    teacherMenu: false,
+    center: {
+      name: "UASD CEDE"
+    },
+    studentOptions: [
+      { title: "Add student", icon: "person_add", color: "green" },
+      { title: "Assign fingerprint", icon: "fingerprint", color: "black" },
+      { title: "Permissions", icon: "directions_run", color: "yellow" },
+      { title: "Dropouts", icon: "person_add_disabled", color: "red" },
+      { title: "Grades", icon: "grid_on", color: "blue" },
+      { title: "Late Pass Report", icon: "wb_iridescent", color: "orange" }
+    ],
+    teacherOptions: [
+      { title: "Add teacher", icon: "account_circle", color: "green" },
+      { title: "Assign fingerprint", icon: "fingerprint", color: "black" },
+      { title: "Permissions", icon: "directions_run", color: "yellow" },
+      { title: "Records", icon: "save", color: "red" },
+      { title: "Class Observations", icon: "check_circle", color: "orange" },
+      { title: "Survey Results", icon: "grid_on", color: "blue" },
+    ],
     items: [
       { icon: "dashboard", text: "DASHBOARD" },
 
@@ -127,12 +266,9 @@ export default {
         model: false,
         children: [
           { text: "Lesson Plans", link: "/lesson plans/" },
-          { text: "Export" },
-          { text: "Print" },
-          { text: "Undo changes" },
           { text: "Other contacts" }
         ]
-      },
+      }
     ]
   }),
   methods: {
@@ -143,7 +279,17 @@ export default {
           !this.getCoordinatorSideMenu
         );
       }
-    }
+    },
+    closeStudent() {
+      if (this.studentMenu) {
+      this.studentMenu = !this.studentMenu;
+      }
+    },
+    closeTeacher() {
+      if (this.teacherMenu) {
+      this.teacherMenu = !this.teacherMenu;
+      }
+    },
   },
   computed: { ...mapGetters(["getCoordinatorSideMenu", "checkIsLoggedIn"]) },
   created() {
@@ -151,3 +297,30 @@ export default {
   }
 };
 </script>
+<style >
+.studentMenu {
+  z-index: 1;
+  position: absolute;
+  top: 2%;
+  left: 0%;
+  text-align: center;
+  animation-duration: 0.1s;
+  animation-name: bounceInDown;
+  animation-timing-function: ease-in-out;
+  display: block;
+}
+.teacherMenu {
+  z-index: 1;
+  position: absolute;
+  top: 0%;
+  left: 12%;
+  text-align: center;
+  animation-duration: 0.1s;
+  animation-name: bounceInDown;
+  animation-timing-function: ease-in-out;
+  display: block;
+}
+.actionButton:hover {
+  background: gray;
+}
+</style>

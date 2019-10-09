@@ -1,23 +1,40 @@
 // this component will manage all operations that are related to profile
 <template>
-  <v-list class="tile" v-if="checkIsLoggedIn">
+  <v-list
+    class="tile"
+    v-if="checkIsLoggedIn"
+  >
     <!-- photo display starts -->
     <v-avatar v-if="getCurrentUser.photoURL">
-      <img :src="getCurrentUser.photoURL" :alt="getCurrentUser.displayName" />
+      <img
+        :src="getCurrentUser.photoURL"
+        :alt="getCurrentUser.displayName"
+      >
     </v-avatar>
-    <v-avatar  :color="colorize" v-else>
-      <span class="white--text headline">{{ initialize}}</span>
+    <v-avatar
+      :color="colorize"
+      v-else
+    >
+      <span class="white--text headline">{{ initialize }}</span>
     </v-avatar>
     <!-- photo display ends -->
-    <v-list-tile-title class="title mx-5 px-1">{{ getCurrentUser.displayName }}</v-list-tile-title>
-    <v-list-tile-sub-title class="email">{{ getCurrentUser.email }}</v-list-tile-sub-title>
+    <v-list-tile-title class="title mx-5 px-1">
+      {{ getCurrentUser.displayName }}
+    </v-list-tile-title>
+    <v-list-tile-sub-title class="email">
+      {{ getCurrentUser.email }}
+    </v-list-tile-sub-title>
     <v-card-actions class="justify-center">
       <!-- editor dialog starts -->
       <editor />
       <!-- editor dialog ends -->
     </v-card-actions>
     <v-card-actions class="justify-center">
-      <v-btn tag="v-btn" class="sign-up" @click="logout">
+      <v-btn
+        tag="v-btn"
+        class="sign-up"
+        @click="logout"
+      >
         Log out
         <v-icon>exit_to_app</v-icon>
       </v-btn>

@@ -7,7 +7,7 @@
     <v-alert
       v-model="log"
       class="connection-off mt-3"
-      >
+    >
       <v-icon class="mr-2">
         signal_wifi_off
       </v-icon>You are currently offline

@@ -8,11 +8,19 @@
       transition="dialog-bottom-transition"
     >
       <template v-slot:activator="{ on }">
-        <v-btn class="edit-profile" v-on="on">edit profile</v-btn>
+        <v-btn
+          class="edit-profile"
+          v-on="on"
+        >
+          edit profile
+        </v-btn>
       </template>
       <v-card>
         <v-toolbar color="white">
-          <v-btn icon @click="dialog = false">
+          <v-btn
+            icon
+            @click="dialog = false"
+          >
             <v-icon>close</v-icon>
           </v-btn>
           <v-toolbar-title>Settings</v-toolbar-title>
@@ -21,23 +29,49 @@
           <span class="acronym title">EIP</span>
           <v-spacer />
           <v-toolbar-items>
-            <v-btn text @click="save" class="sign-up">Save</v-btn>
+            <v-btn
+              text
+              @click="save"
+              class="sign-up"
+            >
+              Save
+            </v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        <v-subheader class="title">User Information</v-subheader>
-        <v-layout three-line subheader class="pt-5" justify-start>
+        <v-subheader class="title">
+          User Information
+        </v-subheader>
+        <v-layout
+          three-line
+          subheader
+          class="pt-5"
+          justify-start
+        >
           <v-list-tile>
             <v-avatar v-if="getCurrentUser.photoURL">
-              <img :src="getCurrentUser.photoURL" :alt="getCurrentUser.displayName" />
+              <img
+                :src="getCurrentUser.photoURL"
+                :alt="getCurrentUser.displayName"
+              >
             </v-avatar>
-            <v-avatar color="red" v-else>
+            <v-avatar
+              color="red"
+              v-else
+            >
               <span
                 class="white--text headline"
-              >{{initialize}}</span>
+              >{{ initialize }}</span>
             </v-avatar>
 
-            <v-btn small class="ma-3" color="sign-up" @click="$refs.inputUpload.click()">
-              <v-icon small>edit</v-icon>Upload
+            <v-btn
+              small
+              class="ma-3"
+              color="sign-up"
+              @click="$refs.inputUpload.click()"
+            >
+              <v-icon small>
+                edit
+              </v-icon>Upload
             </v-btn>
             <input
               v-show="false"
@@ -46,14 +80,27 @@
               @change="uploadPhoto"
               id="file"
               accept="image/x-png, image/gif, image/jpeg"
-            />
+            >
           </v-list-tile>
         </v-layout>
         <v-layout justify-center>
           <!-- snackbar to notify completion starts -->
-          <v-snackbar class="error" v-model="snackbar" color multi-line :timeout="6000" top="top">
+          <v-snackbar
+            class="error"
+            v-model="snackbar"
+            color
+            multi-line
+            :timeout="6000"
+            top="top"
+          >
             "The photo has been uploaded, it will show in a few seconds "
-            <v-btn dark text @click="snackbar = false">Close</v-btn>
+            <v-btn
+              dark
+              text
+              @click="snackbar = false"
+            >
+              Close
+            </v-btn>
           </v-snackbar>
           <!-- snackbar to notify completion ends -->
 
@@ -69,10 +116,18 @@
           </v-progress-linear>
         </v-layout>
         <v-divider />
-        <v-list three-line subheader class="ml-5">
+        <v-list
+          three-line
+          subheader
+          class="ml-5"
+        >
           <v-list-tile-title class="subtitle-1" />
 
-          <v-flex xs12 sm6 md3>
+          <v-flex
+            xs12
+            sm6
+            md3
+          >
             <v-text-field
               :value="getCurrentUser.displayName"
               label="NAME:"
@@ -80,7 +135,11 @@
               id="displayNameInput"
             />
           </v-flex>
-          <v-flex xs12 sm6 md3>
+          <v-flex
+            xs12
+            sm6
+            md3
+          >
             <v-text-field
               :value="getCurrentUser.phoneNumber"
               label="PHONE"
