@@ -216,7 +216,6 @@
 <script>
 import { directive as onClickaway } from "vue-clickaway";
 import Profile from "@/components/profile.vue";
-import { auth } from "firebase/app";
 import { mapGetters } from "vuex";
 import Student from "../components/authenticationForms/student.vue";
 import Teacher from "../components/authenticationForms/teacher.vue";
@@ -291,11 +290,12 @@ export default {
       this.profileModel = !this.profileModel;
     }
   },
-  computed: mapGetters(["getLanding", "checkIsLoggedIn", "getCurrentUser"]),
+  
+  computed: mapGetters(["getLanding", "checkIsLoggedIn", "getCurrentUser", "auth"]),
   created() {
-    if (auth().currentUser) {
+    if (this.auth().currentUser) {
       this.$store.commit("setLoggedIn", true);
-      this.$store.commit("setCurrentUser", auth().currentUser);
+      this.$store.commit("setCurrentUser", this.auth().currentUser);
     }
   }
 };

@@ -136,23 +136,6 @@ export default {
        
       return this.paginate(this.lPs);
      },
-    
-    // searchedLPs: function() {
-    //   return this.getLessonPlans.filter(function(item) {
-        
-    // if(this.item && this.searchTerms) return (
-    //       (item.Name.toLowerCase().match(this.searchTerms.toLowerCase())) ||
-    //       (item.level.toLowerCase().match(this.searchTerms.toLowerCase())) ||
-    //       (item.parents.toLowerCase().match(this.searchTerms.toLowerCase()))
-    //     )
-    //   }.bind(this));
-    // }, //searchedApts
-
-    // filteredLPs: function() {
-    //   return _.orderBy(this.searchedLPs, function(item) {
-    //     return item[this.dropdownSeries].toLowerCase();
-    //   }.bind(this), this.filterDir);
-    // } //filteredApts
   },
   methods: {
     selectMenu(){
@@ -205,6 +188,11 @@ export default {
     lPs () {
       this.setPages();
     },
+    searchTerms(){
+      this.dropdownSeries = '';
+      this.dropdownLevel = '';
+      this.dropdownUnit = '';
+    }
   },
   async created() {
     await this.fetchLessonPlans();

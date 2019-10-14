@@ -28,7 +28,7 @@
               <v-spacer />
               <v-btn
                 icon
-                @click="toggleSU"
+                @click.prevent="toggleSU"
               >
                 <v-icon>close</v-icon>
               </v-btn>
@@ -39,7 +39,7 @@
             align-center
           >
             <v-btn
-              @click="google"
+              @click.prevent="google"
               class="font-weight-bold elevation-24 round"
               :loading="loading"
             >
@@ -51,7 +51,7 @@
               >sign up with google
             </v-btn>
             <v-btn
-              @click="facebook"
+              @click.prevent="facebook"
               class="pa-0 px-2 font-weight-bold elevation-24 round"
               disabled
             >
@@ -70,7 +70,7 @@
             wrap
           >
             <v-btn
-              @click="microsoft"
+              @click.prevent="microsoft"
               class="font-weight-bold elevation-24 round"
               disabled
             >
@@ -97,12 +97,8 @@
 import Policy from "@/views/Useterms.vue";
 import { mapGetters, mapActions } from "vuex";
 import Vue from "vue";
-import { auth } from "firebase/app";
-import firebase from "firebase";
+
 import { async } from "q";
-const provider = new firebase.auth.GoogleAuthProvider();
-const providerF = new firebase.auth.FacebookAuthProvider();
-const providerMicrosoft = new firebase.auth.OAuthProvider("microsoft.com");
 
 export default {
   $_veeValidate: {
@@ -132,9 +128,8 @@ export default {
   }),
   methods: {
     async microsoft() {
-      firebase
-        .auth()
-        .signInWithPopup(providerMicrosoft)
+      this.auth()
+        .signInWithPopup(this.providerMicrosoft)
         .then(function(result) {
           const token = result.credential.accessToken;
           const user = result.user;
@@ -150,9 +145,8 @@ export default {
       await this.toggleSU();
     },
     async facebook() {
-      firebase
-        .auth()
-        .signInWithPopup(providerF)
+      this.auth()
+        .signInWithPopup(this.FacebookAuthProvider)
         .then(result => {
           const token = result.credential.accessToken;
           const user = result.user;
@@ -165,9 +159,9 @@ export default {
         });
     },
     async google() {
-      await firebase
-        .auth()
-        .signInWithPopup(provider)
+      await 
+        this.auth()
+        .signInWithPopup(this.GoogleAuthProvider)
         .then(function(result) {
           // This gives you a Google Access Token. You can use it to access the Google API.
           const token = result.credential.accessToken;
@@ -192,7 +186,7 @@ export default {
     },
     ...mapActions(["toggleSU", "runAlert", "fetchAllUsers"])
   },
-  computed: mapGetters(["getSUDialog"])
+  computed: mapGetters(["getSUDialog", "firebase", "auth", "GoogleAuthProvider", "providerMicrosoft"])
 };
 </script>
 

@@ -15,22 +15,6 @@ const getters = {
     
 };
 const actions = {
-    async fetchUsers({ commit }) {
-        db.collection('Employees')
-            .where('id', '==', state.params).get().then((querySnapshot) => {
-                querySnapshot.forEach(async (doc) => {
-                    const response = await doc.data();
-                    commit('setUsers', response);
-                })
-            })
-    },
-
-    /**
-     * universal function that logs out the user from the auth system
-     * 
-     * */
-   
-
 };
 const mutations = {
 setUsers: (state, value) =>{state.users.push(value); },

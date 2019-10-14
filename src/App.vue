@@ -110,6 +110,49 @@
     <Footer />
   </div>
 </template>
+<script>
+import 'vuetify/dist/vuetify.min.css'
+import Menu from '@/components/menu.vue'
+import {mapGetters} from 'vuex'
+
+import Footer from '@/components/footer.vue';
+export default {
+ name: 'SiteHeade',
+ data(){
+   return{
+      log: false,
+      online: false,
+   }
+ },
+ components: {
+   Menu, 
+   Footer,
+ },
+ methods: {
+      init() {
+      const updateOnlineStatus = async event => {
+        this.log = navigator.online ? false : true;
+        if (navigator.onLine) {
+          this.log = false;
+          this.online = true;
+          setTimeout(async () => {
+            this.online = false;
+          }, 3000);
+        }
+      };
+      window.addEventListener("online", updateOnlineStatus);
+      window.addEventListener("offline", updateOnlineStatus);
+    },
+ },
+computed: mapGetters(["getFullScreen",]),
+ created(){
+       this.init();
+    },
+    mounted(){
+
+    }
+}
+</script>
 <style>
 [v-cloak]{
   display: none !important;
@@ -135,10 +178,7 @@ font-family: 'Oswald', sans-serif;
 
 #img-mescyt{
   width: 80% ;
-
- 
 }
-
 .site-title{
 font-size: 60% !important;
 padding: 0%;
@@ -147,12 +187,10 @@ padding: 0%;
 font-size: 30% !important;
 padding: 0%;
 }
-
 }
 
 .titles{
   font-family: 'Oswald', sans-serif !important;
-  
 }
 .titles a{
   color:#135393 !important;
@@ -162,12 +200,10 @@ padding: 0%;
   animation-duration: 1.5s;
   animation-name: rubberBand;
   animation-timing-function: ease-in-out;
-  
 }
 
 a{
   text-decoration: none;
-  
 }
 .connection-on {
   width: 100%;
@@ -195,50 +231,3 @@ a{
   background-color: rgb(255, 82, 82) !important;
 }
 </style>
-
-
-<script>
-import 'vuetify/dist/vuetify.min.css'
-import Menu from '@/components/menu.vue'
-import {mapGetters} from 'vuex'
-import Footer from '@/components/footer.vue';
-export default {
- name: 'SiteHeade',
- data(){
-   return{
-      log: false,
-      online: false,
-   }
- },
- components: {
-   Menu, 
-   Footer,
-
- },
- methods: {
-      init() {
-      const updateOnlineStatus = async event => {
-        this.log = navigator.online ? false : true;
-        if (navigator.onLine) {
-          this.log = false;
-          this.online = true;
-          setTimeout(async () => {
-            this.online = false;
-          }, 3000);
-        }
-      };
-      window.addEventListener("online", updateOnlineStatus);
-      window.addEventListener("offline", updateOnlineStatus);
-    },
- },
-   
-    computed: mapGetters(["getFullScreen",]),
- 
- created(){
-       this.init();
-    },
-    mounted(){
-
-    }
-}
-</script>

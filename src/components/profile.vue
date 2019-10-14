@@ -45,7 +45,6 @@
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
 import editor from "../views/ProfileEditorView.vue";
-import { auth } from "firebase/app";
 import colors from "@/assets/colors/colors.js";
 
 export default {

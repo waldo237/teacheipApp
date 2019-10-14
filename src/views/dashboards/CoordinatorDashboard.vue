@@ -12,9 +12,6 @@
             <v-flex xs6>
               <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
             </v-flex>
-            <!-- <v-flex xs6 class="text-xs-center">
-              <a href="#!" class="body-2 black--text">EDIT</a>
-            </v-flex>-->
           </v-layout>
           <v-list-group
             v-else-if="item.children"
@@ -51,30 +48,30 @@
       </v-list>
     </v-navigation-drawer>
     <!--############ CONTENT/ DASHBOARD ##############-->
-    <v-content>
-      <v-container fluid class="py-0 my-0">
-        <v-layout justify-center align-center>
-          <v-card class="elevation-24 round">
+    <!-- <v-content> -->
+      <!-- <v-container  class="mx-5 px-auto"> -->
+        <v-layout justify-center class="px-5 ma-5">
+          <v-card class="elevation-24 round mx-5" wrap>
             <v-toolbar flat color="sign-in text-uppercase round" dark dense>
               <v-toolbar-title>{{center.name}}</v-toolbar-title>
             </v-toolbar>
             <v-tabs vertical>
               <v-tab>
-                <v-icon  large color="red">account_balance</v-icon>Main
+                <v-icon   color="red">account_balance</v-icon>Main
               </v-tab>
               <v-tab>
-                <v-icon  large color="red">apps</v-icon>Processes
+                <v-icon   color="red">apps</v-icon>Processes
               </v-tab>
               <v-tab>
-                <v-icon  large color="red" class="mr-2">school</v-icon>Academic
+                <v-icon   color="red" class="mr-2">school</v-icon>Academic
               </v-tab>
               <v-tab>
-                <v-icon  large color="red" class="mr-2">business</v-icon>Administrative
+                <v-icon   color="red" class="mr-2">business</v-icon>Administrative
               </v-tab>
 
-              <v-tab-item>
-                <v-card flat height="600px" width="100%">
-                  <v-layout row wrap width="100%">
+              <v-tab-item  class="mx-3">
+                <v-card flat >
+                  <v-layout row wrap >
                     <a @click="studentMenu=!studentMenu">
                       <v-card class="px-auto pt-2 mt-1 mx-3 actionButton" width="80px">
                         <img src="../../assets/dashboardImages/student.png" alt class="mx-2 mb-2" />
@@ -154,12 +151,12 @@
               </v-tab-item>
               <v-tab-item>
                 <v-card flat>
-                  <v-card-text>
+                  <v-card-text >
                     Here we will have a list of all procedures related to coordination
                   </v-card-text>
                 </v-card>
               </v-tab-item>
-              <v-tab-item>
+              <v-tab-item class="px-2">
                 <v-card flat>
                   <v-card-text>
                     <p>Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.</p>
@@ -173,8 +170,8 @@
             </v-tabs>
           </v-card>
         </v-layout>
-      </v-container>
-    </v-content>
+      <!-- </v-container> -->
+    <!-- </v-content> -->
     <!-- ######### dialog ################ -->
     <v-btn fab bottom right color="pink" dark fixed @click="dialog = !dialog">
       <v-icon>add</v-icon>
@@ -224,7 +221,6 @@
     </v-dialog>
   </v-app>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import { directive as onClickaway } from "vue-clickaway";

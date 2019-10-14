@@ -46,7 +46,7 @@
         <v-btn
           class="sign-in"
           :disabled="checkID"
-          @click="verifyID"
+          @click.prevent="verifyID"
         >
           verify
         </v-btn>

@@ -3,10 +3,9 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import Vuetify from 'vuetify'
-// import VeeValidate from 'vee-validate';
-import  {auth} from 'firebase/app'; 
-import './components/firebaseInit'; 
- 
+import {auth} from 'firebase/app';
+Vue.config.productionTip = false;
+
 let app;
 auth().onAuthStateChanged((user)=>{
   if(!app){
@@ -20,7 +19,5 @@ auth().onAuthStateChanged((user)=>{
 Vue.use(Vuetify, {
   iconfont: 'sm'
 }) 
-// Vue.use(VeeValidate);
-Vue.config.productionTip = false
 
 

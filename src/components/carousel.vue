@@ -17,23 +17,26 @@ height: 80%;}
 </style>
 
 <script>
-
+import graduation from '../assets/carousel/graduacion.jpg'
+import certificate from '../assets/carousel/certificate.jpg'
+import feria from '../assets/carousel/Feria.jpeg'
+import congregation from '../assets/carousel/congregation.jpg'
 export default {
-  name: "HelloWorld",
+  name: "Carousel",
   data () {
     return {
       items: [
         {
-          src: 'http://www.bachillere.com/wp-content/uploads/2018/11/Graduacion-Ingles-de-Inmersion-2018-Bachillere.jpg'
+          src: graduation
         },
         {
-          src: 'https://oinvestigacion.com/wp-content/uploads/2019/05/6fc8d995-graduacion.jpg'
+          src: feria
         },
         {
-          src: 'https://ultimasnoticias.com.do/wp-content/uploads/2018/11/Feria-de-empleos.jpeg'
+          src: congregation
         },
         {
-          src: 'https://eipschool.files.wordpress.com/2019/08/certificate-1.jpg'
+          src: certificate
         }
       ]
     }

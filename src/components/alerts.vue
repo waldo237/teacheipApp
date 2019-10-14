@@ -15,7 +15,7 @@
             </v-card-text>
             <v-btn
               class="sign-up"
-              @click="toggleAlert"
+              @click.prevent="toggleAlert"
             >
               Close
             </v-btn>
@@ -44,18 +44,17 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from "vuex";
-import {auth} from 'firebase';
 export default {
   name: "Alerting",
   methods: {
     ...mapActions(["runAlert", "toggleAlert"]),
     async setYes() {
-      await auth()
+      await this.auth()
         .signOut()
         .then(async () => {
           await this.$store.commit('setLoggedIn', false)
           await this.$store.commit('setAlert', false)
-          await this.$router.push("/");
+          if(this.$route.path !="/") await this.$router.push("/");
         });
     }
   },
@@ -64,7 +63,8 @@ export default {
     "getParams",
     "getAlertMessage",
     "getAlertType",
-    "getInteract"
+    "getInteract",
+    "auth"
   ])
 };
 </script>

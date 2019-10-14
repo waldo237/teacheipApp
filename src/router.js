@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import  {auth} from 'firebase';
+import  {auth} from 'firebase/app';
 Vue.use(Router)
 let router = new Router({
   mode: "history",
@@ -92,6 +92,12 @@ let router = new Router({
       path: '/pendingVerification',
       name: 'pendingVerification',
       component: () => import(/* webpackChunkName: "about" */ './views/PendingVerificationView.vue'),
+
+    }
+,{
+      path: '*',
+      name: '404',
+      component: () => import(/* webpackChunkName: "about" */ './views/session/404.vue'),
 
     }
    

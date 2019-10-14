@@ -203,7 +203,6 @@ import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
 import colors from "@/assets/colors/colors.js";
 import { mapActions, mapGetters } from "vuex";
-import  {auth} from "firebase/app";
 import Sidemenu from "@/components/RoleComponents/supervisorComponents/sidemenu.vue";
 
 export default {
@@ -284,10 +283,11 @@ export default {
     "getCoordinatorSideMenu",
     "getSupervisorSideMenu",
     "getManagerSideMenu",
+    "auth",
   ])},
   created: function() {
-    if (auth().currentUser) {
-      if(auth().currentUser.emailVerified) this.$store.commit('setLoggedIn', true); this.$store.commit("setCurrentUser", auth().currentUser);
+    if (this.auth().currentUser) {
+      if(this.auth().currentUser.emailVerified) this.$store.commit('setLoggedIn', true); this.$store.commit("setCurrentUser", this.auth().currentUser);
     }
     this.onResize();
   }

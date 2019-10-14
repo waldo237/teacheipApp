@@ -158,7 +158,6 @@
 </style>
 
 <script>
-import { storage, auth } from "firebase";
 import { mapGetters, mapMutations } from "vuex";
 import { setTimeout } from "timers";
 import { async } from "q";
@@ -185,10 +184,10 @@ export default {
     async uploadPhoto(e) {
       try {
         // Create a root reference
-        const reference = await `${auth().currentUser.uid}/profilePicture/${
-          auth().currentUser.displayName
+        const reference = await `${this.auth().currentUser.uid}/profilePicture/${
+          this.auth().currentUser.displayName
         }`;
-        const ref = await storage().ref(reference);
+        const ref = await this.storage().ref(reference);
         // upload the photo
         await ref.put(e.target.files[0]).on("state_changed", async snapshot => {
           //  make the progress element increment as data goes up
@@ -197,7 +196,7 @@ export default {
           //  display snackbar when upload is done
           if (Math.ceil(this.progress) > 99) {
             this.snackbar = true;
-            await storage()
+            await this.storage()
               .ref(reference)
               .getDownloadURL()
               .then(async url => {
@@ -222,10 +221,10 @@ export default {
         ).value;
       if (this.url) this.profile.photoURL = this.url;
       // pass profile object to auth.currentUser
-      await auth().currentUser.updateProfile(this.profile);
-      //  await auth().currentUser.updatePhoneNumber(this.profile.updatePhoneNumber);
+      await this.auth().currentUser.updateProfile(this.profile);
+      //  await this.auth().currentUser.updatePhoneNumber(this.profile.updatePhoneNumber);
       //  pass the Auth.CurrentUser to Local CurrentUser
-      await this.$store.commit("setCurrentUser", auth().currentUser);
+      await this.$store.commit("setCurrentUser", this.auth().currentUser);
       this.dialog = false;
     }
   },
@@ -233,7 +232,7 @@ export default {
         initialize: function() {
      return this.getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()
     }, 
-    ...mapGetters(["getCurrentUser"]) 
+    ...mapGetters(["getCurrentUser","auth", "storage"]) 
     },
   created() {}
 };

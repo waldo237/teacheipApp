@@ -3,6 +3,7 @@ import users from './modules/users'
 import  employees from './modules/employees'
 import  lessonPlans from './modules/lessonPlans'
 import  navigation from './modules/navigation'
+import  firebaseVars from './modules/firebaseVars'
 import  roles from './modules/roles'
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -15,6 +16,7 @@ export default new Vuex.Store({
         employees,
         lessonPlans,
         navigation,
-        roles
+        roles,
+        firebaseVars
     }
 })

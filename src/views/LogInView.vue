@@ -52,7 +52,7 @@
               <v-spacer />
               <v-btn
                 class="sign-up elevation-20"
-                @click="toggleSI"
+                @click.prevent="toggleSI"
               >
                 Cancel
               </v-btn>
@@ -76,7 +76,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import {auth} from "firebase/app";
+
 export default {
   data: () => {
     return {
@@ -94,7 +94,7 @@ export default {
     },
 async    signIn(e) {
       this.loading = await true;    
-      auth()
+      this.auth()
         .signInWithEmailAndPassword(this.email, this.password)
         .then(
           async () => {
@@ -102,7 +102,7 @@ async    signIn(e) {
 
             await this.$store.commit('setSIDialog', false)
              this.$router.push(`/dashboard/`);
-            this.$store.commit("setCurrentUser", auth().currentUser);
+            this.$store.commit("setCurrentUser", this.auth().currentUser);
             this.loading = await false;    
 
             setTimeout(()=>{ this.$store.commit('setAlert', false) }, 4000);
@@ -116,7 +116,7 @@ async    signIn(e) {
         e.preventDefault();
     }
   },
-  computed: mapGetters(["getSIDialog"]),
+  computed: mapGetters(["getSIDialog", "auth"]),
 
 };
 </script>

@@ -78,7 +78,6 @@
 </style>
  
 <script>
-import {auth} from "firebase/app";
 import { mapGetters, mapMutations } from "vuex";
 import { setTimeout, setInterval } from "timers";
 import { async } from "q";
@@ -91,6 +90,7 @@ export default {
       isDone: false,
     };
   },
+  computed:mapGetters(["auth"]),
   methods: {
     async swap() {
       await this.$router.push(`/dashboard/`);
@@ -102,8 +102,8 @@ export default {
   created() {
     if (!this.isDone) {
       setInterval(async ()=>{
-        await auth().currentUser.reload();
-        if (auth().currentUser.emailVerified) {
+        await this.auth().currentUser.reload();
+        if (this.auth().currentUser.emailVerified) {
           this.disabled = false;
         }
       }, 1000);
