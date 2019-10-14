@@ -8,7 +8,7 @@
       wrap
       class="mx-5 px-5 round"
       align-content-center
-       color="red lighten-5 "
+      color="red lighten-5 "
     >
       <v-text-field
         class="mx-4 mt-3"

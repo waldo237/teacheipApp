@@ -8,9 +8,16 @@
     >
       <v-list dense>
         <template v-for="item in items">
-          <v-layout v-if="item.heading" :key="item.heading" row align-center>
+          <v-layout
+            v-if="item.heading"
+            :key="item.heading"
+            row
+            align-center
+          >
             <v-flex xs6>
-              <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
+              <v-subheader v-if="item.heading">
+                {{ item.heading }}
+              </v-subheader>
             </v-flex>
           </v-layout>
           <v-list-group
@@ -27,7 +34,11 @@
                 </v-list-tile-content>
               </v-list-tile>
             </template>
-            <v-list-tile v-for="(child, i) in item.children" :key="i" :to="child.link">
+            <v-list-tile
+              v-for="(child, i) in item.children"
+              :key="i"
+              :to="child.link"
+            >
               <v-list-tile-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
               </v-list-tile-action>
@@ -36,7 +47,11 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
-          <v-list-tile v-else :key="item.text" @click>
+          <v-list-tile
+            v-else
+            :key="item.text"
+            @click
+          >
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
@@ -49,154 +64,272 @@
     </v-navigation-drawer>
     <!--############ CONTENT/ DASHBOARD ##############-->
     <!-- <v-content> -->
-      <!-- <v-container  class="mx-5 px-auto"> -->
-        <v-layout justify-center class="px-5 ma-5">
-          <v-card class="elevation-24 round mx-5" wrap>
-            <v-toolbar flat color="sign-in text-uppercase round" dark dense>
-              <v-toolbar-title>{{center.name}}</v-toolbar-title>
-            </v-toolbar>
-            <v-tabs vertical>
-              <v-tab>
-                <v-icon   color="red">account_balance</v-icon>Main
-              </v-tab>
-              <v-tab>
-                <v-icon   color="red">apps</v-icon>Processes
-              </v-tab>
-              <v-tab>
-                <v-icon   color="red" class="mr-2">school</v-icon>Academic
-              </v-tab>
-              <v-tab>
-                <v-icon   color="red" class="mr-2">business</v-icon>Administrative
-              </v-tab>
+    <!-- <v-container  class="mx-5 px-auto"> -->
+    <v-layout
+      justify-center
+      class="px-5 ma-5"
+    >
+      <v-card
+        class="elevation-24 round mx-5"
+        wrap
+      >
+        <v-toolbar
+          flat
+          color="sign-in text-uppercase round"
+          dark
+          dense
+        >
+          <v-toolbar-title>{{ center.name }}</v-toolbar-title>
+        </v-toolbar>
+        <v-tabs vertical>
+          <v-tab>
+            <v-icon color="red">
+              account_balance
+            </v-icon>Main
+          </v-tab>
+          <v-tab>
+            <v-icon color="red">
+              apps
+            </v-icon>Processes
+          </v-tab>
+          <v-tab>
+            <v-icon
+              color="red"
+              class="mr-2"
+            >
+              school
+            </v-icon>Academic
+          </v-tab>
+          <v-tab>
+            <v-icon
+              color="red"
+              class="mr-2"
+            >
+              business
+            </v-icon>Administrative
+          </v-tab>
 
-              <v-tab-item  class="mx-3">
-                <v-card flat >
-                  <v-layout row wrap >
-                    <a @click="studentMenu=!studentMenu">
-                      <v-card class="px-auto pt-2 mt-1 mx-3 actionButton" width="80px">
-                        <img src="../../assets/dashboardImages/student.png" alt class="mx-2 mb-2" />
-                        <v-card-text class="px-auto py-0">Student</v-card-text>
-                      </v-card>
-                    </a>
-                    <a @click="teacherMenu=!teacherMenu">
-                      <v-card
-                        class="px-auto pt-2 mt-1 mx-3 actionButton"
-                        width="80px"
-                        height="108px"
+          <v-tab-item class="mx-3">
+            <v-card flat>
+              <v-layout
+                row
+                wrap
+              >
+                <a @click="studentMenu=!studentMenu">
+                  <v-card
+                    class="px-auto pt-2 mt-1 mx-3 actionButton"
+                    width="80px"
+                  >
+                    <img
+                      src="../../assets/dashboardImages/student.png"
+                      alt
+                      class="mx-2 mb-2"
+                    >
+                    <v-card-text class="px-auto py-0">Student</v-card-text>
+                  </v-card>
+                </a>
+                <a @click="teacherMenu=!teacherMenu">
+                  <v-card
+                    class="px-auto pt-2 mt-1 mx-3 actionButton"
+                    width="80px"
+                    height="108px"
+                  >
+                    <img
+                      src="../../assets/dashboardImages/teacher.png"
+                      alt
+                      width="78px"
+                      height="72px"
+                      class="mx-1"
+                    >
+                    <v-card-text class="px-auto py-0">Teacher</v-card-text>
+                  </v-card>
+                </a>
+              </v-layout>
+              <!-- ####### STUDENT OPTIONS #######-->
+              <v-list-tile
+                dense
+                v-if="studentMenu"
+                v-on-clickaway="closeStudent"
+              >
+                <v-list-tile-action>
+                  <v-card
+                    class="studentMenu elevation-21"
+                    width="200px"
+                  >
+                    <v-toolbar
+                      dense
+                      flat
+                      color="white"
+                      class="font-weight-black"
+                    >
+                      <v-spacer />Student options
+                      <v-btn
+                        icon
+                        @click="studentMenu=!studentMenu"
                       >
-                        <img
-                          src="../../assets/dashboardImages/teacher.png"
-                          alt
-                          width="78px"
-                          height="72px"
-                          class="mx-1"
-                        />
-                        <v-card-text class="px-auto py-0">Teacher</v-card-text>
-                      </v-card>
-                    </a>
-                  </v-layout>
-                  <!-- ####### STUDENT OPTIONS #######-->
-                  <v-list-tile dense v-if="studentMenu"  v-on-clickaway="closeStudent">
-                    <v-list-tile-action>
-                      <v-card class="studentMenu elevation-21" width="200px">
-                        <v-toolbar dense flat color="white" class="font-weight-black">
-                          <v-spacer />Student options
-                          <v-btn icon @click="studentMenu=!studentMenu">
-                            <v-icon>close</v-icon>
-                          </v-btn>
-                        </v-toolbar>
-                        <v-card-text
-                          v-for="(item, i) in studentOptions"
-                          :key="i"
-                          class="px-auto py-1"
+                        <v-icon>close</v-icon>
+                      </v-btn>
+                    </v-toolbar>
+                    <v-card-text
+                      v-for="(item, i) in studentOptions"
+                      :key="i"
+                      class="px-auto py-1"
+                    >
+                      <v-btn
+                        block
+                        flat
+                        class="py-1"
+                      >
+                        <v-icon
+                          :color="item.color"
+                          class="mr-2"
                         >
-                          <v-btn block flat class="py-1">
-                            <v-icon :color="item.color" class="mr-2">{{item.icon}}</v-icon>
-                            <span>{{item.title}}</span>
-                          </v-btn>
-                        </v-card-text>
-                      </v-card>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <!-- ####### STUDENT OPTIONS END #######-->
+                          {{ item.icon }}
+                        </v-icon>
+                        <span>{{ item.title }}</span>
+                      </v-btn>
+                    </v-card-text>
+                  </v-card>
+                </v-list-tile-action>
+              </v-list-tile>
+              <!-- ####### STUDENT OPTIONS END #######-->
                   
-                  <!-- ####### TEACHER OPTIONS #######-->
-                  <v-list-tile dense v-if="teacherMenu" v-on-clickaway="closeTeacher">
-                    <v-list-tile-action>
-                      <v-card class="teacherMenu elevation-21 yellow lighten-4" width="200px">
-                        <v-toolbar dense flat color="white" class="font-weight-black">
-                          <v-spacer />Teacher options
-                          <v-btn icon @click="teacherMenu=!teacherMenu">
-                            <v-icon>close</v-icon>
-                          </v-btn>
-                        </v-toolbar>
-                        <v-card-text
-                          v-for="(item, i) in teacherOptions"
-                          :key="i"
-                          class="px-auto py-1"
+              <!-- ####### TEACHER OPTIONS #######-->
+              <v-list-tile
+                dense
+                v-if="teacherMenu"
+                v-on-clickaway="closeTeacher"
+              >
+                <v-list-tile-action>
+                  <v-card
+                    class="teacherMenu elevation-21 yellow lighten-4"
+                    width="200px"
+                  >
+                    <v-toolbar
+                      dense
+                      flat
+                      color="white"
+                      class="font-weight-black"
+                    >
+                      <v-spacer />Teacher options
+                      <v-btn
+                        icon
+                        @click="teacherMenu=!teacherMenu"
+                      >
+                        <v-icon>close</v-icon>
+                      </v-btn>
+                    </v-toolbar>
+                    <v-card-text
+                      v-for="(item, i) in teacherOptions"
+                      :key="i"
+                      class="px-auto py-1"
+                    >
+                      <v-btn
+                        block
+                        flat
+                        class="py-1 yellow lighten-4 px-1"
+                      >
+                        <v-icon
+                          :color="item.color"
+                          class="mr-2"
                         >
-                          <v-btn block flat class="py-1 yellow lighten-4 px-1">
-                            <v-icon :color="item.color" class="mr-2">{{item.icon}}</v-icon>
-                            <span>{{item.title}}</span>
-                          </v-btn>
-                        </v-card-text>
-                      </v-card>
-                    </v-list-tile-action>
-                  </v-list-tile>
-                  <!-- ####### TEACHER OPTIONS END #######-->
-                  <v-card-text>
+                          {{ item.icon }}
+                        </v-icon>
+                        <span>{{ item.title }}</span>
+                      </v-btn>
+                    </v-card-text>
+                  </v-card>
+                </v-list-tile-action>
+              </v-list-tile>
+              <!-- ####### TEACHER OPTIONS END #######-->
+              <v-card-text />
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text>
+                Here we will have a list of all procedures related to coordination
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item class="px-2">
+            <v-card flat>
+              <v-card-text>
+                <p>Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.</p>
 
-                  </v-card-text>
-                </v-card>
-              </v-tab-item>
-              <v-tab-item>
-                <v-card flat>
-                  <v-card-text >
-                    Here we will have a list of all procedures related to coordination
-                  </v-card-text>
-                </v-card>
-              </v-tab-item>
-              <v-tab-item class="px-2">
-                <v-card flat>
-                  <v-card-text>
-                    <p>Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.</p>
-
-                    <p
-                      class="mb-0"
-                    >Cras sagittis. Phasellus nec sem in justo pellentesque facilisis. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nam at tortor in tellus interdum sagittis.</p>
-                  </v-card-text>
-                </v-card>
-              </v-tab-item>
-            </v-tabs>
-          </v-card>
-        </v-layout>
-      <!-- </v-container> -->
+                <p
+                  class="mb-0"
+                >
+                  Cras sagittis. Phasellus nec sem in justo pellentesque facilisis. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nam at tortor in tellus interdum sagittis.
+                </p>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
+      </v-card>
+    </v-layout>
+    <!-- </v-container> -->
     <!-- </v-content> -->
     <!-- ######### dialog ################ -->
-    <v-btn fab bottom right color="pink" dark fixed @click="dialog = !dialog">
+    <v-btn
+      fab
+      bottom
+      right
+      color="pink"
+      dark
+      fixed
+      @click="dialog = !dialog"
+    >
       <v-icon>add</v-icon>
     </v-btn>
-    <v-dialog v-model="dialog" width="800px">
+    <v-dialog
+      v-model="dialog"
+      width="800px"
+    >
       <v-card>
-        <v-card-title class="grey lighten-4 py-4 title">Create contact</v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
+        <v-card-title class="grey lighten-4 py-4 title">
+          Create contact
+        </v-card-title>
+        <v-container
+          grid-list-sm
+          class="pa-4"
+        >
+          <v-layout
+            row
+            wrap
+          >
+            <v-flex
+              xs12
+              align-center
+              justify-space-between
+            >
               <v-layout align-center>
-                <v-avatar size="40px" class="mr-3">
-                  <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt />
+                <v-avatar
+                  size="40px"
+                  class="mr-3"
+                >
+                  <img
+                    src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
+                    alt
+                  >
                 </v-avatar>
                 <v-text-field placeholder="Name" />
               </v-layout>
             </v-flex>
             <v-flex xs6>
-              <v-text-field prepend-icon="business" placeholder="Company" />
+              <v-text-field
+                prepend-icon="business"
+                placeholder="Company"
+              />
             </v-flex>
             <v-flex xs6>
               <v-text-field placeholder="Job title" />
             </v-flex>
             <v-flex xs12>
-              <v-text-field prepend-icon="mail" placeholder="Email" />
+              <v-text-field
+                prepend-icon="mail"
+                placeholder="Email"
+              />
             </v-flex>
             <v-flex xs12>
               <v-text-field
@@ -207,15 +340,34 @@
               />
             </v-flex>
             <v-flex xs12>
-              <v-text-field prepend-icon="notes" placeholder="Notes" />
+              <v-text-field
+                prepend-icon="notes"
+                placeholder="Notes"
+              />
             </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn flat color="primary">More</v-btn>
+          <v-btn
+            flat
+            color="primary"
+          >
+            More
+          </v-btn>
           <v-spacer />
-          <v-btn flat color="primary" @click="dialog = false">Cancel</v-btn>
-          <v-btn flat @click="dialog = false">Save</v-btn>
+          <v-btn
+            flat
+            color="primary"
+            @click="dialog = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            flat
+            @click="dialog = false"
+          >
+            Save
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
