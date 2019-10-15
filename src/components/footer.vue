@@ -107,7 +107,7 @@
 </template>
 
 <script>
-import Policy from "@/views/Useterms.vue";
+import Policy from "@/components/Useterms.vue";
 export default {
     data(){
         return {

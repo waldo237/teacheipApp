@@ -45,13 +45,14 @@
 </template>
 <script>
 export default {
+    name: "notFound",
     data(){
         return{
 
         }
     },
-    mounted() {
-    this.$store.commit("setFullScreen", false);
+    async created() {
+     this.$store.commit('setFullScreen',false);
   }
 }
 </script>

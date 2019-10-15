@@ -44,7 +44,7 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
-import editor from "../views/ProfileEditorView.vue";
+import editor from "../views/session/ProfileEditorView.vue";
 import colors from "@/assets/colors/colors.js";
 
 export default {

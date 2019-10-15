@@ -5,6 +5,7 @@
     <v-toolbar
       app
       style="background-color:white"
+      dense
     >
       <!--  sandwich menu for side bar/menu-->
       <v-toolbar-side-icon
@@ -197,8 +198,8 @@
 
 <script>
 import { directive as onClickaway } from "vue-clickaway";
-import popupRegister from "@/views/RegisterView.vue";
-import signInForm from "@/views/LogInView.vue";
+import popupRegister from "@/views/session/RegisterView.vue";
+import signInForm from "@/views/session/LogInView.vue";
 import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
 import colors from "@/assets/colors/colors.js";
@@ -323,8 +324,8 @@ export default {
 
 .black-blue{
   background: linear-gradient(
-    1deg,
-    rgb(0, 0, 0) 78%,
+    0deg,
+    rgb(0, 0, 0) 45%,
     rgb(13, 71, 136)
   ); 
 }

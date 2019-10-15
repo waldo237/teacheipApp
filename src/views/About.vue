@@ -10,9 +10,9 @@
           <v-flex xs10>
             <v-card column>
               <v-img
-                src="https://media.giphy.com/media/LnEuDtpBRuQNIPU2ZD/giphy.gif"
+                :src="gify"
                 alt="We bring change!"
-                lazy-src="https://media.giphy.com/media/LnEuDtpBRuQNIPU2ZD/giphy.gif"
+                :lazy-src="gify"
                 aspect-ratio="2.0"
                 id="we-bring-change"
                 class="grey lighten-2 mx-auto mt-3"
@@ -38,7 +38,14 @@
   </v-layout>
 </template>
 <script>
-export default {};
+import gify from '@/assets/giphy.gif'
+export default {
+data(){
+  return{
+    gify: gify,
+  }
+}
+};
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css?family=Lexend+Exa|Oswald&display=swap");

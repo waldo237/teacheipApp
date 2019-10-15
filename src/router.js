@@ -45,7 +45,7 @@ let router = new Router({
     ,{
       path: '/landing/',
       name: 'landing',
-      component: () => import(/* webpackChunkName: "about" */ './views/Landing.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/session/Landing.vue'),
       meta:{
         requiresAuth: true
       }
@@ -53,7 +53,7 @@ let router = new Router({
     ,{
       path: '/signin',
       name: 'signin',
-      component: () => import(/* webpackChunkName: "about" */ './views/LogInView.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/session/LogInView.vue'),
       meta:{
         requiresGuest: true
       }
@@ -61,7 +61,7 @@ let router = new Router({
 ,{
       path: '/signup',
       name: 'signup',
-      component: () => import(/* webpackChunkName: "about" */ './views/RegisterView.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/session/RegisterView.vue'),
       meta:{
         requiresGuest: true
       }
@@ -69,7 +69,7 @@ let router = new Router({
 ,{
       path: '/updateProfile',
       name: 'updateProfile',
-      component: () => import(/* webpackChunkName: "about" */ './views/ProfileEditorView.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/session/ProfileEditorView.vue'),
       meta:{
         requiresAuth: true
       }
@@ -85,13 +85,13 @@ let router = new Router({
 ,{
       path: '/useterms',
       name: 'useterms',
-      component: () => import(/* webpackChunkName: "about" */ './views/Useterms.vue'),
+      component: () => import(/* webpackChunkName: "about" */ '@/components/Useterms.vue'),
   
     }
 ,{
       path: '/pendingVerification',
       name: 'pendingVerification',
-      component: () => import(/* webpackChunkName: "about" */ './views/PendingVerificationView.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/session/PendingVerificationView.vue'),
 
     }
 ,{

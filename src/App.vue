@@ -26,7 +26,6 @@
 
     <v-layout
       id="masthead"
-    
       align-center
       class="text-no-wrap text-center mt-4"
     >
@@ -105,7 +104,6 @@
       <Menu />       
       <!-- .menu-wrapper -->
     </v-layout>
- 
     <router-view />
     <Footer />
   </div>
@@ -114,7 +112,6 @@
 import 'vuetify/dist/vuetify.min.css'
 import Menu from '@/components/menu.vue'
 import {mapGetters} from 'vuex'
-
 import Footer from '@/components/footer.vue';
 export default {
  name: 'SiteHeade',
@@ -148,9 +145,6 @@ computed: mapGetters(["getFullScreen",]),
  created(){
        this.init();
     },
-    mounted(){
-
-    }
 }
 </script>
 <style>
