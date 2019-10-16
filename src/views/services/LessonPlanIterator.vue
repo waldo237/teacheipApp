@@ -1,9 +1,26 @@
 <template>
+<div>
+<!-- alternative circular loading starts -->
+<v-layout row wrap justify-center v-if="stillLoading" class="ma-5 pa-5">
+ <v-progress-circular
+      class="mb-5 pb-5"
+      :rotate="-90"
+      :size="200"
+      :width="20"
+      :value="percent"
+      color="#135393"
+    >
+    <v-spacer/>coming right up...
+     <span class="font-weight-bold title ">{{ percent }}</span> 
+    </v-progress-circular>
+</v-layout>
+<!-- alternative circular loading endsd -->
   <v-container
+  v-else
     fluid
     grid-list-md
     class="py-5"
-  >
+     >
     <v-layout
       wrap
       class="mx-5 px-5 round"
@@ -105,6 +122,7 @@
       />
     </v-layout>
   </v-container>
+</div>
 </template>
 
 <script>
@@ -114,6 +132,9 @@ import _ from 'lodash';
 
 export default {
   data: () => ({
+    interval: {},
+    percent: 0,
+    stillLoading: true,
     page: 1,
     perPage: 9,
     pages: [],
@@ -138,11 +159,11 @@ export default {
      },
   },
   methods: {
-    selectMenu(){
-// TODO
-    },
-  
+
     ...mapActions(["fetchLessonPlans"]),
+    setReady(){
+      this.stillLoading = false;
+    },
     ago(time){ return  moment(time,"YYYYMMDD").fromNow()},
     // set the number of pages based on the result of the calculation
     setPages () {
@@ -187,6 +208,7 @@ export default {
     // check if the state of lPs changes to trigger function
     lPs () {
       this.setPages();
+      this.setReady();
     },
     searchTerms(){
       this.dropdownSeries = '';
@@ -194,10 +216,22 @@ export default {
       this.dropdownUnit = '';
     }
   },
+  beforeDestroy () {
+      clearInterval(this.interval)
+    },
+    mounted () {
+      this.interval = setInterval(() => {
+        if (this.percent === 100) {
+          return (this.percent = 0)
+        }
+        this.percent += 10
+      }, 800)
+    },
   async created() {
     await this.fetchLessonPlans();
     // set the value of local lPs
     this.lPs = this.getLessonPlans;
+   this.$store.commit("setFullScreen", false);
   }
 };
 </script>

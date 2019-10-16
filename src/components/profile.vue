@@ -1,40 +1,34 @@
 // this component will manage all operations that are related to profile
 <template>
-  <v-list
-    class="tile"
-    v-if="checkIsLoggedIn"
-  >
+  <v-list class="tile round" v-if="checkIsLoggedIn">
+    <!-- toolbar with close btn -->
+    <v-layout row wrap justify-end class="ma-0 pa-0">
+      <v-layout row wrap class="ma-auto pl-5" justify-center>
+        <span class="teach title">Teach</span>
+        <span class="acronym title">EIP</span>
+      </v-layout>
+      <v-btn icon @click="$emit('closeProfile')" class="ma-0 pa-0">
+        <v-icon>close</v-icon>
+      </v-btn>
+    </v-layout>
+    <!-- toolbar with close btn ends -->
     <!-- photo display starts -->
     <v-avatar v-if="getCurrentUser.photoURL">
-      <img
-        :src="getCurrentUser.photoURL"
-        :alt="getCurrentUser.displayName"
-      >
+      <img :src="getCurrentUser.photoURL" :alt="getCurrentUser.displayName" />
     </v-avatar>
-    <v-avatar
-      :color="colorize"
-      v-else
-    >
+    <v-avatar :color="colorize" v-else>
       <span class="white--text headline">{{ initialize }}</span>
     </v-avatar>
     <!-- photo display ends -->
-    <v-list-tile-title class="title mx-5 px-1">
-      {{ getCurrentUser.displayName }}
-    </v-list-tile-title>
-    <v-list-tile-sub-title class="email">
-      {{ getCurrentUser.email }}
-    </v-list-tile-sub-title>
+    <v-list-tile-title class="title mx-5 px-1">{{ getCurrentUser.displayName }}</v-list-tile-title>
+    <v-list-tile-sub-title class="email">{{ getCurrentUser.email }}</v-list-tile-sub-title>
     <v-card-actions class="justify-center">
       <!-- editor dialog starts -->
       <editor />
       <!-- editor dialog ends -->
     </v-card-actions>
     <v-card-actions class="justify-center">
-      <v-btn
-        tag="v-btn"
-        class="sign-up"
-        @click="logout"
-      >
+      <v-btn tag="v-btn" class="sign-up" @click="logout">
         Log out
         <v-icon>exit_to_app</v-icon>
       </v-btn>
@@ -70,7 +64,11 @@ export default {
   },
   computed: {
     initialize: function() {
-     return this.getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()
+      return this.getCurrentUser.displayName
+        .split(" ")
+        .map(n => n[0])
+        .join("")
+        .toUpperCase();
     },
     colorize: function() {
       return colors[Math.floor(Math.random() * 280)];

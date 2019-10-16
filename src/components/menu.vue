@@ -104,7 +104,7 @@
         @click="sandwich = true"
       />
       <v-list
-        class="minimized elevation-24"
+        class="minimized elevation-24 round"
         v-if="sandwich"
         v-on-clickaway="hideMenu"
       >

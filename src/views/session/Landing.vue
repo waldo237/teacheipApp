@@ -1,22 +1,9 @@
 <template>
   <!-- pendingForVerification dialog starts -->
-  <v-dialog
-    v-model="getLanding"
-    fullscreen
-    persistent
-    hide-overlay
-    v-if="checkIsLoggedIn"
-  >
+  <v-dialog v-model="getLanding" fullscreen persistent hide-overlay v-if="checkIsLoggedIn">
     <v-layout justify-center>
-      <v-card
-        min-width="100%"
-        min-height="100%"
-      >
-        <v-toolbar
-          color="white elevation-24"
-          dense
-          app
-        >
+      <v-card min-width="100%" min-height="100%">
+        <v-toolbar color="white elevation-24" dense app>
           <v-layout justify-center>
             <span class="acronym title mt-2">Hello,{{ getCurrentUser.displayName }}. Welcome to</span>
             <span class="teach display-1">Teach</span>
@@ -31,39 +18,22 @@
             color="white"
             class="avatar-button ma-0"
             v-if="checkIsLoggedIn"
-            @click="closeProfile"
+            @click="toggleProfile"
           >
-            <v-avatar
-              v-if="getCurrentUser.photoURL"
-              size="45"
-            >
-              <img
-                :src="getCurrentUser.photoURL"
-                :alt="getCurrentUser.displayName"
-              >
+            <v-avatar size="45" v-if="getCurrentUser.photoURL">
+              <img :src="getCurrentUser.photoURL" :alt="getCurrentUser.displayName" />
             </v-avatar>
-            <v-avatar
-              color="red"
-              v-else
-            >
-              <span
-                class="white--text headline"
-              >{{ getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase() }}</span>
+            <v-avatar color="red" v-else>
+              <span class="white--text headline">{{ initialize }}</span>
             </v-avatar>
           </v-btn>
           <span class="acronym" />
 
-          <v-list-tile v-on-clickaway="closeProfile">
-            <Profile
-              v-if="profileModel"
-              class="profile"
-            />
+          <v-list-tile>
+            <Profile class="profile" v-if="profileModel" @closeProfile="toggleProfile"/>
           </v-list-tile>
         </v-toolbar>
-        <v-layout
-          justify-center
-          class="ml-5"
-        >
+        <v-layout justify-center class="ml-5">
           <v-img
             alt="Oh man! more waiting?"
             src="https://media0.giphy.com/media/26DNhSJnqWFdgPgMo/source.gif"
@@ -74,19 +44,9 @@
           />
         </v-layout>
 
-        <v-layout
-          class="pt-0"
-          justify-center
-        >
-          <v-layout
-            class="mx-3 mb-5 pa-3 px-2 pt-0 main-card"
-            wrap
-          >
-            <v-layout
-              class="mx-2 pb-5 px-1 justify-center"
-              flat
-              wrap
-            >
+        <v-layout class="pt-0" justify-center>
+          <v-layout class="mx-3 mb-5 pa-3 px-2 pt-0 main-card" wrap>
+            <v-layout class="mx-2 pb-5 px-1 justify-center" flat wrap>
               <!-- cards starts -->
               <v-card
                 class="justify-center mx-1 grids"
@@ -95,18 +55,10 @@
                 max-width="400px"
                 min-width="400px"
               >
-                <v-card-title
-                  primary-title
-                  class="gradient justify-center elevation-12 py-1"
-                >
-                  <h3 class="title white--text text--accent-2">
-                    Select your role to start
-                  </h3>
+                <v-card-title primary-title class="gradient justify-center elevation-12 py-1">
+                  <h3 class="title white--text text--accent-2">Select your role to start</h3>
                 </v-card-title>
-                <v-flex
-                  xs
-                  class="my-0 mx-3"
-                >
+                <v-flex xs class="my-0 mx-3">
                   <v-select
                     v-model="select"
                     :items="actors"
@@ -118,20 +70,10 @@
                 </v-flex>
                 <v-card-text class="justify-center pt-3">
                   <!-- Submit button starts -->
-                  <v-layout
-                    class="justify-end"
-                    @click="show=true"
-                  >
-                    <v-tooltip
-                      v-model="show"
-                      right
-                      v-if="select==''"
-                    >
+                  <v-layout class="justify-end" @click="show=true">
+                    <v-tooltip v-model="show" right v-if="select==''">
                       <template v-slot:activator="{ on }">
-                        <v-btn
-                          icon
-                          v-on="on"
-                        />
+                        <v-btn icon v-on="on" />
                       </template>
                       <span>Please select a role</span>
                     </v-tooltip>
@@ -140,9 +82,7 @@
                       :disabled="select==''"
                       class="justify-center mx-auto gradient font-weight-bold white--text grids"
                     >
-                      <v-icon small>
-                        directions_walk
-                      </v-icon>Go in
+                      <v-icon small>directions_walk</v-icon>Go in
                     </v-btn>
                   </v-layout>
                 </v-card-text>
@@ -225,7 +165,6 @@ import Manager from "@/components/authenticationForms/manager.vue";
 export default {
   name: "Landing",
   components: { Student, Teacher, Coordinator, Supervisor, Manager, Profile },
-  template: '<p v-on-clickaway="away">Click away</p>',
   directives: {
     onClickaway: onClickaway
   },
@@ -286,12 +225,21 @@ export default {
         }
       }
     },
-    closeProfile() {
+    toggleProfile() {
       this.profileModel = !this.profileModel;
     }
   },
-  
-  computed: mapGetters(["getLanding", "checkIsLoggedIn", "getCurrentUser", "auth"]),
+
+  computed: {
+    ...mapGetters(["getLanding", "checkIsLoggedIn", "getCurrentUser", "auth"]),
+    initialize: function() {
+      return this.getCurrentUser.displayName
+        .split(" ")
+        .map(n => n[0])
+        .join("")
+        .toUpperCase();
+    }
+  },
   created() {
     if (this.auth().currentUser) {
       this.$store.commit("setLoggedIn", true);
@@ -319,7 +267,7 @@ export default {
   .grids {
     margin-top: 5% !important;
   }
-  .acronym{
+  .acronym {
     font-size: 95% !important;
   }
 }

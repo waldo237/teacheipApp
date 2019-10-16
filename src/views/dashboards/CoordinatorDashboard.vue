@@ -204,8 +204,7 @@
             <v-card hover exact dark class="round">
               <v-card-title class="mx-auto headline">
                 <v-layout row wrap justify-center>
-                  <v-icon large>hearing</v-icon>
-SOLICITUDES
+                  <v-icon large>hearing</v-icon>SOLICITUDES
                 </v-layout>
               </v-card-title>
               <v-layout dark class="black round py-0 slidingMenu" wrap>
@@ -222,7 +221,7 @@ SOLICITUDES
               </v-layout>
             </v-card>
             <!-- SOLICITUDES ENDS -->
-            <!-- DESCARGAR RECURSOS -->
+            <!-- SERVICIOS RECURSOS -->
             <v-card hover exact dark class="round my-5">
               <v-card-title class="mx-auto headline" dense>
                 <v-layout row wrap justify-center>
@@ -235,14 +234,19 @@ SOLICITUDES
                   v-for="(item, i) in servicios"
                   :key="i"
                 >
-                  <v-btn class="elevation-20 elevation-12 round primary my-0 ma-1" dense block>
+                  <v-btn
+                    :to="item.link"
+                    class="elevation-20 elevation-12 round primary my-0 ma-1"
+                    dense
+                    block
+                  >
                     <v-icon>{{item.icon}}</v-icon>
                     {{item.title}}
                   </v-btn>
                 </v-card>
               </v-layout>
             </v-card>
-            <!-- SOLICITUDES ENDS -->
+            <!-- SERVICIOS ENDS -->
           </v-tab-item>
         </v-tabs>
       </v-card>
@@ -307,70 +311,73 @@ export default {
     onClickaway: onClickaway
   },
   data: () => {
-return {
-    dialog: false,
-    drawer: true,
-    studentMenu: false,
-    teacherMenu: false,
-    generalMenu: true,
-    alert: true,
-    announcement: true,
-    announcementMessage:"",
-    center: {
-      name: "UASD CEDE"
-    },
-    solicitudes:[ {title: 'solicitar copias de examenes'},
-               {title:'solicitar permisos extensos'},
-              {title:'solicitar materiales y mobiliarios'},
-             {title: 'solicitar libros'},
-             {title: 'solicitar carta para estudiante'},
-             {title: 'solicitar carta para empleado'},
-             ],
-    servicios:[ {title: 'Lesson Plans'},
-               {title:'Resultados de Examen diagnostico'},
-              {title:'Curriculum'},
-             {title: 'Calendario Academico'},
-             {title: 'Exam blueprints'},
-             {title: 'Estadandares de Competencias'},
-             {title: 'Mapas de Procedimientos'},
-             ],
-    studentOptions: [
-      { title: "Grades", icon: "grid_on", color: "blue" },
-      { title: "Attendance", icon: "wb_iridescent", color: "orange" },
-      { title: "Permissions", icon: "directions_run", color: "yellow" },
-      { title: "Dropouts", icon: "person_add_disabled", color: "red" },
-    ],
-    generalOptions: [
-      { title: "General Report", icon: "adjust", color: "white" },
-      { title: "General statistics", icon: "trending_up", color: "yellow" },
-      { title: "Dossier", icon: "collections_bookmark", color: "red" },
-      { title: "Inventory", icon: "assignment_turned_in", color: "green" },
-      { title: "Calendar", icon: "event_note", color: "blue" },
-      { title: "Attendance", icon: "grid_on", color: "orange" }
-    ],
-    teacherOptions: [
-      { title: "Add teacher", icon: "account_circle", color: "green" },
-      { title: "Assign fingerprint", icon: "fingerprint", color: "white" },
-      { title: "Permissions", icon: "directions_run", color: "yellow" },
-      { title: "Records", icon: "save", color: "red" },
-      { title: "Class Observations", icon: "check_circle", color: "orange" },
-      { title: "Survey Results", icon: "grid_on", color: "blue" },
-    ],
-    items: [
-      { icon: "dashboard", text: "DASHBOARD" },
+    return {
+      interval: {},
+      dialog: false,
+      drawer: true,
+      studentMenu: false,
+      teacherMenu: false,
+      generalMenu: true,
+      alert: true,
+      announcement: true,
+      announcementMessage: "",
+      center: {
+        name: "UASD CEDE"
+      },
+      solicitudes: [
+        { title: "solicitar copias de examenes" },
+        { title: "solicitar permisos extensos" },
+        { title: "solicitar materiales y mobiliarios" },
+        { title: "solicitar libros" },
+        { title: "solicitar carta para estudiante" },
+        { title: "solicitar carta para empleado" }
+      ],
+      servicios: [
+        { title: "Lesson Plans", link: "/lesson plans" },
+        { title: "Resultados de Examen diagnostico" },
+        { title: "Curriculum" },
+        { title: "Calendario Academico" },
+        { title: "Exam blueprints" },
+        { title: "Estadandares de Competencias" },
+        { title: "Mapas de Procedimientos" }
+      ],
+      studentOptions: [
+        { title: "Grades", icon: "grid_on", color: "blue" },
+        { title: "Attendance", icon: "wb_iridescent", color: "orange" },
+        { title: "Permissions", icon: "directions_run", color: "yellow" },
+        { title: "Dropouts", icon: "person_add_disabled", color: "red" }
+      ],
+      generalOptions: [
+        { title: "General Report", icon: "adjust", color: "white" },
+        { title: "General statistics", icon: "trending_up", color: "yellow" },
+        { title: "Dossier", icon: "collections_bookmark", color: "red" },
+        { title: "Inventory", icon: "assignment_turned_in", color: "green" },
+        { title: "Calendar", icon: "event_note", color: "blue" },
+        { title: "Attendance", icon: "grid_on", color: "orange" }
+      ],
+      teacherOptions: [
+        { title: "Add teacher", icon: "account_circle", color: "green" },
+        { title: "Assign fingerprint", icon: "fingerprint", color: "white" },
+        { title: "Permissions", icon: "directions_run", color: "yellow" },
+        { title: "Records", icon: "save", color: "red" },
+        { title: "Class Observations", icon: "check_circle", color: "orange" },
+        { title: "Survey Results", icon: "grid_on", color: "blue" }
+      ],
+      items: [
+        { icon: "dashboard", text: "DASHBOARD" },
 
-      {
-        icon: "keyboard_arrow_up",
-        "icon-alt": "keyboard_arrow_down",
-        text: "ACADEMIC",
-        model: false,
-        children: [
-          { text: "Lesson Plans", link: "/lesson plans/" },
-          { text: "Other contacts" }
-        ]
-      }
-    ]
-  }
+        {
+          icon: "keyboard_arrow_up",
+          "icon-alt": "keyboard_arrow_down",
+          text: "ACADEMIC",
+          model: false,
+          children: [
+            { text: "Lesson Plans", link: "/lesson plans/" },
+            { text: "Other contacts" }
+          ]
+        }
+      ]
+    };
   },
   methods: {
     away: function() {
@@ -383,27 +390,33 @@ return {
     },
     closeStudent() {
       if (this.studentMenu) {
-      this.studentMenu = !this.studentMenu;
+        this.studentMenu = !this.studentMenu;
       }
     },
     closeTeacher() {
       if (this.teacherMenu) {
-      this.teacherMenu = !this.teacherMenu;
+        this.teacherMenu = !this.teacherMenu;
       }
-    },
-      
+    }
   },
   computed: {
-    ...mapGetters(["getCoordinatorSideMenu", "checkIsLoggedIn","auth"]),
+    ...mapGetters(["getCoordinatorSideMenu", "checkIsLoggedIn", "auth"])
   },
-  created() {
-   this.announcementMessage =  `Hola, ${this.auth().currentUser.displayName}. Nos place commpartir con ustedes que comenzaremos las clases el dia 15 de Enero 2020`;
-    this.$store.commit("setFullScreen", false);
-    if(this.alert){
-      setInterval(()=>{
+  beforeDestroy() {
+    clearInterval(this.interval);
+  },
+  mounted() {
+    if (this.alert) {
+      this.interval =  setInterval(() => {
         this.announcement = !this.announcement;
       }, 3000);
     }
+  },
+  created() {
+    this.announcementMessage = `Hola, ${
+      this.auth().currentUser.displayName
+    }. Nos place commpartir con ustedes que comenzaremos las clases el dia 15 de Enero 2020`;
+    this.$store.commit("setFullScreen", false);
   }
 };
 </script>
@@ -414,13 +427,13 @@ return {
   animation-timing-function: ease;
 }
 .fade {
-  animation-duration: 1s;
-  animation-name: fadeIn;
-  animation-timing-function: ease;
-}
-.fade::after {
-  animation-duration: 2s;
+  animation-duration: 7s;
   animation-name: fadeOut;
+  animation-timing-function: ease-in-out;
+}
+.fade:start {
+  animation-duration: 5s;
+  animation-name: fadeIn;
   animation-timing-function: ease-in-out;
 }
 .actionButton:hover {
