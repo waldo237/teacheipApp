@@ -4,6 +4,7 @@ import  users from './modules/users'
 import  lessonPlans from './modules/lessonPlans'
 import  navigation from './modules/navigation'
 import  firebaseVars from './modules/firebaseVars'
+import  validations from './modules/validations'
 import  roles from './modules/roles'
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -17,6 +18,7 @@ export default new Vuex.Store({
         lessonPlans,
         navigation,
         roles,
-        firebaseVars
+        firebaseVars,
+        validations
     }
 })

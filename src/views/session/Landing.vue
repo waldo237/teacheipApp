@@ -156,7 +156,7 @@
 <script>
 import { directive as onClickaway } from "vue-clickaway";
 import Profile from "@/components/profile.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Student from "@/components/authenticationForms/student.vue";
 import Teacher from "@/components/authenticationForms/teacher.vue";
 import Coordinator from "@/components/authenticationForms/coordinator.vue";
@@ -227,7 +227,7 @@ export default {
     },
     toggleProfile() {
       this.profileModel = !this.profileModel;
-    }
+    },
   },
 
   computed: {
@@ -240,7 +240,7 @@ export default {
         .toUpperCase();
     }
   },
-  created() {
+ async created() {
     if (this.auth().currentUser) {
       this.$store.commit("setLoggedIn", true);
       this.$store.commit("setCurrentUser", this.auth().currentUser);

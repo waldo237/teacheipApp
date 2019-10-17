@@ -43,7 +43,7 @@ const state = {
       {
         icon: "person",
         title: "EMPLOYEES",
-        link: "/register",
+        link: "/employees",
         class: "employees",
       },
 

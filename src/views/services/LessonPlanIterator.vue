@@ -2,17 +2,7 @@
 <div>
 <!-- alternative circular loading starts -->
 <v-layout row wrap justify-center v-if="stillLoading" class="ma-5 pa-5">
- <v-progress-circular
-      class="mb-5 pb-5"
-      :rotate="-90"
-      :size="200"
-      :width="20"
-      :value="percent"
-      color="#135393"
-    >
-    <v-spacer/>coming right up...
-     <span class="font-weight-bold title ">{{ percent }}</span> 
-    </v-progress-circular>
+<loading/>
 </v-layout>
 <!-- alternative circular loading endsd -->
   <v-container
@@ -128,12 +118,13 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import moment from 'moment';
+import loading from '@/components/loading.vue'
 import _ from 'lodash';
 
 export default {
+  components:{loading},
   data: () => ({
-    interval: {},
-    percent: 0,
+   
     stillLoading: true,
     page: 1,
     perPage: 9,
@@ -216,17 +207,7 @@ export default {
       this.dropdownUnit = '';
     }
   },
-  beforeDestroy () {
-      clearInterval(this.interval)
-    },
-    mounted () {
-      this.interval = setInterval(() => {
-        if (this.percent === 100) {
-          return (this.percent = 0)
-        }
-        this.percent += 10
-      }, 800)
-    },
+
   async created() {
     await this.fetchLessonPlans();
     // set the value of local lPs

@@ -26,8 +26,8 @@ let router = new Router({
         requiresAuth: true
       }
     },{
-      path: '/register',
-      name: 'register',
+      path: '/employees',
+      name: 'employees',
       component: () => import(/* webpackChunkName: "about" */ './views/services/EmployeeChart.vue'),
       meta:{
         requiresAuth: true
