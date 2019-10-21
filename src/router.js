@@ -4,7 +4,8 @@ import Home from './views/Home.vue'
 import  {auth} from 'firebase/app';
 Vue.use(Router)
 let router = new Router({
-  mode: "history",
+  // mode: "history",
+  base:'',
   routes: [
     {
       path: '/',

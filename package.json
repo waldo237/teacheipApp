@@ -5,7 +5,7 @@
   "author": "eipapps",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "set process.env.NODE_ENV === 'production' && vue-cli-service build",
     "start": "node server.js",
     "lint": "vue-cli-service lint --fix",
     "deploy": "gh-pages -d dist"
