@@ -68,7 +68,7 @@
                   label="Coordinator code"
                   autocomplete
                   required
-                  maxlength="8"
+                  maxlength="15"
                   prepend-icon="lock"
                   :append-icon="!showPassword ? 'visibility_off':'visibility'"
                   :type="showPassword ? 'text': 'password'"
@@ -108,7 +108,7 @@ export default {
       this.$emit("close-coordinator");
     },
     async verifyID() {
-      if(this.errorMessage)this.errorMessage = "";
+      if (this.errorMessage) this.errorMessage = "";
       this.loading1 = true;
       await this.$store.commit("setId", this.cedula);
       await this.checkValidation();
@@ -118,8 +118,8 @@ export default {
         this.errorMessage = "";
       } else {
         this.loading1 = false;
-        this.errorMessage = (this.validation.error)
-          ? this.errorMessage = this.validation.error
+        this.errorMessage = this.validation.error
+          ? (this.errorMessage = this.validation.error)
           : "There was a problem validating your id, try again or contact the administrator.";
       }
     },
@@ -128,14 +128,26 @@ export default {
       await this.$store.commit("setCode", this.cCode);
       await this.checkValidation();
       if (this.validation.code) {
-        this.loading1 = false;
-        this.e6 = 3;
-        this.errorMessage = "";
+        this.signIn();
       } else {
         this.loading1 = false;
-        this.errorMessage = (this.validation.error)
-          ? this.errorMessage = this.validation.error
+        this.errorMessage = this.validation.error
+          ? (this.errorMessage = this.validation.error)
           : "There was a problem validating your Code, try again or contact the administrator.";
+      }
+    },
+    async signIn() {
+      try {
+        await this.requestToken();
+        await this.validateToken();
+        if(this.validated.authenticated){
+          this.loading1 = false;
+          await this.$store.commit("setLanding", false);
+          await this.$router.push(`/coordinatorDashboard/`);
+        }
+        
+      } catch (error) {
+                this.errorMessage = error;
       }
     },
     addDash() {
@@ -160,16 +172,16 @@ export default {
         ? true
         : false;
     },
-    ...mapActions(["checkValidation"])
+    ...mapActions(["requestToken", "getToken", "checkValidation", "validateToken"])
   },
-  computed: { ...mapGetters(["validation"]) },
+  computed: { ...mapGetters(["validation","validated"]) },
   created() {
     this.checkID = true;
   }
 };
 </script>
 <style  scoped>
-.jump{
+.jump {
   animation-duration: 1.5s;
   animation-name: shake;
   animation-timing-function: ease-in-out;

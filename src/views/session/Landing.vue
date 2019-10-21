@@ -231,7 +231,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getLanding", "checkIsLoggedIn", "getCurrentUser", "auth"]),
+    ...mapGetters(["getLanding", "checkIsLoggedIn", "getCurrentUser", "auth" ]),
     initialize: function() {
       return this.getCurrentUser.displayName
         .split(" ")

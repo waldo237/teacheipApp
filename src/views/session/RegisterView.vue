@@ -176,17 +176,24 @@ export default {
           const email = error.email;
           const credential = error.credential;
         });
-      await this.$store.commit("setLanding", true);
+     if(this.validated.authenticated){
+       await this.$router.push(`/coordinatorDashboard/`);
+     }
+     else{ await this.$store.commit("setLanding", true);
       await this.$router.push(`/landing/`);
+      }
       await this.toggleSU();
     },
     showAlert(message, icon, classy) {
       this.$store.commit("setAlertType", { icon: icon, class: classy });
       this.runAlert(message);
     },
-    ...mapActions(["toggleSU", "runAlert", "fetchAllUsers"])
+    ...mapActions(["toggleSU", "runAlert", "fetchAllUsers", "validateToken"])
   },
-  computed: mapGetters(["getSUDialog", "firebase", "auth", "GoogleAuthProvider", "providerMicrosoft"])
+  created(){
+    this.validateToken();
+  },
+  computed: mapGetters(["getSUDialog", "firebase", "auth", "GoogleAuthProvider", "providerMicrosoft","validated"])
 };
 </script>
 

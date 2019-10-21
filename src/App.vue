@@ -85,7 +85,7 @@
                 </a>
                 <div class="mx-auto">
                   <v-card-text
-                    class="title page-title mb-0 pb-0"
+                    class="title page-title mb-0 py-1  font-italic font-weight-medium"
                     xl8
                     lg5
                   >

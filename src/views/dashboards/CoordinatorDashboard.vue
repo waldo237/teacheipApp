@@ -334,6 +334,7 @@ export default {
       ],
       servicios: [
         { title: "Lesson Plans", link: "/lesson plans" },
+        { title: "Encargados", link: "/encargados" },
         { title: "Resultados de Examen diagnostico" },
         { title: "Empleados en Centros", link: "/employees" },
         { title: "Curriculum" },
