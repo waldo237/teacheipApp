@@ -1,17 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import  {auth} from 'firebase/app';
+import { auth } from 'firebase/app';
+import validateToken from './store/modules/validateToken'
+import { async } from 'q';
 Vue.use(Router)
+
 let router = new Router({
   // mode: "history",
-  base:'',
+  base: '',
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home,
-  
+
     },
     {
       path: '/about',
@@ -19,100 +22,91 @@ let router = new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
 
-    },{
+    }, {
       path: '/lesson plans',
       name: 'lesson plans',
       component: () => import(/* webpackChunkName: "about" */ './views/services/LessonPlanIterator.vue'),
-      meta:{
+      meta: {
         requiresAuth: true
       }
-    },{
+    }, {
       path: '/employees',
       name: 'employees',
       component: () => import(/* webpackChunkName: "about" */ './views/services/EmployeeChart.vue'),
-      meta:{
+      meta: {
         requiresAuth: true
       }
-      
+
     }
-    ,{
+    , {
       path: '/dashboard/',
       name: 'dashboard',
       component: () => import(/* webpackChunkName: "about" */ './views/dashboards/SupervisorDashboard.vue'),
-      meta:{
+      meta: {
         requiresAuth: true
       }
     }
-    ,{
+    , {
       path: '/landing/',
       name: 'landing',
       component: () => import(/* webpackChunkName: "about" */ './views/session/Landing.vue'),
-      meta:{
+      meta: {
         requiresAuth: true
       }
     }
-    ,{
+    , {
       path: '/signin',
       name: 'signin',
       component: () => import(/* webpackChunkName: "about" */ './views/session/LogInView.vue'),
-      meta:{
+      meta: {
         requiresGuest: true
       }
     }
-,{
+    , {
       path: '/signup',
       name: 'signup',
       component: () => import(/* webpackChunkName: "about" */ './views/session/RegisterView.vue'),
-      meta:{
+      meta: {
         requiresGuest: true
       }
     }
-,{
+    , {
       path: '/updateProfile',
       name: 'updateProfile',
       component: () => import(/* webpackChunkName: "about" */ './views/session/ProfileEditorView.vue'),
-      meta:{
+      meta: {
         requiresAuth: true
       }
     }
-,{
+    , {
       path: '/coordinatorDashboard',
       name: 'coordinatorDashboard',
       component: () => import(/* webpackChunkName: "about" */ './views/dashboards/CoordinatorDashboard.vue'),
-      meta:{
+      meta: {
         requiresAuth: true
       }
     }
-,{
+    , {
       path: '/useterms',
       name: 'useterms',
       component: () => import(/* webpackChunkName: "about" */ '@/components/Useterms.vue'),
-  
-    }
-,{
-      path: '/pendingVerification',
-      name: 'pendingVerification',
-      component: () => import(/* webpackChunkName: "about" */ './views/session/PendingVerificationView.vue'),
 
     }
-,{
+    , {
       path: '*',
       name: '404',
       component: () => import(/* webpackChunkName: "about" */ './views/session/404.vue'),
-
     }
-   
- 
   ]
 })
 
 //Nav Guards
-router.beforeEach((to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   // Check for requiresAuth guard
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // Check if NO logged user
     if (!auth().currentUser) {
-      
+
       // Go to login
       next({
         path: '/',
@@ -120,10 +114,10 @@ router.beforeEach((to, from, next) => {
           redirect: to.hash
         }
       });
-    } else if(!auth().currentUser.emailVerified) {
+    } else if (validateToken().authenticated) {
       // Proceed to route
       next({
-        path: '/pendingVerification',
+        path: '/landing',
         query: {
           redirect: to.hash
         }
@@ -132,14 +126,14 @@ router.beforeEach((to, from, next) => {
       // Proceed to route
       next();
     }
-  } 
-  
+  }
+
   else if (to.matched.some(record => record.meta.requiresGuest)) {
     // Check if NO logged user
     if (auth().currentUser) {
       // Go to login
       next({
-        path: '/dashboard',
+        path: '/404',
         query: {
           redirect: to.fullPath
         }

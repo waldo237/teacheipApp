@@ -4,17 +4,37 @@
     <Carousel />
     <!-- carousel ends -->
 
-    <v-layout class="justify-center mt-2 mb-5 pb-5" flat wrap>
-      <v-card class="mx-2 justify-center elevation-5 mt-2 grids" flat wrap min-width="80%">
-        <v-layout class="justify-center" flat wrap>
+    <v-layout
+      class="justify-center mt-2 mb-5 pb-5"
+      flat
+      wrap
+    >
+      <v-card
+        class="mx-2 justify-center elevation-5 mt-2 grids"
+        flat
+        wrap
+        min-width="80%"
+      >
+        <v-layout
+          class="justify-center"
+          flat
+          wrap
+        >
           <v-card-title
             class="display-1 font-weight-light my-0 text-xs-center main-title "
-          >The English Immersion Program</v-card-title>
+          >
+            The English Immersion Program
+          </v-card-title>
         </v-layout>
-        <v-layout class="justify-center mb-2 pb-2" flat wrap>
+        <v-layout
+          class="justify-center mb-2 pb-2"
+          flat
+          wrap
+        >
           <!-- story starts -->
           <v-card
-            v-for="item in principles" :key="item.title"
+            v-for="item in principles"
+            :key="item.title"
             class="justify-center mx-1 elevation-24 grids mt-2 hovering"
             hover
             shaped
@@ -28,18 +48,30 @@
             <v-card-title
               primary-title
               class="justify-center the-program elevation-12 title py-2"
-            >{{item.title}}</v-card-title>
-            <v-card-text class="text-lg-justify text-md-justify text-sm-justify text-xs-justify">{{item.body}} </v-card-text>
+            >
+              {{ item.title }}
+            </v-card-title>
+            <v-card-text class="text-lg-justify text-md-justify text-sm-justify text-xs-justify">
+              {{ item.body }}
+            </v-card-text>
           </v-card>
         </v-layout>
         <!-- Testimonials starts -->
-        <v-layout justify-center flat>
+        <v-layout
+          justify-center
+          flat
+        >
           <v-card-title
           
             class="display-1 font-weight-light my-0 text-xs-center main-title"
-          >Their experiences</v-card-title>
+          >
+            Their experiences
+          </v-card-title>
         </v-layout>
-        <v-layout justify-center wrap>
+        <v-layout
+          justify-center
+          wrap
+        >
           <v-card
             dark
             v-for="item in testimonies"
@@ -51,21 +83,46 @@
           >
             <v-card-title class="blue-cards elevation-24">
               <v-layout justify-center>
-                <v-avatar size="150" class="ma-1">
-                  <img :src="item.photo" alt="testimony" />
+                <v-avatar
+                  size="150"
+                  class="ma-1"
+                >
+                  <img
+                    :src="item.photo"
+                    alt="testimony"
+                  >
                 </v-avatar>
               </v-layout>
-              <v-layout justify-center class="testimony-text px-5">{{ item.name }}</v-layout>
+              <v-layout
+                justify-center
+                class="testimony-text px-5"
+              >
+                {{ item.name }}
+              </v-layout>
 
-              <v-layout justify-center class="testimony-text px-5">
+              <v-layout
+                justify-center
+                class="testimony-text px-5"
+              >
                 <b>{{ item.position }}</b>
               </v-layout>
             </v-card-title>
 
             <v-card-text class="testimony-text">
-              <v-icon color="#d13c34" medium class="flip">format_quote</v-icon>
+              <v-icon
+                color="#d13c34"
+                medium
+                class="flip"
+              >
+                format_quote
+              </v-icon>
               <div v-html="item.testimony" />
-              <v-icon color="#d13c34" medium>format_quote</v-icon>
+              <v-icon
+                color="#d13c34"
+                medium
+              >
+                format_quote
+              </v-icon>
             </v-card-text>
           </v-card>
         </v-layout>

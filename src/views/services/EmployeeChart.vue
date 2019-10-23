@@ -2,7 +2,13 @@
  
 <template>
   <div class="my-5 py-5">
-    <v-layout row wrap justify-center v-if="stillLoading" class="ma-5 pa-5">
+    <v-layout
+      row
+      wrap
+      justify-center
+      v-if="stillLoading"
+      class="ma-5 pa-5"
+    >
       <loading />
     </v-layout>
     <div v-else>
@@ -15,7 +21,10 @@
         hide-details
         class="search"
       />
-      <v-layout justify-center persistent>
+      <v-layout
+        justify-center
+        persistent
+      >
         <v-data-table
           style="width: 80%"
           :headers="headers"
@@ -29,16 +38,39 @@
           show-group-by
         >
           <template v-slot:items="props">
-            <td class="text-xs-left pa-3" id="name">{{ props.item.NOMBRE }}</td>
-            <td class="text-xs-left mx-auto">{{ props.item.TELEFONO }}</td>
-            <td class="text-xs-left">{{ props.item.GENERO }}</td>
-            <td class="text-xs-left">{{ props.item.CARGO }}</td>
-            <td class="text-xs-left">{{ props.item.CORREO }}</td>
-            <td class="text-xs-left">{{ props.item.CARRERA }}</td>
-            <td class="text-xs-left">{{ props.item.SUPERVISOR }}</td>
-            <td class="text-xs-left mx-5">{{ props.item.CENTRO }}</td>
-            <td class="text-xs-left">{{ props.item.REGION }}</td>
-            <td class="text-xs-left">{{ props.item.PROVINCIA }}</td>
+            <td
+              class="text-xs-left pa-3"
+              id="name"
+            >
+              {{ props.item.NOMBRE }}
+            </td>
+            <td class="text-xs-left mx-auto">
+              {{ props.item.TELEFONO }}
+            </td>
+            <td class="text-xs-left">
+              {{ props.item.GENERO }}
+            </td>
+            <td class="text-xs-left">
+              {{ props.item.CARGO }}
+            </td>
+            <td class="text-xs-left">
+              {{ props.item.CORREO }}
+            </td>
+            <td class="text-xs-left">
+              {{ props.item.CARRERA }}
+            </td>
+            <td class="text-xs-left">
+              {{ props.item.SUPERVISOR }}
+            </td>
+            <td class="text-xs-left mx-5">
+              {{ props.item.CENTRO }}
+            </td>
+            <td class="text-xs-left">
+              {{ props.item.REGION }}
+            </td>
+            <td class="text-xs-left">
+              {{ props.item.PROVINCIA }}
+            </td>
           </template>
         </v-data-table>
       </v-layout>

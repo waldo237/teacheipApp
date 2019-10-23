@@ -176,6 +176,7 @@ export default {
           const email = error.email;
           const credential = error.credential;
         });
+        await this.validateToken();
      if(this.validated.authenticated){
        await this.$router.push(`/coordinatorDashboard/`);
      }
@@ -190,8 +191,8 @@ export default {
     },
     ...mapActions(["toggleSU", "runAlert", "fetchAllUsers", "validateToken"])
   },
-  created(){
-    this.validateToken();
+  async created(){
+   
   },
   computed: mapGetters(["getSUDialog", "firebase", "auth", "GoogleAuthProvider", "providerMicrosoft","validated"])
 };

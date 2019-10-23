@@ -9,9 +9,10 @@
     >
       <!--  sandwich menu for side bar/menu-->
       <v-toolbar-side-icon
-        large
+      large
+      class="px-4 py-2"
         @click.stop="turnOnSideMenu"
-        v-if="checkIsLoggedIn"
+        v-if="checkIsLoggedIn &&validated.authenticated"
       />
       <!-- sandwich menu -->
 
@@ -34,7 +35,7 @@
       <v-toolbar-items class="hidden-sm-and-down mx-auto">
         <v-btn
           class="black-blue white--text"
-          v-if="checkIsLoggedIn"
+          v-if="checkIsLoggedIn && validated.authenticated"
           to="/dashboard"
         >
           <v-icon
@@ -59,14 +60,14 @@
         <v-btn
           @click="toggleSU"
           class="sign-up"
-          v-if="!checkIsLoggedIn"
+          v-if="!checkIsLoggedIn &&!validated.authenticated"
         >
           REGISTER
         </v-btn>
         <v-btn
           @click="toggleSI"
           class="sign-in"
-          v-if="!checkIsLoggedIn"
+           v-if="!checkIsLoggedIn &&!validated.authenticated"
         >
           SIGN IN
         </v-btn>
@@ -78,7 +79,7 @@
           color="white"
           class="avatar-button"
           @click="profileModel = true"
-          v-if="checkIsLoggedIn"
+        v-if="checkIsLoggedIn &&validated.authenticated"
         >
           <v-avatar v-if="getCurrentUser.photoURL">
             <img
@@ -99,7 +100,7 @@
       <!--  minimized menu starts-->
       <v-toolbar-side-icon
         large
-        class="hidden-md-and-up mx-auto"
+        class="hidden-md-and-up px-4 py-2"
         slot
         @click="sandwich = true"
       />
@@ -110,7 +111,7 @@
       >
         <v-list-tile
           @click="profileModel = true"
-          v-if="checkIsLoggedIn"
+        v-if="checkIsLoggedIn &&validated.authenticated"
           class="pb-1 white"
         >
           <v-btn
@@ -135,7 +136,7 @@
         <v-list-tile
           class="black-blue white--text"
           tag="v-btn"
-          v-if="checkIsLoggedIn"
+        v-if="checkIsLoggedIn &&validated.authenticated"
           to="/dashboard"
         >
           <v-icon
@@ -161,14 +162,15 @@
         <v-list-tile
           @click="toggleSU"
           class="sign-up"
-          v-if="!checkIsLoggedIn"
+          v-if="!checkIsLoggedIn &&!validated.authenticated"
         >
           <span class="mx-auto">REGISTER</span>
         </v-list-tile>
         <v-list-tile
           @click="toggleSI"
           class="sign-in"
-          v-if="!checkIsLoggedIn"
+          v-if="!checkIsLoggedIn &&!validated.authenticated"
+
         >
           <span class="mx-auto">SIGN IN</span>
         </v-list-tile>
@@ -204,11 +206,11 @@ import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
 import colors from "@/assets/colors/colors.js";
 import { mapActions, mapGetters } from "vuex";
-import Sidemenu from "@/components/RoleComponents/supervisorComponents/sidemenu.vue";
+
 
 export default {
   name: "Menu1",
-  components: { popupRegister, signInForm, alerting, profile,Sidemenu },
+  components: { popupRegister, signInForm, alerting, profile },
   directives: {
     onClickaway: onClickaway
   },
@@ -227,27 +229,27 @@ export default {
       this.$store.commit("setAlertType", { icon: icon, class: classy });
       this.runAlert(message);
     },
-    closeProfile: function() {
+    closeProfile() {
       if (this.profileModel) {
         this.profileModel = false;
       }
     },
-    away: function() {
+    away() {
       if (this.drawer && checkIsLoggedIn) {
         this.drawer = !this.drawer;
       }
     },
-    hideMenu: function() {
+    hideMenu() {
       if (this.sandwich) {
         this.sandwich = false;
       }
     },
-    onResize: function() {
+    onResize() {
       window.addEventListener("resize", () => {
         this.sandwich = false;
       });
     },
-    turnOnSideMenu:async function(){
+    async turnOnSideMenu(){
        this.toggled = await !this.toggled;
       switch (this.getCurrentRole) {
         // change hand coded
@@ -265,13 +267,13 @@ export default {
           break;
       }
     },
-    ...mapActions(["toggleSI", "toggleSU", "runAlert"])
+    ...mapActions(["toggleSI", "toggleSU", "runAlert", "validateToken"])
   },
   computed: {
-    initialize: function() {
+    initialize() {
      return this.getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()
     },
-    colorize: function() {
+    colorize() {
       return colors[Math.floor(Math.random() * 280)];
     },
     ...mapGetters([
@@ -285,10 +287,13 @@ export default {
     "getSupervisorSideMenu",
     "getManagerSideMenu",
     "auth",
+    "validated"
   ])},
-  created: function() {
-    if (this.auth().currentUser) {
-      if(this.auth().currentUser.emailVerified) this.$store.commit('setLoggedIn', true); this.$store.commit("setCurrentUser", this.auth().currentUser);
+  async created() {
+    await this.validateToken();
+    if (this.auth().currentUser && this.validated.authenticated) {
+       this.$store.commit('setLoggedIn', true); 
+       this.$store.commit("setCurrentUser", this.auth().currentUser);
     }
     this.onResize();
   }

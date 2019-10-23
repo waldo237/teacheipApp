@@ -45,7 +45,7 @@
 </template>
 <script>
 export default {
-    name: "notFound",
+    name: "NotFound",
     data(){
         return{
 

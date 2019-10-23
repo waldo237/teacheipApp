@@ -30,7 +30,7 @@
           <span class="acronym" />
 
           <v-list-tile>
-            <Profile class="profile" v-if="profileModel" @closeProfile="toggleProfile"/>
+            <Profile class="profile" v-if="profileModel" @closeProfile="toggleProfile" />
           </v-list-tile>
         </v-toolbar>
         <v-layout justify-center class="ml-5">
@@ -231,7 +231,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getLanding", "checkIsLoggedIn", "getCurrentUser", "auth" ]),
+    ...mapGetters([
+      "getLanding",
+      "checkIsLoggedIn",
+      "getCurrentUser",
+      "auth",
+    ]),
     initialize: function() {
       return this.getCurrentUser.displayName
         .split(" ")
@@ -240,7 +245,8 @@ export default {
         .toUpperCase();
     }
   },
- async created() {
+  async created() {
+
     if (this.auth().currentUser) {
       this.$store.commit("setLoggedIn", true);
       this.$store.commit("setCurrentUser", this.auth().currentUser);

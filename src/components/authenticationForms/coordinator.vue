@@ -1,10 +1,20 @@
 <template>
-  <v-stepper v-model="e6" vertical>
-    <v-stepper-step :complete="e6 > 1" step="1" color="green">
+  <v-stepper
+    v-model="e6"
+    vertical
+  >
+    <v-stepper-step
+      :complete="e6 > 1"
+      step="1"
+      color="green"
+    >
       Introduce your cedula
       <small>Please type in your cedula number in the filed</small>
     </v-stepper-step>
-    <v-stepper-content step="1" color="blue">
+    <v-stepper-content
+      step="1"
+      color="blue"
+    >
       <!-- form starts -->
       <v-form v-model="valid">
         <v-alert
@@ -15,11 +25,19 @@
           type="error"
           v-if="errorMessage"
           v-model="alert"
-        >{{errorMessage}}</v-alert>
-        <v-card color="grey lighten-2" class="mb-12">
+        >
+          {{ errorMessage }}
+        </v-alert>
+        <v-card
+          color="grey lighten-2"
+          class="mb-12"
+        >
           <v-container>
             <v-layout>
-              <v-flex xs12 md4>
+              <v-flex
+                xs12
+                md4
+              >
                 <v-text-field
                   v-model="cedula"
                   :rules="cedulaRules"
@@ -40,13 +58,27 @@
           :disabled="checkID"
           :loading="loading1"
           @click.prevent="verifyID"
-        >verify</v-btn>
-        <v-btn class="sign-up" @click="close" text>Cancel</v-btn>
+        >
+          verify
+        </v-btn>
+        <v-btn
+          class="sign-up"
+          @click="close"
+          text
+        >
+          Cancel
+        </v-btn>
       </v-form>
       <!-- form ends -->
     </v-stepper-content>
 
-    <v-stepper-step :complete="e6 > 2" step="2" color="green">Type in your Coordinator code</v-stepper-step>
+    <v-stepper-step
+      :complete="e6 > 2"
+      step="2"
+      color="green"
+    >
+      Type in your Coordinator code
+    </v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
       <v-form v-model="valid">
@@ -58,11 +90,20 @@
           type="error"
           v-if="errorMessage"
           v-model="alert2"
-        >{{errorMessage}}</v-alert>
-        <v-card color="grey lighten-2" class="mb-12" height="100px">
+        >
+          {{ errorMessage }}
+        </v-alert>
+        <v-card
+          color="grey lighten-2"
+          class="mb-12"
+          height="100px"
+        >
           <v-container>
             <v-layout>
-              <v-flex xs12 md4>
+              <v-flex
+                xs12
+                md4
+              >
                 <v-text-field
                   v-model="cCode"
                   label="Coordinator code"
@@ -78,8 +119,20 @@
             </v-layout>
           </v-container>
         </v-card>
-        <v-btn class="sign-in" @click="verifycCode" :loading="loading1">Continue</v-btn>
-        <v-btn class="sign-up" @click="close" text>Cancel</v-btn>
+        <v-btn
+          class="sign-in"
+          @click="verifycCode"
+          :loading="loading1"
+        >
+          Continue
+        </v-btn>
+        <v-btn
+          class="sign-up"
+          @click="close"
+          text
+        >
+          Cancel
+        </v-btn>
       </v-form>
       <!-- form ends -->
     </v-stepper-content>

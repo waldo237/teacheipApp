@@ -53,6 +53,7 @@ export default {
         .signOut()
         .then(async () => {
           await this.$store.commit('setLoggedIn', false)
+          await this.$store.commit('setValidated', {})
           await this.$store.commit('setAlert', false)
           if(this.$route.path !="/") await this.$router.push("/");
         });

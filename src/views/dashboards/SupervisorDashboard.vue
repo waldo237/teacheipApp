@@ -7,7 +7,7 @@
     <v-navigation-drawer
       app
       v-model="sideMenu"
-      v-if="checkIsLoggedIn && getSupervisorSideMenu"
+      v-if="checkIsLoggedIn  && getSupervisorSideMenu"
       v-on-clickaway="away"
     > 
       <Sidemenu />
@@ -357,11 +357,11 @@ export default {
     ...mapGetters([
       "getCurrentUser",
       "checkIsLoggedIn",
-      "getSupervisorSideMenu"
+      "getSupervisorSideMenu",
+
     ])
   },
   async created() {
-    await this.$store.commit("setLoggedIn", true);
      this.$store.commit('setFullScreen',false);
   }
 };

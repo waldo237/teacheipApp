@@ -1,5 +1,5 @@
 const state = {
-    currentRole: "Coordinator",
+    currentRole: "Supervisor",
     teacherSideMenu:true,
     coordinatorSideMenu:true,
     supervisorSideMenu:true,
