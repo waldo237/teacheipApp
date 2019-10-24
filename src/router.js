@@ -4,10 +4,12 @@ import Home from './views/Home.vue'
 import { auth } from 'firebase/app';
 import validateToken from './store/modules/validateToken'
 import { async } from 'q';
+console.log(atob(validateToken.getToken('sessionRole')))
 Vue.use(Router)
 
+
 let router = new Router({
-  // mode: "history",
+  mode: "history",
   base: '',
   routes: [
     {
@@ -27,14 +29,16 @@ let router = new Router({
       name: 'lesson plans',
       component: () => import(/* webpackChunkName: "about" */ './views/services/LessonPlanIterator.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        resquiresValidation: true
       }
     }, {
       path: '/employees',
       name: 'employees',
       component: () => import(/* webpackChunkName: "about" */ './views/services/EmployeeChart.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        resquiresValidation: true
       }
 
     }
@@ -43,7 +47,8 @@ let router = new Router({
       name: 'dashboard',
       component: () => import(/* webpackChunkName: "about" */ './views/dashboards/SupervisorDashboard.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        resquiresValidation: true
       }
     }
     , {
@@ -75,7 +80,8 @@ let router = new Router({
       name: 'updateProfile',
       component: () => import(/* webpackChunkName: "about" */ './views/session/ProfileEditorView.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        resquiresValidation: true
       }
     }
     , {
@@ -83,7 +89,8 @@ let router = new Router({
       name: 'coordinatorDashboard',
       component: () => import(/* webpackChunkName: "about" */ './views/dashboards/CoordinatorDashboard.vue'),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        resquiresValidation: true
       }
     }
     , {
@@ -91,6 +98,11 @@ let router = new Router({
       name: 'useterms',
       component: () => import(/* webpackChunkName: "about" */ '@/components/Useterms.vue'),
 
+    }
+    , {
+      path: '/403',
+      name: '403',
+      component: () => import(/* webpackChunkName: "about" */ './views/session/403.vue'),
     }
     , {
       path: '*',
@@ -101,51 +113,84 @@ let router = new Router({
 })
 
 //Nav Guards
-router.beforeEach(async(to, from, next) => {
-  // Check for requiresAuth guard
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // Check if NO logged user
-    if (!auth().currentUser) {
+// router.beforeEach(async(to, from, next) => {
+//   // Check for requiresAuth guard
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     // Check if NO logged user
+//     if (!auth().currentUser) {
 
-      // Go to login
-      next({
-        path: '/',
-        query: {
-          redirect: to.hash
-        }
-      });
-    } else if (validateToken().authenticated) {
-      // Proceed to route
-      next({
-        path: '/landing',
-        query: {
-          redirect: to.hash
-        }
-      });
-    } else {
-      // Proceed to route
-      next();
-    }
+//       // Go to login
+//       next({
+//         path: '/',
+//         query: {
+//           redirect: to.fullPath
+//         }
+//       });
+//     }  else {
+//       // Proceed to route
+//       next();
+//     }
+//   } else if (to.matched.some(record => record.meta.resquiresValidation)) {
+//     // Check if NO logged user
+//      if (!auth().currentUser || !user) {
+//       // Proceed to route
+//       next({
+//         path: '/landing',
+//         query: { redirect: to.fullPath }
+//       });
+//     } else {
+//       // Proceed to route
+//       next();
+//     }
+//   } else if (to.matched.some(record => record.meta.requiresGuest)) {
+//     // Check if NO logged user
+//     if (auth().currentUser) {
+//       // Go to login
+//       next({
+//         path: '/404',
+//         query: {
+//           redirect: to.fullPath
+//         }
+//       });
+//     } else {
+//       // Proceed to route
+//       next();
+//     }
+//   } else {
+//     // Proceed to route
+//     next();
+//   }
+// });
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)) {
+      if (!auth().currentUser) {
+          next({
+              path: '/403',
+              params: { nextUrl: to.fullPath }
+          })
+      } else {
+        let user = validateToken.getToken('sessionRole');
+          if(to.matched.some(record => record.meta.resquiresValidation)) {
+              if(user){
+                  next()
+              }
+              else{
+                  next({ name: 'landing'})
+              }
+          }else {
+              next()
+          }
+      }
+  } else if(to.matched.some(record => record.meta.requiresGuest)) {
+      if(validateToken.getToken('sessionRole') == ""){
+          next()
+      }
+      else{
+          next({ name: 'dashboard'})
+      }
+  }else {
+      next() 
   }
-
-  else if (to.matched.some(record => record.meta.requiresGuest)) {
-    // Check if NO logged user
-    if (auth().currentUser) {
-      // Go to login
-      next({
-        path: '/404',
-        query: {
-          redirect: to.fullPath
-        }
-      });
-    } else {
-      // Proceed to route
-      next();
-    }
-  } else {
-    // Proceed to route
-    next();
-  }
-});
+})
 
 export default router;

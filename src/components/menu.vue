@@ -36,8 +36,7 @@
         <v-btn
           class="black-blue white--text"
           v-if="checkIsLoggedIn && validated.authenticated"
-          to="/dashboard"
-        >
+          :to=rolePath>
           <v-icon
             color="white"
             class="mr-0"
@@ -137,7 +136,7 @@
           class="black-blue white--text"
           tag="v-btn"
         v-if="checkIsLoggedIn &&validated.authenticated"
-          to="/dashboard"
+          :to="rolePath"
         >
           <v-icon
             color="white"
@@ -253,16 +252,16 @@ export default {
        this.toggled = await !this.toggled;
       switch (this.getCurrentRole) {
         // change hand coded
-        case "Teacher":
+        case "teacher":
             this.$store.commit('setTeacherSideMenu',  !this.getTeacherSideMenu);
           break;
-        case "Coordinator":
+        case "coordinator":
             this.$store.commit('setCoordinatorSideMenu',  !this.getCoordinatorSideMenu);
           break;
-        case "Supervisor":
+        case "supervisor":
             this.$store.commit('setSupervisorSideMenu',  !this.getSupervisorSideMenu);
           break;
-        case "Manager":
+        case "manager":
             this.$store.commit('setManagerSideMenu',  !this.getManagerSideMenu);
           break;
       }
@@ -270,6 +269,9 @@ export default {
     ...mapActions(["toggleSI", "toggleSU", "runAlert", "validateToken"])
   },
   computed: {
+    rolePath(){
+      return `${this.getCurrentRole}Dashboard`
+    },
     initialize() {
      return this.getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()
     },

@@ -1,5 +1,6 @@
+import validateToken from './validateToken'
 const state = {
-    currentRole: "Supervisor",
+    currentRole: atob(validateToken.getToken('sessionRole')),
     teacherSideMenu:true,
     coordinatorSideMenu:true,
     supervisorSideMenu:true,
