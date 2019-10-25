@@ -3,16 +3,7 @@
     class="mx-3 mb-5 pa-3 px-2 pb-5 pt-1 main-card"
     wrap
   >
-    <!--side-menu starts-->
-    <v-navigation-drawer
-      app
-      v-model="sideMenu"
-      v-if="checkIsLoggedIn  && getSupervisorSideMenu"
-      v-on-clickaway="away"
-    > 
-      <Sidemenu />
-    </v-navigation-drawer>
-    <!--side-menu ends-->
+
 
     <v-layout
       class="mx-2 px-1 justify-center"
@@ -297,9 +288,9 @@
 <script>
 import { mapGetters, mapActions, mapMutation } from "vuex";
 import { directive as onClickaway } from "vue-clickaway";
-import Sidemenu from "@/components/RoleComponents/supervisorComponents/sidemenu.vue";
+import Sidemenu from "@/components/RoleComponents/supervisorComponents/SupervisorSidemenu.vue";
 export default {
-  name: "Dashboard",
+  name: "SupervisorDashboard",
   components: { Sidemenu },
   directives: {
     onClickaway: onClickaway
@@ -308,7 +299,6 @@ export default {
     return {
       date: new Date().toISOString().substr(0, 10),
       menu: false,
-      sideMenu: true,
       direccion: {
         notification:
           "Zomnia and Giseh have set up a meeting  on Tuesday, August 27th at 9:00 am at Jean Piaget, Santiago."
@@ -347,12 +337,8 @@ export default {
     };
   },
   methods:{
-       away: function() {
-      if (this.getSupervisorSideMenu) {
-          this.$store.commit('setSupervisorSideMenu',  !this.getSupervisorSideMenu);
-    
-      }
-  }},
+     
+  },
   computed: {
     ...mapGetters([
       "getCurrentUser",

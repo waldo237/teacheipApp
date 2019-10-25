@@ -1,18 +1,39 @@
  
 <template>
   <div>
+      <!-- side menu starts -->
+    
+    <v-navigation-drawer
+      app
+      v-if="checkIsLoggedIn"
+     v-on-clickaway="away"
+    > 
+       <supervisorsideMenu  v-if="getSupervisorSideMenu"     v-model="suDrawer"
+/>
+    </v-navigation-drawer>
+
+    <v-navigation-drawer
+      app
+      v-model="coDrawer"
+      v-if="checkIsLoggedIn &&getCoordinatorSideMenu"
+      v-on-clickaway="away"
+    > 
+      <coordinatorsideMenu />
+    </v-navigation-drawer>
+ 
+    <!-- side menu ends -->
     <!-- complete navigation starts -->
     <v-toolbar
       app
       style="background-color:white"
       dense
-    >
+      >
       <!--  sandwich menu for side bar/menu-->
       <v-toolbar-side-icon
       large
       class="px-4 py-2"
         @click.stop="turnOnSideMenu"
-        v-if="checkIsLoggedIn &&validated.authenticated"
+        v-if="checkIsLoggedIn"
       />
       <!-- sandwich menu -->
 
@@ -34,8 +55,8 @@
       <!-- expanded navigation bar  starts-->
       <v-toolbar-items class="hidden-sm-and-down mx-auto">
         <v-btn
-          class="black-blue white--text"
-          v-if="checkIsLoggedIn && validated.authenticated"
+          class="black-blue white--text round"
+          v-if="checkIsLoggedIn"
           :to=rolePath>
           <v-icon
             color="white"
@@ -52,6 +73,7 @@
             :key="item.icon"
             :to="item.link"
             :class="item.class"
+            class="round"
           >
             {{ item.title }}
           </router-link>
@@ -59,14 +81,14 @@
         <v-btn
           @click="toggleSU"
           class="sign-up"
-          v-if="!checkIsLoggedIn &&!validated.authenticated"
+          v-if="!checkIsLoggedIn "
         >
           REGISTER
         </v-btn>
         <v-btn
           @click="toggleSI"
           class="sign-in"
-           v-if="!checkIsLoggedIn &&!validated.authenticated"
+           v-if="!checkIsLoggedIn "
         >
           SIGN IN
         </v-btn>
@@ -78,7 +100,7 @@
           color="white"
           class="avatar-button"
           @click="profileModel = true"
-        v-if="checkIsLoggedIn &&validated.authenticated"
+        v-if="checkIsLoggedIn"
         >
           <v-avatar v-if="getCurrentUser.photoURL">
             <img
@@ -110,7 +132,7 @@
       >
         <v-list-tile
           @click="profileModel = true"
-        v-if="checkIsLoggedIn &&validated.authenticated"
+        v-if="checkIsLoggedIn"
           class="pb-1 white"
         >
           <v-btn
@@ -135,7 +157,7 @@
         <v-list-tile
           class="black-blue white--text"
           tag="v-btn"
-        v-if="checkIsLoggedIn &&validated.authenticated"
+        v-if="checkIsLoggedIn"
           :to="rolePath"
         >
           <v-icon
@@ -151,7 +173,7 @@
           v-for="item in getNavigation.publicNav"
           :key="item.icon"
           :to="item.link"
-          class="elevation-12"
+          class="elevation-12 round"
         >
           <span class="mx-auto">
 
@@ -160,22 +182,20 @@
         </v-list-tile>
         <v-list-tile
           @click="toggleSU"
-          class="sign-up"
-          v-if="!checkIsLoggedIn &&!validated.authenticated"
+          class="sign-up round"
+          v-if="!checkIsLoggedIn "
         >
           <span class="mx-auto">REGISTER</span>
         </v-list-tile>
         <v-list-tile
           @click="toggleSI"
-          class="sign-in"
-          v-if="!checkIsLoggedIn &&!validated.authenticated"
+          class="sign-in round"
+          v-if="!checkIsLoggedIn "
 
         >
-          <span class="mx-auto">SIGN IN</span>
+          <span class="mx-auto my-2">SIGN IN</span>
         </v-list-tile>
       </v-list>
-        
-
       <!--  minimized menu ends-->
       <v-list-tile>
         <profile
@@ -192,12 +212,13 @@
     <signInForm />
     <alerting />
     <!-- communication dialogs -->
-    <!-- profile insertion starts-->
+  
   </div>
 </template>
 
 
 <script>
+import session from '@/store/modules/session.js'
 import { directive as onClickaway } from "vue-clickaway";
 import popupRegister from "@/views/session/RegisterView.vue";
 import signInForm from "@/views/session/LogInView.vue";
@@ -205,18 +226,20 @@ import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
 import colors from "@/assets/colors/colors.js";
 import { mapActions, mapGetters } from "vuex";
-
+import supervisorsideMenu from '@/components/RoleComponents/supervisorComponents/SupervisorSidemenu.vue'
+import coordinatorsideMenu from '@/components/RoleComponents/coordinatorComponents/CoordinatorSidemenu.vue'
 
 export default {
   name: "Menu1",
-  components: { popupRegister, signInForm, alerting, profile },
+  components: { popupRegister, signInForm, alerting, profile,supervisorsideMenu,coordinatorsideMenu },
   directives: {
     onClickaway: onClickaway
   },
   data() {
     return {
       currentUser: false,
-      drawer: false,
+      suDrawer: false,
+      coDrawer: false,
       sandwich: false,
       profileModel: false,
       signIn: false,
@@ -289,11 +312,9 @@ export default {
     "getSupervisorSideMenu",
     "getManagerSideMenu",
     "auth",
-    "validated"
   ])},
   async created() {
-    await this.validateToken();
-    if (this.auth().currentUser && this.validated.authenticated) {
+     if (this.auth().currentUser) {
        this.$store.commit('setLoggedIn', true); 
        this.$store.commit("setCurrentUser", this.auth().currentUser);
     }

@@ -203,7 +203,7 @@ export default {
                 this.url = await url;
               })
               .catch(err => {
-                console.log(`there was an Error ${err}`);
+                throw new Error(`there was an Error ${err}`);
               });
           }
         });
@@ -222,7 +222,6 @@ export default {
       if (this.url) this.profile.photoURL = this.url;
       // pass profile object to auth.currentUser
       await this.auth().currentUser.updateProfile(this.profile);
-      //  await this.auth().currentUser.updatePhoneNumber(this.profile.updatePhoneNumber);
       //  pass the Auth.CurrentUser to Local CurrentUser
       await this.$store.commit("setCurrentUser", this.auth().currentUser);
       this.dialog = false;

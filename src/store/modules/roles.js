@@ -1,6 +1,6 @@
-import validateToken from './validateToken'
+import session from './session'
 const state = {
-    currentRole: atob(validateToken.getToken('sessionRole')),
+    currentRole: session.fetchRole(),
     teacherSideMenu:true,
     coordinatorSideMenu:true,
     supervisorSideMenu:true,
@@ -15,6 +15,7 @@ const getters = {
    
 };
 const actions = {
+   
 };
 const mutations = {
     setCurrentRole: (state, value) =>(state.currentRole = value),

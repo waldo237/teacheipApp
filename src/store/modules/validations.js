@@ -1,8 +1,9 @@
 import axios from "axios";
 import { auth } from "firebase/app";
+import session from "./session";
 const state = {
   validation: {},
-  validated: {},
+  validated: session.validateToken(),
   id: "",
   code: ""
 };
@@ -39,7 +40,7 @@ const actions = {
       document.cookie = `sessionToken=${response.data.token};${expires};path=/`;
       document.cookie = `sessionRole=${response.data.role};${expires};path=/`;
     } catch (error) {
-      new Error("Could not connect because of internet is off");
+      // unlogged
     }
   },
   // validate token and set validated global
@@ -50,16 +51,16 @@ const actions = {
       );
       commit("setValidated", response.data);
     } catch (error) {
-      console.log(error);
+      // unlogged
     }
   },
   // get token from local cookies
   getToken(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-      var c = ca[i];
+    const name = cname + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
       while (c.charAt(0) == ' ') {
         c = c.substring(1);
       }

@@ -18,7 +18,7 @@ export default {
       interval: {},
       percent: 0
     };
-  },
+  }, 
   beforeDestroy() {
     clearInterval(this.interval);
   },

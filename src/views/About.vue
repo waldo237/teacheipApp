@@ -3,29 +3,31 @@
     id="inspire"
     row
     justify-center
+
   >
-    <div class="px-5 pb-5 content">
-      <div class="elevation-24 ma-5 sign-in">
+    <div class="px-5 pb-5 content ">
+      <div class="elevation-24 ma-5 sign-in round">
         <v-layout justify-space-around>
           <v-flex xs10>
-            <v-card column>
+            <v-card flat column class="round sign-in">
               <v-img
                 :src="gify"
                 alt="We bring change!"
                 :lazy-src="gify"
-                aspect-ratio="2.0"
+                
                 id="we-bring-change"
-                class="grey lighten-2 mx-auto mt-3"
+                class="grey lighten-2 mx-auto mt-3 "
                 max-width="580"
-                max-height="430"
+                
               />
             </v-card>
           </v-flex>
         </v-layout>
 
         <v-card
+        flat
           xs8
-          class="pa-4 big-words ma-2 sign-in white--text text-justify elevation-24"
+          class="pa-4 big-words ma-2 sign-in white--text text-justify"
         >
           The English Immersion Program has had an
           exponential

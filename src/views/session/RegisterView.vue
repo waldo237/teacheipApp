@@ -89,7 +89,7 @@
 </template>
 <style>
 .round {
-  border-radius: 5px !important;
+  border-radius: 10px !important;
 }
 </style>
 

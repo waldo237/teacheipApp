@@ -119,6 +119,7 @@ export default {
    return{
       log: false,
       online: false,
+      timeOut: {},
    }
  },
  components: {
@@ -132,7 +133,7 @@ export default {
         if (navigator.onLine) {
           this.log = false;
           this.online = true;
-          setTimeout(async () => {
+        this.timeOut =  setTimeout(async () => {
             this.online = false;
           }, 3000);
         }
@@ -145,6 +146,9 @@ computed: mapGetters(["getFullScreen",]),
  created(){
        this.init();
     },
+    beforeDestroy() {
+    clearInterval(this.timeOut);
+  },
 }
 </script>
 <style>
