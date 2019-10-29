@@ -1,45 +1,37 @@
  
 <template>
   <div>
-      <!-- side menu starts -->
-    
-    <v-navigation-drawer
-      app
-      v-if="checkIsLoggedIn"
-     v-on-clickaway="away"
-    > 
-       <supervisorsideMenu  v-if="getSupervisorSideMenu"     v-model="suDrawer"
-/>
-    </v-navigation-drawer>
+    <!-- side menu starts -->
+    <div v-on-clickaway="away">
+      <v-navigation-drawer
+        app
+        v-model="drawer"
+      >
+        <supervisorsideMenu v-if="getSupervisorSideMenu" />
+        <coordinatorsideMenu v-else-if="getCoordinatorSideMenu" />
+      </v-navigation-drawer>
+    </div>
 
-    <v-navigation-drawer
-      app
-      v-model="coDrawer"
-      v-if="checkIsLoggedIn &&getCoordinatorSideMenu"
-      v-on-clickaway="away"
-    > 
-      <coordinatorsideMenu />
-    </v-navigation-drawer>
- 
+
     <!-- side menu ends -->
     <!-- complete navigation starts -->
     <v-toolbar
       app
       style="background-color:white"
       dense
-      >
+    >
       <!--  sandwich menu for side bar/menu-->
       <v-toolbar-side-icon
-      large
-      class="px-4 py-2"
-        @click.stop="turnOnSideMenu"
+        large
+        class="px-4 py-2"
+        @click.stop="drawer = !drawer"
         v-if="checkIsLoggedIn"
       />
       <!-- sandwich menu -->
 
       <!-- logo starts -->
       <div class="logo-text">
-        <span class="teach ">Teach</span>
+        <span class="teach">Teach</span>
         <span class="acronym">EIP</span>
         <span class="full-title mt-1">
           <img
@@ -54,16 +46,26 @@
 
       <!-- expanded navigation bar  starts-->
       <v-toolbar-items class="hidden-sm-and-down mx-auto">
+        
         <v-btn
-          class="black-blue white--text round"
+          class="black-blue"
+          dark
           v-if="checkIsLoggedIn"
-          :to=rolePath>
+          @click="rolePath"
+          @mouseenter="tip = true"
+          @mouseleave="tip = false"
+          
+        >
+         <span  v-if="tip">
+           DASHBOARD
+         </span>
           <v-icon
             color="white"
             class="mr-0"
           >
             dashboard
-          </v-icon><span class="ml-1">DASHBOARD</span>
+          </v-icon>
+         
         </v-btn>
         <v-toolbar-items class="hidden-sm-and-down">
           <router-link
@@ -73,7 +75,7 @@
             :key="item.icon"
             :to="item.link"
             :class="item.class"
-            class="round"
+            
           >
             {{ item.title }}
           </router-link>
@@ -88,7 +90,7 @@
         <v-btn
           @click="toggleSI"
           class="sign-in"
-           v-if="!checkIsLoggedIn "
+          v-if="!checkIsLoggedIn "
         >
           SIGN IN
         </v-btn>
@@ -100,20 +102,20 @@
           color="white"
           class="avatar-button"
           @click="profileModel = true"
-        v-if="checkIsLoggedIn"
+          v-if="checkIsLoggedIn"
         >
-          <v-avatar v-if="getCurrentUser.photoURL">
+          <v-avatar v-if="auth().currentUser.photoURL">
             <img
-              :src="getCurrentUser.photoURL"
-              :alt="getCurrentUser.displayName"
+              :src="auth().currentUser.photoURL"
+              :alt="auth().currentUser.displayName"
             >
-          </v-avatar>    
+          </v-avatar>
           <v-avatar
             :color="colorize"
             v-else
           >
             <span class="white--text headline">{{ initialize }}</span>
-          </v-avatar>   
+          </v-avatar>
         </v-btn>
         <!-- profile avatar ends -->
       </v-toolbar-items>
@@ -132,7 +134,7 @@
       >
         <v-list-tile
           @click="profileModel = true"
-        v-if="checkIsLoggedIn"
+          v-if="checkIsLoggedIn"
           class="pb-1 white"
         >
           <v-btn
@@ -140,12 +142,12 @@
             fab
             class="avatar-button mx-auto my-0 pt-0"
           >
-            <v-avatar v-if="getCurrentUser.photoURL">
+            <v-avatar v-if="auth().currentUser.photoURL">
               <img
-                :src="getCurrentUser.photoURL"
-                :alt="getCurrentUser.displayName"
+                :src="auth().currentUser.photoURL"
+                :alt="auth().currentUser.displayName"
               >
-            </v-avatar>    
+            </v-avatar>
             <v-avatar
               :color="colorize"
               v-else
@@ -155,17 +157,26 @@
           </v-btn>
         </v-list-tile>
         <v-list-tile
-          class="black-blue white--text"
-          tag="v-btn"
-        v-if="checkIsLoggedIn"
-          :to="rolePath"
+          class="black-blue"
+          dark
+          
+          v-if="checkIsLoggedIn"
+          @click="rolePath"
+          @mouseenter="tip = true"
+          @mouseleave="tip = false"
         >
+        <v-layout row wrap justify-center class="white--text">
           <v-icon
             color="white"
             class="mr-0"
           >
             dashboard
-          </v-icon> <span class="mx-auto">DASHBOARD</span>
+          </v-icon>
+          <span  v-if="tip">
+           DASHBOARD
+         </span>
+          
+        </v-layout>
         </v-list-tile>
         <v-list-tile
           tag="v-btn"
@@ -173,25 +184,21 @@
           v-for="item in getNavigation.publicNav"
           :key="item.icon"
           :to="item.link"
-          class="elevation-12 round"
+          class="elevation-12"
         >
-          <span class="mx-auto">
-
-            {{ item.title }}
-          </span>
+          <span class="mx-auto">{{ item.title }}</span>
         </v-list-tile>
         <v-list-tile
           @click="toggleSU"
-          class="sign-up round"
+          class="sign-up "
           v-if="!checkIsLoggedIn "
         >
           <span class="mx-auto">REGISTER</span>
         </v-list-tile>
         <v-list-tile
           @click="toggleSI"
-          class="sign-in round"
+          class="sign-in"
           v-if="!checkIsLoggedIn "
-
         >
           <span class="mx-auto my-2">SIGN IN</span>
         </v-list-tile>
@@ -202,6 +209,8 @@
           class="profile"
           v-if="profileModel"
           v-on-clickaway="closeProfile"
+         @closeProfile="closeProfile"
+
         />
       </v-list-tile>
       <!-- profile insertion ends-->
@@ -212,13 +221,12 @@
     <signInForm />
     <alerting />
     <!-- communication dialogs -->
-  
   </div>
 </template>
 
 
 <script>
-import session from '@/store/modules/session.js'
+import session from "@/store/modules/session.js";
 import { directive as onClickaway } from "vue-clickaway";
 import popupRegister from "@/views/session/RegisterView.vue";
 import signInForm from "@/views/session/LogInView.vue";
@@ -226,24 +234,29 @@ import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
 import colors from "@/assets/colors/colors.js";
 import { mapActions, mapGetters } from "vuex";
-import supervisorsideMenu from '@/components/RoleComponents/supervisorComponents/SupervisorSidemenu.vue'
-import coordinatorsideMenu from '@/components/RoleComponents/coordinatorComponents/CoordinatorSidemenu.vue'
+import supervisorsideMenu from "@/components/RoleComponents/supervisorComponents/SupervisorSidemenu.vue";
+import coordinatorsideMenu from "@/components/RoleComponents/coordinatorComponents/CoordinatorSidemenu.vue";
 
 export default {
   name: "Menu1",
-  components: { popupRegister, signInForm, alerting, profile,supervisorsideMenu,coordinatorsideMenu },
+  components: {
+    popupRegister,
+    signInForm,
+    alerting,
+    profile,
+    supervisorsideMenu,
+    coordinatorsideMenu
+  },
   directives: {
     onClickaway: onClickaway
   },
   data() {
     return {
-      currentUser: false,
-      suDrawer: false,
-      coDrawer: false,
       sandwich: false,
       profileModel: false,
       signIn: false,
-      toggled:false,
+      drawer: true,
+      tip: false,
     };
   },
   methods: {
@@ -252,71 +265,74 @@ export default {
       this.runAlert(message);
     },
     closeProfile() {
-      if (this.profileModel) {
-        this.profileModel = false;
-      }
+      if (this.profileModel) this.profileModel = false;
     },
     away() {
-      if (this.drawer && checkIsLoggedIn) {
-        this.drawer = !this.drawer;
-      }
+      if(this.drawer) this.drawer = !this.drawer;
     },
     hideMenu() {
-      if (this.sandwich) {
-        this.sandwich = false;
-      }
+      if (this.sandwich) this.sandwich = false;
     },
     onResize() {
       window.addEventListener("resize", () => {
         this.sandwich = false;
       });
     },
-    async turnOnSideMenu(){
-       this.toggled = await !this.toggled;
+    async turnOnSideMenu() {
       switch (this.getCurrentRole) {
         // change hand coded
         case "teacher":
-            this.$store.commit('setTeacherSideMenu',  !this.getTeacherSideMenu);
+          this.$store.commit("setTeacherSideMenu", !this.getTeacherSideMenu);
           break;
         case "coordinator":
-            this.$store.commit('setCoordinatorSideMenu',  !this.getCoordinatorSideMenu);
+          this.$store.commit(
+            "setCoordinatorSideMenu",
+            !this.getCoordinatorSideMenu
+          );
           break;
         case "supervisor":
-            this.$store.commit('setSupervisorSideMenu',  !this.getSupervisorSideMenu);
+          this.$store.commit(
+            "setSupervisorSideMenu",
+            !this.getSupervisorSideMenu
+          );
           break;
         case "manager":
-            this.$store.commit('setManagerSideMenu',  !this.getManagerSideMenu);
+          this.$store.commit("setManagerSideMenu", !this.getManagerSideMenu);
           break;
       }
+    },
+     rolePath() {
+     if(this.$route.path !=`/${this.getCurrentRole}Dashboard`) this.$router.push(`/${this.getCurrentRole}Dashboard`) ;
     },
     ...mapActions(["toggleSI", "toggleSU", "runAlert", "validateToken"])
   },
   computed: {
-    rolePath(){
-      return `${this.getCurrentRole}Dashboard`
-    },
+   
     initialize() {
-     return this.getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()
+      return this.auth().currentUser.displayName
+        .split(" ")
+        .map(n => n[0])
+        .join("")
+        .toUpperCase();
     },
     colorize() {
       return colors[Math.floor(Math.random() * 280)];
     },
     ...mapGetters([
-    "checkIsLoggedIn",
-    "getUsers",
-    "getCurrentUser",
-    "getNavigation",
-    "getCurrentRole",
-    "getTeacherSideMenu",
-    "getCoordinatorSideMenu",
-    "getSupervisorSideMenu",
-    "getManagerSideMenu",
-    "auth",
-  ])},
+      "checkIsLoggedIn",
+      "getNavigation",
+      "getCurrentRole",
+      "getTeacherSideMenu",
+      "getCoordinatorSideMenu",
+      "getSupervisorSideMenu",
+      "getManagerSideMenu",
+      "auth"
+    ])
+  },
   async created() {
-     if (this.auth().currentUser) {
-       this.$store.commit('setLoggedIn', true); 
-       this.$store.commit("setCurrentUser", this.auth().currentUser);
+    if (this.auth().currentUser) {
+      this.$store.commit("setLoggedIn", true);
+      this.turnOnSideMenu();
     }
     this.onResize();
   }
@@ -326,7 +342,7 @@ export default {
 @import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
 
 .minimized {
- width:  250px;
+  width: 250px;
   z-index: 1;
   position: fixed;
   top: 100%;
@@ -350,12 +366,8 @@ export default {
   display: block;
 }
 
-.black-blue{
-  background: linear-gradient(
-    0deg,
-    rgb(0, 0, 0) 45%,
-    rgb(13, 71, 136)
-  ); 
+.black-blue {
+  background: linear-gradient(0deg, rgb(0, 0, 0) 45%, rgb(13, 71, 136));
 }
 .sign-in {
   color: white !important;
@@ -363,7 +375,7 @@ export default {
 }
 .sign-up {
   color: white !important;
-  background-color: rgb(209, 60, 52) !important;
+  background-color: #c6192a !important;
 }
 .nav-link:hover {
   background-color: rgb(19, 83, 147);
@@ -385,17 +397,16 @@ export default {
 .teach {
   color: #135393;
 }
-.logo-text{
-  font-size:140%;
+.logo-text {
+  font-size: 140%;
 }
 .logo-text:hover .acronym {
   display: none;
-  
 }
 .logo-text:hover .full-title {
   display: inline;
   color: #135393;
-  font-family:'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   font-weight: 400;
   animation-duration: 0.5s;
   animation-name: zoomInUp;
@@ -403,7 +414,7 @@ export default {
 }
 .logo-text:hover .teach {
   font-weight: bolder;
-  font-family:'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
   color: #c6192a;
   animation-duration: 0.5s;
   animation-name: zoomInUp;

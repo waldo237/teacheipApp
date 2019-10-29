@@ -21,14 +21,14 @@
         wrap
         class="mx-5 px-5 round"
         align-content-center
-        color="red lighten-5 "
+        color="#c6192a lighten-5 "
       >
         <v-text-field
           class="mx-4 mt-3"
           label="Go ahead! find your lesson plan"
           single-line
           prepend-icon="search"
-          color="red"
+          color="#c6192a"
           clearable
           v-model="searchTerms"
         />
@@ -42,7 +42,7 @@
           class=" px-auto mx-5 grey lighten-5 round"
           :items="series"
           label="Select a Series"
-          color="red"
+          color="#c6192a"
           prepend-icon="book"
           solo
           flat
@@ -52,7 +52,7 @@
           class=" px-auto mx-5 grey lighten-5 "
           :items="level"
           label="Select a Level"
-          color="red"
+          color="#c6192a"
           prepend-icon="trending_up"
           solo
           flat
@@ -63,7 +63,7 @@
           :items="unit"
           label="Select a Unit"
           prepend-icon="format_list_numbered_rtl"
-          color="red"
+          color="#c6192a"
           solo
           flat
           v-model="dropdownUnit"
@@ -80,11 +80,13 @@
           :key="item.download"
           max-width="380px"
           min-width="380px"
-          class="my-2 mx-auto elevation-10 round grey lighten-2"
+          dark
+          class="my-2 mx-auto elevation-10 round justify-center mx-1 elevation-24 grids mt-2 hovering"
         >
           <v-card-title
             primary-title
-            class="subtitle-1 blue-grey darken-3 font-weight-bold white--text"
+            
+            class="subtitle-1 blue-cards font-weight-bold white--text"
           >
             Document Name: {{ item.parents }}
           </v-card-title>
@@ -100,8 +102,9 @@
             <a
               :href="item.Link"
               target="blank"
-            > <v-icon color="red">open_in_new</v-icon> View online</a>
-            <v-spacer /><a :href="item.download">  download <v-icon color="red">get_app</v-icon></a> 
+             
+            > <v-icon color="#c6192a">open_in_new</v-icon><span  class="white--text"> View online</span></a>
+            <v-spacer /><a :href="item.download"> <span  class="white--text"> download</span>  <v-icon color="#c6192a">get_app</v-icon></a> 
           </v-card-actions>
         </v-card>
       </v-layout>
@@ -113,7 +116,7 @@
           class="mx-auto px-auto"
           v-model="page"
           :length="pages.length"
-          color="red"
+          color="#c6192a"
           circle
         />
       </v-layout>

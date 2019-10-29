@@ -30,10 +30,10 @@
     </v-layout>
     <!-- toolbar with close btn ends -->
     <!-- photo display starts -->
-    <v-avatar v-if="getCurrentUser.photoURL">
+    <v-avatar v-if="auth().currentUser.photoURL">
       <img
-        :src="getCurrentUser.photoURL"
-        :alt="getCurrentUser.displayName"
+        :src="auth().currentUser.photoURL"
+        :alt="auth().currentUser.displayName"
       >
     </v-avatar>
     <v-avatar
@@ -44,10 +44,10 @@
     </v-avatar>
     <!-- photo display ends -->
     <v-list-tile-title class="title mx-5 px-1">
-      {{ getCurrentUser.displayName }}
+      {{ auth().currentUser.displayName }}
     </v-list-tile-title>
     <v-list-tile-sub-title class="email">
-      {{ getCurrentUser.email }}
+      {{ auth().currentUser.email }}
     </v-list-tile-sub-title>
     <v-card-actions class="justify-center">
       <!-- editor dialog starts -->
@@ -95,7 +95,7 @@ export default {
   },
   computed: {
     initialize: function() {
-      return this.getCurrentUser.displayName
+      return this.auth().currentUser.displayName
         .split(" ")
         .map(n => n[0])
         .join("")
@@ -104,7 +104,7 @@ export default {
     colorize: function() {
       return colors[Math.floor(Math.random() * 280)];
     },
-    ...mapGetters(["checkIsLoggedIn", "getUsers", "getCurrentUser", "getYes"]),
+    ...mapGetters(["checkIsLoggedIn", "getUsers", "auth", "getYes"]),
     ...mapState(["editProfile"])
   },
   created: function() {}

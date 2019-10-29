@@ -102,7 +102,6 @@ async    signIn(e) {
 
             await this.$store.commit('setSIDialog', false)
              this.$router.push(`/dashboard/`);
-            this.$store.commit("setCurrentUser", this.auth().currentUser);
             this.loading = await false;    
 
             setTimeout(()=>{ this.$store.commit('setAlert', false) }, 4000);

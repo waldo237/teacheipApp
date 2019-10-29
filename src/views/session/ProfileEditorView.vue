@@ -48,14 +48,14 @@
           justify-start
         >
           <v-list-tile>
-            <v-avatar v-if="getCurrentUser.photoURL">
+            <v-avatar v-if="auth().currentUser.photoURL">
               <img
-                :src="getCurrentUser.photoURL"
-                :alt="getCurrentUser.displayName"
+                :src="auth().currentUser.photoURL"
+                :alt="auth().currentUser.displayName"
               >
             </v-avatar>
             <v-avatar
-              color="red"
+              color="#c6192a"
               v-else
             >
               <span
@@ -108,7 +108,7 @@
             height="25"
             v-model="progress"
             reactive
-            color="red"
+            color="#c6192a"
             class="mx-5"
             v-if="progress>0"
           >
@@ -129,7 +129,7 @@
             md3
           >
             <v-text-field
-              :value="getCurrentUser.displayName"
+              :value="auth().currentUser.displayName"
               label="NAME:"
               outlined
               id="displayNameInput"
@@ -141,7 +141,7 @@
             md3
           >
             <v-text-field
-              :value="getCurrentUser.phoneNumber"
+              :value="auth().currentUser.phoneNumber"
               label="PHONE"
               n-u-m-b-e-r:
               outlined
@@ -223,15 +223,14 @@ export default {
       // pass profile object to auth.currentUser
       await this.auth().currentUser.updateProfile(this.profile);
       //  pass the Auth.CurrentUser to Local CurrentUser
-      await this.$store.commit("setCurrentUser", this.auth().currentUser);
       this.dialog = false;
     }
   },
   computed: {
         initialize: function() {
-     return this.getCurrentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()
+     return this.auth().currentUser.displayName.split(" ").map((n)=>n[0]).join("").toUpperCase()
     }, 
-    ...mapGetters(["getCurrentUser","auth", "storage"]) 
+    ...mapGetters(["auth", "storage"]) 
     }
 };
 </script>

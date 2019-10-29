@@ -59,7 +59,7 @@
               <v-img
                 
                 alt="Direccion de Lenguas Extranjeras"
-                src="https://eipschool.files.wordpress.com/2019/06/mescyt-revela-nueva-imagen-institucional.jpeg"
+                src="response.nuevaImagen"
                 lazy-src="https://eipschool.files.wordpress.com/2019/06/mescyt-revela-nueva-imagen-institucional.jpeg"
                 aspect-ratio="1"
                 id="img-mescyt"

@@ -3,8 +3,6 @@
     class="mx-3 mb-5 pa-3 px-2 pb-5 pt-1 main-card"
     wrap
   >
-
-
     <v-layout
       class="mx-2 px-1 justify-center"
       flat
@@ -107,7 +105,7 @@
           <!-- date picker ends -->
           <!-- textfield with name starts -->
           <v-text-field
-            :label="getCurrentUser.displayName"
+            :label="auth().currentUser.displayName"
             class="mx-3 my-0"
             prepend-icon="person"
             disabled
@@ -341,7 +339,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "getCurrentUser",
+      "auth",
       "checkIsLoggedIn",
       "getSupervisorSideMenu",
 

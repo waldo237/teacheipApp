@@ -21,7 +21,7 @@
           outline
           rounded
           class="round jump"
-          color="red"
+          color="#c6192a"
           type="error"
           v-if="errorMessage"
           v-model="alert"
@@ -86,7 +86,7 @@
           outline
           rounded
           class="round jump"
-          color="red"
+          color="#c6192a"
           type="error"
           v-if="errorMessage"
           v-model="alert2"

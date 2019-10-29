@@ -1,10 +1,10 @@
 import session from './session'
 const state = {
     currentRole: session.fetchRole(),
-    teacherSideMenu:true,
-    coordinatorSideMenu:true,
-    supervisorSideMenu:true,
-    managerSideMenu:true,
+    teacherSideMenu:false,
+    coordinatorSideMenu:false,
+    supervisorSideMenu:false,
+    managerSideMenu:false,
 };
 const getters = {
     getCurrentRole: (state) =>state.currentRole,
