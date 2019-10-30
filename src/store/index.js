@@ -1,5 +1,6 @@
 import dialog from './modules/dialog'
 import  employees from './modules/employees'
+import  photos from './modules/photos'
 import  lessonPlans from './modules/lessonPlans'
 import  navigation from './modules/navigation'
 import  firebaseVars from './modules/firebaseVars'
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     modules:{
         dialog,
         employees,
+        photos,
         lessonPlans,
         navigation,
         roles,

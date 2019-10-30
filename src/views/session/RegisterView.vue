@@ -44,7 +44,7 @@
               :loading="loading"
             >
               <img
-                src="https://www.solarwinds.com/-/media/solarwinds/swdcv2/licensed-products/service-desk/integrations/sd-integrations-logo-google-single-sign-on.ashx?la=en&rev=aab01f816f1c4af5b415d614081150ee&hash=80ED17DEB435A7EFFC9C29101FBC92C5B05FD5D2"
+                src="https://drive.google.com/uc?export=view&id=19gqsAvafJBgOeXJn4pqooOTuGWpwponA"
                 width="25px"
                 class="mr-2"
                 alt
@@ -56,7 +56,7 @@
               disabled
             >
               <img
-                src="https://image.flaticon.com/icons/png/512/124/124010.png"
+                src="https://drive.google.com/uc?export=view&id=1Mf_ItAgwI2lI34L9cNZpEOqMrmJ4qsJ-"
                 width="27px"
                 class="mr-2 elevation-10"
                 alt
@@ -75,7 +75,7 @@
               disabled
             >
               <img
-                src="https://icon-library.net/images/microsoft-logo-icon/microsoft-logo-icon-17.jpg"
+                src="https://drive.google.com/uc?export=view&id=1Okh6YMoL8jfAcXXFj8ybedJGv-mdHGTE"
                 width="25px"
                 class="mr-2"
                 alt

@@ -42,13 +42,13 @@
   </v-layout>
 </template>
 <script>
-import gify from '@/assets/giphy.gif'
+
 export default {
 data(){
   return{
-    gify: gify,
+    gify: "https://drive.google.com/uc?export=view&id=15f32pnOCMq0pq_pjOl5Z_NN1MXcb8rDT",
   }
-}
+},
 };
 </script>
 <style scoped>

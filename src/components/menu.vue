@@ -35,7 +35,7 @@
         <span class="acronym">EIP</span>
         <span class="full-title mt-1">
           <img
-            src="../../src/assets/mescyt-1024x878.png"
+            src="https://drive.google.com/uc?export=view&id=19PR4dusrh30pW5aIrX4OL5RXybYfzK0T" 
             alt="mescyt"
           >with The English Immersion Program
         </span>
@@ -45,8 +45,7 @@
       <v-spacer />
 
       <!-- expanded navigation bar  starts-->
-      <v-toolbar-items class="hidden-sm-and-down mx-auto">
-        
+      <v-toolbar-items class="hidden-sm-and-down mx-auto">       
         <v-btn
           class="black-blue"
           dark

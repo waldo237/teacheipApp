@@ -84,7 +84,7 @@
                     :dark="(generalMenu)? true : false"
                   >
                     <img
-                      src="../../assets/dashboardImages/school.png"
+                      src="https://drive.google.com/uc?export=view&id=1YBfq0jnYRiyYePSmYpVGgNuf0LN-LEQW"
                       alt
                       width="76px"
                       height="68px"
@@ -107,7 +107,7 @@
                     :dark="(studentMenu)? true : false"
                   >
                     <img
-                      src="../../assets/dashboardImages/student.png"
+                      src="https://drive.google.com/uc?export=view&id=1VvmPXB2mhGsbtcBhqBb4yG4m5lPoqo83"
                       alt
                       class="mx-2 mb-0"
                     >
@@ -127,7 +127,7 @@
                     :dark="(teacherMenu)? true : false"
                   >
                     <img
-                      src="../../assets/dashboardImages/teacher.png"
+                      src="https://drive.google.com/uc?export=view&id=1QQOpEQuXqOqwysFcLnR3QwET-Sbc8lSK"
                       alt
                       width="78px"
                       height="68px"
@@ -510,7 +510,8 @@ export default {
       "getCoordinatorSideMenu",
       "checkIsLoggedIn",
       "auth",
-      "validated"
+      "validated",
+      
     ])
   },
   beforeDestroy() {

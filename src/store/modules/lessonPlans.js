@@ -8,7 +8,6 @@ const getters = {
 const actions = {
     async fetchLessonPlans({ commit }) {
         try {
-            // const response = await axios.get(process.env.LESSONPLANS);
             const response = await
                axios.get("https://script.google.com/macros/s/AKfycbxCKtyJP8X3vpOXTDCaENAesVXa8gWwzw4BSAnk6iIGWz8FFMqi/exec"
                );

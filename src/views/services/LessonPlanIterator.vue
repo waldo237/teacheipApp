@@ -102,9 +102,8 @@
             <a
               :href="item.Link"
               target="blank"
-             
-            > <v-icon color="#c6192a">open_in_new</v-icon><span  class="white--text"> View online</span></a>
-            <v-spacer /><a :href="item.download"> <span  class="white--text"> download</span>  <v-icon color="#c6192a">get_app</v-icon></a> 
+            > <v-icon color="#c6192a">open_in_new</v-icon><span class="white--text"> View online</span></a>
+            <v-spacer /><a :href="item.download"> <span class="white--text"> download</span>  <v-icon color="#c6192a">get_app</v-icon></a> 
           </v-card-actions>
         </v-card>
       </v-layout>

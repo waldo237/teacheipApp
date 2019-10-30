@@ -1,5 +1,6 @@
 import axios from "axios";
 import { auth } from "firebase/app";
+import { firestore } from "firebase/app";
 import { async } from "q";
 // validate token and set validated global
 const validateToken = async () => {

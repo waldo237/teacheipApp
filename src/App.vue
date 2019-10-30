@@ -59,8 +59,8 @@
               <v-img
                 
                 alt="Direccion de Lenguas Extranjeras"
-                src="response.nuevaImagen"
-                lazy-src="https://eipschool.files.wordpress.com/2019/06/mescyt-revela-nueva-imagen-institucional.jpeg"
+                src="https://drive.google.com/uc?export=view&id=1obnHAN71iuijto0gsL8TIpmPzO6SmXVF"
+                lazy-src="https://drive.google.com/uc?export=view&id=1obnHAN71iuijto0gsL8TIpmPzO6SmXVF"
                 aspect-ratio="1"
                 id="img-mescyt"
                 class="grey lighten-2 mx-auto"
@@ -143,8 +143,9 @@ export default {
     },
  },
 computed: mapGetters(["getFullScreen",]),
- created(){
+async created(){
        this.init();
+       await this.$store.dispatch('fetchPhotos')
     },
     beforeDestroy() {
     clearInterval(this.timeOut);

@@ -13,7 +13,8 @@
           justify-center
         >
           <img
-            src="../../assets/done.gif"
+            src="https://drive.google.com/uc?export=view&id=1ArIdCiWqD27Pm87xMgNPB94IOVZoSd5G"
+            lazy-src="https://drive.google.com/uc?export=view&id=1ArIdCiWqD27Pm87xMgNPB94IOVZoSd5G"
             alt=""
             width="400px"
           >

@@ -65,8 +65,8 @@
         >
           <v-img
             alt="Oh man! more waiting?"
-            src="https://media0.giphy.com/media/26DNhSJnqWFdgPgMo/source.gif"
-            lazy-src="https://media0.giphy.com/media/26DNhSJnqWFdgPgMo/source.gif"
+            src="https://drive.google.com/uc?export=view&id=16-haIxcaeGT4gulJqqbYkjX95yosY8LX"
+            lazy-src="https://drive.google.com/uc?export=view&id=16-haIxcaeGT4gulJqqbYkjX95yosY8LX"
             aspect-ratio="1"
             max-width="360"
             max-height="360"

@@ -17,26 +17,23 @@ height: 80%;}
 </style>
 
 <script>
-import graduation from '../assets/carousel/graduacion.jpg'
-import certificate from '../assets/carousel/certificate.jpg'
-import feria from '../assets/carousel/Feria.jpeg'
-import congregation from '../assets/carousel/congregation.jpg'
+import { mapGetters } from 'vuex'
 export default {
   name: "Carousel",
   data () {
     return {
       items: [
         {
-          src: graduation
+          src:  "https://drive.google.com/uc?export=view&id=1l3O9eBNhPeZesBnsWiwMGKzvi3LzC6f7"
         },
         {
-          src: feria
+          src: "https://drive.google.com/uc?export=view&id=1K79L6ET5l_4U4qjkgIfJecSMy0loN_pX",
         },
         {
-          src: congregation
+          src: "https://drive.google.com/uc?export=view&id=19CIkVZ4iwp54EQ3lk3--qCt3FMzzCvKl",
         },
         {
-          src: certificate
+          src: "https://drive.google.com/uc?export=view&id=1E4W_8drQsiT4IaoXOTjLkN9Kiq8Uem2W",
         }
       ]
     }
