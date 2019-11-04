@@ -6,23 +6,28 @@
     @keydown.enter="signIn"
   >
     <v-flex>
-      <v-card class="elevation-12 m-1 p-2">
-        <v-layout align-content-start>
-          <v-toolbar dense>
-            <v-spacer />
+      <v-card class="elevation-12 m-1 p-2 round">
+        <v-layout align-content-start >
+          <v-toolbar dense class="round">
             <v-toolbar-title class="logo">
+              <v-layout justify-center>
               <v-icon>lock_open</v-icon>  <span class="teach">Teach</span>
               <span class="acronym">EIP</span>
+              </v-layout>
             </v-toolbar-title>
+                 <v-spacer />
+              <v-btn icon @click.prevent="toggleSI">
+                <v-icon>close</v-icon>
+              </v-btn>
           </v-toolbar>
         </v-layout>
         <v-card-text>
           <v-form>
-            <div class="pl-5">
-              <v-card-text class="text-center pl-5 text-uppercase font-weight-bold pa-1 grey--text">
-                Sign in to do operations
-              </v-card-text>
-            </div>
+      
+              <v-layout justify-center class="text-center text-uppercase font-weight-bold pa-1 grey--text">
+                Sign in with email
+              </v-layout>
+
             <v-text-field
               clearable
               prepend-icon="person"
@@ -51,12 +56,14 @@
             <v-card-actions>
               <v-spacer />
               <v-btn
+              round
                 class="sign-up elevation-20"
                 @click.prevent="toggleSI"
               >
                 Cancel
               </v-btn>
               <v-btn
+              round
                 class="sign-in elevation-20"
                 @click="signIn"
                 :loading="loading"

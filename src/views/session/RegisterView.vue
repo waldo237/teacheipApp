@@ -1,46 +1,26 @@
 <template>
   <v-layout>
-    <v-dialog
-      v-model="getSUDialog"
-      persistent
-      max-width="465px"
-      min-width="465px"
-      lass="round"
-    >
+    <v-dialog v-model="getSUDialog" persistent max-width="465px" min-width="465px" lass="round">
       <v-form>
-        <v-card
-          width="465px"
-          height="250px"
-          color="#135393"
-          min-width="465px"
-          class="round"
-        >
+        <v-card width="465px" height="250px" color="#135393" min-width="465px" class="round">
           <v-layout align-content-start>
-            <v-toolbar
-              dense
-              class="elevation-24 round"
-            >
+            <v-toolbar dense class="elevation-24 ">
               <v-toolbar-title class="logo">
                 <v-icon>lock_open</v-icon>
                 <span class="teach">Teach</span>
                 <span class="acronym">EIP</span>
               </v-toolbar-title>
               <v-spacer />
-              <v-btn
-                icon
-                @click.prevent="toggleSU"
-              >
+              <v-btn icon @click.prevent="toggleSU">
                 <v-icon>close</v-icon>
               </v-btn>
             </v-toolbar>
           </v-layout>
-          <v-layout
-            class="pt-4 px-1"
-            align-center
-          >
+          <v-layout class="pt-4 px-1" align-center>
             <v-btn
               @click.prevent="google"
-              class="font-weight-bold elevation-24 round"
+              round
+              class="font-weight-bold elevation-24"
               :loading="loading"
             >
               <img
@@ -48,38 +28,31 @@
                 width="25px"
                 class="mr-2"
                 alt
-              >sign up with google
+              />sign up with google
             </v-btn>
             <v-btn
               @click.prevent="facebook"
-              class="pa-0 px-2 font-weight-bold elevation-24 round"
-              disabled
+              round
+              class="pa-0 px-2 font-weight-bold elevation-24"
+              
             >
               <img
                 src="https://drive.google.com/uc?export=view&id=1Mf_ItAgwI2lI34L9cNZpEOqMrmJ4qsJ-"
                 width="27px"
                 class="mr-2 elevation-10"
                 alt
-              >
+              />
               sign up with Faceboook
             </v-btn>
           </v-layout>
-          <v-layout
-            class="pt-4 px-1"
-            align-end
-            wrap
-          >
-            <v-btn
-              @click.prevent="microsoft"
-              class="font-weight-bold elevation-24 round"
-              disabled
-            >
+          <v-layout class="pt-4 px-1" align-end wrap>
+            <v-btn @click.prevent="microsoft" class="font-weight-bold elevation-24 " round disabled>
               <img
                 src="https://drive.google.com/uc?export=view&id=1Okh6YMoL8jfAcXXFj8ybedJGv-mdHGTE"
                 width="25px"
                 class="mr-2"
                 alt
-              >Continue with Microsoft
+              />Continue with Microsoft
             </v-btn>
           </v-layout>
         </v-card>
@@ -128,11 +101,27 @@ export default {
   }),
   methods: {
     async microsoft() {
-      this.auth()
+      await this.auth()
         .signInWithPopup(this.providerMicrosoft)
-        .then(function(result) {
-          const token = result.credential.accessToken;
-          const user = result.user;
+          .then(async (result)=> {
+          try {
+            const token = result.credential.accessToken;
+            const user = result.user;
+              await this.toggleSU();
+            if(this.auth().currentUser) this.$store.commit("setLoggedIn", true);
+           
+             await this.validateToken();
+            if (this.validated.authenticated) {
+              await this.$router.push(`/coordinatorDashboard/`);
+            } else {
+              await this.$store.commit("setLanding", true);
+              await this.$router.push(`/landing/`);
+            }
+            
+            console.log("everything went well")
+          } catch (error) {
+             console.log(`there was an error: ${error}`)
+          }
         })
         .catch(function(error) {
           const errorCode = error.code;
@@ -140,50 +129,69 @@ export default {
           const email = error.email;
           const credential = error.credential;
         });
-      await this.$store.commit("setLanding", true);
-      await this.$router.push(`/landing/`);
-      await this.toggleSU();
     },
     async facebook() {
-      this.auth()
+      await this.auth()
         .signInWithPopup(this.FacebookAuthProvider)
-        .then(result => {
-          const token = result.credential.accessToken;
-          const user = result.user;
-        })
-        .catch(error => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          const email = error.email;
-          const credential = error.credential;
-        });
-    },
-    async google() {
-      await 
-        this.auth()
-        .signInWithPopup(this.GoogleAuthProvider)
-        .then(function(result) {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          const token = result.credential.accessToken;
-          // The signed-in user info.
-          const user = result.user;
-          this.loading = true;
-    
+          .then(async (result)=> {
+          try {
+            const token = result.credential.accessToken;
+            const user = result.user;
+              await this.toggleSU();
+            if(this.auth().currentUser) this.$store.commit("setLoggedIn", true);
+           
+             await this.validateToken();
+            if (this.validated.authenticated) {
+              await this.$router.push(`/coordinatorDashboard/`);
+            } else {
+              await this.$store.commit("setLanding", true);
+              await this.$router.push(`/landing/`);
+            }
+            
+            console.log("everything went well")
+          } catch (error) {
+             console.log(`there was an error: ${error}`)
+          }
         })
         .catch(function(error) {
           const errorCode = error.code;
           const errorMessage = error.message;
           const email = error.email;
           const credential = error.credential;
+          console.log(`there was an error: ${error}`)
         });
-        await this.validateToken();
-     if(this.validated.authenticated){
-       await this.$router.push(`/coordinatorDashboard/`);
-     }
-     else{ await this.$store.commit("setLanding", true);
-      await this.$router.push(`/landing/`);
-      }
-      await this.toggleSU();
+    },
+ google() {
+       this.auth()
+        .signInWithPopup(this.GoogleAuthProvider)
+        .then(async (result)=> {
+          try {
+            const token = result.credential.accessToken;
+            const user = result.user;
+              await this.toggleSU();
+            if(this.auth().currentUser) this.$store.commit("setLoggedIn", true);
+           
+             await this.validateToken();
+            if (this.validated.authenticated) {
+              await this.$router.push(`/coordinatorDashboard/`);
+            } else {
+              await this.$store.commit("setLanding", true);
+              await this.$router.push(`/landing/`);
+            }
+            
+            console.log("everything went well")
+          } catch (error) {
+             console.log(`there was an error: ${error}`)
+          }
+        })
+        .catch(function(error) {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const email = error.email;
+          const credential = error.credential;
+          console.log(`there was an error: ${error}`)
+        });
+     
     },
     showAlert(message, icon, classy) {
       this.$store.commit("setAlertType", { icon: icon, class: classy });
@@ -191,10 +199,16 @@ export default {
     },
     ...mapActions(["toggleSU", "runAlert", "fetchAllUsers", "validateToken"])
   },
-  async created(){
-   
-  },
-  computed: mapGetters(["getSUDialog", "firebase", "auth", "GoogleAuthProvider", "providerMicrosoft","validated"])
+  async created() {},
+  computed: mapGetters([
+    "getSUDialog",
+    "firebase",
+    "auth",
+    "GoogleAuthProvider",
+    "FacebookAuthProvider",
+    "providerMicrosoft",
+    "validated"
+  ])
 };
 </script>
 

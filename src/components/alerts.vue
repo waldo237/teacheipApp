@@ -56,7 +56,8 @@ export default {
           await this.$store.commit('setValidated', {})
           await this.$store.commit('setAlert', false)
           if(this.$route.path !="/") await this.$router.push("/");
-        });
+        })
+        .catch((error)=>{console.log(`there was an issue logging out:${error}`)});
     }
   },
   computed: mapGetters([

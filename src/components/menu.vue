@@ -84,14 +84,15 @@
           class="sign-up"
           v-if="!checkIsLoggedIn "
         >
-          REGISTER
+          SIGN IN
         </v-btn>
         <v-btn
           @click="toggleSI"
           class="sign-in"
           v-if="!checkIsLoggedIn "
         >
-          SIGN IN
+              SIGN WITH <v-icon color="white" class="ml-1">email</v-icon>
+
         </v-btn>
 
         <!-- profile avatar starts -->
@@ -192,14 +193,14 @@
           class="sign-up "
           v-if="!checkIsLoggedIn "
         >
-          <span class="mx-auto">REGISTER</span>
+          <span class="mx-auto">SIGN IN</span>
         </v-list-tile>
         <v-list-tile
           @click="toggleSI"
           class="sign-in"
           v-if="!checkIsLoggedIn "
         >
-          <span class="mx-auto my-2">SIGN IN</span>
+          <span class="mx-auto my-2">SIGN WITH <v-icon color="white" >email</v-icon></span>
         </v-list-tile>
       </v-list>
       <!--  minimized menu ends-->
@@ -254,7 +255,7 @@ export default {
       sandwich: false,
       profileModel: false,
       signIn: false,
-      drawer: true,
+      drawer: false,
       tip: false,
     };
   },
@@ -330,6 +331,7 @@ export default {
   },
   async created() {
     if (this.auth().currentUser) {
+      await this.$store.commit('setCurrentRole',session.fetchRole());
       this.$store.commit("setLoggedIn", true);
       this.turnOnSideMenu();
     }
