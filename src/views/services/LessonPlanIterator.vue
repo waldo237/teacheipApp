@@ -20,7 +20,7 @@
       <v-layout
         wrap
         class="mx-5 px-5 round"
-        align-content-center
+       justify-center
         color="#c6192a lighten-5 "
       >
         <v-text-field
@@ -73,10 +73,10 @@
       <v-layout
         wrap
         class="mx-3 px-4"
-        align-content-center
+        justify-center
       >
         <v-card
-          v-for="item in displayedLessonPlans"
+          v-for="item in "
           :key="item.download"
           max-width="380px"
           min-width="380px"

@@ -1,5 +1,6 @@
 <template>
-  <v-app id="inspire">
+  <div  width="100%">
+    
     <!--############ CONTENT/ DASHBOARD ##############-->
     <!--############ ALERT ##############-->
     <div>
@@ -13,12 +14,12 @@
         class="mt-4 mb-0"
       >
         <v-card
-          hover
           v-if="announcement"
           color="deep-purple accent-4"
           dark
-          class="fade title ml-4"
+          class="fade ml-4"
           flat
+          justify-center
         >
           {{ announcementMessage }}
         </v-card>
@@ -27,16 +28,18 @@
 
     <!--############ ALERT END ##############-->
     <v-layout
+     width="100%"
       justify-center
-      :class="(!alert)?'px-5 mx-5 mt-0  my-5': 'px-5 mx-5 mt-0  mb-5'"
+      :class="(!alert)?'mt-0  my-4 pb-5': ' mt-0  mb-5 pb-5'"
     >
       <v-card
-        class="elevation-24 round mx-1"
+        width="100%"
+        class="elevation-24 "
         wrap
       >
         <v-toolbar
           flat
-          color="black-blue text-uppercase round"
+          color="black-blue text-uppercase"
           dark
           dense
           justify-center
@@ -53,25 +56,25 @@
         >
           <v-tab>
             <v-icon color="black">
-              account_balance
-            </v-icon>Main
+              
+            </v-icon>Centro
           </v-tab>
           <v-tab>
             <v-icon color="black">
               apps
-            </v-icon>Solicitudes y Servicios
+            </v-icon>Servicios
           </v-tab>
           <v-tab>
             <v-icon
               color="black"
               class="mr-2"
             >
-              school
-            </v-icon>Academic
+              
+            </v-icon>Solicitudes
           </v-tab>
 
-          <v-tab-item class="mx-3">
-            <v-card flat>
+          <v-tab-item class="mx-3 pb-5">
+            <v-card flat class="my-5 black round"  dark>
               <v-layout
                 row
                 wrap
@@ -152,12 +155,13 @@
               >
                 <v-card
                   dark
-                  class="pa-0 mx-auto pa-0 round"
+                  class="black pa-0 pa-0 round"
                   v-for="(item, i) in studentOptions"
                   :key="i"
                 >
                   <v-btn
-                    class="mx-0 my-0 round"
+                    round
+                    class="mx-0 my-0"
                     dense
                     block
                   >
@@ -174,18 +178,19 @@
               <!-- ####### TEACHER OPTIONS #######-->
 
               <v-layout
-                class="black round py-0 slidingMenu"
+                class="black py-0 slidingMenu round"
                 wrap
                 v-if="teacherMenu"
               >
                 <v-card
                   dark
-                  class="pa-0 mx-auto pa-0 round"
+                  class=" black pa-0 pa-0 round"
                   v-for="(item, i) in teacherOptions"
                   :key="i"
                 >
                   <v-btn
-                    class="mx-0 my-0 round"
+                  round
+                    class="mx-0 my-0 "
                     dense
                     block
                   >
@@ -208,13 +213,15 @@
               >
                 <v-card
                   dark
-                  class="pa-0 mx-auto pa-0 round ma-0"
+                  flat
+                  class="black pa-0 pa-0 round ma-0"
                   v-for="(item, i) in generalOptions"
                   :key="i"
                 >
                   <v-btn
-                    class="elevation-20 my-0 round"
-                    dense
+                  round
+                    class="elevation-20 my-0"
+                    
                     block
                   >
                     <v-icon :color="item.color">
@@ -232,13 +239,59 @@
               <v-card-text />
             </v-card>
           </v-tab-item>
-          <v-tab-item>
+           <v-tab-item class="pb-5">
+                  <!-- SERVICIOS RECURSOS -->
+              <v-card
+                hover
+                exact
+                dark
+                class="round my-5"
+              >
+                <v-card-title
+                  class="mx-auto headline"
+                  dense
+                >
+                  <v-layout
+                    row
+                    wrap
+                    justify-center
+                  >
+                    <v-icon>local_play</v-icon>SERVICIOS
+                  </v-layout>
+                </v-card-title>
+                <v-layout
+                  dark
+                  class="black round py-0 slidingMenu"
+                  wrap
+                >
+                  <v-card
+                    class="mx-auto ma-1 black"
+                    v-for="(item, i) in servicios"
+                    :key="i"
+                  >
+                    <v-btn
+                      :to="item.link"
+                      round
+                      class="elevation-20 elevation-12  sign-up my-0 ma-1"
+                      dense
+                      block
+                    >
+                      <v-icon>{{ item.icon }}</v-icon>
+                      {{ item.title }}
+                    </v-btn>
+                  </v-card>
+                </v-layout>
+              </v-card>
+            <!-- SERVICIOS ENDS -->
+
+          </v-tab-item>
+          <v-tab-item class="pb-5">
             <!-- SOLICITUDES -->
             <v-card
               hover
               exact
               dark
-              class="round"
+              class="round my-5"
             >
               <v-card-title class="mx-auto headline">
                 <v-layout
@@ -257,13 +310,15 @@
                 wrap
               >
                 <v-card
-                  class="mx-auto ma-1 elevation-24 round"
+                
+                  class="mx-auto ma-1 black round"
                   v-for="(item, i) in solicitudes"
                   :key="i"
                 >
                   <v-btn
-                    class="elevation-20 elevation-12 round success my-0 ma-1"
-                    dense
+                  round
+                    class=" sign-in my-0 ma-1"
+                    
                     block
                   >
                     <v-icon>{{ item.icon }}</v-icon>
@@ -273,49 +328,9 @@
               </v-layout>
             </v-card>
             <!-- SOLICITUDES ENDS -->
-            <!-- SERVICIOS RECURSOS -->
-            <v-card
-              hover
-              exact
-              dark
-              class="round my-5"
-            >
-              <v-card-title
-                class="mx-auto headline"
-                dense
-              >
-                <v-layout
-                  row
-                  wrap
-                  justify-center
-                >
-                  <v-icon>local_play</v-icon>SERVICIOS
-                </v-layout>
-              </v-card-title>
-              <v-layout
-                dark
-                class="black round py-0 slidingMenu"
-                wrap
-              >
-                <v-card
-                  class="mx-auto ma-1 elevation-12 round"
-                  v-for="(item, i) in servicios"
-                  :key="i"
-                >
-                  <v-btn
-                    :to="item.link"
-                    class="elevation-20 elevation-12 round primary my-0 ma-1"
-                    dense
-                    block
-                  >
-                    <v-icon>{{ item.icon }}</v-icon>
-                    {{ item.title }}
-                  </v-btn>
-                </v-card>
-              </v-layout>
-            </v-card>
-            <!-- SERVICIOS ENDS -->
+
           </v-tab-item>
+         
         </v-tabs>
       </v-card>
     </v-layout>
@@ -326,7 +341,7 @@
       fab
       bottom
       right
-      color="pink"
+      class="sign-up"
       dark
       fixed
       @click="dialog = !dialog"
@@ -339,7 +354,7 @@
     >
       <v-card>
         <v-card-title class="grey lighten-4 py-4 title">
-          Create contact
+          enviar sugerencias
         </v-card-title>
         <v-container
           grid-list-sm
@@ -360,73 +375,73 @@
                   class="mr-3"
                 >
                   <img
-                    src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
+                    :src="this.auth().currentUser.photoURL"
                     alt
                   >
                 </v-avatar>
-                <v-text-field placeholder="Name" />
+                <v-text-field placeholder="Name" :value="this.auth().currentUser.displayName" disabled/>
               </v-layout>
             </v-flex>
+           
             <v-flex xs6>
-              <v-text-field
-                prepend-icon="business"
-                placeholder="Company"
-              />
-            </v-flex>
-            <v-flex xs6>
-              <v-text-field placeholder="Job title" />
-            </v-flex>
-            <v-flex xs12>
               <v-text-field
                 prepend-icon="mail"
                 placeholder="Email"
+                :value="this.auth().currentUser.email" disabled
               />
             </v-flex>
-            <v-flex xs12>
+            <v-flex xs6>
               <v-text-field
-                type="tel"
-                prepend-icon="phone"
-                placeholder="(000) 000 - 0000"
-                mask="phone"
+                prepend-icon="event"
+                placeholder="Fecha"
+                :value="now" disabled
               />
             </v-flex>
             <v-flex xs12>
               <v-text-field
                 prepend-icon="notes"
-                placeholder="Notes"
+                placeholder="Escriba su sugerencia para este sitio web."
+              />
+            </v-flex>
+            <v-flex xs12>
+              <v-text-field
+                prepend-icon="photo"
+              class="round"
+                placeholder="Screenshot (foto del inconveniente)."
+                type="file"
               />
             </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
-          <v-btn
-            flat
-            color="primary"
-          >
-            More
-          </v-btn>
+  
           <v-spacer />
           <v-btn
             flat
-            color="primary"
+            round
+            class="sign-up"
             @click="dialog = false"
           >
             Cancel
           </v-btn>
           <v-btn
+          round
             flat
             @click="dialog = false"
+            class="sign-in"
           >
             Save
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-app>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import moment from 'moment';
+import session from "@/store/modules/session.js";
 import { directive as onClickaway } from "vue-clickaway";
 import Sidemenu from "@/components/RoleComponents/coordinatorComponents/CoordinatorSidemenu.vue";
 export default {
@@ -445,6 +460,7 @@ export default {
       generalMenu: true,
       alert: true,
       announcement: true,
+      now: moment().format('LLL'),
       announcementMessage: "",
       center: {
         name: "UASD CEDE"
@@ -460,6 +476,7 @@ export default {
       servicios: [
         { title: "Lesson Plans", link: "/lesson plans" },
         { title: "Encargados", link: "/encargados" },
+        { title: "Dossier", icon: "collections_bookmark", color: "#c6192a" },
         { title: "Resultados de Examen diagnostico" },
         { title: "Empleados en Centros", link: "/employees" },
         { title: "Curriculum" },
@@ -477,7 +494,6 @@ export default {
       generalOptions: [
         { title: "General Report", icon: "adjust", color: "white" },
         { title: "General statistics", icon: "trending_up", color: "yellow" },
-        { title: "Dossier", icon: "collections_bookmark", color: "#c6192a" },
         { title: "Inventory", icon: "assignment_turned_in", color: "green" },
         { title: "Calendar", icon: "event_note", color: "blue" },
         { title: "Attendance", icon: "grid_on", color: "orange" }
@@ -529,6 +545,7 @@ export default {
       this.auth().currentUser.displayName
     }. Nos place commpartir con ustedes que comenzaremos las clases el dia 15 de Enero 2020`;
     this.$store.commit("setFullScreen", false);
+    this.$store.commit('setCurrentRole',session.fetchRole());
   }
 };
 </script>

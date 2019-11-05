@@ -6,6 +6,7 @@
       <v-navigation-drawer
         app
         v-model="drawer"
+        disable-resize-watcher
       >
         <supervisorsideMenu v-if="getSupervisorSideMenu" />
         <coordinatorsideMenu v-else-if="getCoordinatorSideMenu" />
@@ -245,7 +246,7 @@ export default {
     alerting,
     profile,
     supervisorsideMenu,
-    coordinatorsideMenu
+    coordinatorsideMenu,
   },
   directives: {
     onClickaway: onClickaway
@@ -302,7 +303,7 @@ export default {
       }
     },
      rolePath() {
-     if(this.$route.path !=`/${this.getCurrentRole}Dashboard`) this.$router.push(`/${this.getCurrentRole}Dashboard`) ;
+     if(this.$route.path !=`/${this.getCurrentRole}Dashboard` ) this.$router.push(`/${this.getCurrentRole}Dashboard`);
     },
     ...mapActions(["toggleSI", "toggleSU", "runAlert", "validateToken"])
   },
@@ -329,11 +330,12 @@ export default {
       "auth"
     ])
   },
+
+
   async created() {
-    if (this.auth().currentUser) {
-      await this.$store.commit('setCurrentRole',session.fetchRole());
+  if(this.auth().currentUser) {
       this.$store.commit("setLoggedIn", true);
-      this.turnOnSideMenu();
+     await this.turnOnSideMenu();
     }
     this.onResize();
   }

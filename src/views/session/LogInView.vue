@@ -106,9 +106,8 @@ async    signIn(e) {
         .then(
           async () => {
             await  this.showAlert(`Successfully logged in ${this.email}`, 'info', 'info sign-in');
-
             await this.$store.commit('setSIDialog', false)
-             this.$router.push(`/dashboard/`);
+     if(this.$route.path !=`/${this.getCurrentRole}Dashboard`) this.$router.push(`/${this.getCurrentRole}Dashboard`);
             this.loading = await false;    
 
             setTimeout(()=>{ this.$store.commit('setAlert', false) }, 4000);
@@ -122,7 +121,7 @@ async    signIn(e) {
         e.preventDefault();
     }
   },
-  computed: mapGetters(["getSIDialog", "auth"]),
+  computed: mapGetters(["getSIDialog", "auth", "getCurrentRole",]),
 
 };
 </script>

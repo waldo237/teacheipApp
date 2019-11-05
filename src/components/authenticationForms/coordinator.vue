@@ -16,7 +16,7 @@
       color="blue"
     >
       <!-- form starts -->
-      <v-form v-model="valid">
+      <v-form v-model="valid" @submit="false">
         <v-alert
           outline
           rounded
@@ -48,6 +48,7 @@
                   type="text"
                   @keydown="prevent"
                   @keyup="addDash"
+                  @keydown.enter="verifyID"
                 />
               </v-flex>
             </v-layout>
@@ -57,7 +58,8 @@
           class="sign-in"
           :disabled="checkID"
           :loading="loading1"
-          @click.prevent="verifyID"
+          @click="verifyID"
+          
         >
           verify
         </v-btn>
@@ -81,7 +83,7 @@
     </v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
-      <v-form v-model="valid">
+      <v-card v-model="valid" @submit="false">
         <v-alert
           outline
           rounded
@@ -114,14 +116,17 @@
                   :append-icon="!showPassword ? 'visibility_off':'visibility'"
                   :type="showPassword ? 'text': 'password'"
                   @click:append="showPassword =!showPassword"
+                  @keydown.enter="verifycCode"
                 />
               </v-flex>
             </v-layout>
           </v-container>
         </v-card>
+        <v-spacer />
         <v-btn
           class="sign-in"
           @click="verifycCode"
+         
           :loading="loading1"
         >
           Continue
@@ -133,7 +138,7 @@
         >
           Cancel
         </v-btn>
-      </v-form>
+      </v-card>
       <!-- form ends -->
     </v-stepper-content>
   </v-stepper>
@@ -196,7 +201,7 @@ export default {
         if(this.validated.authenticated){
           this.loading1 = false;
           await this.$store.commit("setLanding", false);
-          await this.$router.push(`/coordinatorDashboard/`);
+          await this.$router.push(`/coordinatorDashboard`);
         }
         
       } catch (error) {

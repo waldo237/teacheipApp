@@ -47,6 +47,18 @@ let router = new Router({
       }
     },
     {
+      path: "/encargados",
+      name: "encargados",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/services/encargados.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true
+      }
+    },
+    {
       path: "/landing/",
       name: "landing",
       component: () =>

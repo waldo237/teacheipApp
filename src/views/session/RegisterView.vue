@@ -1,9 +1,9 @@
 <template>
   <v-layout>
-    <v-dialog v-model="getSUDialog" persistent max-width="465px" min-width="465px" lass="round">
+    <v-dialog max-width="465px" v-model="getSUDialog" persistent class="round">
       <v-form>
-        <v-card width="465px" height="250px" color="#135393" min-width="465px" class="round">
-          <v-layout align-content-start>
+        <v-card max-width="465px" color="#135393"  class="round">
+          <v-layout justify-center>
             <v-toolbar dense class="elevation-24 ">
               <v-toolbar-title class="logo">
                 <v-icon>lock_open</v-icon>
@@ -16,7 +16,7 @@
               </v-btn>
             </v-toolbar>
           </v-layout>
-          <v-layout class="pt-4 px-1" align-center>
+          <v-layout class="pt-4 px-1" justify-center wrap>
             <v-btn
               @click.prevent="google"
               round
@@ -45,7 +45,7 @@
               sign up with Faceboook
             </v-btn>
           </v-layout>
-          <v-layout class="pt-4 px-1" align-end wrap>
+          <v-layout class="pt-4 px-1" justify-center wrap>
             <v-btn @click.prevent="microsoft" class="font-weight-bold elevation-24 " round disabled>
               <img
                 src="https://drive.google.com/uc?export=view&id=1Okh6YMoL8jfAcXXFj8ybedJGv-mdHGTE"
@@ -112,7 +112,8 @@ export default {
            
              await this.validateToken();
             if (this.validated.authenticated) {
-              await this.$router.push(`/coordinatorDashboard/`);
+              
+              await (this.$route.path !=`/coordinatorDashboard/`)? this.$router.push(`/coordinatorDashboard/`): "";
             } else {
               await this.$store.commit("setLanding", true);
               await this.$router.push(`/landing/`);
@@ -173,7 +174,7 @@ export default {
            
              await this.validateToken();
             if (this.validated.authenticated) {
-              await this.$router.push(`/coordinatorDashboard/`);
+              await this.$router.push(`/coordinatorDashboard`);
             } else {
               await this.$store.commit("setLanding", true);
               await this.$router.push(`/landing/`);
