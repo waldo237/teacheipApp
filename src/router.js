@@ -35,6 +35,18 @@ let router = new Router({
       }
     },
     {
+      path: "/dossier",
+      name: "dossier",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/services/dossier.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true
+      }
+    },
+    {
       path: "/employees",
       name: "employees",
       component: () =>

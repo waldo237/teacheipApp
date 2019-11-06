@@ -476,7 +476,7 @@ export default {
       servicios: [
         { title: "Lesson Plans", link: "/lesson plans" },
         { title: "Encargados", link: "/encargados" },
-        { title: "Dossier", icon: "collections_bookmark", color: "#c6192a" },
+        { title: "Dossier",link:"/dossier", icon: "collections_bookmark", color: "#c6192a" },
         { title: "Resultados de Examen diagnostico" },
         { title: "Empleados en Centros", link: "/employees" },
         { title: "Curriculum" },
@@ -539,13 +539,14 @@ export default {
         this.announcement = !this.announcement;
       }, 3000);
     }
+    this.$store.commit('setCurrentRole',session.fetchRole());
   },
   created() {
     this.announcementMessage = `Hola, ${
       this.auth().currentUser.displayName
     }. Nos place commpartir con ustedes que comenzaremos las clases el dia 15 de Enero 2020`;
     this.$store.commit("setFullScreen", false);
-    this.$store.commit('setCurrentRole',session.fetchRole());
+    
   }
 };
 </script>

@@ -25,7 +25,7 @@
       >
         <v-text-field
           class="mx-4 mt-3"
-          label="Go ahead! find your lesson plan"
+          label="Need a form? Look it up!"
           single-line
           prepend-icon="search"
           color="#c6192a"
@@ -33,43 +33,7 @@
           v-model="searchTerms"
         />
       </v-layout>
-      <v-layout
-        wrap
-        class="mx-5 px-5 round"
-        align-content-center
-      >
-        <v-overflow-btn
-          class=" px-auto mx-5 grey lighten-5 round"
-          :items="series"
-          label="Select a Series"
-          color="#c6192a"
-          prepend-icon="book"
-          solo
-          flat
-          v-model="dropdownSeries"
-        />
-        <v-overflow-btn
-          class=" px-auto mx-5 grey lighten-5 "
-          :items="level"
-          label="Select a Level"
-          color="#c6192a"
-          prepend-icon="trending_up"
-          solo
-          flat
-          v-model="dropdownLevel"
-        />
-        <v-overflow-btn
-          class=" px-auto mx-5 grey lighten-5 "
-          :items="unit"
-          label="Select a Unit"
-          prepend-icon="format_list_numbered_rtl"
-          color="#c6192a"
-          solo
-          flat
-          v-model="dropdownUnit"
-        />
-      </v-layout>
-        
+
       <v-layout
         wrap
         class="mx-3 px-4"
@@ -88,14 +52,12 @@
             
             class="subtitle-1 blue-cards font-weight-bold white--text"
           >
-            Document Name: {{ item.parents }}
+            Document Name: {{ item.name.split('.')[0] }}
           </v-card-title>
           <v-card-text>
-            <span class="font-weight-bold">Book Series </span> {{ item.Name }}
-            <br> <span class="font-weight-bold">Level: </span> {{ item.level }}
-            <br><span class="font-weight-bold">Type:</span> {{ item.Type }}
-            <br><span class="font-weight-bold">Size: </span>{{ item.Size }}
-            <br><span class="font-weight-bold">Last Updated: </span>{{ ago(item["Last Updated"]) }} 
+            <br><span class="font-weight-bold">Type:</span> {{ item.name.split('.')[1] }}
+            <br><span class="font-weight-bold">Size: </span>{{ item.size }}
+            <br><span class="font-weight-bold">Last Updated: </span>{{ ago(item["date"]) }} 
             <br><span class="font-weight-bold">Posted by: </span> {{ item.Owner }}
           </v-card-text>
           <v-card-actions class="mx-5">
@@ -150,7 +112,7 @@ export default {
       unit: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16'],
   }),
   computed: {
-    ...mapGetters(["getLessonPlans"]),
+    ...mapGetters(["getDossier"]),
    
      displayedLessonPlans () {
        
@@ -159,7 +121,7 @@ export default {
   },
   methods: {
 
-    ...mapActions(["fetchLessonPlans"]),
+    ...mapActions(["fetchDossier"]),
     setReady(){
       this.stillLoading = false;
     },
@@ -178,7 +140,7 @@ export default {
      if (this.dropdownSeries || this.dropdownLevel || this.dropdownUnit) {
            return this.lPs.filter(function(item) {
            return (
-          (item.Name.toLowerCase().match(this.dropdownSeries.toLowerCase())) &&
+          (item.name.toLowerCase().match(this.dropdownSeries.toLowerCase())) &&
           (item.level.toLowerCase().match(this.dropdownLevel.toLowerCase())) &&
           (item.parents.toLowerCase().match(this.dropdownUnit.toLowerCase()))
         )
@@ -217,9 +179,9 @@ export default {
   },
 
   async created() {
-    await this.fetchLessonPlans();
+    await this.fetchDossier();
     // set the value of local lPs
-    this.lPs = this.getLessonPlans;
+    this.lPs = this.getDossier;
    this.$store.commit("setFullScreen", false);
   }
 };
