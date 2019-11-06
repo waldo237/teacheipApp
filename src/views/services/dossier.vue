@@ -44,21 +44,25 @@
           :key="item.download"
           max-width="380px"
           min-width="380px"
-          dark
           class="my-2 mx-auto elevation-10 round justify-center mx-1 elevation-24 grids mt-2 hovering"
         >
           <v-card-title
             primary-title
             
-            class="subtitle-1 blue-cards font-weight-bold white--text"
+            class="subtitle-1 gradient font-weight-bold white--text py-2 my-0"
           >
             Document Name: {{ item.name.split('.')[0] }}
           </v-card-title>
-          <v-card-text>
+          <v-card-text class="my-0 py-0">
             <br><span class="font-weight-bold">Type:</span> {{ item.name.split('.')[1] }}
             <br><span class="font-weight-bold">Size: </span>{{ item.size }}
             <br><span class="font-weight-bold">Last Updated: </span>{{ ago(item["date"]) }} 
             <br><span class="font-weight-bold">Posted by: </span> {{ item.Owner }}
+             <v-layout row wrap justify-center>
+               <img :src="frame(item.id)" :alt="item.name" max-height="200px" class="round"/>
+             </v-layout> 
+
+
           </v-card-text>
           <v-card-actions class="mx-5">
             <a
@@ -120,7 +124,9 @@ export default {
      },
   },
   methods: {
-
+frame(url){
+return `https://drive.google.com/thumbnail?authuser=0&sz=w280&id=${url}`
+},
     ...mapActions(["fetchDossier"]),
     setReady(){
       this.stillLoading = false;
@@ -186,3 +192,8 @@ export default {
   }
 };
 </script>
+<style  scoped>
+.gradient{
+background: linear-gradient(to right, #ad5389, #3c1053);
+}
+</style>
