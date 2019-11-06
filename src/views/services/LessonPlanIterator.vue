@@ -76,7 +76,7 @@
         justify-center
       >
         <v-card
-          v-for="item in lPs"
+          v-for="item in displayedLessonPlans"
           :key="item.download"
           max-width="380px"
           min-width="380px"
