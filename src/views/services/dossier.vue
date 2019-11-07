@@ -1,5 +1,8 @@
 <template>
   <div>
+    <v-layout justify-center row wrap primary-title class="display-1 font-italic font-weight-black mt-5 pt-5 mx-4 px-1 ">
+      Formularios
+    </v-layout> 
     <!-- alternative circular loading starts -->
     <v-layout row wrap justify-center v-if="stillLoading" class="ma-5 pa-5">
       <loading />

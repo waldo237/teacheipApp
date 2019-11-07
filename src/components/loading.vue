@@ -5,7 +5,7 @@
     :size="200"
     :width="20"
     :value="percent"
-    color="#135393"
+    color="#c6192a"
   >
     <v-spacer />coming right up...
     <span class="font-weight-bold title">{{ percent }}</span>

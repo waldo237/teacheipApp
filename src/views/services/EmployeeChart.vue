@@ -2,73 +2,75 @@
  
 <template>
   <div class="my-5 py-5">
+     <v-layout justify-center row wrap primary-title class="display-1 font-italic font-weight-black mx-4 px-1 ">
+      Maestros y Coordinadores
+    </v-layout> 
     <v-layout
       row
       wrap
       justify-center
       v-if="stillLoading"
-      class="ma-5 pa-5"
+      class="my-5 py-5 mx-0 px-0"
     >
       <loading />
     </v-layout>
     <div v-else>
-      <v-spacer />
       <v-text-field
         v-model="search"
         append-icon="search"
-        label="Search"
+        label="Buscar Maestros y Coordinadores"
         single-line
         hide-details
-        class="search"
+        class="search mt-2 pt-2"
+        color="#c6192a"
       />
       <v-layout
         justify-center
         persistent
+        
       >
         <v-data-table
-          style="width: 80%"
+          style="width: 98%"
           :headers="headers"
           :items="getEmployees"
           :search="search"
-          class="elevation-20"
+          class="elevation-24"
           dark
-          dense
           mobile-breakpoint
-          multi-sort
           show-group-by
         >
           <template v-slot:items="props">
             <td
-              class="text-xs-left pa-3"
+              class="text-xs-right px-0 pr-4"
               id="name"
             >
               {{ props.item.NOMBRE }}
             </td>
-            <td class="text-xs-left mx-auto">
+            <td class="text-xs-left  px-auto">
               {{ props.item.TELEFONO }}
             </td>
-            <td class="text-xs-left">
+            <td class="text-xs-left  px-auto">
               {{ props.item.GENERO }}
             </td>
-            <td class="text-xs-left">
+            <td class="text-xs-left px-auto">
               {{ props.item.CARGO }}
             </td>
-            <td class="text-xs-left">
+            <td class="text-xs-left  px-auto">
               {{ props.item.CORREO }}
             </td>
-            <td class="text-xs-left">
+            <td class="text-xs-left  px-auto">
               {{ props.item.CARRERA }}
             </td>
-            <td class="text-xs-left">
+            <td class="text-xs-left  px-auto">
               {{ props.item.SUPERVISOR }}
             </td>
-            <td class="text-xs-left mx-5">
+            <td class="text-xs-left px-0 mx-1">
               {{ props.item.CENTRO }}
             </td>
-            <td class="text-xs-left">
+            <td class="text-xs-left  px-auto">
               {{ props.item.REGION }}
             </td>
-            <td class="text-xs-left">
+            <td class="text-xs-left  px-auto">
               {{ props.item.PROVINCIA }}
             </td>
           </template>
@@ -123,8 +125,8 @@ export default {
 </script>
 <style scoped>
 .search {
-  margin: 0 auto;
-  width: 80%;
+  margin:  30px auto ;
+  width: 95%;
 }
 #name {
   min-width: 170px;

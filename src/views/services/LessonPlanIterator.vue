@@ -1,5 +1,9 @@
 <template>
   <div>
+
+     <v-layout justify-center row wrap primary-title class="display-1 font-italic font-weight-black mt-5 pt-5 mx-4 px-1 ">
+      Lesson Plans
+    </v-layout> 
     <!-- alternative circular loading starts -->
     <v-layout
       row
@@ -78,8 +82,8 @@
         <v-card
           v-for="item in displayedLessonPlans"
           :key="item.download"
-          max-width="380px"
-          min-width="380px"
+          max-width="350px"
+          min-width="350px"
           dark
           class="my-2 mx-auto elevation-10 round justify-center mx-1 elevation-24 grids mt-2 hovering"
         >
