@@ -47,6 +47,18 @@ let router = new Router({
       }
     },
     {
+      path: "/manuales",
+      name: "manuales",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/services/manuales.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true
+      }
+    },
+    {
       path: "/employees",
       name: "employees",
       component: () =>
@@ -70,11 +82,32 @@ let router = new Router({
         resquiresValidation: true
       }
     },
+    { 
+      path: "/calendario",
+      name: "calendario",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/services/calendario.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true
+      }
+    },
     {
       path: "/landing/",
       name: "landing",
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/session/Landing.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/loggedOut",
+      name: "/loggedOut/",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/session/205.vue"),
       meta: {
         requiresAuth: true
       }

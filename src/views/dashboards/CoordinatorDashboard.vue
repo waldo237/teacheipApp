@@ -8,15 +8,15 @@
         v-model="alert"
         border="left"
         close-text="Close Alert"
-        color="deep-purple accent-4"
-        dark
+        color="deep"
+        
         dismissible
-        class="mt-4 mb-0"
+        class="mt-3 mb-0"
       >
         <v-card
           v-if="announcement"
-          color="deep-purple accent-4"
-          dark
+          color="deep  white--text"
+          
           class="fade ml-4"
           flat
           justify-center
@@ -37,7 +37,7 @@
         class="elevation-24 "
         wrap
       >
-        <v-toolbar
+        <!-- <v-toolbar
           flat
           color="black-blue text-uppercase"
           dark
@@ -47,18 +47,13 @@
           <v-toolbar-title class="mx-auto">
             {{ center.name }}
           </v-toolbar-title>
-        </v-toolbar>
+        </v-toolbar> -->
         <v-tabs
           vertical
           class="px-5"
           slider-color="#c6192a"
           light
         >
-          <v-tab>
-            <v-icon color="black">
-              
-            </v-icon>Centro
-          </v-tab>
           <v-tab>
             <v-icon color="black">
               apps
@@ -72,7 +67,108 @@
               
             </v-icon>Solicitudes
           </v-tab>
+          <v-tab>
+            <v-icon color="black">
+              
+            </v-icon>Centro
+          </v-tab>
 
+           <v-tab-item class="pb-5">
+                  <!-- SERVICIOS RECURSOS -->
+              <v-card
+                hover
+                exact
+                dark
+                class="round my-5"
+              >
+                <v-card-title
+                  class="mx-auto headline"
+                  dense
+                >
+                  <v-layout
+                    row
+                    wrap
+                    justify-center
+                  >
+                    <v-icon>local_play</v-icon>SERVICIOS
+                  </v-layout>
+                </v-card-title>
+                <v-layout
+                  dark
+                  class="black round py-0 slidingMenu"
+                  wrap
+                >
+                  <v-card
+                    class="mx-auto my-2 black"
+                    v-for="(item, i) in servicios"
+                    :key="i"
+                      min-width="380px"
+                    
+                  >
+                    <v-btn
+                      :to="item.link"
+                      round
+                      class="elevation-20 elevation-12  sign-up my-0 ma-1"
+                      
+                      block
+                    
+                    >
+                      <v-icon>{{ item.icon }}</v-icon>
+                      {{ item.title }}
+                    </v-btn>
+                  </v-card>
+                </v-layout>
+              </v-card>
+            <!-- SERVICIOS ENDS -->
+
+          </v-tab-item>
+          
+          <v-tab-item class="pb-5">
+            <!-- SOLICITUDES -->
+            <v-card
+              hover
+              exact
+              dark
+              class="round my-5"
+            >
+              <v-card-title class="mx-auto headline">
+                <v-layout
+                  row
+                  wrap
+                  justify-center
+                >
+                  <v-icon large>
+                    hearing
+                  </v-icon>SOLICITUDES
+                </v-layout>
+              </v-card-title>
+              <v-layout
+                dark
+                class="black round py-0 slidingMenu"
+                wrap
+                justify-center
+              >
+                <v-card
+                  min-width="380px"
+                  class="mx-auto ma-2 black round"
+                  v-for="(item, i) in solicitudes"
+                  :key="i"
+                >
+                  <v-btn
+                  round
+                    class=" sign-in my-0 ma-1"
+                    block
+                  >
+                    <v-icon>{{ item.icon }}</v-icon>
+                    {{ item.title }}
+                  </v-btn>
+                </v-card>
+              </v-layout>
+            </v-card>
+            <!-- SOLICITUDES ENDS -->
+
+          </v-tab-item>
+         
           <v-tab-item class="mx-3 pb-5">
             <v-card flat class="my-5 black round"  dark>
               <v-layout
@@ -88,6 +184,7 @@
                   >
                     <img
                       src="https://drive.google.com/uc?export=view&id=1YBfq0jnYRiyYePSmYpVGgNuf0LN-LEQW"
+                      lazy-src="https://drive.google.com/uc?export=view&id=1YBfq0jnYRiyYePSmYpVGgNuf0LN-LEQW"
                       alt
                       width="76px"
                       height="68px"
@@ -110,6 +207,7 @@
                     :dark="(studentMenu)? true : false"
                   >
                     <img
+                    lazy-src="https://drive.google.com/uc?export=view&id=1VvmPXB2mhGsbtcBhqBb4yG4m5lPoqo83"
                       src="https://drive.google.com/uc?export=view&id=1VvmPXB2mhGsbtcBhqBb4yG4m5lPoqo83"
                       alt
                       class="mx-2 mb-0"
@@ -130,6 +228,7 @@
                     :dark="(teacherMenu)? true : false"
                   >
                     <img
+                    lazy-src="https://drive.google.com/uc?export=view&id=1QQOpEQuXqOqwysFcLnR3QwET-Sbc8lSK"
                       src="https://drive.google.com/uc?export=view&id=1QQOpEQuXqOqwysFcLnR3QwET-Sbc8lSK"
                       alt
                       width="78px"
@@ -239,98 +338,6 @@
               <v-card-text />
             </v-card>
           </v-tab-item>
-           <v-tab-item class="pb-5">
-                  <!-- SERVICIOS RECURSOS -->
-              <v-card
-                hover
-                exact
-                dark
-                class="round my-5"
-              >
-                <v-card-title
-                  class="mx-auto headline"
-                  dense
-                >
-                  <v-layout
-                    row
-                    wrap
-                    justify-center
-                  >
-                    <v-icon>local_play</v-icon>SERVICIOS
-                  </v-layout>
-                </v-card-title>
-                <v-layout
-                  dark
-                  class="black round py-0 slidingMenu"
-                  wrap
-                >
-                  <v-card
-                    class="mx-auto ma-1 black"
-                    v-for="(item, i) in servicios"
-                    :key="i"
-                  >
-                    <v-btn
-                      :to="item.link"
-                      round
-                      class="elevation-20 elevation-12  sign-up my-0 ma-1"
-                      dense
-                      block
-                    >
-                      <v-icon>{{ item.icon }}</v-icon>
-                      {{ item.title }}
-                    </v-btn>
-                  </v-card>
-                </v-layout>
-              </v-card>
-            <!-- SERVICIOS ENDS -->
-
-          </v-tab-item>
-          <v-tab-item class="pb-5">
-            <!-- SOLICITUDES -->
-            <v-card
-              hover
-              exact
-              dark
-              class="round my-5"
-            >
-              <v-card-title class="mx-auto headline">
-                <v-layout
-                  row
-                  wrap
-                  justify-center
-                >
-                  <v-icon large>
-                    hearing
-                  </v-icon>SOLICITUDES
-                </v-layout>
-              </v-card-title>
-              <v-layout
-                dark
-                class="black round py-0 slidingMenu"
-                wrap
-              >
-                <v-card
-                
-                  class="mx-auto ma-1 black round"
-                  v-for="(item, i) in solicitudes"
-                  :key="i"
-                >
-                  <v-btn
-                  round
-                    class=" sign-in my-0 ma-1"
-                    
-                    block
-                  >
-                    <v-icon>{{ item.icon }}</v-icon>
-                    {{ item.title }}
-                  </v-btn>
-                </v-card>
-              </v-layout>
-            </v-card>
-            <!-- SOLICITUDES ENDS -->
-
-          </v-tab-item>
-         
         </v-tabs>
       </v-card>
     </v-layout>
@@ -352,7 +359,7 @@
       v-model="dialog"
       width="800px"
     >
-      <v-card>
+      <v-card class="round">
         <v-card-title class="grey lighten-4 py-4 title">
           enviar sugerencias
         </v-card-title>
@@ -474,13 +481,14 @@ export default {
         { title: "solicitar carta para empleado" }
       ],
       servicios: [
-        { title: "Lesson Plans", link: "/lesson plans" },
+        { title: "Planes de clase", link: "/lesson plans" },
         { title: "Encargados", link: "/encargados" },
+        { title: "Manuales", link: "/manuales" },
         { title: "Dossier",link:"/dossier", icon: "collections_bookmark", color: "#c6192a" },
-        { title: "Resultados de Examen diagnostico" },
         { title: "Empleados en Centros", link: "/employees" },
+        { title: "Calendario Academico", link: "/calendario"},
+        { title: "Resultados de Examen diagnostico" },
         { title: "Curriculum" },
-        { title: "Calendario Academico" },
         { title: "Exam blueprints" },
         { title: "Estadandares de Competencias" },
         { title: "Mapas de Procedimientos" }
@@ -540,13 +548,15 @@ export default {
       }, 3000);
     }
     this.$store.commit('setCurrentRole',session.fetchRole());
+    this.$store.commit("setLoggedIn", true);
+
   },
   created() {
     this.announcementMessage = `Hola, ${
       this.auth().currentUser.displayName
     }. Nos place commpartir con ustedes que comenzaremos las clases el dia 13 de Enero 2020`;
     this.$store.commit("setFullScreen", false);
-    
+   
   }
 };
 </script>
@@ -557,7 +567,7 @@ export default {
   animation-timing-function: ease;
 }
 .fade {
-  animation-duration: 7s;
+  animation-duration: 9s;
   animation-name: fadeOut;
   animation-timing-function: ease-in-out;
 }
@@ -568,5 +578,12 @@ export default {
 }
 .actionButton:hover {
   background: gray;
+}
+.deep{
+background: #1488CC;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
 }
 </style>

@@ -85,7 +85,6 @@
                 <v-text-field 
                   name="employeeId"
                   id="employeeId"
-                  autocomplete
                   prepend-icon="lock"
                   :append-icon="!showPassword ? 'visibility_off':'visibility'"
                   :type="showPassword ? 'text': 'password'"
@@ -138,7 +137,6 @@
                 md4
               >
                 <v-text-field
-                  autocomplete
                   prepend-icon="lock"
                   :append-icon="!showPassword2 ? 'visibility_off':'visibility'"
                   :type="showPassword2 ? 'text': 'password'"

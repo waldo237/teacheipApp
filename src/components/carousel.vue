@@ -5,6 +5,7 @@
         v-for="(item,i) in items"
         :key="i"
         :src="item.src"
+        :lazy-src="item.src"
       />
     </v-carousel>
   </div>
@@ -24,16 +25,16 @@ export default {
     return {
       items: [
         {
-          src:  "https://drive.google.com/uc?export=view&id=1l3O9eBNhPeZesBnsWiwMGKzvi3LzC6f7"
+          src:  "https://drive.google.com/uc?export=edit&id=1l3O9eBNhPeZesBnsWiwMGKzvi3LzC6f7"
         },
         {
-          src: "https://drive.google.com/uc?export=view&id=1K79L6ET5l_4U4qjkgIfJecSMy0loN_pX",
+          src: "https://drive.google.com/uc?export=edit&id=1K79L6ET5l_4U4qjkgIfJecSMy0loN_pX",
         },
         {
-          src: "https://drive.google.com/uc?export=view&id=19CIkVZ4iwp54EQ3lk3--qCt3FMzzCvKl",
+          src: "https://drive.google.com/uc?export=edit&id=19CIkVZ4iwp54EQ3lk3--qCt3FMzzCvKl",
         },
         {
-          src: "https://drive.google.com/uc?export=view&id=1E4W_8drQsiT4IaoXOTjLkN9Kiq8Uem2W",
+          src: "https://drive.google.com/uc?export=edit&id=1E4W_8drQsiT4IaoXOTjLkN9Kiq8Uem2W",
         }
       ]
     }

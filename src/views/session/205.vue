@@ -13,8 +13,7 @@
         justify-center
       >
         <img
-          src="https://drive.google.com/uc?export=view&id=1nmxv4xn--Mh_pSqyqB44KUzSRlDD8aLN"
-          lazy-src="https://drive.google.com/uc?export=view&id=1nmxv4xn--Mh_pSqyqB44KUzSRlDD8aLN"
+          src="https://www.petbarn.com.au/petspot/app/themes/the-marmalade-child/includes/images/dropdowns/dropdown_dog.gif"
           alt
           width="400px"
           class="ma-0 pa-0"
@@ -26,13 +25,13 @@
         justify-center
         class="display-2 mx-auto text-uppercase"
       >
-        We are so sorry, friend!
+        You are currently logged out!
         <v-card-text class="title mx-auto">
           <v-layout
             row
             justify-center
           >
-            403. You're not authorized to access content!
+            Please log again to continue with operation.
           </v-layout>
         </v-card-text>
       </v-layout>
@@ -60,9 +59,24 @@ export default {
           
         }
     }, 
+    methods:{
+      doIt(){ console.log(`you're loggedout`);}
+    },
+    computed:{
+      ...mapGetters(["auth"])
+    },
     async created() {
      this.$store.commit('setFullScreen',false);
-     
+    
+       this.auth()
+        .signOut()
+        .then(async () => {
+          await this.$store.commit('setLoggedIn', false)
+          await this.$store.commit('setValidated', {})
+          await this.$store.commit('setAlert', false)
+         
+        })
+        .catch((error)=>{console.log(`there was an issue logging out:${error}`)});
   },
  
 }

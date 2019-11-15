@@ -46,7 +46,7 @@
 export default {
 data(){
   return{
-    gify: "https://drive.google.com/uc?export=view&id=15f32pnOCMq0pq_pjOl5Z_NN1MXcb8rDT",
+    gify: "https://drive.google.com/uc?export=edit&id=15f32pnOCMq0pq_pjOl5Z_NN1MXcb8rDT",
   }
 },
 };

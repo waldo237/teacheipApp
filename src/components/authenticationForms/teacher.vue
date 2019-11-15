@@ -87,7 +87,6 @@
                   v-model="cCode"
                   label="C-secret code"
                   required
-                  autocomplete
                   maxlength="8"
                   prepend-icon="lock"
                   :append-icon="!showPassword ? 'visibility_off':'visibility'"

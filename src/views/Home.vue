@@ -1,14 +1,16 @@
 <template>
+<div>
+
   <div class="home">
     <!-- carousel starts -->
     <Carousel />
     <!-- carousel ends -->
 
     <v-layout
-      class="justify-center mt-2 mb-5 pb-5"
+      class="justify-center mt-2 mb-2 pb-5"
       flat
       wrap
-    >
+       >
       <v-card
         class="mx-2 justify-center elevation-5 mt-2 grids"
         flat
@@ -131,6 +133,20 @@
       </v-card>
     </v-layout>
   </div>
+  <v-layout row wrap class="mx-5 px-5" justify-center>
+    <iframe width="500px" height="300px" class="mx-auto round" src="https://www.youtube.com/embed/fDqy5IbfWjQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+    <iframe width="500px" height="300px" class="mx-auto round" src="https://www.youtube.com/embed/yv1IS5BhAqo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+  </v-layout>
+  <v-layout row  width="100%">
+  <v-card color="#376092" class="mb-5 blueCut" width="90%"  height="500px">
+
+  </v-card>
+    <v-card id="red" color="#ff0000" class="mb-5 redCut" width="60%" height="500px">
+
+  </v-card>
+    
+  </v-layout>
+</div>
 </template>
 
 <script>
@@ -232,6 +248,17 @@ export default {
   animation-duration: 0.1s;
   animation-name: pulse;
   animation-timing-function: ease-in-out;
+}
+
+.redCut{
+clip-path: polygon(0 39%, 0% 100%, 100% 100%);
+z-index: 0 !important;
+position: relative !important;
+}
+.blueCut{
+clip-path: polygon(0 100%, 100% 100%, 100% 42%);
+position:absolute !important;
+right: 0%;
 }
 </style>
 

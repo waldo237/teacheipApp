@@ -112,7 +112,6 @@ export default {
            
              await this.validateToken();
             if (this.validated.authenticated) {
-              
               await (this.$route.path !=`/coordinatorDashboard/`)? this.$router.push(`/coordinatorDashboard/`): "";
             } else {
               await this.$store.commit("setLanding", true);

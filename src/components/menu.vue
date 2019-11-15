@@ -37,6 +37,7 @@
         <span class="full-title mt-1">
           <img
             src="https://drive.google.com/uc?export=view&id=19PR4dusrh30pW5aIrX4OL5RXybYfzK0T" 
+            lazy-src="https://drive.google.com/uc?export=view&id=19PR4dusrh30pW5aIrX4OL5RXybYfzK0T"
             alt="mescyt"
           >with The English Immersion Program
         </span>
@@ -280,6 +281,7 @@ export default {
       });
     },
     async turnOnSideMenu() {
+      
       switch (this.getCurrentRole) {
         // change hand coded
         case "teacher":
@@ -303,7 +305,21 @@ export default {
       }
     },
      rolePath() {
-     if(this.$route.path !=`/${this.getCurrentRole}Dashboard` ) this.$router.push(`/${this.getCurrentRole}Dashboard`);
+     if(this.getCurrentRole== ""){
+        //  if (this.$route.path !="/loggedOut" ) this.$router.push(`/loggedOut`)
+        
+          this.auth()
+        .signOut()
+        .then(async () => {
+          await this.$store.commit('setLoggedIn', false)
+          await this.$store.commit('setValidated', {})
+          await this.$store.commit('setAlert', false)
+         
+        })
+        .catch((error)=>{console.log(`there was an issue logging out:${error}`)});
+     }else{
+      if (this.$route.path !=`/${this.getCurrentRole}Dashboard` ) this.$router.push(`/${this.getCurrentRole}Dashboard`);
+    }
     },
     ...mapActions(["toggleSI", "toggleSU", "runAlert", "validateToken"])
   },

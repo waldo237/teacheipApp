@@ -21,6 +21,7 @@
         <span class="acronym title">EIP</span>
       </v-layout>
       <v-btn
+      round
         icon
         @click="$emit('closeProfile')"
         class="ma-0 pa-0"
@@ -56,6 +57,7 @@
     </v-card-actions>
     <v-card-actions class="justify-center">
       <v-btn
+      round
         tag="v-btn"
         class="sign-up"
         @click="logout"

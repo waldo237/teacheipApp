@@ -10,9 +10,11 @@ import axios from 'axios'
 
 const state = {
     photos: {},
+    carousel1: 'https://drive.google.com/uc?export=edit&id=1l3O9eBNhPeZesBnsWiwMGKzvi3LzC6f7'
 }
 const getters = {
     response: (state) =>state.photos,
+    carousel1: (state)=>state.carousel1,
 };
 const actions = {
    

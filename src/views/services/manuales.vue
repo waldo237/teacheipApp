@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-layout justify-center row wrap primary-title class="display-1 font-italic font-weight-black mt-5 pt-5 mx-4 px-1 ">
-      Formularios
+      Manuales
     </v-layout> 
     <!-- alternative circular loading starts -->
     <v-layout row wrap justify-center v-if="stillLoading" class="ma-5 pa-5">
@@ -12,7 +12,7 @@
       <v-layout wrap class="mx-5 px-5 round" justify-center color="#c6192a lighten-5 ">
         <v-text-field
           class="mx-4 mt-3"
-          label="Need a form? Look it up!"
+          label="Necesitas un manual? Encuentralo aqui!"
           single-line
           prepend-icon="search"
           color="#c6192a"
@@ -23,7 +23,7 @@
 
       <v-layout wrap class="mx-3 px-4" justify-center>
         <v-card
-          v-for="item in displayedDossier"
+          v-for="item in displayedManuales"
           :key="item.name"
           max-width="320px"
           min-width="320px"
@@ -32,7 +32,7 @@
           <v-card-title
             primary-title
             class="subtitle-1 gradient font-weight-bold white--text py-2 my-0"
-          >Document Name: {{ item.name.split('.')[0] }}</v-card-title>
+          >{{ item.name.split('.')[0] }}</v-card-title>
           <v-card-text class="my-0 py-0">
             <br />
             <span class="font-weight-bold">Type:</span>
@@ -47,7 +47,7 @@
             <span class="font-weight-bold">Posted by:</span>
             {{ item.Owner }}
             <v-layout row wrap justify-center>
-              <img :src="frame(item.id)"  :lazy-src="frame(item.id)" :alt="item.name" max-height="200px" class="round" />
+              <img :src="item.thumbnail"  :lazy-src="item.thumbnail" :alt="item.name" max-height="200px" class="round" />
             </v-layout>
           </v-card-text>
           <v-card-actions class="mx-5">
@@ -95,17 +95,15 @@ export default {
     search: ""
   }),
   computed: {
-    ...mapGetters(["getDossier"]),
+    ...mapGetters(["getManuales"]),
 
-    displayedDossier() {
+    displayedManuales() {
       return this.paginate(this.lPs);
     }
   },
   methods: {
-    frame(url) {
-      return `https://drive.google.com/thumbnail?authuser=0&sz=w280&id=${url}`;
-    },
-    ...mapActions(["fetchDossier"]),
+
+    ...mapActions(["fetchManuales"]),
     setReady() {
       this.stillLoading = false;
     },
@@ -149,15 +147,15 @@ export default {
   },
 
   async created() {
-    await this.fetchDossier();
+    await this.fetchManuales();
     // set the value of local lPs
-    this.lPs = this.getDossier;
+    this.lPs = this.getManuales;
     this.$store.commit("setFullScreen", false);
   }
 };
 </script>
 <style  scoped>
 .gradient {
-  background: linear-gradient(to right, #ad5389, #3c1053);
+ background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
 }
 </style>

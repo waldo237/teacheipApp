@@ -6,7 +6,7 @@
     max-width="500px"
   >
     <v-flex>
-      <v-card class="elevation-12">
+      <v-card class="elevation-12 round">
         <v-card-text>
           <v-form>
             <v-card-text>
@@ -14,12 +14,14 @@
               {{ getAlertMessage }}
             </v-card-text>
             <v-btn
+            round
               class="sign-up"
               @click.prevent="toggleAlert"
             >
               Close
             </v-btn>
             <v-btn
+            round
               :class="getAlertType.class"
               @click="toggleAlert"
               v-if="!getInteract"
@@ -27,6 +29,7 @@
               Okay
             </v-btn>
             <v-btn
+            round
               :class="getAlertType.class"
               @click="setYes"
               v-else

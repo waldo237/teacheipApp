@@ -87,7 +87,6 @@
                   label="Supervisor code"
                   required
                   maxlength="8"
-                  autocomplete
                   prepend-icon="lock"
                   :append-icon="!showPassword ? 'visibility_off':'visibility'"
                   :type="showPassword ? 'text': 'password'"

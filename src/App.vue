@@ -208,7 +208,7 @@ a{
   width: 100%;
   z-index: 1;
   position: fixed;
-  top: 35px;
+  top: 32px;
   height: 49px;
   text-align: center;
   animation-duration: 1.5s;
@@ -220,13 +220,13 @@ a{
   width: 100%;
   z-index: 1;
   position: fixed;
-  top: 35px;
+  top: 32px;
   height: 49px;
   text-align: center;
   animation-duration: 1.5s;
   animation-name: bounceInDown;
   animation-timing-function: ease-in-out;
   display: block;
-  background-color: rgb(255, 82, 82) !important;
+  background-color: #ff0000 !important;
 }
 </style>

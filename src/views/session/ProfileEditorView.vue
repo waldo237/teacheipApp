@@ -9,6 +9,7 @@
     >
       <template v-slot:activator="{ on }">
         <v-btn
+        round
           class="edit-profile"
           v-on="on"
         >
