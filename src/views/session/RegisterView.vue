@@ -46,7 +46,7 @@
             </v-btn>
           </v-layout>
           <v-layout class="pt-4 px-1" justify-center wrap>
-            <v-btn @click.prevent="microsoft" class="font-weight-bold elevation-24 " round disabled>
+            <v-btn @click.prevent="microsoft" class="font-weight-bold elevation-24 " round>
               <img
                 src="https://drive.google.com/uc?export=view&id=1Okh6YMoL8jfAcXXFj8ybedJGv-mdHGTE"
                 width="25px"

@@ -17,13 +17,21 @@
         min-width="280px"
         class="my-5 mx-2 round elevation-24 move"
       >
-        <v-card-title class="encargados elevation-24 mb-0 pb-0">
-          <v-layout justify-center>
-            <v-avatar size="90" >
+        <v-card-title class="encargados mb-0 pb-0">
+          <v-layout justify-center class="mb-0 pb-0">
+            <v-avatar size="90" class="mb-0 pb-0">
               <img :src="item.photo" alt="alt" />
             </v-avatar>
           </v-layout>
         </v-card-title>
+          <v-layout row  width="100%" class="my-0 py-0">
+            <v-card color="#376092" class="blueCut my-0 py-0" width="90%"  height="50px">
+
+            </v-card>
+            <v-card id="red" color="#ff0000" class=" redCut my-0 py-0" width="60%" height="50px">
+
+            </v-card>
+          </v-layout>
         <v-card-text>
           <span class="title">{{item.name}}</span>
           <v-spacer />
@@ -68,9 +76,7 @@ export default {
 </script>
 <style scoped>
 .encargados {
-  clip-path: circle(50% 9%, 100% 0, 100% 75%, 50% 100%, 0% 75%, 0 0);
-  background: linear-gradient(to right, #ff416c, #ff4b2b);
-  
+
 }
 .move:hover{
    animation-duration: 0.5s;

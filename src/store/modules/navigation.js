@@ -120,10 +120,33 @@ const state = {
         class: "sign-in",
       }
     ]
-  }
+  },
+  solicitudes: [
+    { title: "solicitar copias de examenes" },
+    { title: "solicitar permisos extensos" },
+    { title: "solicitar materiales y mobiliarios" },
+    { title: "solicitar libros" },
+    { title: "solicitar carta para estudiante" },
+    { title: "solicitar carta para empleado" }
+  ],
+  servicios: [
+    { title: "Planes de clase", link: "/lesson plans" },
+    { title: "Encargados", link: "/encargados" },
+    { title: "Manuales", link: "/manuales" },
+    { title: "Dossier",link:"/dossier", icon: "collections_bookmark", color: "#c6192a" },
+    { title: "Empleados en Centros", link: "/employees" },
+    { title: "Calendario Academico", link: "/calendario"},
+    { title: "Resultados de Examen diagnostico" },
+    { title: "Curriculum" },
+    { title: "Exam blueprints" },
+    { title: "Estadandares de Competencias" },
+    { title: "Mapas de Procedimientos" }
+  ],
 };
 const getters = {
-  getNavigation: state => state.navigation
+  getNavigation: state => state.navigation,
+  servicios: state => state.servicios,
+  solicitudes: state => state.solicitudes,
 };
 const actions = {};
 const mutations = {

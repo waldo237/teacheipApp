@@ -2,7 +2,7 @@
 <div >
        <v-layout  wrap justify-center>
         <div primary-title class="display-1 font-italic font-weight-black mt-5 pt-5 mx-4 px-1 ">
-          Calendario. {{ new Date().getYear()}}
+          Calendario 2020
         </div>
       </v-layout>
     <v-card class="ma-5 py-5 elevation-24 round sign-in">
@@ -29,6 +29,7 @@
 <script>
 export default {
   created(){
+
     this.$store.commit("setFullScreen", false);
   }
 }

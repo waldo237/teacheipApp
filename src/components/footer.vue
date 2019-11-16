@@ -37,7 +37,7 @@
         tile
         width="100%"
         class="white--text px-5"
-        color="#135393"
+        color="#376092"
       >
         <v-flex
           xl8
@@ -93,7 +93,7 @@
             <v-btn
               target="_blank"
               depressed
-              color="#135393"
+              color="#376092"
               class="white--text credits"
               @click="policy=true"
             >

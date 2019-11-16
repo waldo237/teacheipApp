@@ -15,7 +15,7 @@
       </v-layout>
       <v-list-group
         v-else-if="item.children"
-        :key="item.text"
+        :key="item.title"
         v-model="item.model"
         :prepend-icon="item.model ? item.icon : item['icon-alt']"
         append-icon
@@ -23,7 +23,7 @@
         <template v-slot:activator>
           <v-list-tile>
             <v-list-tile-content>
-              <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </template>
@@ -32,48 +32,61 @@
           :key="i"
           :to="child.link"
         >
-          <v-list-tile-action v-if="child.icon">
+          <!-- <v-list-tile-action v-if="child.icon">
             <v-icon>{{ child.icon }}</v-icon>
-          </v-list-tile-action>
+          </v-list-tile-action> -->
           <v-list-tile-content>
-            <v-list-tile-title>{{ child.text }}</v-list-tile-title>
+            <v-list-tile-title>{{ child.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list-group>
       <v-list-tile
         v-else
-        :key="item.text"
+        :key="item.title"
         @click
       >
         <v-list-tile-action>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title>{{ item.text }}</v-list-tile-title>
+          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </template>
   </v-list>
 </template>
 <script>
+import {mapGetters} from "vuex";
 export default {
   data() {
     return {
       items: [
-        { icon: "dashboard", text: "DASHBOARD" },
-
+        { icon: "dashboard", title: "DASHBOARD" },
         {
           icon: "keyboard_arrow_up",
           "icon-alt": "keyboard_arrow_down",
-          text: "ACADEMIC",
+          title: "SERVICIOS",
           model: false,
           children: [
-            { text: "Lesson Plans", link: "/lesson plans/" },
-            { text: "Other contacts" }
           ]
-        }
+        },
+        {
+          icon: "keyboard_arrow_up",
+          "icon-alt": "keyboard_arrow_down",
+          title: "SOLICITUDES",
+          model: false,
+          children: [
+          ]
+        },
       ]
     };
+  },
+  created(){
+    this.items[1].children.push(...this.servicios)
+    this.items[2].children.push(...this.solicitudes)
+  },
+  computed:{
+    ...mapGetters(["solicitudes","servicios"])
   }
 };
 </script>

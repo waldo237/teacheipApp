@@ -1,13 +1,13 @@
 <template>
 <div>
 
-  <div class="home">
+  <div class="home mb-2 pb-0">
     <!-- carousel starts -->
     <Carousel />
     <!-- carousel ends -->
 
     <v-layout
-      class="justify-center mt-2 mb-2 pb-5"
+      class="justify-center my-2"
       flat
       wrap
        >
@@ -16,15 +16,15 @@
         flat
         wrap
         min-width="80%"
-      >
+       >
         <v-layout
           class="justify-center"
           flat
           wrap
-        >
+          >
           <v-card-title
             class="display-1 font-weight-light my-0 text-xs-center main-title"
-          >
+            >
             The English Immersion Program
           </v-card-title>
         </v-layout>
@@ -32,7 +32,7 @@
           class="justify-center mb-2 pb-2"
           flat
           wrap
-        >
+          >
           <!-- story starts -->
           <v-card
             v-for="item in principles"
@@ -63,7 +63,7 @@
         <v-layout
           justify-center
           flat
-        >
+         >
           <v-card-title
             class="display-1 font-weight-light my-0 text-xs-center main-title"
           >
@@ -82,7 +82,7 @@
             raised
             max-width="300px"
             min-width="300px"
-          >
+            >
             <v-card-title class="blue-cards elevation-24">
               <v-layout justify-center>
                 <v-avatar
@@ -133,15 +133,15 @@
       </v-card>
     </v-layout>
   </div>
-  <v-layout row wrap class="mx-5 px-5" justify-center>
-    <iframe width="500px" height="300px" class="mx-auto round" src="https://www.youtube.com/embed/fDqy5IbfWjQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
-    <iframe width="500px" height="300px" class="mx-auto round" src="https://www.youtube.com/embed/yv1IS5BhAqo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+  <v-layout row wrap class="mx-5 px-5 mb-0 pb-0 pt-2" justify-center>
+    <iframe width="500px" height="300px" class="mx-auto round mb-0 pb-0" src="https://www.youtube.com/embed/fDqy5IbfWjQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+    <iframe width="500px" height="300px" class="mx-auto round mb-0 pb-0" src="https://www.youtube.com/embed/yv1IS5BhAqo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
   </v-layout>
-  <v-layout row  width="100%">
-  <v-card color="#376092" class="mb-5 blueCut" width="90%"  height="500px">
+  <v-layout row  width="100%" class="mt-0 pt-0">
+  <v-card color="#376092" class="mb-5 blueCut mt-0 pt-0" width="90%"  height="500px">
 
   </v-card>
-    <v-card id="red" color="#ff0000" class="mb-5 redCut" width="60%" height="500px">
+    <v-card id="red" color="#ff0000" class="mb-5 redCut mt-0 pt-0" width="60%" height="500px">
 
   </v-card>
     
