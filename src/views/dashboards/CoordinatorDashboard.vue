@@ -356,6 +356,7 @@
       <v-icon>add</v-icon>
     </v-btn>
     <v-dialog
+    persistent
       v-model="dialog"
       width="800px"
     >
@@ -411,12 +412,64 @@
               />
             </v-flex>
             <v-flex xs12>
-              <v-text-field
-                prepend-icon="photo"
-              class="round"
-                placeholder="Screenshot (foto del inconveniente)."
-                type="file"
-              />
+              <v-layout row wrap>
+          <v-btn
+                    round
+                    class="ma-3"
+                    color="sign-up"
+                    @click="$refs.inputUpload.click()"
+                  >
+                    <v-icon small>
+                      photo
+                    </v-icon>Screenshot (foto del inconveniente)
+                  </v-btn>
+                  <input
+                    v-show="false"
+                    ref="inputUpload"
+                    type="file"
+                    @change="showPath"
+                    id="file"
+                    accept="image/x-png, image/gif, image/jpeg"
+                  >
+                  <v-card class="ma-auto" flat v-model="path">{{path}} </v-card>
+                
+              </v-layout>
+<!-- ================================== -->
+  <v-layout justify-center wrap row>
+          <!-- snackbar to notify completion starts -->
+          <v-snackbar
+            class="error"
+            v-model="snackbar"
+            color
+            multi-line
+            :timeout="6000"
+            top="top"
+          >
+            "Su  sugerencia ha sido enviada correctamente. Muchas gracias"
+            <v-btn
+              dark
+              text
+              @click="snackbar = false"
+            >
+              Close
+            </v-btn>
+          </v-snackbar>
+          <!-- snackbar to notify completion ends -->
+
+
+           <v-progress-circular
+            :rotate="-90"
+            :size="100"
+            :width="15"
+             v-model="progress"
+            reactive
+             v-if="progress>0"
+            color="#376092"
+          >
+      <strong>{{ Math.ceil(progress) }}%</strong>
+    </v-progress-circular>
+        </v-layout>
+<!-- ================================== -->
             </v-flex>
           </v-layout>
         </v-container>
@@ -434,7 +487,7 @@
           <v-btn
           round
             flat
-            @click="dialog = false"
+            @click="upload"
             class="sign-in"
           >
             Save
@@ -460,6 +513,7 @@ export default {
   data: () => {
     return {
       interval: {},
+      path:"",
       dialog: false,
       drawer: true,
       studentMenu: false,
@@ -467,6 +521,10 @@ export default {
       generalMenu: true,
       alert: true,
       announcement: true,
+       snackbar: false,
+      url: "",
+      initials: "",
+      progress: 0,
       now: moment().format('LLL'),
       announcementMessage: "",
       center: {
@@ -497,7 +555,38 @@ export default {
     };
   },
   methods: {
-
+    showPath(){
+    this.path = document.getElementById('file').value;
+    },
+    async upload(e) {
+      try {
+        // Create a root reference
+        const reference = await `${this.auth().currentUser.uid}/sugerencias/${
+          this.auth().currentUser.displayName
+        }`;
+        const ref = await this.storage().ref(reference);
+        // upload the photo
+        await ref.put(document.getElementById('file').files[0]).on("state_changed", async snapshot => {
+          //  make the progress element increment as data goes up
+          this.progress =
+            (await (snapshot.bytesTransferred / snapshot.totalBytes)) * 100;
+          //  display snackbar when upload is done
+          if (Math.ceil(this.progress) > 99) {
+            this.snackbar = true;
+            await this.storage()
+              .ref(reference)
+              .getDownloadURL()
+              .then(async url => {
+                this.url = await url;
+                // TODO UPLOAD THE DATA TO GOOGLE DRIVE
+              })
+              .catch(err => {
+                throw new Error(`there was an Error ${err}`);
+              });
+          }
+        });
+      } catch (error) {}
+    },
     closeStudent() {
       if (this.studentMenu) {
         this.studentMenu = !this.studentMenu;
@@ -516,7 +605,8 @@ export default {
       "auth",
       "validated",
       "servicios",
-      "solicitudes"
+      "solicitudes",
+      "storage"
     ])
   },
   beforeDestroy() {

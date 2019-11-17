@@ -65,7 +65,7 @@
             </v-avatar>
 
             <v-btn
-              small
+              round
               class="ma-3"
               color="sign-up"
               @click="$refs.inputUpload.click()"
@@ -167,8 +167,6 @@ export default {
   data() {
     return {
       profile: {},
-      sound: true,
-      widgets: false,
       dialog: false,
       dialog3: false,
       snackbar: false,
