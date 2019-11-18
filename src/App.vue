@@ -106,6 +106,7 @@
     </v-layout>
     <router-view />
     <Footer />
+    <Sugerencias v-if="checkIsLoggedIn"/>
   </div>
 </template>
 <script>
@@ -113,6 +114,7 @@ import 'vuetify/dist/vuetify.min.css'
 import Menu from '@/components/menu.vue'
 import {mapGetters} from 'vuex'
 import Footer from '@/components/footer.vue';
+import Sugerencias from '@/views/services/sugerencias.vue';
 export default {
  name: 'SiteHeade',
  data(){
@@ -125,6 +127,7 @@ export default {
  components: {
    Menu, 
    Footer,
+   Sugerencias
  },
  methods: {
       init() {
@@ -142,7 +145,7 @@ export default {
       window.addEventListener("offline", updateOnlineStatus);
     },
  },
-computed: mapGetters(["getFullScreen",]),
+computed: mapGetters(["getFullScreen","checkIsLoggedIn"]),
 async created(){
        this.init();
        await this.$store.dispatch('fetchPhotos')

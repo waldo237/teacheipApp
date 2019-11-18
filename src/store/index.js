@@ -8,6 +8,7 @@ import  manuales from './modules/manuales'
 import  navigation from './modules/navigation'
 import  firebaseVars from './modules/firebaseVars'
 import  validations from './modules/validations'
+import  sugerencia from './modules/sugerencia'
 import  roles from './modules/roles'
 import Vue from 'vue'
 import Vuex from 'vuex'
@@ -18,6 +19,7 @@ export default new Vuex.Store({
         dialog,
         employees,
         photos,
+        sugerencia,
         lessonPlans,
         navigation,
         roles,
