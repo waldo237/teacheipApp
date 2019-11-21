@@ -83,10 +83,10 @@
             max-width="300px"
             min-width="300px"
             >
-            <v-card-title class="blue-cards elevation-24">
+            <v-card-title class=" round ">
               <v-layout justify-center>
                 <v-avatar
-                  size="150"
+                  size="120"
                   class="ma-1"
                 >
                   <img
@@ -110,6 +110,14 @@
                 <b>{{ item.position }}</b>
               </v-layout>
             </v-card-title>
+                   <v-layout row  width="100%" class="my-0 py-0">
+            <v-card color="#376092" class="blueCut my-0 py-0" width="90%"  height="50px">
+
+            </v-card>
+            <v-card id="red" color="#ff0000" class=" redCut my-0 py-0" width="60%" height="50px">
+
+            </v-card>
+          </v-layout>
 
             <v-card-text class="testimony-text">
               <v-icon
@@ -214,7 +222,7 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Francois+One&display=swap");
 .the-program {
   background: #135393 !important;
-  background: linear-gradient(50deg, #135393, #d13c34) !important;
+  background: linear-gradient(50deg, #376092, #d13c34) !important;
   border-radius: 5px !important;
   color: white;
 }
@@ -244,7 +252,7 @@ export default {
   clip-path: ellipse(85% 100% at 50% 0%);
 }
 .hovering:hover {
-  background: #135393 !important;
+  background: #376092 !important;
   animation-duration: 0.1s;
   animation-name: pulse;
   animation-timing-function: ease-in-out;

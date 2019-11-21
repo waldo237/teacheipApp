@@ -1,30 +1,54 @@
 <template>
   <div>
-
-     <v-layout justify-center row wrap primary-title class="display-1 font-italic font-weight-black mt-5 pt-5 mx-4 px-1 ">
-      Lesson Plans
-    </v-layout> 
-    <!-- alternative circular loading starts -->
     <v-layout
+      justify-center
       row
       wrap
-      justify-center
-      v-if="stillLoading"
-      class="ma-5 pa-5"
+      primary-title
+      class="display-1 font-italic font-weight-black mt-5 pt-5 mx-4 px-1 "
     >
+      Lesson Plans
+    </v-layout>
+    <!-- alternative circular loading starts -->
+    <v-layout row wrap justify-center v-if="stillLoading" class="ma-5 pa-5">
       <loading />
     </v-layout>
     <!-- alternative circular loading endsd -->
-    <v-container
-      v-else
-      fluid
-      grid-list-md
-      class="py-5"
-    >
+    <v-container v-else fluid grid-list-md class="py-5">
+      <!-- new Lesson plan format start -->
+
+      <v-layout wrap justify-center class="py-0 my-0 elevation-5 round deepy" v-if="newPlan">
+        <v-card max-width="440px" justify-center flat class="deepy">
+          <v-layout row wrap justify-center>
+            <img
+              :src="frame(newFormat.id)"
+              :lazy-src="frame(newFormat.id)"
+              alt="New Lesson Plan Format"
+              class="round py-0 my-0 mx-auto"
+            />
+          </v-layout>
+          <span class="mx-auto">
+            This is the new lesson plan format to be used after january 2020
+          </span>
+          <v-card-actions class="mx-5 pt-0 mt-0">
+            <v-layout wrap justify-center>
+              <a :href="newFormat.link" target="blank" class="mx-2">
+                <v-icon color="#c6192a">open_in_new</v-icon
+                ><span> View online</span></a
+              >
+            </v-layout>
+          </v-card-actions>
+        </v-card>
+          <v-btn round icon  class="ma-0 pa-0" @click="newPlan=false">
+          <v-icon>close</v-icon>
+        </v-btn>
+      </v-layout>
+
+      <!-- new Lesson plan format ends -->
       <v-layout
         wrap
         class="mx-5 px-5 round"
-       justify-center
+        justify-center
         color="#c6192a lighten-5 "
       >
         <v-text-field
@@ -37,11 +61,7 @@
           v-model="searchTerms"
         />
       </v-layout>
-      <v-layout
-        wrap
-        class="mx-5 px-5 round"
-        align-content-center
-      >
+      <v-layout wrap class="mx-5 px-5 round" align-content-center>
         <v-overflow-btn
           class=" px-auto mx-5 grey lighten-5 round"
           :items="series"
@@ -73,12 +93,8 @@
           v-model="dropdownUnit"
         />
       </v-layout>
-        
-      <v-layout
-        wrap
-        class="mx-3 px-4"
-        justify-center
-      >
+
+      <v-layout wrap class="mx-3 px-4" justify-center>
         <v-card
           v-for="item in displayedLessonPlans"
           :key="item.download"
@@ -89,32 +105,36 @@
         >
           <v-card-title
             primary-title
-            
             class="subtitle-1 blue-cards font-weight-bold white--text"
           >
             Document Name: {{ item.parents }}
           </v-card-title>
           <v-card-text>
             <span class="font-weight-bold">Book Series </span> {{ item.Name }}
-            <br> <span class="font-weight-bold">Level: </span> {{ item.level }}
-            <br><span class="font-weight-bold">Type:</span> {{ item.Type }}
-            <br><span class="font-weight-bold">Size: </span>{{ item.Size }}
-            <br><span class="font-weight-bold">Last Updated: </span>{{ ago(item["Last Updated"]) }} 
-            <br><span class="font-weight-bold">Posted by: </span> {{ item.Owner }}
+            <br />
+            <span class="font-weight-bold">Level: </span> {{ item.level }}
+            <br /><span class="font-weight-bold">Type:</span> {{ item.Type }}
+            <br /><span class="font-weight-bold">Size: </span>{{ item.Size }}
+            <br /><span class="font-weight-bold">Last Updated: </span
+            >{{ ago(item["Last Updated"]) }} <br /><span
+              class="font-weight-bold"
+              >Posted by:
+            </span>
+            {{ item.Owner }}
           </v-card-text>
           <v-card-actions class="mx-5">
-            <a
-              :href="item.Link"
-              target="blank"
-            > <v-icon color="#c6192a">open_in_new</v-icon><span class="white--text"> View online</span></a>
-            <v-spacer /><a :href="item.download"> <span class="white--text"> download</span>  <v-icon color="#c6192a">get_app</v-icon></a> 
+            <a :href="item.Link" target="blank">
+              <v-icon color="#c6192a">open_in_new</v-icon
+              ><span class="white--text"> View online</span></a
+            >
+            <v-spacer /><a :href="item.download">
+              <span class="white--text"> download</span>
+              <v-icon color="#c6192a">get_app</v-icon></a
+            >
           </v-card-actions>
         </v-card>
       </v-layout>
-      <v-layout
-        align-center
-        class="mb-5 pb-5 mx-auto px-auto"
-      >
+      <v-layout align-center class="mb-5 pb-5 mx-auto px-auto">
         <v-pagination
           class="mx-auto px-auto"
           v-model="page"
@@ -129,47 +149,80 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import moment from 'moment';
-import loading from '@/components/loading.vue'
-import _ from 'lodash';
+import moment from "moment";
+import loading from "@/components/loading.vue";
+import _ from "lodash";
 
 export default {
-  components:{loading},
+  components: { loading },
   data: () => ({
-   
+    newFormat: {
+      id: "15fTIx93wAkKTC-HfLk9aDGqCEZ19Qb2zXtTwMOGIctU",
+      link:
+        "https://docs.google.com/document/d/15fTIx93wAkKTC-HfLk9aDGqCEZ19Qb2zXtTwMOGIctU/view?usp=drivesdk",
+      download:
+        "https://docs.google.com/uc?export=download&confirm=no_antivirus&id=15fTIx93wAkKTC-HfLk9aDGqCEZ19Qb2zXtTwMOGIctU"
+    },
     stillLoading: true,
+    newPlan:true,
     page: 1,
     perPage: 9,
     pages: [],
-    lPs:[],
-      searchTerms: "",
-      dropdownSeries: "",
-      dropdownLevel: "",
-      dropdownUnit: "",
-      filterDir: 'asc',
-      search:"",
-    
-      series: ["Interchange", "Double Click", "Passages", "World Link"],
-      level: ["Basic 1", "Basic 2", "Intermediate 1", "Intermediate 2", "Advanced 1"],
-      unit: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16'],
+    lPs: [],
+    searchTerms: "",
+    dropdownSeries: "",
+    dropdownLevel: "",
+    dropdownUnit: "",
+    filterDir: "asc",
+    search: "",
+
+    series: ["Interchange", "Double Click", "Passages", "World Link"],
+    level: [
+      "Basic 1",
+      "Basic 2",
+      "Intermediate 1",
+      "Intermediate 2",
+      "Advanced 1"
+    ],
+    unit: [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16"
+    ]
   }),
   computed: {
     ...mapGetters(["getLessonPlans"]),
-   
-     displayedLessonPlans () {
-       
+
+    displayedLessonPlans() {
       return this.paginate(this.lPs);
-     },
+    }
   },
   methods: {
-
+    frame(url) {
+      return `https://drive.google.com/thumbnail?authuser=0&sz=w180& z=h140&id=${url}`;
+    },
     ...mapActions(["fetchLessonPlans"]),
-    setReady(){
+    setReady() {
       this.stillLoading = false;
     },
-    ago(time){ return  moment(time,"YYYYMMDD").fromNow()},
+    ago(time) {
+      return moment(time, "YYYYMMDD").fromNow();
+    },
     // set the number of pages based on the result of the calculation
-    setPages () {
+    setPages() {
       let numberOfPages = Math.ceil(this.lPs.length / this.perPage);
       for (let index = 1; index <= numberOfPages; index++) {
         this.pages.push(index);
@@ -177,46 +230,53 @@ export default {
     },
     // calculate based on the lesson Plans and return
     // a copy with the narrowed search
-     paginate (lPs) {
+    paginate(lPs) {
       //  dropdowns
-     if (this.dropdownSeries || this.dropdownLevel || this.dropdownUnit) {
-           return this.lPs.filter(function(item) {
-           return (
-          (item.Name.toLowerCase().match(this.dropdownSeries.toLowerCase())) &&
-          (item.level.toLowerCase().match(this.dropdownLevel.toLowerCase())) &&
-          (item.parents.toLowerCase().match(this.dropdownUnit.toLowerCase()))
-        )
-      }.bind(this));
-     }
-    //  searching
-        if (this.searchTerms) {
-           return this.lPs.filter(function(item) {
-           return (
-          (item.Name.toLowerCase().match(this.searchTerms.toLowerCase())) ||
-          (item.level.toLowerCase().match(this.searchTerms.toLowerCase())) ||
-          (item.parents.toLowerCase().match(this.searchTerms.toLowerCase()))
-        )
-      }.bind(this));
-     }
-// pagination
+      if (this.dropdownSeries || this.dropdownLevel || this.dropdownUnit) {
+        return this.lPs.filter(
+          function(item) {
+            return (
+              item.Name.toLowerCase().match(
+                this.dropdownSeries.toLowerCase()
+              ) &&
+              item.level
+                .toLowerCase()
+                .match(this.dropdownLevel.toLowerCase()) &&
+              item.parents.toLowerCase().match(this.dropdownUnit.toLowerCase())
+            );
+          }.bind(this)
+        );
+      }
+      //  searching
+      if (this.searchTerms) {
+        return this.lPs.filter(
+          function(item) {
+            return (
+              item.Name.toLowerCase().match(this.searchTerms.toLowerCase()) ||
+              item.level.toLowerCase().match(this.searchTerms.toLowerCase()) ||
+              item.parents.toLowerCase().match(this.searchTerms.toLowerCase())
+            );
+          }.bind(this)
+        );
+      }
+      // pagination
       const page = this.page;
       const perPage = this.perPage;
-      let from = (page * perPage) - perPage;
-      let to = (page * perPage);
-      return  lPs.slice(from, to);
-     
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return lPs.slice(from, to);
     }
   },
-  watch:{
+  watch: {
     // check if the state of lPs changes to trigger function
-    lPs () {
+    lPs() {
       this.setPages();
       this.setReady();
     },
-    searchTerms(){
-      this.dropdownSeries = '';
-      this.dropdownLevel = '';
-      this.dropdownUnit = '';
+    searchTerms() {
+      this.dropdownSeries = "";
+      this.dropdownLevel = "";
+      this.dropdownUnit = "";
     }
   },
 
@@ -224,7 +284,16 @@ export default {
     await this.fetchLessonPlans();
     // set the value of local lPs
     this.lPs = this.getLessonPlans;
-   this.$store.commit("setFullScreen", false);
+    this.$store.commit("setFullScreen", false);
   }
 };
 </script>
+<style>
+.deepy {
+  background-image: radial-gradient(
+    circle 592px at 48.2% 50%,
+    rgba(255, 255, 249, 0.6) 0%,
+    rgb(140, 144, 151) 74.6%
+  );
+}
+</style>

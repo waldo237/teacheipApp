@@ -54,23 +54,24 @@
 
           <v-tab-item class="pb-5">
             <!-- SERVICIOS RECURSOS -->
-            <v-card hover exact dark class="round my-5">
+            <v-card hover exact dark class="rounding black my-5">
               <v-card-title class="mx-auto headline" dense>
                 <v-layout row wrap justify-center>
                   <v-icon>local_play</v-icon>SERVICIOS
                 </v-layout>
               </v-card-title>
-              <v-layout dark class="black round py-0 slidingMenu" wrap>
+              <v-layout class=" round py-0 slidingMenu background" wrap>
                 <v-card
-                  class="mx-auto my-2 black"
+                  class="ma-2  pa-0 rounding background"
                   v-for="(item, i) in servicios"
                   :key="i"
-                  min-width="380px"
+                  min-width="360px"
                 >
                   <v-btn
                     :to="item.link"
                     round
-                    class="elevation-20 elevation-12  sign-up my-0 ma-1"
+                    
+                    class=" sign-in ma-0 py-1"
                     block
                   >
                     <v-icon>{{ item.icon }}</v-icon>
@@ -84,7 +85,7 @@
 
           <v-tab-item class="pb-5">
             <!-- SOLICITUDES -->
-            <v-card hover exact dark class="round my-5">
+            <v-card hover exact dark class="rounding black my-5">
               <v-card-title class="mx-auto headline">
                 <v-layout row wrap justify-center>
                   <v-icon large>
@@ -94,17 +95,17 @@
               </v-card-title>
               <v-layout
                 dark
-                class="black round py-0 slidingMenu"
+                class="black round py-0 slidingMenu background"
                 wrap
                 justify-center
               >
                 <v-card
-                  min-width="380px"
-                  class="mx-auto ma-2 black round"
+                  min-width="360px"
+                  class="mx-auto ma-2 pa-0 black rounding background"
                   v-for="(item, i) in solicitudes"
                   :key="i"
                 >
-                  <v-btn round class=" sign-in my-0 ma-1" block>
+                  <v-btn round class=" sign-in my-0 ma-0 py-2" block>
                     <v-icon>{{ item.icon }}</v-icon>
                     {{ item.title }}
                   </v-btn>
@@ -126,7 +127,7 @@
                   "
                 >
                   <v-card
-                    class="px-auto pt-2 mt-1 mx-3 actionButton round"
+                    class="px-auto pt-2 mt-1 mx-3 actionButton rounding"
                     width="80px"
                     :dark="generalMenu ? true : false"
                   >
@@ -257,7 +258,7 @@
                 <v-card
                   dark
                   flat
-                  class="black pa-0 pa-0 round ma-0"
+                  class="black pa-0 pa-0 round ma-0 "
                   v-for="(item, i) in generalOptions"
                   :key="i"
                 >
@@ -413,5 +414,12 @@ export default {
     #2b32b2,
     #1488cc
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.background{
+   width:100%;
+    background: linear-gradient( rgba(0, 0, 0, 0.582), rgba(0, 0, 0, 0.575) ),  url(https://trainingindustry.com/content/uploads/2019/08/Upskilling-for-the-Future-of-Work-8.7.19.jpg);
+}
+.rounding{
+  border-radius: 30%
 }
 </style>

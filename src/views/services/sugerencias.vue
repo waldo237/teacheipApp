@@ -166,47 +166,63 @@ export default {
     },
     ...mapActions(["postSugerencia"]),
     async upload(e) {
-      try {
-        this.loading = true;
-        // Create a root reference
-        const reference = await `${this.auth().currentUser.uid}/sugerencias/${
-          this.auth().currentUser.displayName
-        }`;
-        const ref = await this.storage().ref(reference);
-        // upload the photo
-        await ref
-          .put(document.getElementById("file").files[0])
-          .on("state_changed", async snapshot => {
-            //  make the progress element increment as data goes up
-            this.progress =
-              (await (snapshot.bytesTransferred / snapshot.totalBytes)) * 100;
-            //  display snackbar when upload is done
-            if (Math.ceil(this.progress) > 99) {
-              await this.storage()
-                .ref(reference)
-                .getDownloadURL()
-                .then(url => {
-                  this.$store.commit("setSugerencia", {
-                    user: this.auth().currentUser.displayName,
-                    email: this.auth().currentUser.email,
-                    date: this.now,
-                    message: this.sugerenciasBody,
-                    photo: url
+      if (this.path == "") {
+        this.collector(this.path);
+      } else {
+        try {
+          this.loading = true;
+          // Create a root reference
+          const reference = await `${this.auth().currentUser.uid}/sugerencias/${
+            this.auth().currentUser.displayName
+          }`;
+          const ref = await this.storage().ref(reference);
+          // upload the photo
+          await ref
+            .put(document.getElementById("file").files[0])
+            .on("state_changed", async snapshot => {
+              //  make the progress element increment as data goes up
+              this.progress =
+                (await (snapshot.bytesTransferred / snapshot.totalBytes)) * 100;
+              //  display snackbar when upload is done
+              if (Math.ceil(this.progress) > 99) {
+                await this.storage()
+                  .ref(reference)
+                  .getDownloadURL()
+                  .then(url => {
+                    this.collector(url);
+                  })
+                  .catch(err => {
+                    throw new Error(`there was an Error ${err}`);
                   });
-                })
-                .then(() => {
-                  this.postSugerencia();
-                  this.snackbar = true;
-                  this.loading = false;
-                })
-                .then(() => {
-                  this.timeOut = setTimeout(this.reset, 6000);
-                })
-                .catch(err => {
-                  throw new Error(`there was an Error ${err}`);
-                });
-            }
-          });
+              }
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
+    async collector(url) {
+      if(url=="") this.loading = true;
+      try {
+        await this.$store
+          .commit("setSugerencia", {
+            user: this.auth().currentUser.displayName,
+            email: this.auth().currentUser.email,
+            date: this.now,
+            message: this.sugerenciasBody,
+            photo: url
+          })
+  
+            this.postSugerencia()
+          .then(() => {
+            this.snackbar = true;
+            this.loading = false;
+          })
+        .then(() => {
+          this.timeOut = setTimeout(this.reset, 6000);
+        }).catch(() => {
+          throw new Error(`there was an Error ${err}`);
+        });
       } catch (error) {
         console.log(error);
       }
