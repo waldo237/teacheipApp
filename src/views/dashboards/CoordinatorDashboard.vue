@@ -105,7 +105,7 @@
                   v-for="(item, i) in solicitudes"
                   :key="i"
                 >
-                  <v-btn round class=" sign-in my-0 ma-0 py-2" block>
+                  <v-btn  :to="item.link" round class=" sign-in my-0 ma-0 py-2" block>
                     <v-icon>{{ item.icon }}</v-icon>
                     {{ item.title }}
                   </v-btn>

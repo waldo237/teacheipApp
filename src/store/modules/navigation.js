@@ -122,7 +122,7 @@ const state = {
     ]
   },
   solicitudes: [
-    { title: "solicitar copias de examenes" },
+    { title: "solicitar copias de examenes", link: "/solicitarCopias" },
     { title: "solicitar permisos extensos" },
     { title: "solicitar materiales y mobiliarios" },
     { title: "solicitar libros" },
@@ -136,6 +136,7 @@ const state = {
     { title: "Dossier",link:"/dossier", icon: "collections_bookmark", color: "#c6192a" },
     { title: "Empleados en Centros", link: "/employees" },
     { title: "Calendario Academico", link: "/calendario"},
+    { title: "Evaluaciones Formativas", link: "/formative"},
     { title: "Resultados de Examen diagnostico" },
     { title: "Curriculum" },
     { title: "Exam blueprints" },

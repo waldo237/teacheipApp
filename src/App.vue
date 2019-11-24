@@ -6,7 +6,7 @@
     <!-- alerts online/offline -->
     <v-alert
       v-model="log"
-      class="connection-off mt-3"
+      class="connection-off sign-up mt-3"
     >
       <v-icon class="mr-2">
         signal_wifi_off
@@ -230,6 +230,6 @@ a{
   animation-name: bounceInDown;
   animation-timing-function: ease-in-out;
   display: block;
-  background-color: #ff0000 !important;
+  
 }
 </style>

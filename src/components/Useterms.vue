@@ -28,7 +28,7 @@
     Todos los contenidos, marcas, logos, dibujos, documentación, programas informáticos o cualquier otro elemento susceptible de protección por la legislación de propiedad intelectual o industrial, que sean accesibles en el Portal, corresponden exclusivamente al Mescyt o a sus legítimos titulares y quedan expresamente reservados todos los derechos sobre los mismos. Queda expresamente prohibida la creación de enlaces de hipertexto (links) a cualquier elemento integrante de las páginas web del Portal sin la autorización del Mescyt, siempre que no sean a una página web del Portal que no requiera identificación o autenticación para su acceso, o el mismo esté restringido.
     En cualquier caso, el Portal se reserva todos los derechos sobre los contenidos, información datos y servicios que ostente sobre los mismos. El Portal no concede ninguna licencia o autorización de uso al Usuario sobre sus contenidos, datos o servicios, distinta de la que expresamente se detalle en las presentes condiciones generales de uso del portal.
     Legislación aplicable, jurisdicción competente y notificaciones
-    Las presentes condiciones se rigen y se interpretan de acuerdo con las Leyes de República Dominicana. Para cualquier reclamación serán competentes los juzgados y tribunales de la República. Todas las notificaciones, requerimientos, peticiones y otras comunicaciones que el Usuario desee efectuar a la institución titular del Portal deberán realizarse por escrito y se entenderá que han sido correctamente realizadas cuando hayan sido recibidas en la siguiente dirección de correo: info@mescyt.gob.do.
+    Las presentes condiciones se rigen y se interpretan de acuerdo con las Leyes de República Dominicana. Para cualquier reclamación serán competentes los juzgados y tribunales de la República. Todas las notificaciones, requerimientos, peticiones y otras comunicaciones que el Usuario desee efectuar a la institución titular del Portal deberán realizarse por escrito y se entenderá que han sido correctamente realizadas cuando hayan sido recibidas en la siguiente dirección de correo: dleimmersion@gmail.com.
     <v-spacer />
     <span class="title">Política de privacidad</span>
     <v-spacer />
@@ -64,7 +64,7 @@
     Tener acceso a los datos relativos a su persona, su procedencia y destinatario, el propósito del almacenamiento y la individualización de las personas u organismos a los cuales sus datos se hayan transmitido.
     Solicitar se modifiquen sus datos personales cuando ellos no sean correctos o no están actualizados.
     Solicitar la eliminación o cancelación de los datos entregados cuando así lo desee, en tanto hayan dejado de ser necesarios o pertinentes para la finalidad para la cual hubieran sido recabados o registrados.
-    Para ejercer sus derechos, el Usuario podrá dirigirse al correo electrónico info@mescyt.gob.do indicando claramente su solicitud.
+    Para ejercer sus derechos, el Usuario podrá dirigirse al correo electrónico dleimmersion@gmail.com indicando claramente su solicitud.
     <v-spacer />
     <span class="title">Titularidad de derechos</span>
     <v-spacer />Pertenecen al Mescyt todos los derechos, incluidos los de propiedad intelectual, respecto de los contenidos, formularios o publicaciones de cualquier índole que aparezcan en el Portal y que hayan sido realizadas por funcionarios del Mescyt (y que de acuerdo con las leyes de República Dominicana, se encuentren en el dominio público).

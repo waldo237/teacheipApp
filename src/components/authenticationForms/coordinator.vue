@@ -111,7 +111,7 @@
                   label="Coordinator code"
                   autocomplete
                   required
-                  maxlength="15"
+                  maxlength="25"
                   prepend-icon="lock"
                   :append-icon="!showPassword ? 'visibility_off':'visibility'"
                   :type="showPassword ? 'text': 'password'"

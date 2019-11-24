@@ -19,6 +19,15 @@ const actions = {
         reject(console.log(`Could not connect because of internet is off ${error}`));      
       }
     })
+  },
+  async postSolicitud(){
+    return   new Promise(async(resolve, reject)=>{
+      try {
+          resolve("done") 
+      } catch (error) {
+        reject(console.log(`Could not connect because of internet is off ${error}`));      
+      }
+    })
   }
 };
 const mutations = {

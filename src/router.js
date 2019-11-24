@@ -82,6 +82,30 @@ let router = new Router({
         resquiresValidation: true
       }
     },
+    {
+      path: "/formative",
+      name: "formative",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/services/formative.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true
+      }
+    },
+    {
+      path: "/solicitarCopias",
+      name: "solicitarCopias",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/services/solicitarCopias.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true
+      }
+    },
     { 
       path: "/calendario",
       name: "calendario",
