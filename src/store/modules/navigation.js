@@ -123,7 +123,7 @@ const state = {
   },
   solicitudes: [
     { title: "solicitar copias de examenes", link: "/solicitarCopias" },
-    { title: "solicitar permisos extensos" },
+    { title: "solicitar permisos extensos", link: "solicitarPermiso" },
     { title: "solicitar materiales y mobiliarios" },
     { title: "solicitar libros" },
     { title: "solicitar carta para estudiante" },

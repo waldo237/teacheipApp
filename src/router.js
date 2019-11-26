@@ -106,6 +106,18 @@ let router = new Router({
         resquiresValidation: true
       }
     },
+    {
+      path: "/solicitarPermiso",
+      name: "solicitarPermiso",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/services/solicitarPermiso.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true
+      }
+    },
     { 
       path: "/calendario",
       name: "calendario",
