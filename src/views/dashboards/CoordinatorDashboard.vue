@@ -2,24 +2,36 @@
   <div width="100%">
     <!--############ CONTENT/ DASHBOARD ##############-->
     <!--############ ALERT ##############-->
-    <div>
+    <div class="my-2">
       <v-alert
         v-model="alert"
         border="left"
         close-text="Close Alert"
-        color="deep"
+        :color="(announcement)?'deep':'white'"
         dismissible
         class="mt-3 mb-0"
       >
-        <v-card
-          v-if="announcement"
-          color="deep  white--text"
-          class="fade ml-4"
-          flat
-          justify-center
-        >
-          {{ announcementMessage }}
-        </v-card>
+        <v-layout row wrap justify-center >
+     
+    <v-badge 
+    :color="(announcement)?'#c6192a':'deep'"
+    width="100%"
+    >
+      <template v-slot:badge >
+      <span style="font-size: 70%; font-weight: bold"> New</span>
+      </template>
+   <a :href="'https://drive.google.com/open?id=1MKFoq92IFERhrkfrUF_kYy7f13GkpgAD'" target="_blank">
+ 
+      <v-card class="pa-4 round mx-auto" round block rounded :color="(announcement)?'white':'#c6192a'"  :class="(announcement)?'black--text pr-4':'white--text '" > 
+          
+        Hola, {{this.auth().currentUser.displayName}}. Por favor descarga el PROPEDEUTICO. Aqui se descargan los documentos
+        
+        </v-card>  
+</a>
+ 
+      </v-badge>
+        <!-- NEWSSSSSSSSSSSSSSSSSS -->
+        </v-layout>
       </v-alert>
     </div>
 
@@ -30,17 +42,6 @@
       :class="!alert ? 'mt-0  my-4 pb-5' : ' mt-0  mb-5 pb-5'"
     >
       <v-card width="100%" class="elevation-24 " wrap>
-        <!-- <v-toolbar
-          flat
-          color="black-blue text-uppercase"
-          dark
-          dense
-          justify-center
-        >
-          <v-toolbar-title class="mx-auto">
-            {{ center.name }}
-          </v-toolbar-title>
-        </v-toolbar> -->
         <v-tabs vertical class="px-5" slider-color="#c6192a" light>
           <v-tab>
             <v-icon color="black">
@@ -366,13 +367,13 @@ export default {
   beforeDestroy() {
     clearInterval(this.interval);
   },
-  mounted() {
+ async mounted() {
     if (this.alert) {
       this.interval = setInterval(() => {
         this.announcement = !this.announcement;
       }, 3000);
     }
-    this.$store.commit("setCurrentRole", session.fetchRole());
+   await this.$store.commit("setCurrentRole", session.fetchRole());
     this.$store.commit("setLoggedIn", true);
   },
   created() {

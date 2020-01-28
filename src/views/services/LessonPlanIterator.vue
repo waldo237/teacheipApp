@@ -16,7 +16,7 @@
     <!-- alternative circular loading endsd -->
     <v-container v-else fluid grid-list-md class="py-5">
       <!-- new Lesson plan format start -->
-
+<!-- 
       <v-layout wrap justify-center class="py-0 my-0 elevation-5 round deepy" v-if="newPlan">
         <v-card max-width="440px" justify-center flat class="deepy">
           <v-layout row wrap justify-center>
@@ -42,7 +42,7 @@
           <v-btn round icon  class="ma-0 pa-0" @click="newPlan=false">
           <v-icon>close</v-icon>
         </v-btn>
-      </v-layout>
+      </v-layout> -->
 
       <!-- new Lesson plan format ends -->
       <v-layout
@@ -100,15 +100,29 @@
           :key="item.download"
           max-width="350px"
           min-width="350px"
-          dark
+          :dark="(is2020(item.LastUpdated)?false: true)"
           class="my-2 mx-auto elevation-10 round justify-center mx-1 elevation-24 grids mt-2 hovering"
+          :class="(is2020(item.LastUpdated)? 'turnwhite': '')"
         >
+
           <v-card-title
             primary-title
-            class="subtitle-1 blue-cards font-weight-bold white--text"
+            :class="(is2020(item.LastUpdated)?'subtitle-1 deep font-weight-bold white--text': 'subtitle-1 blue-cards font-weight-bold white--text')"
           >
-            Document Name: {{ item.parents }}
+
+         <v-badge 
+          color="#c6192a"
+          width="100%"
+          
+          >
+          <template v-slot:badge v-if="is2020(item.LastUpdated)">
+            <span style="font-size: 70%; font-weight: bold"> New</span>
+            </template>
+              <v-icon medium v-if="is2020(item.LastUpdated)">star</v-icon>
+          <span>{{ item.parents }}</span>
+         </v-badge>
           </v-card-title>
+
           <v-card-text>
             <span class="font-weight-bold">Book Series </span> {{ item.Name }}
             <br />
@@ -116,19 +130,19 @@
             <br /><span class="font-weight-bold">Type:</span> {{ item.Type }}
             <br /><span class="font-weight-bold">Size: </span>{{ item.Size }}
             <br /><span class="font-weight-bold">Last Updated: </span
-            >{{ ago(item["Last Updated"]) }} <br /><span
+            >{{ ago(item.LastUpdated) }} <br /><span
               class="font-weight-bold"
               >Posted by:
             </span>
             {{ item.Owner }}
           </v-card-text>
           <v-card-actions class="mx-5">
-            <a :href="item.Link" target="blank">
+            <a :href="item.Link" target="blank" >
               <v-icon color="#c6192a">open_in_new</v-icon
-              ><span class="white--text"> View online</span></a
+              ><span  :class="(is2020(item.LastUpdated))? 'black--text ':'white--text'"> View online</span></a
             >
             <v-spacer /><a :href="item.download">
-              <span class="white--text"> download</span>
+              <span  :class="(is2020(item.LastUpdated))? 'black--text':'white--text'" > download</span>
               <v-icon color="#c6192a">get_app</v-icon></a
             >
           </v-card-actions>
@@ -221,6 +235,9 @@ export default {
     ago(time) {
       return moment(time, "YYYYMMDD").fromNow();
     },
+    is2020(time){
+      return new Date(time).getFullYear() == 2020
+    },
     // set the number of pages based on the result of the calculation
     setPages() {
       let numberOfPages = Math.ceil(this.lPs.length / this.perPage);
@@ -295,5 +312,21 @@ export default {
     rgba(255, 255, 249, 0.6) 0%,
     rgb(140, 144, 151) 74.6%
   );
+}
+.turnwhite:hover{
+  color: white;
+}
+.deep {
+  background: #1488cc; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #2b32b2,
+    #1488cc
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #2b32b2,
+    #1488cc
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 </style>

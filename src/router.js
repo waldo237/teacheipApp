@@ -30,8 +30,8 @@ let router = new Router({
           /* webpackChunkName: "about" */ "./views/services/LessonPlanIterator.vue"
         ),
       meta: {
-        requiresAuth: true,
-        resquiresValidation: true
+        // requiresAuth: true,
+        // resquiresValidation: true
       }
     },
     {

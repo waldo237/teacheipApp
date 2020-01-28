@@ -1,9 +1,9 @@
 <template>
 <div>
 
-  <div class="home mb-2 pb-0">
+  <div class="home mb-2 pb-0 ">
     <!-- carousel starts -->
-    <Carousel />
+    <Carousel class="mb-0 mt-5"/>
     <!-- carousel ends -->
 
     <v-layout

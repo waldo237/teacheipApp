@@ -16,7 +16,7 @@
       color="blue"
     >
       <!-- form starts -->
-      <v-form v-model="valid">
+      <v-form >
         <v-card
           color="grey lighten-2"
           class="mb-12"
@@ -71,7 +71,7 @@
 
     <v-stepper-content step="2">
       <!-- form starts -->
-      <v-form v-model="valid">
+      <v-form >
         <v-card
           color="grey lighten-2"
           class="mb-12"
@@ -83,8 +83,10 @@
                 xs12
                 md4
               >
+              <v-form >
                 <v-text-field
                   v-model="cCode"
+                  autocomplete
                   label="C-secret code"
                   required
                   maxlength="8"
@@ -93,6 +95,7 @@
                   :type="showPassword ? 'text': 'password'"
                   @click:append="showPassword =!showPassword"
                 />
+                </v-form >
               </v-flex>
             </v-layout>
           </v-container>
@@ -120,7 +123,6 @@
 export default {
   data() {
     return {
-      valid: false,
       cedulaRules: [],
       cedula: "",
       cCode: "",

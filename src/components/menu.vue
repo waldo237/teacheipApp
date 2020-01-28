@@ -8,8 +8,8 @@
         v-model="drawer"
         disable-resize-watcher
       >
-        <supervisorsideMenu v-if="getSupervisorSideMenu" />
-        <coordinatorsideMenu v-else-if="getCoordinatorSideMenu" />
+        <supervisorsideMenu v-if="turnOnSideMenu == 'supervisor'" />
+        <coordinatorsideMenu v-else-if="turnOnSideMenu == 'coordinator'" />
       </v-navigation-drawer>
     </div>
 
@@ -19,11 +19,11 @@
     <v-toolbar
       app
       style="background-color:white"
-      dense
+      
     >
       <!--  sandwich menu for side bar/menu-->
       <v-toolbar-side-icon
-        large
+        x-large
         class="px-4 py-2"
         @click.stop="drawer = !drawer"
         v-if="checkIsLoggedIn"
@@ -88,15 +88,7 @@
         >
           SIGN IN
         </v-btn>
-        <v-btn
-          @click="toggleSI"
-          class="sign-in"
-          v-if="!checkIsLoggedIn "
-        >
-              SIGN WITH <v-icon color="white" class="ml-1">email</v-icon>
-
-        </v-btn>
-
+      
         <!-- profile avatar starts -->
         <v-btn
           depressed
@@ -124,8 +116,8 @@
       <!-- expanded navigation bar ends-->
       <!--  minimized menu starts-->
       <v-toolbar-side-icon
-        large
-        class="hidden-md-and-up px-4 py-2"
+        x-large
+        class="hidden-md-and-up ml-2  px-4 py-2"
         slot
         @click="sandwich = true"
       />
@@ -197,19 +189,12 @@
         >
           <span class="mx-auto">SIGN IN</span>
         </v-list-tile>
-        <v-list-tile
-          @click="toggleSI"
-          class="sign-in"
-          v-if="!checkIsLoggedIn "
-        >
-          <span class="mx-auto my-2">SIGN WITH <v-icon color="white" >email</v-icon></span>
-        </v-list-tile>
       </v-list>
       <!--  minimized menu ends-->
-      <v-list-tile>
+      <v-list-tile  v-if="profileModel">
         <profile
           class="profile"
-          v-if="profileModel"
+         
           v-on-clickaway="closeProfile"
          @closeProfile="closeProfile"
 
@@ -281,33 +266,11 @@ export default {
       });
     },
     async turnOnSideMenu() {
-      
-      switch (this.getCurrentRole) {
-        // change hand coded
-        case "teacher":
-          this.$store.commit("setTeacherSideMenu", !this.getTeacherSideMenu);
-          break;
-        case "coordinator":
-          this.$store.commit(
-            "setCoordinatorSideMenu",
-            !this.getCoordinatorSideMenu
-          );
-          break;
-        case "supervisor":
-          this.$store.commit(
-            "setSupervisorSideMenu",
-            !this.getSupervisorSideMenu
-          );
-          break;
-        case "manager":
-          this.$store.commit("setManagerSideMenu", !this.getManagerSideMenu);
-          break;
-      }
+     return session.fetchRole();
+     
     },
      rolePath() {
      if(this.getCurrentRole== ""){
-        //  if (this.$route.path !="/loggedOut" ) this.$router.push(`/loggedOut`)
-        
           this.auth()
         .signOut()
         .then(async () => {
@@ -318,7 +281,7 @@ export default {
         })
         .catch((error)=>{console.log(`there was an issue logging out:${error}`)});
      }else{
-      if (this.$route.path !=`/${this.getCurrentRole}Dashboard` ) this.$router.push(`/${this.getCurrentRole}Dashboard`);
+      if (this.$route.path !=`/${session.fetchRole()}Dashboard` ) this.$router.push(`/${session.fetchRole()}Dashboard`);
     }
     },
     ...mapActions(["toggleSI", "toggleSU", "runAlert", "validateToken"])
@@ -339,20 +302,22 @@ export default {
       "checkIsLoggedIn",
       "getNavigation",
       "getCurrentRole",
-      "getTeacherSideMenu",
-      "getCoordinatorSideMenu",
-      "getSupervisorSideMenu",
-      "getManagerSideMenu",
-      "auth"
+      // "getTeacherSideMenu",
+      // "getCoordinatorSideMenu",
+      // "getSupervisorSideMenu",
+      // "getManagerSideMenu",
+      "auth",
+      "validated"
     ])
   },
 
-
-  async created() {
-  if(this.auth().currentUser) {
+beforeMount(){
+    if(this.auth().currentUser && session.fetchRole()) {
       this.$store.commit("setLoggedIn", true);
-     await this.turnOnSideMenu();
+      this.turnOnSideMenu();
     }
+},
+   created() {
     this.onResize();
   }
 };

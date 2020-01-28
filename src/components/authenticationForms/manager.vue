@@ -16,7 +16,7 @@
       color="blue"
     >
       <!-- form starts -->
-      <v-form v-model="valid">
+      <v-form >
         <v-card
           color="grey lighten-2"
           class="mb-12"
@@ -70,7 +70,7 @@
     </v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
-      <v-form v-model="valid">
+      <v-form >
         <v-card
           color="grey lighten-2"
           class="mb-12"
@@ -82,9 +82,11 @@
                 xs12
                 md4
               >
+              <v-form >
                 <v-text-field 
                   name="employeeId"
                   id="employeeId"
+                  autocomplete
                   prepend-icon="lock"
                   :append-icon="!showPassword ? 'visibility_off':'visibility'"
                   :type="showPassword ? 'text': 'password'"
@@ -94,6 +96,7 @@
                   required
                   maxlength="8"
                 />
+                </v-form >
               </v-flex>
             </v-layout>
           </v-container>
@@ -124,7 +127,7 @@
     </v-stepper-step>
     <v-stepper-content step="3">
       <!-- form starts -->
-      <v-form v-model="valid">
+      <v-form >
         <v-card
           color="grey lighten-2"
           class="mb-12"
@@ -138,6 +141,7 @@
               >
                 <v-text-field
                   prepend-icon="lock"
+                  autocomplete
                   :append-icon="!showPassword2 ? 'visibility_off':'visibility'"
                   :type="showPassword2 ? 'text': 'password'"
                   @click:append="showPassword2 =!showPassword2"
@@ -173,7 +177,6 @@
 export default {
   data() {
     return {
-      valid: false,
       cedulaRules: [],
       cedula: "",
       employeeCode: "",

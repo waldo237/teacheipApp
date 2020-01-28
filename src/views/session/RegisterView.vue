@@ -2,7 +2,7 @@
   <v-layout>
     <v-dialog max-width="465px" v-model="getSUDialog" persistent class="round">
       <v-form>
-        <v-card max-width="465px" color="#135393"  class="round">
+        <v-card max-width="465px" color="#135393" class="round">
           <v-layout justify-center>
             <v-toolbar dense class="elevation-24 ">
               <v-toolbar-title class="logo">
@@ -24,7 +24,7 @@
               :loading="loading"
             >
               <img
-                src="https://drive.google.com/uc?export=view&id=19gqsAvafJBgOeXJn4pqooOTuGWpwponA"
+                :src="googleImg()"
                 width="25px"
                 class="mr-2"
                 alt
@@ -34,10 +34,9 @@
               @click.prevent="facebook"
               round
               class="pa-0 px-2 font-weight-bold elevation-24"
-              
             >
               <img
-                src="https://drive.google.com/uc?export=view&id=1Mf_ItAgwI2lI34L9cNZpEOqMrmJ4qsJ-"
+                :src="facebookImg()"
                 width="27px"
                 class="mr-2 elevation-10"
                 alt
@@ -46,9 +45,13 @@
             </v-btn>
           </v-layout>
           <v-layout class="pt-4 px-1" justify-center wrap>
-            <v-btn @click.prevent="microsoft" class="font-weight-bold elevation-24 " round>
+            <v-btn
+              @click.prevent="microsoft"
+              class="font-weight-bold elevation-24 "
+              round
+            >
               <img
-                src="https://drive.google.com/uc?export=view&id=1Okh6YMoL8jfAcXXFj8ybedJGv-mdHGTE"
+                :src="microsoftImg()"
                 width="25px"
                 class="mr-2"
                 alt
@@ -99,99 +102,49 @@ export default {
       }
     }
   }),
+
   methods: {
-    async microsoft() {
-      await this.auth()
-        .signInWithPopup(this.providerMicrosoft)
-          .then(async (result)=> {
-          try {
-            const token = result.credential.accessToken;
-            const user = result.user;
-              await this.toggleSU();
-            if(this.auth().currentUser) this.$store.commit("setLoggedIn", true);
-           
-             await this.validateToken();
-            if (this.validated.authenticated) {
-              await (this.$route.path !=`/coordinatorDashboard/`)? this.$router.push(`/coordinatorDashboard/`): "";
-            } else {
-              await this.$store.commit("setLanding", true);
-              await this.$router.push(`/landing/`);
-            }
-            
-            console.log("everything went well")
-          } catch (error) {
-             console.log(`there was an error: ${error}`)
-          }
-        })
-        .catch(function(error) {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          const email = error.email;
-          const credential = error.credential;
-        });
+    async signInWithPopup(result) {
+      try {
+        this.toggleSU();
+        await this.validateToken();
+        if (this.validated.authenticated) {
+          if (this.auth().currentUser) this.$store.commit("setLoggedIn", true);
+          await this.$router.push(`/coordinatorDashboard`);
+        } else {
+          await this.$store.commit("setLanding", true);
+          await this.$router.push(`/landing/`);
+        }
+      } catch (error) {
+        throw new Error(error);
+      }
     },
-    async facebook() {
-      await this.auth()
-        .signInWithPopup(this.FacebookAuthProvider)
-          .then(async (result)=> {
-          try {
-            const token = result.credential.accessToken;
-            const user = result.user;
-              await this.toggleSU();
-            if(this.auth().currentUser) this.$store.commit("setLoggedIn", true);
-           
-             await this.validateToken();
-            if (this.validated.authenticated) {
-              await this.$router.push(`/coordinatorDashboard/`);
-            } else {
-              await this.$store.commit("setLanding", true);
-              await this.$router.push(`/landing/`);
-            }
-            
-            console.log("everything went well")
-          } catch (error) {
-             console.log(`there was an error: ${error}`)
-          }
-        })
-        .catch(function(error) {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          const email = error.email;
-          const credential = error.credential;
-          console.log(`there was an error: ${error}`)
-        });
+     googleImg(){
+      return "https://drive.google.com/uc?export=view&id=19gqsAvafJBgOeXJn4pqooOTuGWpwponA"
     },
- google() {
+     facebookImg(){
+      return "https://drive.google.com/uc?export=view&id=1Mf_ItAgwI2lI34L9cNZpEOqMrmJ4qsJ-"
+    },
+     microsoftImg(){
+      return "https://drive.google.com/uc?export=view&id=1Okh6YMoL8jfAcXXFj8ybedJGv-mdHGTE"
+    },
+    microsoft() {
        this.auth()
+        .signInWithPopup(this.providerMicrosoft)
+        .then(this.signInWithPopup)
+        .catch(function(error) {/* console.log(`there was an error: ${error}`)*/});
+    },
+    facebook() {
+       this.auth()
+       .signInWithPopup(this.FacebookAuthProvider)
+        .then(this.signInWithPopup)
+        .catch(function(error) {/* console.log(`there was an error: ${error}`)*/});
+    },
+    google() {
+      this.auth()
         .signInWithPopup(this.GoogleAuthProvider)
-        .then(async (result)=> {
-          try {
-            const token = result.credential.accessToken;
-            const user = result.user;
-              await this.toggleSU();
-            if(this.auth().currentUser) this.$store.commit("setLoggedIn", true);
-           
-             await this.validateToken();
-            if (this.validated.authenticated) {
-              await this.$router.push(`/coordinatorDashboard`);
-            } else {
-              await this.$store.commit("setLanding", true);
-              await this.$router.push(`/landing/`);
-            }
-            
-            console.log("everything went well")
-          } catch (error) {
-             console.log(`there was an error: ${error}`)
-          }
-        })
-        .catch(function(error) {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          const email = error.email;
-          const credential = error.credential;
-          console.log(`there was an error: ${error}`)
-        });
-     
+        .then(this.signInWithPopup)
+        .catch(function(error) {/* console.log(`there was an error: ${error}`)*/});
     },
     showAlert(message, icon, classy) {
       this.$store.commit("setAlertType", { icon: icon, class: classy });
@@ -211,5 +164,3 @@ export default {
   ])
 };
 </script>
-
-

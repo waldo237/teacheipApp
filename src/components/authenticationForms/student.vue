@@ -28,6 +28,7 @@
                 xs12
                 md4
               >
+              
                 <v-text-field
                   v-model="cedula"
                   :rules="cedulaRules"

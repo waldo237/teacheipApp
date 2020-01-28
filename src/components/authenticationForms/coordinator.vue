@@ -16,7 +16,7 @@
       color="blue"
     >
       <!-- form starts -->
-      <v-form v-model="valid" @submit="false">
+      <v-form >
         <v-alert
           outline
           rounded
@@ -83,7 +83,7 @@
     </v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
-      <v-card v-model="valid" @submit="false">
+      <v-card >
         <v-alert
           outline
           rounded
@@ -106,11 +106,12 @@
                 xs12
                 md4
               >
+                <v-form >
                 <v-text-field
                   v-model="cCode"
                   label="Coordinator code"
-                  autocomplete
                   required
+                  autocomplete
                   maxlength="25"
                   prepend-icon="lock"
                   :append-icon="!showPassword ? 'visibility_off':'visibility'"
@@ -118,6 +119,7 @@
                   @click:append="showPassword =!showPassword"
                   @keydown.enter="verifycCode"
                 />
+                  </v-form >
               </v-flex>
             </v-layout>
           </v-container>
@@ -149,7 +151,6 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      valid: false,
       cedulaRules: [],
       cedula: "",
       cCode: "",
