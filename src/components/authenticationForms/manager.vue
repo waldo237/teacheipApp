@@ -16,7 +16,7 @@
       color="blue"
     >
       <!-- form starts -->
-      <v-form >
+      <v-form  @submit.prevent>
         <v-card
           color="grey lighten-2"
           class="mb-12"
@@ -70,7 +70,7 @@
     </v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
-      <v-form >
+      <v-form  @submit.prevent>
         <v-card
           color="grey lighten-2"
           class="mb-12"
@@ -82,7 +82,6 @@
                 xs12
                 md4
               >
-              <v-form >
                 <v-text-field 
                   name="employeeId"
                   id="employeeId"
@@ -96,7 +95,6 @@
                   required
                   maxlength="8"
                 />
-                </v-form >
               </v-flex>
             </v-layout>
           </v-container>
@@ -127,7 +125,7 @@
     </v-stepper-step>
     <v-stepper-content step="3">
       <!-- form starts -->
-      <v-form >
+      <v-form  @submit.prevent>
         <v-card
           color="grey lighten-2"
           class="mb-12"

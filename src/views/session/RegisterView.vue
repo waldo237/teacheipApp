@@ -61,6 +61,8 @@
         </v-card>
       </v-form>
     </v-dialog>
+        <LoadingFull/>
+
   </v-layout>
 </template>
 <style>
@@ -71,7 +73,9 @@
 
 <script>
 import Policy from "@/components/Useterms.vue";
+import LoadingFull from "@/components/loadingFull.vue";
 import { mapGetters, mapActions } from "vuex";
+import {fetchRole} from "@/store/modules/session.js";
 import Vue from "vue";
 
 import { async } from "q";
@@ -81,7 +85,8 @@ export default {
     validator: "new"
   },
   components: {
-    Policy
+    Policy,
+    LoadingFull
   },
   data: () => ({
     positions: [
@@ -110,7 +115,7 @@ export default {
         await this.validateToken();
         if (this.validated.authenticated) {
           if (this.auth().currentUser) this.$store.commit("setLoggedIn", true);
-          await this.$router.push(`/coordinatorDashboard`);
+          await this.$router.push(`/${fetchRole()}Dashboard`);
         } else {
           await this.$store.commit("setLanding", true);
           await this.$router.push(`/landing/`);

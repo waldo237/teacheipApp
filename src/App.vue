@@ -26,8 +26,8 @@
 
   
       <!-- .header-wrapper -->
-      <Menu />       
-      <!-- .menu-wrapper -->
+      <NavBar />       
+      <!-- .navbar-wrapper -->
     <router-view />
     <Footer />
     <Sugerencias v-if="checkIsLoggedIn"/>
@@ -35,7 +35,7 @@
 </template>
 <script>
 import 'vuetify/dist/vuetify.min.css'
-import Menu from '@/components/menu.vue'
+import NavBar from '@/components/navigationBar/navBar.vue'
 import {mapGetters} from 'vuex'
 import Footer from '@/components/footer.vue';
 import Sugerencias from '@/views/services/sugerencias.vue';
@@ -49,7 +49,7 @@ export default {
    }
  },
  components: {
-   Menu, 
+   NavBar, 
    Footer,
    Sugerencias
  },

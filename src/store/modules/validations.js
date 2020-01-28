@@ -34,8 +34,8 @@ const actions = {
         }&&id=${state.id}&&code=${state.code}`
       );
       const d = new Date();
-      // set token for 15 days
-      d.setTime(d.getTime() + 15 * 24 * 60 * 60 * 1000);
+      // set token for 30 days
+      d.setTime(d.getTime() + 30 * 24 * 60 * 60 * 1000);
       const expires = `expires=${d.toUTCString()}`;
       document.cookie = `sessionToken=${response.data.token};${expires};path=/`;
       document.cookie = `sessionRole=${response.data.role};${expires};path=/`;

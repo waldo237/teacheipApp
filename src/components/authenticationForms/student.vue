@@ -16,7 +16,7 @@
       color="blue"
     >
       <!-- form starts -->
-      <v-form v-model="valid">
+      <v-form v-model="valid"  @submit.prevent>
         <v-card
           color="grey lighten-2"
           class="mb-12"

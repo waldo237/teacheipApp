@@ -20,7 +20,7 @@
         <br />
         <v-layout row wrap justify-end>
         <q class="my-1 white--text"
-          ><small>Janine Sepulveda</small></q>
+          ><small>(Janine Sepulveda, 2019)</small></q>
             
         </v-layout>
       </blockquote>

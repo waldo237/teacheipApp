@@ -106,7 +106,7 @@
                 xs12
                 md4
               >
-                <v-form >
+                <v-form  @submit.prevent>
                 <v-text-field
                   v-model="cCode"
                   label="Coordinator code"

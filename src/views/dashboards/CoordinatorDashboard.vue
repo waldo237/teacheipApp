@@ -2,14 +2,14 @@
   <div width="100%">
     <!--############ CONTENT/ DASHBOARD ##############-->
     <!--############ ALERT ##############-->
-    <div class="my-2">
+    <div class="my-2 pt-2">
       <v-alert
         v-model="alert"
         border="left"
         close-text="Close Alert"
         :color="(announcement)?'deep':'white'"
         dismissible
-        class="mt-3 mb-0"
+        class="mt-5 mb-0"
       >
         <v-layout row wrap justify-center >
      
@@ -27,7 +27,7 @@
         Hola, {{this.auth().currentUser.displayName}}. Por favor descarga el PROPEDEUTICO. Aqui se descargan los documentos
         
         </v-card>  
-</a>
+        </a>
  
       </v-badge>
         <!-- NEWSSSSSSSSSSSSSSSSSS -->
