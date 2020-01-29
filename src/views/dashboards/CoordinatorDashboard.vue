@@ -361,7 +361,6 @@ export default {
       "validated",
       "servicios",
       "solicitudes",
-      "storage"
     ])
   },
   beforeDestroy() {
@@ -380,7 +379,7 @@ export default {
     this.announcementMessage = `Hola, ${
       this.auth().currentUser.displayName
     }. Nos place compartir con ustedes que comenzaremos las clases el dia 13 de Enero 2020`;
-    this.$store.commit("setFullScreen", false);
+
   }
 };
 </script>

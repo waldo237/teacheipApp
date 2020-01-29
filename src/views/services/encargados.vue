@@ -25,10 +25,10 @@
           </v-layout>
         </v-card-title>
           <v-layout row  width="100%" class="my-0 py-0">
-            <v-card color="#376092" class="blueCut my-0 py-0" width="90%"  height="50px">
+            <v-card color="#376092" class="blueCutSmall my-0 py-0" width="90%"  height="50px">
 
             </v-card>
-            <v-card id="red" color="#ff0000" class=" redCut my-0 py-0" width="60%" height="50px">
+            <v-card id="red" color="#ff0000" class=" redCutSmall my-0 py-0" width="60%" height="50px">
 
             </v-card>
           </v-layout>
@@ -70,7 +70,6 @@ export default {
   async created() {
     await this.fetchEncargados();
     this.getEncargados;
-    this.$store.commit("setFullScreen", false);
   }
 };
 </script>

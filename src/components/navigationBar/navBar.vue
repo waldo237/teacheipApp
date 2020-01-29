@@ -21,14 +21,18 @@
 
       <!-- logo starts -->
       <div class="logo-text">
+        <v-btn href="/" flat large round class="px-0 my-0 font-weight-bold title">
         <span class="teach">Teach</span>
-        <span class="acronym">EIP</span>
-        <span class="full-title mt-1">
-          <img
+        <span class="acronym font-weight-light">EIP</span>
+
+        </v-btn>
+        <span class="full-title mt-0">
+          with The English Immersion Program
+          <!-- <img
             src="https://drive.google.com/uc?export=view&id=19PR4dusrh30pW5aIrX4OL5RXybYfzK0T"
             lazy-src="https://drive.google.com/uc?export=view&id=19PR4dusrh30pW5aIrX4OL5RXybYfzK0T"
             alt="mescyt"
-          />with The English Immersion Program
+          /> -->
         </span>
       </div>
       <!-- logo ends -->
@@ -230,9 +234,7 @@ export default {
 .full-title {
   display: none;
 }
-.full-title img {
-  width: 55px;
-}
+
 .acronym {
   color: #c6192a;
   font-family: inherit;
@@ -272,9 +274,9 @@ export default {
   .logo-text:hover .teach {
     font-size: 70%;
   }
-  .logo-text:hover img {
+  /* .logo-text:hover img {
     height: 50px;
     width: 50px;
-  }
+  } */
 }
 </style>

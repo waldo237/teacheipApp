@@ -152,7 +152,7 @@ export default {
     await this.fetchDossier();
     // set the value of local lPs
     this.lPs = this.getDossier;
-    this.$store.commit("setFullScreen", false);
+    
   }
 };
 </script>

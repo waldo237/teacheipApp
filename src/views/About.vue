@@ -1,66 +1,64 @@
 <template>
-<div>
-  <v-layout
-    id="inspire"
-    row
-    justify-center
-   >
-    <div class="px-5  content mb-0 pb-0">
-      <div class="elevation-24 mx-5  mt-5 mb-0 pb-0 round">
-        <v-layout justify-space-around class=" mb-0 pb-0">
-          <v-flex xs10 class=" mb-0 pb-0">
-            <v-card
-              flat
-              column
-              class="round  mb-0 pb-0"
-            >
-              <v-img
-                :src="gify"
-                alt="We bring change!"
-                :lazy-src="gify"
-                
-                id="we-bring-change"
-                class="grey lighten-2 mx-auto mt-3 "
-                max-width="580"
-              />
-            </v-card>
-          </v-flex>
-        </v-layout>
+  <div>
+    <v-layout id="inspire" row justify-center class="mt-4">
+      <div class="px-5  content mb-0 pb-0">
+        <div class="elevation-24 mx-5  mt-5 mb-0 pb-0 round">
+          <v-layout justify-space-around class=" mb-0 pb-0">
+            <v-flex xs10 class=" mb-0 pb-0">
+              <v-card flat column class="round  mb-0 pb-0">
+                <v-img
+                  :src="gify"
+                  alt="We bring change!"
+                  :lazy-src="gify"
+                  id="we-bring-change"
+                  class="grey lighten-2 mx-auto mt-3 "
+                  max-width="580"
+                />
+              </v-card>
+            </v-flex>
+          </v-layout>
 
-        <v-card
-          flat
-          xs8
-          class="pa-4 big-words  sign-in white--text text-justify  pb-0"
-        >
-          The English Immersion Program has had an
-          exponential
-          growth since its creation in 2004. It operates nationwide even in very remote areas. This platform allows
-          Administrators and teachers to find resources and share ideas. Thus, it helps us maintain consistency, and
-          standardization.
-        </v-card>
+          <v-card
+            flat
+
+            class="pa-4 big-words  sign-in white--text text-justify  pb-0"
+          >
+            The English Immersion Program has had an exponential growth since
+            its creation in 2004. It operates nationwide even in very remote
+            areas. This platform allows Administrators and teachers to find
+            resources and share ideas. Thus, it helps us maintain consistency,
+            and standardization.
+          </v-card>
+        </div>
       </div>
-    </div>
-  </v-layout>
-  <v-layout row  width="100%" class="mt-0 pt-0">
-  <v-card color="#376092" class="mb-5 blueCut mt-0 pt-0" width="90%"  height="500px">
-
-  </v-card>
-    <v-card id="red" color="#ff0000" class="mb-5 redCut mt-0 pt-0" width="60%" height="500px">
-
-  </v-card>
-    
-  </v-layout>
-</div>
-
+    </v-layout>
+    <v-layout row width="100%" class="mt-0 pt-0">
+      <v-card
+        color="#376092"
+        class="mb-5 blueCut mt-0 pt-0"
+        width="90%"
+        height="500px"
+      >
+      </v-card>
+      <v-card
+        id="red"
+        color="#ff0000"
+        class="mb-5 redCut mt-0 pt-0"
+        width="60%"
+        height="500px"
+      >
+      </v-card>
+    </v-layout>
+  </div>
 </template>
 <script>
-
 export default {
-data(){
-  return{
-    gify: "https://drive.google.com/uc?export=edit&id=15f32pnOCMq0pq_pjOl5Z_NN1MXcb8rDT",
+  data() {
+    return {
+      gify:
+        "https://drive.google.com/uc?export=edit&id=15f32pnOCMq0pq_pjOl5Z_NN1MXcb8rDT"
+    };
   }
-},
 };
 </script>
 <style scoped>

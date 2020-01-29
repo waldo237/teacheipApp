@@ -60,13 +60,12 @@ export default {
         }
     }, 
     methods:{
-      doIt(){ console.log(`you're loggedout`);}
+      
     },
     computed:{
       ...mapGetters(["auth"])
     },
     async created() {
-     this.$store.commit('setFullScreen',false);
     
        this.auth()
         .signOut()
@@ -76,7 +75,10 @@ export default {
           await this.$store.commit('setAlert', false)
          
         })
-        .catch((error)=>{console.log(`there was an issue logging out:${error}`)});
+        .catch((error)=>{
+          console.log(`there was an issue logging out`)
+          // console.log(`there was an issue logging out:${error}`)
+          });
   },
  
 }

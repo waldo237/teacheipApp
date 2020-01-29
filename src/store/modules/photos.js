@@ -1,42 +1,23 @@
-import axios from 'axios'
-// import * as firebase from 'firebase/app';
-// const storage = firebase.storage();
-// var starsRef = storage.ref('testimony1.jpg');
-
-// // Get the download URL
-// starsRef.getDownloadURL().then(function(url) {
-//   console.log(url);
-// }).catch(function(error){});
-
+import {storage}  from 'firebase/app';
 const state = {
-    photos: {},
-    carousel1: 'https://drive.google.com/uc?export=edit&id=1l3O9eBNhPeZesBnsWiwMGKzvi3LzC6f7'
-}
+    tesPhotos: [],
+    photoURl:{}
+};
 const getters = {
-    response: (state) =>state.photos,
-    carousel1: (state)=>state.carousel1,
+    tesPhotos: (state) => state.tesPhotos,
+    photoURl: (state) => state.providerMicrosoft,
 };
 const actions = {
-   
-    async fetchPhotos({commit}){
-        try {
-
-            const response = await
-           axios.get('https://script.google.com/macros/s/AKfycbwEXo9SpHW39uvEp1ixLxEfXibNzWnGdn5_cgvSWbdXtd49f4s/exec');
-              await  commit('setPhotos', response.data);  
-            return response.data
-        } catch (error) {
-            console.log('Could not connect because of internet is off');        
-        }
+    async FetchPhoto(){
+        return await storage().ref(state.photoURl.photo).getDownloadURL()
     }
 };
 const mutations = {
-    
-    setPhotos: (state, value) =>(state.photos = value),
-   
+    setTesPhotos: (state, value) => (state.tesPhotos = value),
+    setPhotoURl:(state,value)=>(state.photoURl = value),
 };
 
-export default{
+export default {
     state,
     getters,
     actions,

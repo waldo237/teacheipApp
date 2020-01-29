@@ -61,7 +61,6 @@ export default {
         }
     }, 
     async created() {
-     this.$store.commit('setFullScreen',false);
      
   },
  

@@ -119,7 +119,6 @@ export default {
   },
   created: function() {
     this.fetchEmployees();
-    this.$store.commit("setFullScreen", false);
   }
 };
 </script>

@@ -24,7 +24,6 @@ const getters = {
     getLanding: (state) =>state.landing,
     isAlert: (state) =>state.alert,
     getYes:(state) => state.yes,
-    getFullScreen:(state) => state.fullScreen,
 };
 const actions = {
     async runAlert({commit}, message){
@@ -49,7 +48,6 @@ const actions = {
     }
 };
 const mutations = {
-    setFullScreen: (state, value) =>(state.fullScreen = value),
     setLanding: (state, value) =>(state.landing = value),
     setLoggedIn: (state, value) =>(state.isLoggedIn = value),
     setSUDialog: (state, value) =>(state.SUDialog = value),

@@ -150,7 +150,6 @@ export default {
     await this.fetchManuales();
     // set the value of local lPs
     this.lPs = this.getManuales;
-    this.$store.commit("setFullScreen", false);
   }
 };
 </script>

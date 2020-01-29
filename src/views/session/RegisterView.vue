@@ -61,7 +61,7 @@
         </v-card>
       </v-form>
     </v-dialog>
-        <LoadingFull/>
+        <LoadingFull  :loadingFull="loadingFull"/>
 
   </v-layout>
 </template>
@@ -99,6 +99,7 @@ export default {
     policy: false,
     position: false,
     name: "",
+    loadingFull: false,
     loading: false,
     dictionary: {
       attributes: {
@@ -115,8 +116,10 @@ export default {
         await this.validateToken();
         if (this.validated.authenticated) {
           if (this.auth().currentUser) this.$store.commit("setLoggedIn", true);
+          this.loadingFull= false;
           await this.$router.push(`/${fetchRole()}Dashboard`);
         } else {
+          this.loadingFull= false;
           await this.$store.commit("setLanding", true);
           await this.$router.push(`/landing/`);
         }
@@ -134,18 +137,21 @@ export default {
       return "https://drive.google.com/uc?export=view&id=1Okh6YMoL8jfAcXXFj8ybedJGv-mdHGTE"
     },
     microsoft() {
+      this.loadingFull= true;
        this.auth()
         .signInWithPopup(this.providerMicrosoft)
         .then(this.signInWithPopup)
         .catch(function(error) {/* console.log(`there was an error: ${error}`)*/});
     },
     facebook() {
+      this.loadingFull= true;
        this.auth()
        .signInWithPopup(this.FacebookAuthProvider)
         .then(this.signInWithPopup)
         .catch(function(error) {/* console.log(`there was an error: ${error}`)*/});
     },
     google() {
+      this.loadingFull= true;
       this.auth()
         .signInWithPopup(this.GoogleAuthProvider)
         .then(this.signInWithPopup)

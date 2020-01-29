@@ -301,7 +301,6 @@ export default {
     await this.fetchLessonPlans();
     // set the value of local lPs
     this.lPs = this.getLessonPlans;
-    this.$store.commit("setFullScreen", false);
   }
 };
 </script>

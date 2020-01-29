@@ -24,6 +24,7 @@ height: 80%;}
 
 <script>
 import { mapGetters } from 'vuex'
+import axios from 'axios';
 export default {
   name: "Carousel",
   data () {

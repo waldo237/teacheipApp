@@ -17,6 +17,17 @@
     >
       <!-- form starts -->
       <v-form v-model="valid"  @submit.prevent>
+                 <v-alert
+          outline
+          rounded
+          class="round jump"
+          color="#c6192a"
+          type="error"
+          v-model="alert"
+        >
+          We are really sorry. This part of the website is currently under construction.
+          Please visit us later or consult the administrator for solutions.
+        </v-alert>
         <v-card
           color="grey lighten-2"
           class="mb-12"
@@ -73,7 +84,8 @@ export default {
       cedulaRules: [],
       cedula: "",
       checkID: false,
-      e6: 1
+      e6: 1,
+      alert: true
     };
   },
   methods: {

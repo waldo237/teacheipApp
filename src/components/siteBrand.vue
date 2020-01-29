@@ -6,7 +6,6 @@
       >
      
      <v-flex
-        v-if="getFullScreen"
         xl6
         lg6
         md8

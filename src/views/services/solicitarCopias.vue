@@ -286,7 +286,6 @@ export default {
     }
   },
   created() {
-    this.$store.commit("setFullScreen", false);
   },
   beforeDestroy() {
     clearInterval(this.timeOut);
