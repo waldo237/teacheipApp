@@ -10,7 +10,8 @@ const state = {
     interact: false,
     yes: false,
     landing: true,
-    fullScreen: true,
+    loadingFull: false,
+    feeds:false,
 
 };
 const getters = {
@@ -24,6 +25,9 @@ const getters = {
     getLanding: (state) =>state.landing,
     isAlert: (state) =>state.alert,
     getYes:(state) => state.yes,
+    loadingFull:(state) => state.loadingFull,
+    feeds:(state) => state.feeds,
+    
 };
 const actions = {
     async runAlert({commit}, message){
@@ -58,6 +62,8 @@ const mutations = {
     setEditProfile:  (state, value) =>(state.editProfile = value),
     setInteract:  (state, value) =>(state.interact = value),
     setYes:  (state, value) =>(state.interact = value),
+    setLoadingFull:  (state, value) =>(state.loadingFull = value),
+    setFeeds:  (state, value) =>(state.feeds = value),
 };
 
 export default{

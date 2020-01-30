@@ -51,8 +51,9 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
-  props:['loadingFull'],
+
   data() {
     return {
       interval: {},
@@ -69,11 +70,14 @@ export default {
       return "https://drive.google.com/uc?export=view&id=1Bmch-kZsXPbvpAw25c0Lo9sQ3IwiahGC";
     },
     goBack(){
-        this.loadingFull  = false;
-    }
+        this.$store.commit('setLoadingFull', false);
+    },
+    
   },
+
   watch:{
       loadingFull(){
+        this.$parent = 0;
       if(this.loadingFull==true){
               this.interval = setInterval(() => {
                 if (this.percent === 100) {
@@ -94,6 +98,9 @@ export default {
       }      
      },
   },
+  computed:{
+    ...mapGetters(['loadingFull'])
+},
   beforeDestroy() {
     clearInterval(this.interval);
     clearTimeout(this.timeOut);

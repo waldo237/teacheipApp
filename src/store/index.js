@@ -10,6 +10,7 @@ import  firebaseVars from './modules/firebaseVars'
 import  validations from './modules/validations'
 import  sugerencia from './modules/sugerencia'
 import  roles from './modules/roles'
+import  feeds from './modules/feed'
 import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex);
@@ -28,5 +29,6 @@ export default new Vuex.Store({
         dossier,
         manuales,
         photos,
+        feeds,
     }
 })

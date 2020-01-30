@@ -22,6 +22,29 @@
           </v-avatar>
         </v-btn>
       </v-list-tile>
+
+     <!-- notification starts -->
+      <v-list-tile
+       tag="v-btn"
+       flat
+        style="background-color:white"
+     @click="$store.commit('setFeeds', true);hideMenu()" v-if="checkIsLoggedIn">
+        
+         <v-badge 
+          color="#c6192a"
+          width="100%"
+          overlap
+          >
+          <template v-slot:badge >
+            <span style="font-size: 70%; font-weight: bold"> 2</span>
+            </template>
+              <v-icon size="30" >fas fa-bell</v-icon>
+
+         </v-badge>
+        
+      </v-list-tile>
+      <!-- notification ends -->
+
       <v-list-tile
         class="black-blue"
         dark
@@ -49,6 +72,7 @@
       >
         <span class="mx-auto">{{ item.title }}</span>
       </v-list-tile>
+    
       <v-list-tile @click="toggleSU" class="sign-up " v-if="!checkIsLoggedIn">
         <span class="mx-auto">SIGN IN</span>
       </v-list-tile>
@@ -57,10 +81,10 @@
 </template>
 
 <script>
-import { directive as onClickaway } from "vue-clickaway";
 import { mapActions, mapGetters } from "vuex";
+import { directive as onClickaway } from "vue-clickaway";
 export default {
-  directives: {
+    directives: {
     onClickaway: onClickaway
   },
   props: ["sandwich"],

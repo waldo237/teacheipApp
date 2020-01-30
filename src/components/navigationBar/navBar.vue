@@ -9,7 +9,7 @@
     </div>
     <!-- side menu ends -->
     <!-- complete navigation starts -->
-    <v-toolbar app style="background-color:white">
+    <v-toolbar app style="background-color:white" class="py-0" dense>
       <!--  sandwich menu for side bar/menu-->
       <v-toolbar-side-icon
         x-large
@@ -28,11 +28,7 @@
         </v-btn>
         <span class="full-title mt-0">
           with The English Immersion Program
-          <!-- <img
-            src="https://drive.google.com/uc?export=view&id=19PR4dusrh30pW5aIrX4OL5RXybYfzK0T"
-            lazy-src="https://drive.google.com/uc?export=view&id=19PR4dusrh30pW5aIrX4OL5RXybYfzK0T"
-            alt="mescyt"
-          /> -->
+          
         </span>
       </div>
       <!-- logo ends -->
@@ -68,6 +64,8 @@
         />
       </v-list-tile>
       <!-- profile insertion ends-->
+
+
     </v-toolbar>
     <!-- complete navigation ends -->
     <!-- communication dialogs -->
@@ -102,7 +100,8 @@ export default {
     alerting,
     profile,
     supervisorsideMenu,
-    coordinatorsideMenu
+    coordinatorsideMenu,
+    
   },
   directives: {
     onClickaway: onClickaway

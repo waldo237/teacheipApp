@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout id="inspire" row justify-center class="mt-4">
+    <v-layout id="inspire" row justify-center class="mt-3">
       <div class="px-5  content mb-0 pb-0">
         <div class="elevation-24 mx-5  mt-5 mb-0 pb-0 round">
           <v-layout justify-space-around class=" mb-0 pb-0">

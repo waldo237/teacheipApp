@@ -8,7 +8,9 @@
         <v-icon class="mr-2">check_circle_outline </v-icon>Back online!
       </v-alert>
     <!-- alerts online/offline ends-->
-
+      <!-- feeds start -->
+      <feeds/>
+      <!-- feeds end -->
     <NavBar />
       <router-view />
     <Footer />
@@ -22,6 +24,7 @@ import NavBar from "@/components/navigationBar/navBar.vue";
 import { mapGetters } from "vuex";
 import Footer from "@/components/footer.vue";
 import Sugerencias from "@/views/services/sugerencias.vue";
+import feeds from "@/components/feeds.vue";
 export default {
   name: "SiteHeade",
   data() {
@@ -34,7 +37,8 @@ export default {
   components: {
     NavBar,
     Footer,
-    Sugerencias
+    Sugerencias,
+    feeds
   },
   methods: {
     init() {

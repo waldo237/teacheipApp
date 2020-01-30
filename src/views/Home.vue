@@ -35,7 +35,7 @@
             >
               <v-card-title
                 primary-title
-                class="justify-center the-program elevation-12 title py-2"
+                class="justify-center the-program elevation-12 title py-2 cardTitle"
               >
                 {{ item.title }}
               </v-card-title>
@@ -57,7 +57,7 @@
           <v-layout justify-center wrap>
             <v-card
               dark
-              v-for="(item, i) in testimonies"
+              v-for="(item) in tesPhotos"
               :key="item.name"
               class="justify-center ma-3 elevation-12 grids hovering"
               raised
@@ -67,7 +67,7 @@
               <v-card-title class=" round ">
                 <v-layout justify-center>
                   <v-avatar size="120" class="ma-1">
-                    <v-img :src="returnRef(item.photo)" alt="testimony" />
+                    <v-img :src="item.url" alt="testimony" />
                   </v-avatar>
                 </v-layout>
                 <v-layout justify-center class="testimony-text px-5">
@@ -166,6 +166,7 @@ export default {
   },
   data() {
     return {
+      tesPhotos: [],
       principles: [
         {
           title: "History of the Program",
@@ -208,39 +209,32 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["FetchPhoto"]),
-    returnRef(photo) {
-      try {
-        let res = "";
-        this.tesPhotos.map(item => {
-          if (item.photo == photo) res = item.url;
-        });
-        return res;
-      } catch (error) {
-      }
+    ...mapActions([ "initializeFetch"]),
+    // returnRef(photo) {
+    //   try {
+    //     let res = "";
+    //     this.tesPhotos.map(item => {
+    //       if (item.photo == photo) res = item.url;
+    //     });
+    //     return res;
+    //   } catch (error) {
+    //   }
+    // },
     },
-    async initializeFetch() {
-      if(this.tesPhotos.length == 0){
-        this.testimonies.forEach(async item => {
-          let tempObject = {};
-          tempObject.photo = item.photo;
-          this.$store.commit("setPhotoURl", tempObject);
-          tempObject.url = await this.FetchPhoto();
-          this.tesPhotos.push(tempObject);
-        });
-      }
-    }
-  },
   computed: {
-    ...mapGetters(["storage", "tesPhotos"])
+    ...mapGetters(["storage"])
   },
-  created() {
-    this.initializeFetch();
+ async created() {
+   
+   if(this.tesPhotos.length == 0){
+     this.$store.commit('setArrayObjsWPhotos', this.testimonies);
+     this.tesPhotos = await this.initializeFetch();
+   } 
   }
 };
 </script>
 <style>
-@import url("https://fonts.googleapis.com/css?family=Francois+One&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
 .the-program {
   background: #135393 !important;
   background: linear-gradient(50deg, #376092, #d13c34) !important;
@@ -251,13 +245,16 @@ export default {
   border-radius: 8px !important;
 }
 .main-title {
-  font-family: "Francois One", serif !important;
+  font-family: "Bebas Neue", serif !important;
   /* font-style: italic !important; */
   color: #135393;
 }
 .testimony-text {
   font-style: italic !important;
   text-align: justify !important;
+}
+.cardTitle{
+  font-family: "Bebas Neue", serif !important;
 }
 .flip {
   transform: rotate(180deg) scaleX(1) !important;

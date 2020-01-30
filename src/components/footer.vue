@@ -22,7 +22,7 @@
     </v-dialog>
     <!--  the policy dialogue ends-->
     <v-footer>
-      <v-card flat tile width="100%" class="white--text px-5" color="#376092">
+      <v-card flat tile width="100%" class="white--text px-5 bordered pt-3" color="#376092">
         <!-- social media starts -->
           <v-layout row wrap justify-center class=" py-0 my-0 white--text ">
             <span class="subtitle-1 credits">
@@ -123,7 +123,7 @@
               href="https://www.linkedin.com/in/waldo-milanes-26a60410a/"
               target="_blank"
               flat
-              class="black white--text mx-1 px-3 credits elevation-24"
+              class="black white--text mx-1 px-3 credits elevation-5"
             >
               developed and donated by Waldo Milanes<span class="mb-3"
                 >&reg;</span
@@ -161,6 +161,11 @@ export default {
 };
 </script>
 <style>
+.bordered{
+  border-top: 2px solid !important;
+  
+  border-color: black !important;
+}
 @media screen and (max-width: 960px) {
   .credits {
     font-size: 85% !important;

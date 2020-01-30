@@ -31,6 +31,23 @@
           SIGN IN
         </v-btn>
 
+      <!-- notification starts -->
+      <v-btn v-if="checkIsLoggedIn" color="white" @click="$store.commit('setFeeds', true)"> 
+        
+         <v-badge 
+          color="#c6192a"
+          width="100%"
+          overlap
+          >
+          <template v-slot:badge >
+            <span style="font-size: 70%; font-weight: bold"> 2</span>
+            </template>
+              <v-icon size="30" >fas fa-bell</v-icon>
+
+         </v-badge>
+        
+         </v-btn>
+      <!-- notification ends -->
         <!-- profile avatar starts -->
         <v-btn
           depressed
@@ -54,12 +71,9 @@
       </v-toolbar-items>
 </template>
 <script>
-import { directive as onClickaway } from "vue-clickaway";
 import { mapActions, mapGetters } from "vuex";
 export default {
-  directives: {
-    onClickaway: onClickaway
-  },
+  
   props: ["sandwich"],
   data() {
     return {

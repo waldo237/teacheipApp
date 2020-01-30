@@ -1,25 +1,46 @@
-import {storage}  from 'firebase/app';
+import { storage } from "firebase/app";
 const state = {
-    tesPhotos: [],
-    photoURl:{}
+  photoURl: {},
+  arrayObjsWPhotos: []
 };
 const getters = {
-    tesPhotos: (state) => state.tesPhotos,
-    photoURl: (state) => state.providerMicrosoft,
+  photoURl: state => state.photoURl, 
+  arrayObjsWPhotos:  state => state.arrayObjsWPhotos
 };
 const actions = {
-    async FetchPhoto(){
-        return await storage().ref(state.photoURl.photo).getDownloadURL()
-    }
+
+  async fetchPhoto() {
+    return await storage()
+      .ref(state.photoURl.photo)
+      .getDownloadURL();
+  },
+
+  /**
+   * @function initializeFetch(objsArray) Fetches an array of photos to plug into a component.
+   * it uses the data state.arrayObjsWPhotos and actions.fetchPhoto  as dependencies.
+   * @return a promise with a new array of objects with property {photo: ref, url: photourl}
+   */
+  async initializeFetch() {
+    const newArrayObjs = [];
+    state.arrayObjsWPhotos.forEach(async item => {
+      let tempObject = {};
+      tempObject = item;
+      state.photoURl = tempObject;
+      tempObject.url = await actions.fetchPhoto(item.photo);
+      newArrayObjs.push(tempObject);
+    });
+    return newArrayObjs;
+  }
+
 };
 const mutations = {
-    setTesPhotos: (state, value) => (state.tesPhotos = value),
-    setPhotoURl:(state,value)=>(state.photoURl = value),
+  setPhotoURl: (state, value) => (state.photoURl = value),
+  setArrayObjsWPhotos: (state, value) => (state.arrayObjsWPhotos = value)
 };
 
 export default {
-    state,
-    getters,
-    actions,
-    mutations
-}
+  state,
+  getters,
+  actions,
+  mutations
+};
