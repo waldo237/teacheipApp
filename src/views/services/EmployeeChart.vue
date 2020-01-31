@@ -2,7 +2,13 @@
  
 <template>
   <div class="my-5 py-5">
-     <v-layout justify-center row wrap primary-title class="display-1 font-italic font-weight-black mx-4 px-1 ">
+    <v-layout
+      justify-center
+      row
+      wrap
+      primary-title
+       class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 "
+    >
       Maestros y Coordinadores
     </v-layout> 
     <v-layout
@@ -14,7 +20,7 @@
     >
       <loading />
     </v-layout>
-    <div v-else>
+    <div v-else class="mb-5 pb-5">
       <v-text-field
         v-model="search"
         append-icon="search"
@@ -27,7 +33,6 @@
       <v-layout
         justify-center
         persistent
-        
       >
         <v-data-table
           style="width: 98%"

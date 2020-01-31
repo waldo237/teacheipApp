@@ -4,44 +4,53 @@
       class="minimized elevation-24 round"
       v-if="sandwich"
       v-on-clickaway="hideMenu"
-     >
+    >
       <v-list-tile
         @click="$emit('toggleProfile')"
         v-if="checkIsLoggedIn"
         class="pb-1 white"
       >
-        <v-btn depressed fab class="avatar-button mx-auto my-0 pt-0">
+        <v-btn
+          depressed
+          fab
+          class="avatar-button mx-auto my-0 pt-0"
+        >
           <v-avatar v-if="auth().currentUser.photoURL">
             <img
               :src="auth().currentUser.photoURL"
               :alt="auth().currentUser.displayName"
-            />
+            >
           </v-avatar>
-          <v-avatar :color="colorize" v-else>
+          <v-avatar
+            :color="colorize"
+            v-else
+          >
             <span class="white--text headline">{{ initialize }}</span>
           </v-avatar>
         </v-btn>
       </v-list-tile>
 
-     <!-- notification starts -->
+      <!-- notification starts -->
       <v-list-tile
-       tag="v-btn"
-       flat
+        tag="v-btn"
+        flat
         style="background-color:white"
-     @click="$store.commit('setNotiFeeds', true);hideMenu()" v-if="checkIsLoggedIn">
-        
-         <v-badge 
+        @click="$store.commit('setNotiFeeds', true);hideMenu()"
+        v-if="checkIsLoggedIn"
+      >
+        <v-badge 
           color="#c6192a"
           width="100%"
           overlap
-          >
-          <template v-slot:badge v-if="!alreadyRead">
-            <span style="font-size: 70%; font-weight: bold">{{ feedNum}}</span>
-            </template>
-              <v-icon size="25" >fas fa-bell</v-icon>
-
-         </v-badge>
-        
+          v-model="tem"
+        >
+          <template v-slot:badge>
+            <span style="font-size: 70%; font-weight: bold">{{ feedNum }}</span>
+          </template>
+          <v-icon size="25">
+            fas fa-bell
+          </v-icon>
+        </v-badge>
       </v-list-tile>
       <!-- notification ends -->
 
@@ -53,8 +62,16 @@
         @mouseenter="tip = true"
         @mouseleave="tip = false"
       >
-        <v-layout row wrap justify-center class="white--text">
-          <v-icon color="white" class="mr-0">
+        <v-layout
+          row
+          wrap
+          justify-center
+          class="white--text"
+        >
+          <v-icon
+            color="white"
+            class="mr-0"
+          >
             dashboard
           </v-icon>
           <span v-if="tip">
@@ -73,7 +90,11 @@
         <span class="mx-auto">{{ item.title }}</span>
       </v-list-tile>
     
-      <v-list-tile @click="toggleSU" class="sign-up " v-if="!checkIsLoggedIn">
+      <v-list-tile
+        @click="toggleSU"
+        class="sign-up "
+        v-if="!checkIsLoggedIn"
+      >
         <span class="mx-auto">SIGN IN</span>
       </v-list-tile>
     </v-list>
@@ -91,8 +112,8 @@ export default {
   data() {
     return {
         tip: false,
-        alreadyRead: false,
-        feedNum: 0
+        feedNum: 0,
+        tem: false,
     };
   },
   methods: {
@@ -100,7 +121,7 @@ export default {
     hideMenu(){this.$emit('hideMenu')},
   },
   computed: {
-    ...mapGetters(["checkIsLoggedIn", "getNavigation", "auth", "feeds"]),
+    ...mapGetters(["checkIsLoggedIn", "getNavigation", "auth", "feeds","haveNotRead"]),
     initialize() {
       return this.auth()
         .currentUser.displayName.split(" ")
@@ -110,15 +131,16 @@ export default {
     }
   },
   watch:{
-    feeds(){
 
-    }
   },
  async created(){
    this.$store.commit("setCUEmail", this.auth().currentUser.email);
     await this.$store.dispatch('fetchFeeds');
-    this.alreadyRead = await this.feeds[0].alreadyRead;
-    this.feedNum = this.feeds.length;
+    this.feedNum =  this.feeds.length;
+     this.tem = !this.haveNotRead
+      this.$root.$on('removeBadget', ()=>{
+       this.tem = false;
+     })
   }
 };
 </script>

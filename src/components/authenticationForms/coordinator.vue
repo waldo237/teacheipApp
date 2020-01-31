@@ -16,7 +16,7 @@
       color="blue"
     >
       <!-- form starts -->
-      <v-form >
+      <v-form>
         <v-alert
           outline
           rounded
@@ -59,7 +59,6 @@
           :disabled="checkID"
           :loading="loading1"
           @click="verifyID"
-          
         >
           verify
         </v-btn>
@@ -83,7 +82,7 @@
     </v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
-      <v-card >
+      <v-card>
         <v-alert
           outline
           rounded
@@ -106,20 +105,20 @@
                 xs12
                 md4
               >
-                <v-form  @submit.prevent>
-                <v-text-field
-                  v-model="cCode"
-                  label="Coordinator code"
-                  required
-                  autocomplete
-                  maxlength="25"
-                  prepend-icon="lock"
-                  :append-icon="!showPassword ? 'visibility_off':'visibility'"
-                  :type="showPassword ? 'text': 'password'"
-                  @click:append="showPassword =!showPassword"
-                  @keydown.enter="verifycCode"
-                />
-                  </v-form >
+                <v-form @submit.prevent>
+                  <v-text-field
+                    v-model="cCode"
+                    label="Coordinator code"
+                    required
+                    autocomplete
+                    maxlength="25"
+                    prepend-icon="lock"
+                    :append-icon="!showPassword ? 'visibility_off':'visibility'"
+                    :type="showPassword ? 'text': 'password'"
+                    @click:append="showPassword =!showPassword"
+                    @keydown.enter="verifycCode"
+                  />
+                </v-form>
               </v-flex>
             </v-layout>
           </v-container>

@@ -16,8 +16,11 @@
       color="blue"
     >
       <!-- form starts -->
-      <v-form v-model="valid"  @submit.prevent>
-                 <v-alert
+      <v-form
+        v-model="valid"
+        @submit.prevent
+      >
+        <v-alert
           outline
           rounded
           class="round jump"
@@ -39,7 +42,6 @@
                 xs12
                 md4
               >
-              
                 <v-text-field
                   v-model="cedula"
                   :rules="cedulaRules"

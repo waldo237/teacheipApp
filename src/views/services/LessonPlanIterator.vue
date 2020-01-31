@@ -5,18 +5,29 @@
       row
       wrap
       primary-title
-      class="display-1 font-italic font-weight-black mt-5 pt-5 mx-4 px-1 "
+      class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 "
     >
       Lesson Plans
     </v-layout>
     <!-- alternative circular loading starts -->
-    <v-layout row wrap justify-center v-if="stillLoading" class="ma-5 pa-5">
+    <v-layout
+      row
+      wrap
+      justify-center
+      v-if="stillLoading"
+      class="ma-5 pa-5"
+    >
       <loading />
     </v-layout>
     <!-- alternative circular loading endsd -->
-    <v-container v-else fluid grid-list-md class="py-5">
+    <v-container
+      v-else
+      fluid
+      grid-list-md
+      class="py-5"
+    >
       <!-- new Lesson plan format start -->
-<!-- 
+      <!-- 
       <v-layout wrap justify-center class="py-0 my-0 elevation-5 round deepy" v-if="newPlan">
         <v-card max-width="440px" justify-center flat class="deepy">
           <v-layout row wrap justify-center>
@@ -61,7 +72,11 @@
           v-model="searchTerms"
         />
       </v-layout>
-      <v-layout wrap class="mx-5 px-5 round" align-content-center>
+      <v-layout
+        wrap
+        class="mx-5 px-5 round"
+        align-content-center
+      >
         <v-overflow-btn
           class=" px-auto mx-5 grey lighten-5 round"
           :items="series"
@@ -94,7 +109,11 @@
         />
       </v-layout>
 
-      <v-layout wrap class="mx-3 px-4" justify-center>
+      <v-layout
+        wrap
+        class="mx-3 px-4"
+        justify-center
+      >
         <v-card
           v-for="item in displayedLessonPlans"
           :key="item.download"
@@ -104,51 +123,58 @@
           class="my-2 mx-auto elevation-10 round justify-center mx-1 elevation-24 grids mt-2 hovering"
           :class="(is2020(item.LastUpdated)? 'turnwhite': '')"
         >
-
           <v-card-title
             primary-title
             :class="(is2020(item.LastUpdated)?'subtitle-1 deep font-weight-bold white--text': 'subtitle-1 blue-cards font-weight-bold white--text')"
           >
-
-         <v-badge 
-          color="#c6192a"
-          width="100%"
-          
-          >
-          <template v-slot:badge v-if="is2020(item.LastUpdated)">
-            <span style="font-size: 70%; font-weight: bold"> New</span>
-            </template>
-              <v-icon medium v-if="is2020(item.LastUpdated)">star</v-icon>
-          <span>{{ item.parents }}</span>
-         </v-badge>
+            <v-badge 
+              color="#c6192a"
+              width="100%"
+            >
+              <template
+                v-slot:badge
+                v-if="is2020(item.LastUpdated)"
+              >
+                <span style="font-size: 70%; font-weight: bold"> New</span>
+              </template>
+              <v-icon
+                medium
+                v-if="is2020(item.LastUpdated)"
+              >
+                star
+              </v-icon>
+              <span>{{ item.parents }}</span>
+            </v-badge>
           </v-card-title>
 
           <v-card-text>
             <span class="font-weight-bold">Book Series </span> {{ item.Name }}
-            <br />
+            <br>
             <span class="font-weight-bold">Level: </span> {{ item.level }}
-            <br /><span class="font-weight-bold">Type:</span> {{ item.Type }}
-            <br /><span class="font-weight-bold">Size: </span>{{ item.Size }}
-            <br /><span class="font-weight-bold">Last Updated: </span
-            >{{ ago(item.LastUpdated) }} <br /><span
+            <br><span class="font-weight-bold">Type:</span> {{ item.Type }}
+            <br><span class="font-weight-bold">Size: </span>{{ item.Size }}
+            <br><span class="font-weight-bold">Last Updated: </span>{{ ago(item.LastUpdated) }} <br><span
               class="font-weight-bold"
-              >Posted by:
+            >Posted by:
             </span>
             {{ item.Owner }}
           </v-card-text>
           <v-card-actions class="mx-5">
-            <a :href="item.Link" target="blank" >
-              <v-icon color="#c6192a">open_in_new</v-icon
-              ><span  :class="(is2020(item.LastUpdated))? 'black--text ':'white--text'"> View online</span></a
+            <a
+              :href="item.Link"
+              target="blank"
             >
+              <v-icon color="#c6192a">open_in_new</v-icon><span :class="(is2020(item.LastUpdated))? 'black--text ':'white--text'"> View online</span></a>
             <v-spacer /><a :href="item.download">
-              <span  :class="(is2020(item.LastUpdated))? 'black--text':'white--text'" > download</span>
-              <v-icon color="#c6192a">get_app</v-icon></a
-            >
+              <span :class="(is2020(item.LastUpdated))? 'black--text':'white--text'"> download</span>
+              <v-icon color="#c6192a">get_app</v-icon></a>
           </v-card-actions>
         </v-card>
       </v-layout>
-      <v-layout align-center class="mb-5 pb-5 mx-auto px-auto">
+      <v-layout
+        align-center
+        class="mb-5 pb-5 mx-auto px-auto"
+      >
         <v-pagination
           class="mx-auto px-auto"
           v-model="page"

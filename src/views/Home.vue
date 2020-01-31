@@ -5,21 +5,33 @@
       <Carousel class="mb-0 mt-5" />
       <!-- carousel ends -->
 
-      <v-layout class="justify-center my-2" flat wrap>
+      <v-layout
+        class="justify-center my-2"
+        flat
+        wrap
+      >
         <v-card
           class="mx-2 justify-center  mt-2 grids"
           flat
           wrap
           min-width="80%"
         >
-          <v-layout class="justify-center" flat wrap>
+          <v-layout
+            class="justify-center"
+            flat
+            wrap
+          >
             <v-card-title
               class="display-1 font-weight-light my-0 text-xs-center main-title"
             >
               The English Immersion Program
             </v-card-title>
           </v-layout>
-          <v-layout class="justify-center mb-2 pb-2" flat wrap>
+          <v-layout
+            class="justify-center mb-2 pb-2"
+            flat
+            wrap
+          >
             <!-- story starts -->
             <v-card
               v-for="item in principles"
@@ -35,7 +47,7 @@
             >
               <v-card-title
                 primary-title
-                class="justify-center the-program elevation-12 title py-2 cardTitle"
+                class="justify-center  elevation-15 title py-2 cardTitle"
               >
                 {{ item.title }}
               </v-card-title>
@@ -47,61 +59,87 @@
             </v-card>
           </v-layout>
           <!-- Testimonials starts -->
-          <v-layout justify-center flat>
+          <v-layout
+            justify-center
+            flat
+          >
             <v-card-title
               class="display-1 font-weight-light my-0 text-xs-center main-title"
             >
               Their experiences
             </v-card-title>
           </v-layout>
-          <v-layout justify-center wrap>
+          <v-layout
+            justify-center
+            wrap
+          >
             <v-card
-              dark
+
               v-for="(item) in tesPhotos"
               :key="item.name"
-              class="justify-center ma-3 elevation-12 grids hovering"
+              class="justify-center ma-3 elevation-24 grids hovering grey darken-2 white--text"
               raised
               max-width="300px"
               min-width="300px"
             >
               <v-card-title class=" round ">
                 <v-layout justify-center>
-                  <v-avatar size="120" class="ma-1">
-                    <v-img :src="item.url" alt="testimony" />
+                  <v-avatar
+                    size="110"
+                    class="ma-1"
+                  >
+                    <v-img
+                      :src="item.url"
+                      alt="testimony"
+                    />
                   </v-avatar>
                 </v-layout>
-                <v-layout justify-center class="testimony-text px-5">
+                <v-layout
+                  justify-center
+                  class="testimony-text px-5"
+                >
                   {{ item.name }}
                 </v-layout>
 
-                <v-layout justify-center class="testimony-text px-5">
+                <v-layout
+                  justify-center
+                  class="testimony-text px-5"
+                >
                   <b>{{ item.position }}</b>
                 </v-layout>
               </v-card-title>
-              <v-layout row width="100%" class="my-0 py-0">
+              <v-layout
+                row
+                width="100%"
+                class="my-0 py-0"
+              >
                 <v-card
                   color="#376092"
                   class="blueCutSmall my-0 py-0"
                   width="90%"
                   height="50px"
-                >
-                </v-card>
+                />
                 <v-card
                   id="red"
-                  color="#ff0000"
-                  class=" redCutSmall my-0 py-0"
+                  class="sign-up redCutSmall my-0 py-0"
                   width="60%"
                   height="50px"
-                >
-                </v-card>
+                />
               </v-layout>
 
               <v-card-text class="testimony-text">
-                <v-icon color="#d13c34" medium class="flip">
+                <v-icon
+                  color="#d13c34"
+                  medium
+                  class="flip"
+                >
                   format_quote
                 </v-icon>
                 <div v-html="item.testimony" />
-                <v-icon color="#d13c34" medium>
+                <v-icon
+                  color="#d13c34"
+                  medium
+                >
                   format_quote
                 </v-icon>
               </v-card-text>
@@ -111,7 +149,12 @@
         </v-card>
       </v-layout>
     </div>
-    <v-layout row wrap class="mx-5 px-5 mb-0 pb-0 pt-2" justify-center>
+    <v-layout
+      row
+      wrap
+      class="mx-5 px-5 mb-0 pb-0 pt-2"
+      justify-center
+    >
       <iframe
         width="500px"
         height="300px"
@@ -120,8 +163,7 @@
         frameborder="0"
         allow="autoplay; encrypted-media"
         allowfullscreen
-      ></iframe
-      >'
+      />'
       <iframe
         width="500px"
         height="300px"
@@ -130,25 +172,26 @@
         frameborder="0"
         allow="autoplay; encrypted-media"
         allowfullscreen
-      ></iframe
-      >'
+      />'
     </v-layout>
-    <v-layout row width="100%" class="mt-0 pt-0">
+    <v-layout
+      row
+      width="100%"
+      class="mt-0 pt-0"
+    >
       <v-card
         color="#376092"
         class="mb-5 blueCut mt-0 pt-0"
         width="90%"
         height="500px"
-      >
-      </v-card>
+      />
       <v-card
         id="red"
-        color="#ff0000"
+        color="sign-up"
         class="mb-5 redCut mt-0 pt-0"
         width="60%"
         height="500px"
-      >
-      </v-card>
+      />
     </v-layout>
   </div>
 </template>
@@ -235,19 +278,14 @@ export default {
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
-.the-program {
-  background: #135393 !important;
-  background: linear-gradient(50deg, #376092, #d13c34) !important;
-  border-radius: 5px !important;
-  color: white;
-}
+
 .grids {
   border-radius: 8px !important;
 }
 .main-title {
   font-family: "Bebas Neue", serif !important;
   /* font-style: italic !important; */
-  color: #135393;
+  color: rgb(104, 102, 102);
 }
 .testimony-text {
   font-style: italic !important;

@@ -1,18 +1,32 @@
 <template>
-  <div id="app" data-app>
+  <div
+    id="app"
+    data-app
+  >
     <!-- alerts online/offline -->
-      <v-alert v-model="log" class="connection-off sign-up mt-3">
-        <v-icon class="mr-2"> signal_wifi_off </v-icon>You are currently offline
-      </v-alert>
-      <v-alert v-model="online" type="success" class="connection-on mt-3">
-        <v-icon class="mr-2">check_circle_outline </v-icon>Back online!
-      </v-alert>
+    <v-alert
+      v-model="log"
+      class="connection-off sign-up mt-3"
+    >
+      <v-icon class="mr-2">
+        signal_wifi_off
+      </v-icon>You are currently offline
+    </v-alert>
+    <v-alert
+      v-model="online"
+      type="success"
+      class="connection-on mt-3"
+    >
+      <v-icon class="mr-2">
+        check_circle_outline
+      </v-icon>Back online!
+    </v-alert>
     <!-- alerts online/offline ends-->
-      <!-- feeds start -->
-      <feeds/>
-      <!-- feeds end -->
+    <!-- feeds start -->
+    <feeds />
+    <!-- feeds end -->
     <NavBar />
-      <router-view />
+    <router-view />
     <Footer />
 
     <Sugerencias v-if="checkIsLoggedIn" />

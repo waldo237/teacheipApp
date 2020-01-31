@@ -16,8 +16,8 @@
       color="blue"
     >
       <!-- form starts -->
-      <v-form  @submit.prevent>
-         <v-alert
+      <v-form @submit.prevent>
+        <v-alert
           outline
           rounded
           class="round jump"
@@ -81,7 +81,7 @@
     </v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
-      <v-form  @submit.prevent>
+      <v-form @submit.prevent>
         <v-card
           color="grey lighten-2"
           class="mb-12"
@@ -136,8 +136,7 @@
     </v-stepper-step>
     <v-stepper-content step="3">
       <!-- form starts -->
-      <v-form  @submit.prevent>
-            
+      <v-form @submit.prevent>
         <v-card
           color="grey lighten-2"
           class="mb-12"

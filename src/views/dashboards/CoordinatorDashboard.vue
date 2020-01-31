@@ -11,25 +11,37 @@
         dismissible
         class="mt-5 mb-0"
       >
-        <v-layout row wrap justify-center >
-     
-    <v-badge 
-    :color="(announcement)?'#c6192a':'deep'"
-    width="100%"
-    >
-      <template v-slot:badge >
-      <span style="font-size: 70%; font-weight: bold"> New</span>
-      </template>
-   <a :href="'https://drive.google.com/open?id=1MKFoq92IFERhrkfrUF_kYy7f13GkpgAD'" target="_blank">
+        <v-layout
+          row
+          wrap
+          justify-center
+        >
+          <v-badge 
+            :color="(announcement)?'#c6192a':'deep'"
+            width="100%"
+          >
+            <template v-slot:badge>
+              <span style="font-size: 70%; font-weight: bold"> New</span>
+            </template>
+            <a
+              :href="'https://drive.google.com/open?id=1MKFoq92IFERhrkfrUF_kYy7f13GkpgAD'"
+              target="_blank"
+            >
  
-      <v-card class="pa-4 round mx-auto" round block rounded :color="(announcement)?'white':'#c6192a'"  :class="(announcement)?'black--text pr-4':'white--text '" > 
+              <v-card
+                class="pa-4 round mx-auto"
+                round
+                block
+                rounded
+                :color="(announcement)?'white':'#c6192a'"
+                :class="(announcement)?'black--text pr-4':'white--text '"
+              > 
           
-        Hola, {{this.auth().currentUser.displayName}}. Por favor descarga el PROPEDEUTICO. Aqui se descargan los documentos
+                Hola, {{ this.auth().currentUser.displayName }}. Por favor descarga el PROPEDEUTICO. Aqui se descargan los documentos
         
-        </v-card>  
-        </a>
- 
-      </v-badge>
+              </v-card>  
+            </a>
+          </v-badge>
         <!-- NEWSSSSSSSSSSSSSSSSSS -->
         </v-layout>
       </v-alert>
@@ -41,27 +53,54 @@
       justify-center
       :class="!alert ? 'mt-0  my-4 pb-5' : ' mt-0  mb-5 pb-5'"
     >
-      <v-card width="100%" class="elevation-24 " wrap>
-        <v-tabs vertical class="px-5" slider-color="#c6192a" light>
+      <v-card
+        width="100%"
+        class="elevation-24 "
+        wrap
+      >
+        <v-tabs
+          vertical
+          class="px-5"
+          slider-color="#c6192a"
+          light
+        >
           <v-tab>
             <v-icon color="black">
-              apps </v-icon
-            >Servicios
+              apps
+            </v-icon>Servicios
           </v-tab>
           <v-tab>
-            <v-icon color="black" class="mr-2"> </v-icon>Solicitudes
+            <v-icon
+              color="black"
+              class="mr-2"
+            />Solicitudes
           </v-tab>
-          <v-tab> <v-icon color="black"> </v-icon>Centro </v-tab>
+          <v-tab> <v-icon color="black" />Centro </v-tab>
 
           <v-tab-item class="pb-5">
             <!-- SERVICIOS RECURSOS -->
-            <v-card hover exact dark class="rounding black my-5">
-              <v-card-title class="mx-auto headline" dense>
-                <v-layout row wrap justify-center>
+            <v-card
+              hover
+              exact
+              dark
+              class="rounding black my-5"
+            >
+              <v-card-title
+                class="mx-auto headline"
+                dense
+              >
+                <v-layout
+                  row
+                  wrap
+                  justify-center
+                >
                   <v-icon>local_play</v-icon>SERVICIOS
                 </v-layout>
               </v-card-title>
-              <v-layout class=" round py-0 slidingMenu background" wrap>
+              <v-layout
+                class=" round py-0 slidingMenu background"
+                wrap
+              >
                 <v-card
                   class="ma-2  pa-0 rounding background"
                   v-for="(item, i) in servicios"
@@ -86,12 +125,21 @@
 
           <v-tab-item class="pb-5">
             <!-- SOLICITUDES -->
-            <v-card hover exact dark class="rounding black my-5">
+            <v-card
+              hover
+              exact
+              dark
+              class="rounding black my-5"
+            >
               <v-card-title class="mx-auto headline">
-                <v-layout row wrap justify-center>
+                <v-layout
+                  row
+                  wrap
+                  justify-center
+                >
                   <v-icon large>
-                    hearing </v-icon
-                  >SOLICITUDES
+                    hearing
+                  </v-icon>SOLICITUDES
                 </v-layout>
               </v-card-title>
               <v-layout
@@ -106,7 +154,12 @@
                   v-for="(item, i) in solicitudes"
                   :key="i"
                 >
-                  <v-btn  :to="item.link" round class=" sign-in my-0 ma-0 py-2" block>
+                  <v-btn
+                    :to="item.link"
+                    round
+                    class=" sign-in my-0 ma-0 py-2"
+                    block
+                  >
                     <v-icon>{{ item.icon }}</v-icon>
                     {{ item.title }}
                   </v-btn>
@@ -117,8 +170,15 @@
           </v-tab-item>
 
           <v-tab-item class="mx-3 pb-5">
-            <v-card flat class="my-5 black round" dark>
-              <v-layout row wrap>
+            <v-card
+              flat
+              class="my-5 black round"
+              dark
+            >
+              <v-layout
+                row
+                wrap
+              >
                 <!-- GENERAL BUTTON -->
                 <a
                   @click="
@@ -139,11 +199,13 @@
                       width="76px"
                       height="68px"
                       class="mx-1 mb-0"
-                    />
-                    <v-card-text class="px-auto py-0">General</v-card-text>
-                    <v-icon class="mx-4" color="#c6192a" v-if="generalMenu"
-                      >arrow_drop_down</v-icon
                     >
+                    <v-card-text class="px-auto py-0">General</v-card-text>
+                    <v-icon
+                      class="mx-4"
+                      color="#c6192a"
+                      v-if="generalMenu"
+                    >arrow_drop_down</v-icon>
                   </v-card>
                 </a>
                 <!-- GENERAL BUTTON END -->
@@ -165,11 +227,13 @@
                       src="https://drive.google.com/uc?export=view&id=1VvmPXB2mhGsbtcBhqBb4yG4m5lPoqo83"
                       alt
                       class="mx-2 mb-0"
-                    />
-                    <v-card-text class="px-auto py-0">Student</v-card-text>
-                    <v-icon class="mx-4" color="#c6192a" v-if="studentMenu"
-                      >arrow_drop_down</v-icon
                     >
+                    <v-card-text class="px-auto py-0">Student</v-card-text>
+                    <v-icon
+                      class="mx-4"
+                      color="#c6192a"
+                      v-if="studentMenu"
+                    >arrow_drop_down</v-icon>
                   </v-card>
                 </a>
                 <!-- TEACHER BUTTON -->
@@ -192,11 +256,13 @@
                       width="78px"
                       height="68px"
                       class="mx-1 mb-0"
-                    />
-                    <v-card-text class="px-auto py-0">Teacher</v-card-text>
-                    <v-icon class="mx-4" color="#c6192a" v-if="teacherMenu"
-                      >arrow_drop_down</v-icon
                     >
+                    <v-card-text class="px-auto py-0">Teacher</v-card-text>
+                    <v-icon
+                      class="mx-4"
+                      color="#c6192a"
+                      v-if="teacherMenu"
+                    >arrow_drop_down</v-icon>
                   </v-card>
                 </a>
                 <!-- TEACHER BUTTON -->
@@ -214,7 +280,12 @@
                   v-for="(item, i) in studentOptions"
                   :key="i"
                 >
-                  <v-btn round class="mx-0 my-0" dense block>
+                  <v-btn
+                    round
+                    class="mx-0 my-0"
+                    dense
+                    block
+                  >
                     <v-icon :color="item.color">
                       {{ item.icon }}
                     </v-icon>
@@ -238,7 +309,12 @@
                   v-for="(item, i) in teacherOptions"
                   :key="i"
                 >
-                  <v-btn round class="mx-0 my-0 " dense block>
+                  <v-btn
+                    round
+                    class="mx-0 my-0 "
+                    dense
+                    block
+                  >
                     <v-icon :color="item.color">
                       {{ item.icon }}
                     </v-icon>
@@ -263,7 +339,11 @@
                   v-for="(item, i) in generalOptions"
                   :key="i"
                 >
-                  <v-btn round class="elevation-20 my-0" block>
+                  <v-btn
+                    round
+                    class="elevation-20 my-0"
+                    block
+                  >
                     <v-icon :color="item.color">
                       {{ item.icon }}
                     </v-icon>
@@ -284,7 +364,6 @@
     </v-layout>
     <!-- </v-container> -->
     <!-- </v-content> -->
-
   </div>
 </template>
 

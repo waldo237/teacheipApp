@@ -4,8 +4,14 @@
       <v-card-title class="grey lighten-4 py-3 title">
         Solicitar Permisos Extensos
       </v-card-title>
-      <v-container grid-list-sm class="pa-4">
-        <v-layout row wrap>
+      <v-container
+        grid-list-sm
+        class="pa-4"
+      >
+        <v-layout
+          row
+          wrap
+        >
           <v-progress-circular
             :rotate="-90"
             :size="100"
@@ -21,10 +27,20 @@
         <!-- ================================== -->
         <!-- ================================== -->
         
-        <v-layout row wrap justify-start>
+        <v-layout
+          row
+          wrap
+          justify-start
+        >
           <v-layout align-center>
-            <v-avatar size="40px" class="mr-3">
-              <img :src="this.auth().currentUser.photoURL" alt />
+            <v-avatar
+              size="40px"
+              class="mr-3"
+            >
+              <img
+                :src="this.auth().currentUser.photoURL"
+                alt
+              >
             </v-avatar>
             <v-text-field
               placeholder="Name"
@@ -48,38 +64,54 @@
         </v-layout>
     
         <!-- ================================== -->
-          <v-layout row wrap justify-start class="mx-0">
-            <v-btn
-              round
-              color="sign-up"
-              @click="$refs.inputUpload.click()"
-            >
-              <v-icon small> description </v-icon>Subir constancia para el permiso
-            </v-btn>
-            <input
-              v-show="false"
-              ref="inputUpload"
-              type="file"
-              @change="showPath"
-              id="file1"
-              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+        <v-layout
+          row
+          wrap
+          justify-start
+          class="mx-0"
+        >
+          <v-btn
+            round
+            color="sign-up"
+            @click="$refs.inputUpload.click()"
+          >
+            <v-icon small>
+              description
+            </v-icon>Subir constancia para el permiso
+          </v-btn>
+          <input
+            v-show="false"
+            ref="inputUpload"
+            type="file"
+            @change="showPath"
+            id="file1"
+            accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                   text/plain, application/pdf,image/*"
-            />
-            <v-card class="ma-3" flat v-model="path">{{ path }}</v-card>
-             
-          </v-layout>
+          >
+          <v-card
+            class="ma-3"
+            flat
+            v-model="path"
+          >
+            {{ path }}
+          </v-card>
+        </v-layout>
     
 
 
-        <v-layout xs6 wrap  row justify-start> 
+        <v-layout
+          xs6
+          wrap
+          row
+          justify-start
+        > 
           <v-text-field
             prepend-icon="format_list_numbered"
             placeholder="Numero de dias a solicitar"
             type="number"
           />
-
         </v-layout>
-          <v-flex xs12>
+        <v-flex xs12>
           <v-text-field
             prepend-icon="notes"
             placeholder="Razon para el permiso"
@@ -89,7 +121,11 @@
      
 
         <!-- ================================== -->
-        <v-layout justify-center wrap row>
+        <v-layout
+          justify-center
+          wrap
+          row
+        >
           <!-- snackbar to notify completion starts -->
           <v-snackbar
             class="error"
@@ -99,23 +135,38 @@
             :timeout="6000"
             top="top"
           >
-          {{snackbarMessage}}
+            {{ snackbarMessage }}
             
-            <v-btn dark text @click="snackbar = false">
+            <v-btn
+              dark
+              text
+              @click="snackbar = false"
+            >
               Close
             </v-btn>
           </v-snackbar>
           <!-- snackbar to notify completion ends -->
         </v-layout>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn flat round class="sign-up" @click="reset">
-          cancelar
-        </v-btn>
-        <v-btn round flat @click="localPostSugerencia" class="sign-in" :loading="loading">
-          Enviar solicitud
-        </v-btn>
-      </v-card-actions>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            flat
+            round
+            class="sign-up"
+            @click="reset"
+          >
+            cancelar
+          </v-btn>
+          <v-btn
+            round
+            flat
+            @click="localPostSugerencia"
+            class="sign-in"
+            :loading="loading"
+          >
+            Enviar solicitud
+          </v-btn>
+        </v-card-actions>
       </v-container>
     </v-card>
   </div>
@@ -127,7 +178,7 @@ import moment from "moment";
 import session from "@/store/modules/session.js";
 import { directive as onClickaway } from "vue-clickaway";
 export default {
-  name: "Solicitar Permiso",
+  name: "SolicitarPermiso",
   directives: {
     onClickaway: onClickaway
   },

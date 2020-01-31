@@ -2,14 +2,24 @@
   <div>
     <!-- side menu starts -->
     <div v-on-clickaway="away">
-      <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
+      <v-navigation-drawer
+        app
+        v-model="drawer"
+        disable-resize-watcher
+      >
         <supervisorsideMenu v-if="isSupervisor" />
         <coordinatorsideMenu v-else-if="isCoordinator" />
       </v-navigation-drawer>
     </div>
     <!-- side menu ends -->
     <!-- complete navigation starts -->
-    <v-toolbar app style="background-color:white" class="py-0" dense>
+    <v-toolbar
+      app
+      style="background-color:white"
+      class="py-0"
+      dense
+      sticky
+    >
       <!--  sandwich menu for side bar/menu-->
       <v-toolbar-side-icon
         x-large
@@ -21,10 +31,15 @@
 
       <!-- logo starts -->
       <div class="logo-text">
-        <v-btn href="/" flat large round class="px-0 my-0 font-weight-bold title">
-        <span class="teach">Teach</span>
-        <span class="acronym font-weight-light">EIP</span>
-
+        <v-btn
+          href="/"
+          flat
+          large
+          round
+          class="px-0 my-0 font-weight-bold title"
+        >
+          <span class="teach">Teach</span>
+          <span class="acronym font-weight-light">EIP</span>
         </v-btn>
         <span class="full-title mt-0">
           with The English Immersion Program
@@ -39,8 +54,8 @@
       <navBtnMax
         @hideMenu="hideMenu"
         @toggleProfile="profileModel = true"
-        @rolePath='rolePath'
-        />
+        @rolePath="rolePath"
+      />
       <!-- expanded navigation bar ends-->
       <!--  minimized menu starts-->
       <v-toolbar-side-icon
@@ -53,19 +68,16 @@
         :sandwich="sandwich"
         @hideMenu="hideMenu"
         @toggleProfile="profileModel = true"
-        @rolePath='rolePath'
+        @rolePath="rolePath"
       />
       <!--  minimized menu ends-->
-      <v-list-tile v-if="profileModel">
-        <profile
-          class="profile"
-          v-on-clickaway="closeProfile"
-          @closeProfile="closeProfile"
-        />
-      </v-list-tile>
+      <profile
+        v-if="profileModel"
+        class="profile"
+        v-on-clickaway="closeProfile"
+        @closeProfile="closeProfile"
+      />
       <!-- profile insertion ends-->
-
-
     </v-toolbar>
     <!-- complete navigation ends -->
     <!-- communication dialogs -->
@@ -201,7 +213,7 @@ export default {
   width: 250px;
   z-index: 1;
   position: fixed;
-  top: 100%;
+  top: 150px;
   right: 2%;
   text-align: center;
   animation-duration: 0.1s;
@@ -215,7 +227,7 @@ export default {
 }
 .sign-in {
   color: white !important;
-  background-color: rgb(19, 83, 147) !important;
+  background-color:#135393 !important;
 }
 .sign-up {
   color: white !important;

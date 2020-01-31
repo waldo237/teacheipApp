@@ -1,62 +1,92 @@
 <template>
   <v-layout>
-    <v-dialog v-model="getSUDialog" persistent class="round px-5">
+    <v-dialog
+      v-model="getSUDialog"
+      persistent
+      class="round px-5"
+    >
       <v-form class>
         <v-card class="round">
           <v-layout justify-center>
-            <v-toolbar dense class="round" flat color="white">
+            <v-toolbar
+              dense
+              class="round"
+              flat
+              color="white"
+            >
               <v-toolbar-title class="logo">
                 <v-icon>lock_open</v-icon>
                 <span class="teach">Teach</span>
                 <span class="acronym">EIP</span>
               </v-toolbar-title>
               <v-spacer />
-              <v-btn icon @click.prevent="toggleSU">
+              <v-btn
+                icon
+                @click.prevent="toggleSU"
+              >
                 <v-icon>close</v-icon>
               </v-btn>
             </v-toolbar>
           </v-layout>
-          <v-layout class="py-4 px-5" column justify-center wrap>
-    
-              <v-btn
-                @click.prevent="google"
-                round
-                large
-                block
-                class=" pa-2 ma-2 elevation-10 white--text"
-                color="#de4c33"
-                :loading="loading"
+          <v-layout
+            class="py-4 px-5"
+            column
+            justify-center
+            wrap
+          >
+            <v-btn
+              @click.prevent="google"
+              round
+              large
+              block
+              class=" pa-2 ma-2 elevation-10 white--text"
+              color="#de4c33"
+              :loading="loading"
+            >
+              <v-icon
+                size="30"
+                class="mx-2"
               >
-                <v-icon size="30" class="mx-2">fab fa-google</v-icon>sign up
-                with google
-              </v-btn>
-              <v-btn
-                @click.prevent="facebook"
-                round
-                large
-                block
-                color="#415dae"
-                class=" pa-2 ma-2 elevation-10 white--text"
+                fab fa-google
+              </v-icon>sign up
+              with google
+            </v-btn>
+            <v-btn
+              @click.prevent="facebook"
+              round
+              large
+              block
+              color="#415dae"
+              class=" pa-2 ma-2 elevation-10 white--text"
+            >
+              <v-icon
+                size="30"
+                class="mx-2"
               >
-                <v-icon size="30" class="mx-2">fab fa-facebook-square</v-icon
-                >sign up with Faceboook
-              </v-btn>
-              <v-btn
-                @click.prevent="microsoft"
-                round
-                large
-                block
-                color="#36af5b"
-                class=" pa-2 ma-2 elevation-10"
+                fab fa-facebook-square
+              </v-icon>sign up with Faceboook
+            </v-btn>
+            <v-btn
+              @click.prevent="microsoft"
+              round
+              large
+              block
+              color="#36af5b"
+              class=" pa-2 ma-2 elevation-10"
+            >
+              <v-icon
+                size="30"
+                class="mx-2"
               >
-                <v-icon size="30" class="mx-2">fab fa-windows</v-icon>Continue
-                with Microsoft
-              </v-btn>
+                fab fa-windows
+              </v-icon>Continue
+              with Microsoft
+            </v-btn>
           </v-layout>
         </v-card>
       </v-form>
     </v-dialog>
-    <LoadingFull  />
+    <LoadingFull />
   </v-layout>
 </template>
 <style>

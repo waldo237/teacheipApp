@@ -16,8 +16,8 @@
       color="blue"
     >
       <!-- form starts -->
-      <v-form  @submit.prevent>
-                 <v-alert
+      <v-form @submit.prevent>
+        <v-alert
           outline
           rounded
           class="round jump"
@@ -81,7 +81,7 @@
     </v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
-      <v-form  @submit.prevent>
+      <v-form @submit.prevent>
         <v-card
           color="grey lighten-2"
           class="mb-12"
@@ -93,19 +93,19 @@
                 xs12
                 md4
               >
-              <v-form  @submit.prevent>
-                <v-text-field
-                  v-model="supervisorCode"
-                  label="Supervisor code"
-                  required
-                  autocomplete
-                  maxlength="8"
-                  prepend-icon="lock"
-                  :append-icon="!showPassword ? 'visibility_off':'visibility'"
-                  :type="showPassword ? 'text': 'password'"
-                  @click:append="showPassword =!showPassword"
-                />
-                </v-form >
+                <v-form @submit.prevent>
+                  <v-text-field
+                    v-model="supervisorCode"
+                    label="Supervisor code"
+                    required
+                    autocomplete
+                    maxlength="8"
+                    prepend-icon="lock"
+                    :append-icon="!showPassword ? 'visibility_off':'visibility'"
+                    :type="showPassword ? 'text': 'password'"
+                    @click:append="showPassword =!showPassword"
+                  />
+                </v-form>
               </v-flex>
             </v-layout>
           </v-container>

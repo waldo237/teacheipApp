@@ -10,20 +10,42 @@
       fixed
       @click="dialog = !dialog"
     >
-      <v-icon class="mx-auto">feedback</v-icon>
+      <v-icon class="mx-auto">
+        feedback
+      </v-icon>
       Sugerencias
     </v-btn>
-    <v-dialog persistent v-model="dialog" width="800px">
+    <v-dialog
+      persistent
+      v-model="dialog"
+      width="800px"
+    >
       <v-card class="round">
         <v-card-title class="grey lighten-4 py-4 title">
           enviar sugerencias
         </v-card-title>
-        <v-container grid-list-sm class="pa-4">
-          <v-layout row wrap>
-            <v-flex xs12 align-center justify-space-between>
+        <v-container
+          grid-list-sm
+          class="pa-4"
+        >
+          <v-layout
+            row
+            wrap
+          >
+            <v-flex
+              xs12
+              align-center
+              justify-space-between
+            >
               <v-layout align-center>
-                <v-avatar size="40px" class="mr-3">
-                  <img :src="this.auth().currentUser.photoURL" alt />
+                <v-avatar
+                  size="40px"
+                  class="mr-3"
+                >
+                  <img
+                    :src="this.auth().currentUser.photoURL"
+                    alt
+                  >
                 </v-avatar>
                 <v-text-field
                   placeholder="Name"
@@ -57,7 +79,11 @@
               />
             </v-flex>
             <!-- ================================== -->
-            <v-layout justify-center wrap row>
+            <v-layout
+              justify-center
+              wrap
+              row
+            >
               <!-- snackbar to notify completion starts -->
               <v-snackbar
                 class="error"
@@ -68,7 +94,11 @@
                 top="top"
               >
                 "Su sugerencia ha sido enviada correctamente. Muchas gracias"
-                <v-btn dark text @click="snackbar = false">
+                <v-btn
+                  dark
+                  text
+                  @click="snackbar = false"
+                >
                   Close
                 </v-btn>
               </v-snackbar>
@@ -88,14 +118,19 @@
             </v-layout>
             <!-- ================================== -->
             <v-flex xs12>
-              <v-layout row wrap>
+              <v-layout
+                row
+                wrap
+              >
                 <v-btn
                   round
                   class="ma-3"
                   color="sign-up"
                   @click="$refs.inputUpload.click()"
                 >
-                  <v-icon small> photo </v-icon>Screenshot (foto del
+                  <v-icon small>
+                    photo
+                  </v-icon>Screenshot (foto del
                   inconveniente)
                 </v-btn>
                 <input
@@ -105,18 +140,35 @@
                   @change="showPath"
                   id="file"
                   accept="image/x-png, image/gif, image/jpeg"
-                />
-                <v-card class="ma-auto" flat v-model="path">{{ path }} </v-card>
+                >
+                <v-card
+                  class="ma-auto"
+                  flat
+                  v-model="path"
+                >
+                  {{ path }}
+                </v-card>
               </v-layout>
             </v-flex>
           </v-layout>
         </v-container>
         <v-card-actions>
           <v-spacer />
-          <v-btn flat round class="sign-up" @click="reset">
+          <v-btn
+            flat
+            round
+            class="sign-up"
+            @click="reset"
+          >
             cancelar
           </v-btn>
-          <v-btn round flat @click="upload" class="sign-in" :loading="loading">
+          <v-btn
+            round
+            flat
+            @click="upload"
+            class="sign-in"
+            :loading="loading"
+          >
             Enviar
           </v-btn>
         </v-card-actions>

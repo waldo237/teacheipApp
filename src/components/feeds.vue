@@ -1,24 +1,51 @@
 <template>
-  <v-layout row v-if="notiFeeds" v-on-clickaway="closeNotification">
-    <v-flex xs12 sm6 offset-sm3>
-      <v-card class="feeds mt-4" lazy>
-        <v-list tw0-line >
-          <v-layout v-for="(item, index) in items" :key="index" column>
-            <v-list-tile avatar @click="markIt"  class="py-1" :class="(items[0].alreadyRead)? 'white': doneReading ">
+  <v-layout
+    row
+    v-if="notiFeeds"
+    v-on-clickaway="closeNotification"
+  >
+    <v-flex
+      xs12
+      sm6
+      offset-sm3
+    >
+      <v-card
+        class="feeds mt-4 round scrollbar"
+        lazy
+      >
+        <v-list
+          tw0-line
+          class="pt-1 "
+        >
+          <v-layout
+            v-for="(item, index) in items"
+            :key="index"
+            column
+          >
+            <v-list-tile
+              avatar
+              @click="markIt"
+              class="py-1 ma-1"
+              :class="(haveNotRead)? 'white': doneReading "
+            >
               <v-list-tile-avatar>
-                <img :src="item.avatar" />
+                <img :src="item.avatar">
               </v-list-tile-avatar>
-              <a :href="item.link" target="_blank">
+              <a
+                :href="item.link"
+                target="_blank"
+                :class=" greyForce"
+              >
                 <v-list-tile-content>
-                  <v-list-tile-title >  {{item.title}}</v-list-tile-title>
+                  <v-list-tile-title>  {{ item.title }}</v-list-tile-title>
                   <v-list-tile-sub-title
                     v-html="item.body"
-                  ></v-list-tile-sub-title>
-                  <span class="body-2"><span class="black--text">{{item.name}}</span>  | {{moment(item.date)}}</span>
+                  />
+                  <span class="body-2"><span class="black--text">{{ item.name }}</span>  | {{ moment(item.date) }}</span>
                 </v-list-tile-content>
               </a>
             </v-list-tile>
-            <v-divider></v-divider>
+            <v-divider />
           </v-layout>
         </v-list>
       </v-card>
@@ -36,7 +63,8 @@ export default {
   data() {
     return {
       items: [],
-      doneReading: 'grey'
+      doneReading: 'blue-grey lighten-3',
+      greyForce: ''
     };
   },
   methods: {
@@ -44,9 +72,11 @@ export default {
       if (this.notiFeeds) this.$store.commit("setNotiFeeds", false);
     },
     markIt(){
-      this.doneReading = 'white'
+      this.doneReading = 'white '
+      this.greyForce = 'greyForce'
       this.markAsRead();
       this.$store.commit('setFeeds', []);
+      this.$root.$emit('removeBadget');
     },
     moment(date){
       return moment(date).fromNow();
@@ -54,19 +84,25 @@ export default {
     ...mapActions(["fetchFeeds", "markAsRead"])
   },
   computed: {
-    ...mapGetters(["feeds", "auth", "notiFeeds"])
+    ...mapGetters(["feeds", "auth", "notiFeeds","haveNotRead" ])
   },
   async created() {
    this.$store.commit("setCUEmail", this.auth().currentUser.email);
     await this.$store.dispatch('fetchFeeds');
     this.items = this.feeds;
+    if (this.haveNotRead) this.greyForce = 'greyForce';
      this.closeNotification();
   }
 };
 </script>
 }
 <style>
+.greyForce{
+  color: rgb(204, 197, 197) !important;
 
+  text-decoration: none !important;
+
+}
 .feeds {
   width: 400px;
   height: 400px;
@@ -75,12 +111,36 @@ export default {
    overflow-y:scroll;
    overflow-x:hidden;
   text-overflow: clip;
-  top: 25px;
-  right: 10px;
+  top: 26px;
+  right: 2px;
   text-align: center;
   animation-duration: 0.1s;
   animation-name: slideInDown;
   animation-timing-function: ease-in-out;
   display: block;
+}
+/* change the scrollbar */
+body::-webkit-scrollbar {
+  width: 0.8em;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: #376092;
+  border-radius: 25px;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 0.7em;
+}
+ 
+.scrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: #376092;
+border-radius: 25px;
 }
 </style>

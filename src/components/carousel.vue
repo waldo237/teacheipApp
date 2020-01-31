@@ -1,17 +1,24 @@
 <template>
-  <div id="carousel"  class="mb-0 pt-2">
-    <v-carousel   height="350px" >
-        <div v-for="(item,i) in itemsWPhotos"
-        :key="i">
-        <a :href="item.link " target="_blank">
+  <div
+    id="carousel"
+    class="mb-0 pt-2"
+  >
+    <v-carousel height="350px">
+      <div
+        v-for="(item,i) in itemsWPhotos"
+        :key="i"
+      >
+        <a
+          :href="item.link "
+          target="_blank"
+        >
           <v-carousel-item
             :src="item.url"
             :lazy-src="item.url"
-            />
+          />
            
         </a>
-          
-        </div>
+      </div>
     </v-carousel>
   </div>
 </template>
@@ -24,7 +31,6 @@ height: 80%;}
 
 <script>
 import { mapActions } from 'vuex'
-import axios from 'axios';
 export default {
   name: "Carousel",
   data () {

@@ -1,7 +1,10 @@
 <template>
   <v-card>
     <!--  the policy dialogue starts-->
-    <v-dialog v-model="policy" width="800px">
+    <v-dialog
+      v-model="policy"
+      width="800px"
+    >
       <v-card>
         <v-card-title>
           <span class="headline">Politicas de TeachEIP.com</span>
@@ -11,10 +14,18 @@
         <!-- The policy content component -->
         <v-card-actions>
           <v-spacer />
-          <v-btn class="sign-up" text @click="policy = false">
+          <v-btn
+            class="sign-up"
+            text
+            @click="policy = false"
+          >
             Disagree
           </v-btn>
-          <v-btn color="sign-in" text @click="policy = false">
+          <v-btn
+            color="sign-in"
+            text
+            @click="policy = false"
+          >
             Agree
           </v-btn>
         </v-card-actions>
@@ -22,64 +33,81 @@
     </v-dialog>
     <!--  the policy dialogue ends-->
     <v-footer>
-      <v-card flat tile width="100%" class="white--text px-5 bordered pt-3" color="#376092">
+      <v-card
+        flat
+        tile
+        width="100%"
+        class="white--text px-5 bordered pt-3"
+        color="#376092"
+      >
         <!-- social media starts -->
-          <v-layout row wrap justify-center class=" py-0 my-0 white--text ">
-            <span class="subtitle-1 credits">
-              <v-btn
-                x-large
-                fab
-                href="https://www.facebook.com/MESCyTRD/"
-                target="_blank"
-                flat
-                class="black white--text mx-1 px-3 credits elevation-9"
-              >
+        <v-layout
+          row
+          wrap
+          justify-center
+          class=" py-0 my-0 white--text "
+        >
+          <span class="subtitle-1 credits">
+            <v-btn
+              x-large
+              fab
+              href="https://www.facebook.com/MESCyTRD/"
+              target="_blank"
+              flat
+              class="black white--text mx-1 px-3 credits elevation-9"
+            >
               <v-icon size="40">fab fa-facebook</v-icon>
-              </v-btn>
-            </span>
-            <span class="subtitle-1 credits">
-              <v-btn
-                x-large
-                fab
-                href="https://www.instagram.com/mescytrd/?hl=en"
-                target="_blank"
-                flat
-                class="black white--text mx-1 px-3 credits elevation-9"
-              >
+            </v-btn>
+          </span>
+          <span class="subtitle-1 credits">
+            <v-btn
+              x-large
+              fab
+              href="https://www.instagram.com/mescytrd/?hl=en"
+              target="_blank"
+              flat
+              class="black white--text mx-1 px-3 credits elevation-9"
+            >
               <v-icon size="40">fab fa-instagram</v-icon>
-              </v-btn>
-            </span>
+            </v-btn>
+          </span>
 
-            <span class="subtitle-1 credits">
-              <v-btn
-                x-large
-                fab
-                href="https://twitter.com/mescytrd?lang=en"
-                target="_blank"
-                flat
-                class="black white--text mx-1 px-3 credits elevation-9"
-              >
-              <v-icon size="40" class="mb-0">fab fa-twitter</v-icon>
-              </v-btn>
-            </span>
+          <span class="subtitle-1 credits">
+            <v-btn
+              x-large
+              fab
+              href="https://twitter.com/mescytrd?lang=en"
+              target="_blank"
+              flat
+              class="black white--text mx-1 px-3 credits elevation-9"
+            >
+              <v-icon
+                size="40"
+                class="mb-0"
+              >fab fa-twitter</v-icon>
+            </v-btn>
+          </span>
 
-            <span class="subtitle-1 credits">
-              <v-btn
-                x-large
-                fab
-                href="https://www.linkedin.com/company/ministerio-de-educacion-superior-ciencia-y-tecnologia/"
-                target="_blank"
-                flat
-                class="black white--text mx-1 px-3 credits elevation-9"
-              >
+          <span class="subtitle-1 credits">
+            <v-btn
+              x-large
+              fab
+              href="https://www.linkedin.com/company/ministerio-de-educacion-superior-ciencia-y-tecnologia/"
+              target="_blank"
+              flat
+              class="black white--text mx-1 px-3 credits elevation-9"
+            >
               <v-icon size="40">fab fa-linkedin</v-icon>
-              </v-btn>
-            </span>
-
-          </v-layout>
+            </v-btn>
+          </span>
+        </v-layout>
         <!-- social media ends -->
         <!-- contacts starts -->
-        <v-layout row wrap justify-center>
+        <v-layout
+          row
+          wrap
+          justify-center
+        >
           <v-btn
             href="http://maps.google.com/maps?q=av.+m%C3%A1ximo+g%C3%B3mez+no.+31,+esq.+pedro+henr%C3%ADquez+ure%C3%B1a,+santo+domingo,+rep%C3%BAblica+dominicana"
             target="_blank"
@@ -104,7 +132,12 @@
           </v-btn>
         </v-layout>
         <!-- contacts ends -->
-        <v-layout row wrap justify-center class=" py-0 my-0 white--text ">
+        <v-layout
+          row
+          wrap
+          justify-center
+          class=" py-0 my-0 white--text "
+        >
           <span class="subtitle-1 credits">
             &#9400; 2019-{{ new Date().getFullYear() }} —
             <v-btn
@@ -112,11 +145,15 @@
               target="_blank"
               flat
               class="white--text mx-1 px-1 credits"
-              >TeachEIP.com</v-btn
-            >— Dirección de Lenguas Extranjeras —
+            >TeachEIP.com</v-btn>— Dirección de Lenguas Extranjeras —
           </span>
         </v-layout>
-        <v-layout row wrap justify-center class=" py-0 my-0 white--text ">
+        <v-layout
+          row
+          wrap
+          justify-center
+          class=" py-0 my-0 white--text "
+        >
           <span class="subtitle-1 credits">
             <v-btn
               medium
@@ -125,13 +162,17 @@
               flat
               class="black white--text mx-1 px-3 credits elevation-5"
             >
-              developed and donated by Waldo Milanes<span class="mb-3"
-                >&reg;</span
-              >
+              developed and donated by Waldo Milanes<span
+                class="mb-3"
+              >&reg;</span>
             </v-btn>
           </span>
         </v-layout>
-        <v-layout row wrap justify-center>
+        <v-layout
+          row
+          wrap
+          justify-center
+        >
           <v-btn
             target="_blank"
             depressed

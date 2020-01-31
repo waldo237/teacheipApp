@@ -2,11 +2,13 @@ import axios from "axios";
 
 const state = {
     feeds: [],
-    CUEmail: {}
+    CUEmail: {},
+    haveNotRead: false,
 };
 
 const getters = {
-    feeds: state => state.feeds
+    feeds: state => state.feeds,
+    haveNotRead: state => state.haveNotRead,
 };
 
 const actions = {
@@ -15,6 +17,7 @@ const actions = {
         try {
             const response = await axios.get(getFeedsURL);
             commit("setFeeds", response.data);
+            commit('setHaveNotRead', response.data[0].haveNotRead)
     } catch (error) {
       console.log("Could not connect because of internet is off");
     }
@@ -31,7 +34,8 @@ async markAsRead() {
 };
 const mutations = {
   setFeeds: (state, value) => (state.feeds = value),
-  setCUEmail: (state, value) => (state.CUEmail = value)
+  setCUEmail: (state, value) => (state.CUEmail = value),
+  setHaveNotRead: (state, value) => (state.haveNotRead = value),
 };
 
 export default {

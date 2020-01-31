@@ -1,11 +1,31 @@
 <template>
   <div>
-    <v-layout id="inspire" row justify-center class="mt-3">
-      <div class="px-5  content mb-0 pb-0">
-        <div class="elevation-24 mx-5  mt-5 mb-0 pb-0 round">
-          <v-layout justify-space-around class=" mb-0 pb-0">
-            <v-flex xs10 class=" mb-0 pb-0">
-              <v-card flat column class="round  mb-0 pb-0">
+    <v-layout
+      id="inspire"
+      row
+      justify-center
+      class="mt-3"
+    >
+                <v-card-title
+              class="display-1 font-weight-light my-0 text-xs-center main-title"
+            >
+              ABOUT THIS WEB APPPLICATION
+            </v-card-title>
+      <div class="px-4  content " >
+        <div class="elevation-24 mx-4  mt-5 mb-0 pb-0 round grey lighten-1">
+          <v-layout
+            justify-space-around
+            class=" mb-0 pb-0"
+          >
+            <v-flex
+              xs10
+              class=" mb-0 pb-0"
+            >
+              <v-card
+                flat
+                column
+                class="round  mb-0 pb-0  grey lighten-1"
+              >
                 <v-img
                   :src="gify"
                   alt="We bring change!"
@@ -21,7 +41,7 @@
           <v-card
             flat
 
-            class="pa-4 big-words  sign-in white--text text-justify  pb-0"
+            class="pa-4 big-words  sign-in white--text text-justify  pb-0 cutButton"
           >
             The English Immersion Program has had an exponential growth since
             its creation in 2004. It operates nationwide even in very remote
@@ -32,22 +52,23 @@
         </div>
       </div>
     </v-layout>
-    <v-layout row width="100%" class="mt-0 pt-0">
+    <v-layout
+      row
+      width="100%"
+      class="mt-0 pt-0"
+    >
       <v-card
         color="#376092"
         class="mb-5 blueCut mt-0 pt-0"
         width="90%"
-        height="500px"
-      >
-      </v-card>
+        height="400px"
+      />
       <v-card
         id="red"
-        color="#ff0000"
-        class="mb-5 redCut mt-0 pt-0"
+        class="sign-up mb-5 redCut mt-0 pt-0"
         width="60%"
-        height="500px"
-      >
-      </v-card>
+        height="400px"
+      />
     </v-layout>
   </div>
 </template>
@@ -62,14 +83,13 @@ export default {
 };
 </script>
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Lexend+Exa|Oswald&display=swap");
+/* @import url("https://fonts.googleapis.com/css?family=Lexend+Exa|Oswald&display=swap"); */
 .big-words {
-  font-family: "Oswald", sans-serif;
-  font-family: "Lexend Exa", sans-serif;
+  font-size: 110%;
   font-weight: lighter !important;
   text-align: initial;
 }
-@import "https://cdn.jsdelivr.net/npm/animate.css@3.5.1";
+
 .img {
   filter: brightness(50%);
   box-shadow: 0 14px 20px 0 rgba(0, 0, 0, 0.425),
@@ -79,11 +99,16 @@ export default {
   animation-duration: 4s;
   animation-name: hinge;
 }
+.cutButton{
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
 @media screen and (max-width: 960px) {
   .content {
     padding: 0% !important;
     margin: 0% !important;
     margin-bottom: 10% !important;
+    font-size: 85% !important;
   }
 }
 

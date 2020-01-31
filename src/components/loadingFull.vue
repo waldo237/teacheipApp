@@ -1,17 +1,35 @@
 <template>
   <!-- pendingForVerification dialog starts -->
-  <v-dialog v-model="loadingFull" fullscreen persistent hide-overlay >
-      
-    <v-card leave-active-class='out'>
-      <v-layout justify-center align-center column>
-        <v-toolbar color="white" flat class="pt-5">
+  <v-dialog
+    v-model="loadingFull"
+    fullscreen
+    persistent
+    hide-overlay
+  >
+    <v-card leave-active-class="out">
+      <v-layout
+        justify-center
+        align-center
+        column
+      >
+        <v-toolbar
+          color="white"
+          flat
+          class="pt-5"
+        >
           <v-layout justify-center>
             <span class="teach display-1">Teach</span>
             <span class="acronym display-1">EIP</span>
           </v-layout>
-          </v-toolbar>
+        </v-toolbar>
         <!-- loading starts -->
-        <v-layout justify-center align-center column v-if="!tookTooLong" class="slideRight">
+        <v-layout
+          justify-center
+          align-center
+          column
+          v-if="!tookTooLong"
+          class="slideRight"
+        >
           <v-img
             class="m-0"
             width="400px"
@@ -19,7 +37,11 @@
             :lazy-src="loadingImg()"
           />
 
-            <v-btn block  class="sign-up elevation-9" round>
+          <v-btn
+            block
+            class="sign-up elevation-9"
+            round
+          >
             <span class="font-weight-bold display-1  py-3  ">
               coming right up... {{ percent }}
             </span>
@@ -27,18 +49,29 @@
         </v-layout>
         <!-- loading ends -->
         <!-- took too long starts -->
-        <v-layout justify-center align-center column v-else width="100%" class="slideDown">
+        <v-layout
+          justify-center
+          align-center
+          column
+          v-else
+          width="100%"
+          class="slideDown"
+        >
           <span class="font-weight-bold   py-3 mx-5 ">
-              We are sorry the logging took too long. Apparently your connection is too slow or there was an issue with our system.
-            </span>
+            We are sorry the logging took too long. Apparently your connection is too slow or there was an issue with our system.
+          </span>
           <v-img
             width="400px"
             :src="brokenImg()"
             :lazy-src="brokenImg()"
             alt="It took too long to load"
-             
           />
-          <v-btn block  class="sign-in elevation-9" round @click="goBack">
+          <v-btn
+            block
+            class="sign-in elevation-9"
+            round
+            @click="goBack"
+          >
             <span class="font-weight-bold display-1  py-3  ">
               go back and start again
             </span>
