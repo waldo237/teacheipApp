@@ -28,17 +28,17 @@
        tag="v-btn"
        flat
         style="background-color:white"
-     @click="$store.commit('setFeeds', true);hideMenu()" v-if="checkIsLoggedIn">
+     @click="$store.commit('setNotiFeeds', true);hideMenu()" v-if="checkIsLoggedIn">
         
          <v-badge 
           color="#c6192a"
           width="100%"
           overlap
           >
-          <template v-slot:badge >
-            <span style="font-size: 70%; font-weight: bold"> 2</span>
+          <template v-slot:badge v-if="!alreadyRead">
+            <span style="font-size: 70%; font-weight: bold">{{ feedNum}}</span>
             </template>
-              <v-icon size="30" >fas fa-bell</v-icon>
+              <v-icon size="25" >fas fa-bell</v-icon>
 
          </v-badge>
         
@@ -91,14 +91,16 @@ export default {
   data() {
     return {
         tip: false,
+        alreadyRead: false,
+        feedNum: 0
     };
   },
   methods: {
     ...mapActions(["toggleSU"]),
-    hideMenu(){this.$emit('hideMenu')}
+    hideMenu(){this.$emit('hideMenu')},
   },
   computed: {
-    ...mapGetters(["checkIsLoggedIn", "getNavigation", "auth"]),
+    ...mapGetters(["checkIsLoggedIn", "getNavigation", "auth", "feeds"]),
     initialize() {
       return this.auth()
         .currentUser.displayName.split(" ")
@@ -106,6 +108,17 @@ export default {
         .join("")
         .toUpperCase();
     }
+  },
+  watch:{
+    feeds(){
+
+    }
+  },
+ async created(){
+   this.$store.commit("setCUEmail", this.auth().currentUser.email);
+    await this.$store.dispatch('fetchFeeds');
+    this.alreadyRead = await this.feeds[0].alreadyRead;
+    this.feedNum = this.feeds.length;
   }
 };
 </script>

@@ -11,7 +11,7 @@ const state = {
     yes: false,
     landing: true,
     loadingFull: false,
-    feeds:false,
+    notifeeds:false,
 
 };
 const getters = {
@@ -26,7 +26,7 @@ const getters = {
     isAlert: (state) =>state.alert,
     getYes:(state) => state.yes,
     loadingFull:(state) => state.loadingFull,
-    feeds:(state) => state.feeds,
+    notiFeeds:(state) => state.notifeeds,
     
 };
 const actions = {
@@ -63,7 +63,7 @@ const mutations = {
     setInteract:  (state, value) =>(state.interact = value),
     setYes:  (state, value) =>(state.interact = value),
     setLoadingFull:  (state, value) =>(state.loadingFull = value),
-    setFeeds:  (state, value) =>(state.feeds = value),
+    setNotiFeeds:  (state, value) =>(state.notifeeds = value),
 };
 
 export default{

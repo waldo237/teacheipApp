@@ -6,7 +6,7 @@ const state = {
 };
 
 const getters = {
-    getFeeds: state => state.feeds
+    feeds: state => state.feeds
 };
 
 const actions = {
@@ -20,7 +20,7 @@ const actions = {
     }
 },
 async markAsRead() {
-    const markFeedURL ="https://script.google.com/macros/s/AKfycby-Sd1HGKF0YVeWqGm6Dd8D9YnhyV2Uf1KJzjgwu9_RZ0Z1YQE/exec";
+    const markFeedURL =`https://script.google.com/macros/s/AKfycby-Sd1HGKF0YVeWqGm6Dd8D9YnhyV2Uf1KJzjgwu9_RZ0Z1YQE/exec?email=${state.CUEmail}`;
     try {
       await axios.get(markFeedURL);
     } catch (error) {

@@ -56,7 +56,7 @@ export default {
       window.addEventListener("offline", updateOnlineStatus);
     }
   },
-  computed: mapGetters(["getFullScreen", "checkIsLoggedIn"]),
+  computed: mapGetters([ "checkIsLoggedIn"]),
   async created() {
     this.init();
   },

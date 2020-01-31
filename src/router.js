@@ -149,15 +149,6 @@ let router = new Router({
       }
     },
     {
-      path: "/signin",
-      name: "signin",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/session/LogInView.vue"),
-      meta: {
-        requiresGuest: true
-      }
-    },
-    {
       path: "/signup",
       name: "signup",
       component: () =>

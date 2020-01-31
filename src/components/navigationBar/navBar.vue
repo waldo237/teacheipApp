@@ -70,7 +70,6 @@
     <!-- complete navigation ends -->
     <!-- communication dialogs -->
     <popupRegister />
-    <signInForm />
     <alerting />
     <!-- communication dialogs -->
   </div>
@@ -80,7 +79,6 @@
 import session from "@/store/modules/session.js";
 import { directive as onClickaway } from "vue-clickaway";
 import popupRegister from "@/views/session/RegisterView.vue";
-import signInForm from "@/views/session/LogInView.vue";
 import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
 import navBtnMin from "@/components/navigationBar/navBtnMin.vue";
@@ -96,7 +94,6 @@ export default {
     popupRegister,
     navBtnMin,
     navBtnMax,
-    signInForm,
     alerting,
     profile,
     supervisorsideMenu,
