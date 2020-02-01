@@ -41,6 +41,8 @@
           type="application/pdf"
           height="500px"
           width="100%"
+          
+          class="mb-5 "
         >
           <embed
             class="round"

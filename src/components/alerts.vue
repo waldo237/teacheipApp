@@ -31,7 +31,7 @@
         </v-layout>
       </v-toolbar>
       <v-layout justify-center>
-        <v-card-title class="title font-weight-bold mt-5 v-card-title">
+        <v-card-title class="title font-weight-regular mt-4 greyText">
           {{ getAlertMessage }}
         </v-card-title>
       </v-layout>
@@ -100,3 +100,9 @@ export default {
   ])
 };
 </script>
+<style>
+.greyText{
+  color: #353539 !important;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif  !important;
+}
+</style>

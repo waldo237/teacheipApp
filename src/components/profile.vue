@@ -64,7 +64,7 @@
           @click="logout"
         >
           Log out
-          <v-icon>exit_to_app</v-icon>
+          <v-icon class="mx-1">power_settings_new</v-icon>
         </v-btn>
       </v-card-actions>
     </v-list>

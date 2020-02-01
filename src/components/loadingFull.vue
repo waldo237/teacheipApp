@@ -15,7 +15,7 @@
         <v-toolbar
           color="white"
           flat
-          class="pt-5"
+          class="pt-3"
         >
           <v-layout justify-center>
             <span class="teach display-1">Teach</span>
@@ -29,10 +29,11 @@
           column
           v-if="!tookTooLong"
           class="slideRight"
+          wrap
         >
           <v-img
             class="m-0"
-            width="400px"
+            width="370px"
             :src="loadingImg()"
             :lazy-src="loadingImg()"
           />
@@ -42,7 +43,7 @@
             class="sign-up elevation-9"
             round
           >
-            <span class="font-weight-bold display-1  py-3  ">
+            <span class="font-weight-bold title py-2 ">
               coming right up... {{ percent }}
             </span>
           </v-btn>
@@ -50,18 +51,18 @@
         <!-- loading ends -->
         <!-- took too long starts -->
         <v-layout
-          justify-center
-          align-center
+
           column
           v-else
           width="100%"
           class="slideDown"
+          wrap
         >
-          <span class="font-weight-bold   py-3 mx-5 ">
+          <span class="font-weight-bold   py-t mx-5 ">
             We are sorry the logging took too long. Apparently your connection is too slow or there was an issue with our system.
           </span>
           <v-img
-            width="400px"
+            width="370px"
             :src="brokenImg()"
             :lazy-src="brokenImg()"
             alt="It took too long to load"
@@ -72,7 +73,7 @@
             round
             @click="goBack"
           >
-            <span class="font-weight-bold display-1  py-3  ">
+            <span class="font-weight-bold title  py-2  ">
               go back and start again
             </span>
           </v-btn>

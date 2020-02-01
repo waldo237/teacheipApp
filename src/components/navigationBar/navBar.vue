@@ -2,48 +2,41 @@
   <div>
     <!-- side menu starts -->
     <div v-on-clickaway="away">
-      <v-navigation-drawer
-        app
-        v-model="drawer"
-        disable-resize-watcher
-      >
+      <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
         <supervisorsideMenu v-if="isSupervisor" />
         <coordinatorsideMenu v-else-if="isCoordinator" />
       </v-navigation-drawer>
     </div>
     <!-- side menu ends -->
     <!-- complete navigation starts -->
-    <v-toolbar
-      app
-      style="background-color:white"
-      class="py-0"
-      dense
-      sticky
-    >
+    <v-toolbar app style="background-color:white" class="pa-0" dense sticky>
       <!--  sandwich menu for side bar/menu-->
-      <v-toolbar-side-icon
-        x-large
-        class="px-4 py-2"
+
+      <v-btn
         @click.stop="drawer = !drawer"
         v-if="checkIsLoggedIn"
-      />
+        fab
+        flat
+        class=" ma-0 pa-0 leftIcon"
+        ><v-icon medium slot> menu</v-icon></v-btn >
+        
+ 
       <!-- sandwich menu -->
 
       <!-- logo starts -->
-      <div class="logo-text">
+      <div class="logo-text px-0 my-0 mx-0 leftIcon">
         <v-btn
           href="/"
           flat
-          large
+          
           round
-          class="px-0 my-0 font-weight-bold title"
+          class="px-0 my-0 mx-0 font-weight-bold"
         >
-          <span class="teach">Teach</span>
-          <span class="acronym font-weight-light">EIP</span>
+          <span class="teach font-weight-regular">Teach</span>
+          <span class="acronym ">EIP</span>
         </v-btn>
         <span class="full-title mt-0">
           with The English Immersion Program
-          
         </span>
       </div>
       <!-- logo ends -->
@@ -58,12 +51,9 @@
       />
       <!-- expanded navigation bar ends-->
       <!--  minimized menu starts-->
-      <v-toolbar-side-icon
-        x-large
-        class="hidden-md-and-up mr-0  px-4 py-2"
-        slot
-        @click="sandwich = true"
-      />
+      <v-btn @click="sandwich = true" fab flat class="hidden-md-and-up  rightIcon "
+        ><v-icon medium slot> menu</v-icon></v-btn
+      >
       <navBtnMin
         :sandwich="sandwich"
         @hideMenu="hideMenu"
@@ -109,8 +99,7 @@ export default {
     alerting,
     profile,
     supervisorsideMenu,
-    coordinatorsideMenu,
-    
+    coordinatorsideMenu
   },
   directives: {
     onClickaway: onClickaway
@@ -187,6 +176,7 @@ export default {
   beforeMount() {
     if (this.auth().currentUser && session.fetchRole()) {
       this.$store.commit("setLoggedIn", true);
+      this.$root.$emit("loggedIn");
     }
   },
   created() {
@@ -201,8 +191,8 @@ export default {
   width: 250px;
   z-index: 1;
   position: fixed;
-  top: 100%;
-  right: 10px;
+  top: 50px;
+  right: 3px;
   text-align: center;
   animation-duration: 0.1s;
   animation-name: slideInDown;
@@ -213,7 +203,7 @@ export default {
   width: 250px;
   z-index: 1;
   position: fixed;
-  top: 150px;
+  top: 148px;
   right: 2%;
   text-align: center;
   animation-duration: 0.1s;
@@ -227,7 +217,7 @@ export default {
 }
 .sign-in {
   color: white !important;
-  background-color:#135393 !important;
+  background-color: #135393 !important;
 }
 .sign-up {
   color: white !important;
@@ -252,7 +242,7 @@ export default {
   color: #135393;
 }
 .logo-text {
-  font-size: 140%;
+  font-size: 110%;
 }
 .logo-text:hover .acronym {
   display: none;
@@ -260,7 +250,7 @@ export default {
 .logo-text:hover .full-title {
   display: inline;
   color: #135393;
-  font-family: "Oswald", sans-serif;
+ font-family: "Bebas Neue", serif !important;
   font-weight: 400;
   animation-duration: 0.5s;
   animation-name: zoomInUp;
@@ -273,6 +263,18 @@ export default {
   animation-duration: 0.5s;
   animation-name: zoomInUp;
   animation-timing-function: ease-in-out;
+}
+.leftIcon{
+  position:relative;
+  left: -20px;
+  margin-right: 1px !important;
+  
+}
+.rightIcon{
+  position:relative;
+  right: -20px;
+  margin-right: 1px !important;
+  
 }
 
 @media screen and (max-width: 960px) {

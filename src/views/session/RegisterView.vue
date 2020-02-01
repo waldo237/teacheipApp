@@ -139,6 +139,7 @@ export default {
         await this.validateToken();
         if (this.validated.authenticated) {
           if (this.auth().currentUser) this.$store.commit("setLoggedIn", true);
+          this.$root.$emit('loggedIn');
           this.$store.commit('setLoadingFull', false);
           await this.$router.push(`/${fetchRole()}Dashboard`);
         } else {
@@ -149,15 +150,6 @@ export default {
       } catch (error) {
         throw new Error(error);
       }
-    },
-    googleImg() {
-      return "https://drive.google.com/uc?export=view&id=19gqsAvafJBgOeXJn4pqooOTuGWpwponA";
-    },
-    facebookImg() {
-      return "https://drive.google.com/uc?export=view&id=1Mf_ItAgwI2lI34L9cNZpEOqMrmJ4qsJ-";
-    },
-    microsoftImg() {
-      return "https://drive.google.com/uc?export=view&id=1Okh6YMoL8jfAcXXFj8ybedJGv-mdHGTE";
     },
     microsoft() {
       this.$store.commit('setLoadingFull', true);

@@ -2,365 +2,289 @@
   <div width="100%">
     <!--############ CONTENT/ DASHBOARD ##############-->
     <!--############ ALERT ##############-->
-    <div class="my-2 pt-2">
+    <!-- <div class="my-2 pt-2">
       <v-alert
         v-model="alert"
         border="left"
         close-text="Close Alert"
-        :color="(announcement)?'deep':'white'"
+        :color="announcement ? 'deep' : 'white'"
         dismissible
         class="mt-5 mb-0"
       >
-        <v-layout
-          row
-          wrap
-          justify-center
-        >
-          <v-badge 
-            :color="(announcement)?'#c6192a':'deep'"
-            width="100%"
-          >
+        <v-layout row wrap justify-center>
+          <v-badge :color="announcement ? '#c6192a' : 'deep'" width="100%">
             <template v-slot:badge>
               <span style="font-size: 70%; font-weight: bold"> New</span>
             </template>
             <a
-              :href="'https://drive.google.com/open?id=1MKFoq92IFERhrkfrUF_kYy7f13GkpgAD'"
+              :href="
+                'https://drive.google.com/open?id=1MKFoq92IFERhrkfrUF_kYy7f13GkpgAD'
+              "
               target="_blank"
             >
- 
               <v-card
                 class="pa-4 round mx-auto"
                 round
                 block
                 rounded
-                :color="(announcement)?'white':'#c6192a'"
-                :class="(announcement)?'black--text pr-4':'white--text '"
-              > 
-          
-                Hola, {{ this.auth().currentUser.displayName }}. Por favor descarga el PROPEDEUTICO. Aqui se descargan los documentos
-        
-              </v-card>  
+                :color="announcement ? 'white' : '#c6192a'"
+                :class="announcement ? 'black--text pr-4' : 'white--text '"
+              >
+                Hola, {{ this.auth().currentUser.displayName }}. Por favor
+                descarga el PROPEDEUTICO. Aqui se descargan los documentos
+              </v-card>
             </a>
           </v-badge>
-        <!-- NEWSSSSSSSSSSSSSSSSSS -->
+       
         </v-layout>
       </v-alert>
-    </div>
+    </div> -->
 
     <!--############ ALERT END ##############-->
     <v-layout
       width="100%"
       justify-center
-      :class="!alert ? 'mt-0  my-4 pb-5' : ' mt-0  mb-5 pb-5'"
+      class=" my-5 pt-0 pb-5"
     >
-      <v-card
-        width="100%"
-        class="elevation-24 "
-        wrap
-      >
-        <v-tabs
-          vertical
-          class="px-5"
-          slider-color="#c6192a"
-          light
-        >
-          <v-tab>
-            <v-icon color="black">
-              apps
-            </v-icon>Servicios
-          </v-tab>
-          <v-tab>
-            <v-icon
-              color="black"
-              class="mr-2"
-            />Solicitudes
-          </v-tab>
-          <v-tab> <v-icon color="black" />Centro </v-tab>
+      <v-tabs vertical class=" pt-2" slider-color="#c6192a" dark>
+        <v-tab>
+          <v-icon color="black">
+            apps </v-icon
+          >Servicios
+        </v-tab>
+        <v-tab> <v-icon color="black" class="mr-2" />Solicitudes </v-tab>
+        <v-tab> <v-icon color="black" />Centro </v-tab>
 
-          <v-tab-item class="pb-5">
-            <!-- SERVICIOS RECURSOS -->
-            <v-card
-              hover
-              exact
-              dark
-              class="rounding black my-5"
-            >
-              <v-card-title
-                class="mx-auto headline"
-                dense
+        <v-tab-item class="pb-5 mb-5">
+          <!-- SERVICIOS RECURSOS -->
+          <v-card class="round grey lighten-2 elevation-9">
+            <v-card-title class="ma-auto title main-title" dense>
+              <v-layout row wrap justify-center align-center>
+                <v-icon large class="mx-2 ">local_play</v-icon>SERVICIOS
+              </v-layout>
+            </v-card-title>
+            <v-layout class=" round py-0 slidingMenu " wrap>
+              <v-card
+                flat
+                class="ma-2  pa-0  background grey lighten-2"
+                v-for="(item, i) in servicios"
+                :key="i"
+                min-width="360px"
               >
-                <v-layout
-                  row
-                  wrap
-                  justify-center
+                <v-btn
+                  x-large
+                  :to="item.link"
+                  
+                  color="#4e719b"
+                  class=" ma-0 py-3  elevation-4"
+                  block
                 >
-                  <v-icon>local_play</v-icon>SERVICIOS
-                </v-layout>
-              </v-card-title>
-              <v-layout
-                class=" round py-0 slidingMenu background"
-                wrap
+                  <v-icon>{{ item.icon }}</v-icon>
+                <span class="title font-weight-medium">  {{ item.title }} </span>
+                </v-btn>
+              </v-card>
+            </v-layout>
+          </v-card>
+          <!-- SERVICIOS ENDS -->
+        </v-tab-item>
+
+        <v-tab-item class="pb-5 mb-5">
+          <!-- SOLICITUDES -->
+         <v-card class="round grey lighten-2 elevation-9">
+            <v-card-title class="ma-auto title main-title" dense>
+              <v-layout row wrap justify-center align-center>
+                <v-icon large class="mx-2 ">hearing</v-icon>SOLICITUDES
+              </v-layout>
+            </v-card-title>
+            <v-layout class=" round py-0 slidingMenu " wrap>
+              <v-card
+                flat
+                class="ma-2  pa-0  background grey lighten-2"
+                v-for="(item, i) in solicitudes"
+                :key="i"
+                min-width="360px"
+              >
+                <v-btn
+                  x-large
+                  :to="item.link"
+                  
+                  color="#4e719b"
+                  class=" ma-0 py-3  "
+                  block
+                >
+                  <v-icon>{{ item.icon }}</v-icon>
+                <span class="title font-weight-medium">  {{ item.title }} </span>
+                </v-btn>
+              </v-card>
+            </v-layout>
+          </v-card>
+          <!-- SOLICITUDES ENDS -->
+        </v-tab-item>
+
+        <v-tab-item class="mx-3 pb-5">
+          <v-card flat class="my-5 black round" dark>
+            <v-layout row wrap>
+              <!-- GENERAL BUTTON -->
+              <a
+                @click="
+                  generalMenu = true;
+                  studentMenu = false;
+                  teacherMenu = false;
+                "
               >
                 <v-card
-                  class="ma-2  pa-0 rounding background"
-                  v-for="(item, i) in servicios"
-                  :key="i"
-                  min-width="360px"
+                  class="px-auto pt-2 mt-1 mx-3 actionButton rounding"
+                  width="80px"
+                  :dark="generalMenu ? true : false"
                 >
-                  <v-btn
-                    :to="item.link"
-                    round
-                    
-                    class=" sign-in ma-0 py-1"
-                    block
+                  <img
+                    src="https://drive.google.com/uc?export=view&id=1YBfq0jnYRiyYePSmYpVGgNuf0LN-LEQW"
+                    lazy-src="https://drive.google.com/uc?export=view&id=1YBfq0jnYRiyYePSmYpVGgNuf0LN-LEQW"
+                    alt
+                    width="76px"
+                    height="68px"
+                    class="mx-1 mb-0"
+                  />
+                  <v-card-text class="px-auto py-0">General</v-card-text>
+                  <v-icon class="mx-4" color="#c6192a" v-if="generalMenu"
+                    >arrow_drop_down</v-icon
                   >
-                    <v-icon>{{ item.icon }}</v-icon>
-                    {{ item.title }}
-                  </v-btn>
                 </v-card>
-              </v-layout>
-            </v-card>
-            <!-- SERVICIOS ENDS -->
-          </v-tab-item>
+              </a>
+              <!-- GENERAL BUTTON END -->
 
-          <v-tab-item class="pb-5">
-            <!-- SOLICITUDES -->
-            <v-card
-              hover
-              exact
-              dark
-              class="rounding black my-5"
-            >
-              <v-card-title class="mx-auto headline">
-                <v-layout
-                  row
-                  wrap
-                  justify-center
+              <a
+                @click="
+                  studentMenu = true;
+                  teacherMenu = false;
+                  generalMenu = false;
+                "
+              >
+                <v-card
+                  class="px-auto pt-2 mt-1 mx-3 actionButton round"
+                  width="80px"
+                  :dark="studentMenu ? true : false"
                 >
-                  <v-icon large>
-                    hearing
-                  </v-icon>SOLICITUDES
-                </v-layout>
-              </v-card-title>
-              <v-layout
+                  <img
+                    lazy-src="https://drive.google.com/uc?export=view&id=1VvmPXB2mhGsbtcBhqBb4yG4m5lPoqo83"
+                    src="https://drive.google.com/uc?export=view&id=1VvmPXB2mhGsbtcBhqBb4yG4m5lPoqo83"
+                    alt
+                    class="mx-2 mb-0"
+                  />
+                  <v-card-text class="px-auto py-0">Student</v-card-text>
+                  <v-icon class="mx-4" color="#c6192a" v-if="studentMenu"
+                    >arrow_drop_down</v-icon
+                  >
+                </v-card>
+              </a>
+              <!-- TEACHER BUTTON -->
+              <a
+                @click="
+                  teacherMenu = true;
+                  studentMenu = false;
+                  generalMenu = false;
+                "
+              >
+                <v-card
+                  class="px-auto pt-2 mt-1 mx-3 actionButton round"
+                  width="80px"
+                  :dark="teacherMenu ? true : false"
+                >
+                  <img
+                    lazy-src="https://drive.google.com/uc?export=view&id=1QQOpEQuXqOqwysFcLnR3QwET-Sbc8lSK"
+                    src="https://drive.google.com/uc?export=view&id=1QQOpEQuXqOqwysFcLnR3QwET-Sbc8lSK"
+                    alt
+                    width="78px"
+                    height="68px"
+                    class="mx-1 mb-0"
+                  />
+                  <v-card-text class="px-auto py-0">Teacher</v-card-text>
+                  <v-icon class="mx-4" color="#c6192a" v-if="teacherMenu"
+                    >arrow_drop_down</v-icon
+                  >
+                </v-card>
+              </a>
+              <!-- TEACHER BUTTON -->
+            </v-layout>
+            <!-- ####### STUDENT OPTIONS #######-->
+
+            <v-layout
+              class="black round py-0 slidingMenu"
+              wrap
+              v-if="studentMenu"
+            >
+              <v-card
                 dark
-                class="black round py-0 slidingMenu background"
-                wrap
-                justify-center
+                class="black pa-0 pa-0 round"
+                v-for="(item, i) in studentOptions"
+                :key="i"
               >
-                <v-card
-                  min-width="360px"
-                  class="mx-auto ma-2 pa-0 black rounding background"
-                  v-for="(item, i) in solicitudes"
-                  :key="i"
-                >
-                  <v-btn
-                    :to="item.link"
-                    round
-                    class=" sign-in my-0 ma-0 py-2"
-                    block
-                  >
-                    <v-icon>{{ item.icon }}</v-icon>
-                    {{ item.title }}
-                  </v-btn>
-                </v-card>
-              </v-layout>
-            </v-card>
-            <!-- SOLICITUDES ENDS -->
-          </v-tab-item>
+                <v-btn round class="mx-0 my-0" dense block>
+                  <v-icon :color="item.color">
+                    {{ item.icon }}
+                  </v-icon>
+                  {{ item.title }}
+                </v-btn>
+              </v-card>
+            </v-layout>
 
-          <v-tab-item class="mx-3 pb-5">
-            <v-card
-              flat
-              class="my-5 black round"
-              dark
+            <!-- ####### STUDENT OPTIONS END #######-->
+
+            <!-- ####### TEACHER OPTIONS #######-->
+
+            <v-layout
+              class="black py-0 slidingMenu round"
+              wrap
+              v-if="teacherMenu"
             >
-              <v-layout
-                row
-                wrap
-              >
-                <!-- GENERAL BUTTON -->
-                <a
-                  @click="
-                    generalMenu = true;
-                    studentMenu = false;
-                    teacherMenu = false;
-                  "
-                >
-                  <v-card
-                    class="px-auto pt-2 mt-1 mx-3 actionButton rounding"
-                    width="80px"
-                    :dark="generalMenu ? true : false"
-                  >
-                    <img
-                      src="https://drive.google.com/uc?export=view&id=1YBfq0jnYRiyYePSmYpVGgNuf0LN-LEQW"
-                      lazy-src="https://drive.google.com/uc?export=view&id=1YBfq0jnYRiyYePSmYpVGgNuf0LN-LEQW"
-                      alt
-                      width="76px"
-                      height="68px"
-                      class="mx-1 mb-0"
-                    >
-                    <v-card-text class="px-auto py-0">General</v-card-text>
-                    <v-icon
-                      class="mx-4"
-                      color="#c6192a"
-                      v-if="generalMenu"
-                    >arrow_drop_down</v-icon>
-                  </v-card>
-                </a>
-                <!-- GENERAL BUTTON END -->
-
-                <a
-                  @click="
-                    studentMenu = true;
-                    teacherMenu = false;
-                    generalMenu = false;
-                  "
-                >
-                  <v-card
-                    class="px-auto pt-2 mt-1 mx-3 actionButton round"
-                    width="80px"
-                    :dark="studentMenu ? true : false"
-                  >
-                    <img
-                      lazy-src="https://drive.google.com/uc?export=view&id=1VvmPXB2mhGsbtcBhqBb4yG4m5lPoqo83"
-                      src="https://drive.google.com/uc?export=view&id=1VvmPXB2mhGsbtcBhqBb4yG4m5lPoqo83"
-                      alt
-                      class="mx-2 mb-0"
-                    >
-                    <v-card-text class="px-auto py-0">Student</v-card-text>
-                    <v-icon
-                      class="mx-4"
-                      color="#c6192a"
-                      v-if="studentMenu"
-                    >arrow_drop_down</v-icon>
-                  </v-card>
-                </a>
-                <!-- TEACHER BUTTON -->
-                <a
-                  @click="
-                    teacherMenu = true;
-                    studentMenu = false;
-                    generalMenu = false;
-                  "
-                >
-                  <v-card
-                    class="px-auto pt-2 mt-1 mx-3 actionButton round"
-                    width="80px"
-                    :dark="teacherMenu ? true : false"
-                  >
-                    <img
-                      lazy-src="https://drive.google.com/uc?export=view&id=1QQOpEQuXqOqwysFcLnR3QwET-Sbc8lSK"
-                      src="https://drive.google.com/uc?export=view&id=1QQOpEQuXqOqwysFcLnR3QwET-Sbc8lSK"
-                      alt
-                      width="78px"
-                      height="68px"
-                      class="mx-1 mb-0"
-                    >
-                    <v-card-text class="px-auto py-0">Teacher</v-card-text>
-                    <v-icon
-                      class="mx-4"
-                      color="#c6192a"
-                      v-if="teacherMenu"
-                    >arrow_drop_down</v-icon>
-                  </v-card>
-                </a>
-                <!-- TEACHER BUTTON -->
-              </v-layout>
-              <!-- ####### STUDENT OPTIONS #######-->
-
-              <v-layout
-                class="black round py-0 slidingMenu"
-                wrap
-                v-if="studentMenu"
-              >
-                <v-card
-                  dark
-                  class="black pa-0 pa-0 round"
-                  v-for="(item, i) in studentOptions"
-                  :key="i"
-                >
-                  <v-btn
-                    round
-                    class="mx-0 my-0"
-                    dense
-                    block
-                  >
-                    <v-icon :color="item.color">
-                      {{ item.icon }}
-                    </v-icon>
-                    {{ item.title }}
-                  </v-btn>
-                </v-card>
-              </v-layout>
-
-              <!-- ####### STUDENT OPTIONS END #######-->
-
-              <!-- ####### TEACHER OPTIONS #######-->
-
-              <v-layout
-                class="black py-0 slidingMenu round"
-                wrap
-                v-if="teacherMenu"
-              >
-                <v-card
-                  dark
-                  class=" black pa-0 pa-0 round"
-                  v-for="(item, i) in teacherOptions"
-                  :key="i"
-                >
-                  <v-btn
-                    round
-                    class="mx-0 my-0 "
-                    dense
-                    block
-                  >
-                    <v-icon :color="item.color">
-                      {{ item.icon }}
-                    </v-icon>
-                    {{ item.title }}
-                  </v-btn>
-                </v-card>
-              </v-layout>
-
-              <!-- ####### TEACHER OPTIONS END #######-->
-              <!-- ####### GENERAL OPTIONS #######-->
-
-              <v-layout
+              <v-card
                 dark
-                class="black round py-0 slidingMenu"
-                wrap
-                v-if="generalMenu"
+                class=" black pa-0 pa-0 round"
+                v-for="(item, i) in teacherOptions"
+                :key="i"
               >
-                <v-card
-                  dark
-                  flat
-                  class="black pa-0 pa-0 round ma-0 "
-                  v-for="(item, i) in generalOptions"
-                  :key="i"
-                >
-                  <v-btn
-                    round
-                    class="elevation-20 my-0"
-                    block
-                  >
-                    <v-icon :color="item.color">
-                      {{ item.icon }}
-                    </v-icon>
-                    {{ item.title }}
-                  </v-btn>
-                </v-card>
-              </v-layout>
+                <v-btn round class="mx-0 my-0 " dense block>
+                  <v-icon :color="item.color">
+                    {{ item.icon }}
+                  </v-icon>
+                  {{ item.title }}
+                </v-btn>
+              </v-card>
+            </v-layout>
 
-              <!-- ####### GENERAL OPTIONS END #######-->
-              <!-- ####### GRID #######-->
+            <!-- ####### TEACHER OPTIONS END #######-->
+            <!-- ####### GENERAL OPTIONS #######-->
 
-              <!-- ####### GRID END #######-->
-              <v-card-text />
-            </v-card>
-          </v-tab-item>
-        </v-tabs>
-      </v-card>
+            <v-layout
+              dark
+              class="black round py-0 slidingMenu"
+              wrap
+              v-if="generalMenu"
+            >
+              <v-card
+                dark
+                flat
+                class="black pa-0 pa-0 round ma-0 "
+                v-for="(item, i) in generalOptions"
+                :key="i"
+              >
+                <v-btn round class="elevation-20 my-0" block>
+                  <v-icon :color="item.color">
+                    {{ item.icon }}
+                  </v-icon>
+                  {{ item.title }}
+                </v-btn>
+              </v-card>
+            </v-layout>
+
+            <!-- ####### GENERAL OPTIONS END #######-->
+            <!-- ####### GRID #######-->
+
+            <!-- ####### GRID END #######-->
+            <v-card-text />
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
     </v-layout>
     <!-- </v-container> -->
     <!-- </v-content> -->
@@ -420,7 +344,6 @@ export default {
     };
   },
   methods: {
-
     closeStudent() {
       if (this.studentMenu) {
         this.studentMenu = !this.studentMenu;
@@ -439,26 +362,25 @@ export default {
       "auth",
       "validated",
       "servicios",
-      "solicitudes",
+      "solicitudes"
     ])
   },
   beforeDestroy() {
     clearInterval(this.interval);
   },
- async mounted() {
+  async mounted() {
     if (this.alert) {
       this.interval = setInterval(() => {
         this.announcement = !this.announcement;
       }, 3000);
     }
-   await this.$store.commit("setCurrentRole", session.fetchRole());
+    await this.$store.commit("setCurrentRole", session.fetchRole());
     this.$store.commit("setLoggedIn", true);
   },
   created() {
     this.announcementMessage = `Hola, ${
       this.auth().currentUser.displayName
     }. Nos place compartir con ustedes que comenzaremos las clases el dia 13 de Enero 2020`;
-
   }
 };
 </script>
@@ -494,11 +416,10 @@ export default {
     #1488cc
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.background{
-   width:100%;
-    background: linear-gradient( rgba(0, 0, 0, 0.582), rgba(0, 0, 0, 0.575) ),  url(https://trainingindustry.com/content/uploads/2019/08/Upskilling-for-the-Future-of-Work-8.7.19.jpg);
+.background {
+  width: 100%;
 }
-.rounding{
-  border-radius: 30%
+.rounding {
+  border-radius: 30%;
 }
 </style>

@@ -198,6 +198,19 @@ let router = new Router({
       }
     },
     {
+      path: "/teacherDashboard",
+      name: "teacherDashboard",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/dashboards/TeacherDashboard.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true,
+        isTeacher: true,
+      }
+    },
+    {
       path: "/useterms",
       name: "useterms",
       component: () =>

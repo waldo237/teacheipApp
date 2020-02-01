@@ -307,6 +307,7 @@ export default {
 
     if (this.auth().currentUser) {
       this.$store.commit("setLoggedIn", true);
+       this.$root.$emit('loggedIn');
     }
   }
 };

@@ -7,7 +7,7 @@
       class="mt-3"
     >
                 <v-card-title
-              class="display-1 font-weight-light my-0 text-xs-center main-title"
+              class="display-1 font-weight-light mt-4 text-xs-center main-title"
             >
               ABOUT THIS WEB APPPLICATION
             </v-card-title>
@@ -100,8 +100,8 @@ export default {
   animation-name: hinge;
 }
 .cutButton{
-  border-bottom-right-radius: 25px;
-  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 @media screen and (max-width: 960px) {
   .content {

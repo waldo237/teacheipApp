@@ -1,17 +1,19 @@
 <template>
-  <div>
-    <v-card class="round ma-5 pa-4">
-      <v-card-title class="grey lighten-4 py-3 title">
-        Solicitar Copias de Examenes
-      </v-card-title>
-      <v-container
-        grid-list-sm
-        class="pa-4"
-      >
-        <v-layout
-          row
-          wrap
-        >
+  <v-layout class="mb-5 pb-5" justify-center wrap column>
+    <v-layout
+      justify-center
+      row
+      wrap
+      class="display-1 font-weight-light   main-title mt-5 pt-5  "
+    >
+      Solicitud de Copias de Examenes
+    </v-layout>
+    <v-layout row wrap justify-center class="mb-5 px-0">
+      <v-card class="round px-3 grey lighten-4 elevation-9">
+        <v-card-title class="grey lighten-4 py-3 title">
+          Solicitar Copias de Examenes
+        </v-card-title>
+        <v-layout row wrap justify-center>
           <v-progress-circular
             :rotate="-90"
             :size="100"
@@ -25,20 +27,11 @@
           </v-progress-circular>
         </v-layout>
         <!-- ================================== -->
-        <v-layout
-          row
-          wrap
-          justify-start
-          class="mx-4"
-        >
-          <v-btn
-            round
-            color="sign-up"
-            @click="$refs.inputUpload.click()"
-          >
+        <v-layout row wrap justify-start class="mx-2" align-center>
+          <v-btn round color="sign-up" @click="$refs.inputUpload.click()">
             <v-icon small>
-              description
-            </v-icon>Subir Archivo de examen
+              description </v-icon
+            >Subir Archivo de examen
           </v-btn>
           <input
             v-show="false"
@@ -48,78 +41,51 @@
             id="file1"
             accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                   text/plain, application/pdf"
-          >
-          <v-card
-            class="ma-3"
-            flat
-            v-model="path"
-          >
+          />
+          <v-card class="ma-3" flat v-model="path">
             {{ path }}
           </v-card>
-          <v-card
-            flat
-            row
-            justify-space-around
-            width="380px"
-          >
-            <v-btn
-              round
-              class="ma-auto"
-              color="sign-up"
-              @click="addAudio"
-            >
+          <v-card flat row justify-space-around>
+            <v-btn round class="ma-auto" color="sign-up" @click="addAudio">
               <v-icon small>
                 add
-              </v-icon>  track
+              </v-icon>
+              track
             </v-btn>
-            <v-btn
-              round
-              class="ma-auto"
-              color="sign-up"
-              @click="removeAudio"
-            >
+            <v-btn round class="ma-auto" color="sign-up" @click="removeAudio">
               <v-icon small>
                 remove
-              </v-icon>  track
+              </v-icon>
+              track
             </v-btn>
           </v-card>
         </v-layout>
-    
-        <v-layout wrap>
+
+        <v-layout wrap column justify-center align-center>
           <v-layout
             class="ma-3 pa-2"
             row
-            min-width="380px"
             wrap
             v-for="audio in audios"
             :key="audio.track"
           >
-            <v-card
-              width="380px"
-              flat
-            >
-              <label
-                :for="audio.input"
-                class="mx-2"
-              ><v-icon small> volume_up </v-icon>audio
-                {{ audio.track }}</label>
+            <v-card flat class="grey lighten-4">
+              <label :for="audio.input" class="mx-2"
+                ><v-icon small> volume_up </v-icon>audio
+                {{ audio.track }}</label
+              >
               <input
+              class="sign-up mx-2 "
                 :id="audio.input"
                 type="file"
                 @change="showPath"
                 accept="audio/*"
-              >
+              />
             </v-card>
           </v-layout>
         </v-layout>
 
-
-        <v-layout
-          xs6
-          wrap
-          row
-          justify-start
-        > 
+        <v-layout  wrap row justify-start>
           <v-text-field
             prepend-icon="format_list_numbered"
             placeholder="numero de copias"
@@ -136,29 +102,18 @@
             type="text"
           />
         </v-layout>
-        <v-flex xs12>
+
           <v-text-field
             prepend-icon="notes"
             placeholder="Comentario"
             v-model="sugerenciasBody"
           />
-        </v-flex>
-     
+    
 
-        <v-layout
-          row
-          wrap
-          justify-start
-        >
-          <v-layout align-center>
-            <v-avatar
-              size="40px"
-              class="mr-3"
-            >
-              <img
-                :src="this.auth().currentUser.photoURL"
-                alt
-              >
+        <v-layout row wrap justify-start class="mx-2">
+          <v-layout align-center >
+            <v-avatar size="40px" class="mr-3">
+              <img :src="this.auth().currentUser.photoURL" alt />
             </v-avatar>
             <v-text-field
               placeholder="Name"
@@ -172,7 +127,7 @@
             :value="this.auth().currentUser.email"
             disabled
           />
-     
+
           <v-text-field
             prepend-icon="event"
             placeholder="Fecha"
@@ -180,13 +135,9 @@
             disabled
           />
         </v-layout>
-    
+
         <!-- ================================== -->
-        <v-layout
-          justify-center
-          wrap
-          row
-        >
+        <v-layout justify-center wrap row>
           <!-- snackbar to notify completion starts -->
           <v-snackbar
             class="error"
@@ -197,25 +148,17 @@
             top="top"
           >
             {{ snackbarMessage }}
-            
-            <v-btn
-              dark
-              text
-              @click="snackbar = false"
-            >
+
+            <v-btn dark text @click="snackbar = false">
               Close
             </v-btn>
           </v-snackbar>
           <!-- snackbar to notify completion ends -->
         </v-layout>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            flat
-            round
-            class="sign-up"
-            @click="reset"
-          >
+          <v-layout row wrap justify-end>
+        <v-card-actions class="mb-5">
+
+          <v-btn flat round class="sign-up" @click="reset">
             cancelar
           </v-btn>
           <v-btn
@@ -227,10 +170,12 @@
           >
             Enviar solicitud
           </v-btn>
+            
         </v-card-actions>
-      </v-container>
-    </v-card>
-  </div>
+          </v-layout>
+      </v-card>
+    </v-layout>
+  </v-layout>
 </template>
 
 <script>
@@ -264,11 +209,11 @@ export default {
     };
   },
   methods: {
-    localPostSugerencia(){
-      try{
+    localPostSugerencia() {
+      try {
         this.postSolicitud()
           .then(() => {
-            this.snackbarMessage = "Este servicio todavia no esta disponible"
+            this.snackbarMessage = "Este servicio todavia no esta disponible";
             this.snackbar = true;
             this.loading = false;
           })
@@ -288,7 +233,7 @@ export default {
         input: `track${this.audios.length}`
       });
     },
-   removeAudio() {
+    removeAudio() {
       this.audios.pop();
     },
     reset() {
@@ -351,7 +296,7 @@ export default {
 
         this.postSolicitud()
           .then(() => {
-            this.snackbarMessage = "Este servicio todavia no esta disponible"
+            this.snackbarMessage = "Este servicio todavia no esta disponible";
             this.snackbar = true;
             this.loading = false;
           })
@@ -366,8 +311,7 @@ export default {
       }
     }
   },
-  created() {
-  },
+  created() {},
   beforeDestroy() {
     clearInterval(this.timeOut);
   },
@@ -376,3 +320,8 @@ export default {
   }
 };
 </script>
+<style>
+.audio{
+
+}
+</style>

@@ -24,17 +24,20 @@
           >
             <v-list-tile
               avatar
-              @click="markIt"
+              @click="markIt();"
               class="py-1 ma-1"
-              :class="(haveNotRead)? 'white': doneReading "
+              :class="(item.haveNotRead)? 'white': doneReading "
             >
-              <v-list-tile-avatar>
+              <v-list-tile-avatar v-if="item.avatar">
                 <img :src="item.avatar">
+              </v-list-tile-avatar>
+              <v-list-tile-avatar v-else>
+               <v-btn small fab class="sign-up">{{initialize(item.name)}}</v-btn> 
               </v-list-tile-avatar>
               <a
                 :href="item.link"
                 target="_blank"
-                :class=" greyForce"
+                :class="(item.haveNotRead)? 'greyForce': ''"
               >
                 <v-list-tile-content>
                   <v-list-tile-title>  {{ item.title }}</v-list-tile-title>
@@ -68,6 +71,12 @@ export default {
     };
   },
   methods: {
+        initialize(name) {
+      return name.split(" ")
+        .map(n => n[0])
+        .join("")
+        .toUpperCase();
+    },
     closeNotification() {
       if (this.notiFeeds) this.$store.commit("setNotiFeeds", false);
     },
@@ -81,18 +90,22 @@ export default {
     moment(date){
       return moment(date).fromNow();
     },
-    ...mapActions(["fetchFeeds", "markAsRead"])
+    ...mapActions([ "markAsRead"])
   },
   computed: {
     ...mapGetters(["feeds", "auth", "notiFeeds","haveNotRead" ])
   },
   async created() {
+
+ this.$root.$on('loggedIn', async ()=>{
    this.$store.commit("setCUEmail", this.auth().currentUser.email);
     await this.$store.dispatch('fetchFeeds');
-    this.items = this.feeds;
-    if (this.haveNotRead) this.greyForce = 'greyForce';
+    this.items = this.feeds.sort((a, b) =>new Date(b.date) - new Date(a.date));
      this.closeNotification();
-  }
+
+     })
+ 
+ }
 };
 </script>
 }

@@ -53,8 +53,8 @@
         <template v-slot:badge>
           <span style="font-size: 70%; font-weight: bold"> {{ feedNum }}</span>
         </template>
-        <v-icon size="25">
-          fas fa-bell
+        <v-icon size="28">
+          notifications
         </v-icon>
       </v-badge>
     </v-btn>
@@ -112,15 +112,19 @@ export default {
         .toUpperCase();
     },
   },
+    async updated(){
+    if(this.checkIsLoggedIn){
+      this.$store.commit("setCUEmail", this.auth().currentUser.email);
+       await this.$store.dispatch('fetchFeeds');
+      this.feedNum = await this.feeds.length;
+      this.tem = await !this.haveNotRead
+    }
+  },
  async created(){
-   this.$store.commit("setCUEmail", this.auth().currentUser.email);
-    await this.$store.dispatch('fetchFeeds');
-    this.feedNum = this.feeds.length;
-    this.tem = !this.haveNotRead
+
      this.$root.$on('removeBadget', ()=>{
        this.tem = false;
      })
-  
 
   }
 };

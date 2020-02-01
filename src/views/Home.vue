@@ -284,7 +284,6 @@ export default {
 }
 .main-title {
   font-family: "Bebas Neue", serif !important;
-  /* font-style: italic !important; */
   color: rgb(104, 102, 102);
 }
 .testimony-text {
@@ -317,11 +316,13 @@ export default {
   clip-path: polygon(0 39%, 0% 100%, 100% 100%);
   z-index: 0 !important;
   position: relative !important;
+  margin-bottom: 100px !important;
 }
 .blueCut {
   clip-path: polygon(0 100%, 100% 100%, 100% 42%);
   position: absolute !important;
   right: 0%;
+  margin-bottom: 100px !important;
 }
 .redCutSmall {
   clip-path: polygon(0 39%, 0% 100%, 100% 100%);
@@ -340,14 +341,14 @@ export default {
   position: relative !important;
   height: 250px !important;
   margin-top: 0% !important;
-  margin-bottom: 80px !important;
+  margin-bottom: 100px !important;
 }
 .blueCut {
   clip-path: polygon(0 100%, 100% 100%, 100% 42%);
   position: absolute !important;
   right: 0%;
   height: 250px !important;
-  margin-bottom: 80px !important;
+  margin-bottom: 100px !important;
 }
 }
 </style>
