@@ -113,8 +113,11 @@ export default {
     if(this.checkIsLoggedIn){
       this.$store.commit("setCUEmail", this.auth().currentUser.email);
        await this.$store.dispatch('fetchFeeds');
-      this.feedNum = await this.feeds.length;
-      this.tem = await !this.haveNotRead
+     this.feedNum = await this.haveNotRead.num.length;
+      this.tem = await this.haveNotRead.read.haveNotRead;
+      if(this.feedNum== 0){
+        this.tem = false
+      }
 
     }
    

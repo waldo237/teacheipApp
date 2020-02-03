@@ -139,15 +139,15 @@ let router = new Router({
         requiresAuth: true
       }
     },
-    {
-      path: "/loggedOut",
-      name: "/loggedOut/",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/session/205.vue"),
-      meta: {
-        requiresAuth: true
-      }
-    },
+    // {
+    //   path: "/loggedOut",
+    //   name: "/loggedOut/",
+    //   component: () =>
+    //     import(/* webpackChunkName: "about" */ "./views/session/205.vue"),
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
     {
       path: "/signup",
       name: "signup",

@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="grey lighten-5">
     <v-layout
       justify-center
       row
       wrap
       primary-title
-      class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 "
+      class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 grey lighten-5"
     >
       Lesson Plans
     </v-layout>
@@ -15,7 +15,7 @@
       wrap
       justify-center
       v-if="stillLoading"
-      class="ma-5 pa-5"
+      class="ma-5 pa-5 grey lighten-5"
     >
       <loading />
     </v-layout>
@@ -26,41 +26,11 @@
       grid-list-md
       class="py-5"
     >
-      <!-- new Lesson plan format start -->
-      <!-- 
-      <v-layout wrap justify-center class="py-0 my-0 elevation-5 round deepy" v-if="newPlan">
-        <v-card max-width="440px" justify-center flat class="deepy">
-          <v-layout row wrap justify-center>
-            <img
-              :src="frame(newFormat.id)"
-              :lazy-src="frame(newFormat.id)"
-              alt="New Lesson Plan Format"
-              class="round py-0 my-0 mx-auto"
-            />
-          </v-layout>
-          <span class="mx-auto">
-            This is the new lesson plan format to be used after january 2020
-          </span>
-          <v-card-actions class="mx-5 pt-0 mt-0">
-            <v-layout wrap justify-center>
-              <a :href="newFormat.link" target="blank" class="mx-2">
-                <v-icon color="#c6192a">open_in_new</v-icon
-                ><span> View online</span></a
-              >
-            </v-layout>
-          </v-card-actions>
-        </v-card>
-          <v-btn round icon  class="ma-0 pa-0" @click="newPlan=false">
-          <v-icon>close</v-icon>
-        </v-btn>
-      </v-layout> -->
-
-      <!-- new Lesson plan format ends -->
       <v-layout
         wrap
         class="mx-5 px-5 round"
         justify-center
-        color="#c6192a lighten-5 "
+        color=" lighten-5 "
       >
         <v-text-field
           class="mx-4 mt-3"
@@ -73,9 +43,12 @@
         />
       </v-layout>
       <v-layout
+      row
         wrap
-        class="mx-5 px-5 round"
-        align-content-center
+        align-center
+        justify-center
+        class="mx-3 grey lighten-5"
+
       >
         <v-overflow-btn
           class=" px-auto mx-5 grey lighten-5 round"
@@ -119,12 +92,12 @@
           :key="item.download"
           max-width="350px"
           min-width="350px"
-          :dark="(is2020(item.LastUpdated)?false: true)"
-          class="my-2 mx-auto elevation-10 round justify-center mx-1 elevation-24 grids mt-2 hovering"
-          :class="(is2020(item.LastUpdated)? 'turnwhite': '')"
+         
+          class="my-2 mx-auto elevation-10 round justify-center mx-1 elevation-24 grids mt-2 hovered grey lighten-3"
+          :class="(is2020(item.LastUpdated)? 'turnwhite': 'grey--text')"
         >
           <v-card-title
-            primary-title
+              class="py-1"
             :class="(is2020(item.LastUpdated)?'subtitle-1 deep font-weight-bold white--text': 'subtitle-1 blue-cards font-weight-bold white--text')"
           >
             <v-badge 
@@ -159,7 +132,7 @@
             </span>
             {{ item.Owner }}
           </v-card-text>
-          <v-card-actions class="mx-5">
+          <v-card-actions class="mx-4">
             <a
               :href="item.Link"
               target="blank"
@@ -339,7 +312,13 @@ export default {
   );
 }
 .turnwhite:hover{
-  color: white;
+  color: rgba(255, 255, 249, 0.6) 0%,
+}
+.hovered:hover {
+  background: #51647c !important;
+  animation-duration: 0.1s;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
 }
 .deep {
   background: #1488cc; /* fallback for old browsers */

@@ -8,6 +8,7 @@
       class="sign-up elevation-24"
       dark
       fixed
+      
       @click="dialog = !dialog"
     >
       <v-icon class="mx-auto">

@@ -1,5 +1,32 @@
 <template>
   <div>
+
+    <!-- Temporary snackbar for quick info starts -->
+              <v-snackbar
+                class="error"
+                v-model="snackbar"
+                color="#17a011"
+                multi-line
+                :timeout="30000"
+               
+              >
+                "Ahora los maestros pueden accesar los planes de clase sin necesidad de registrarse!"
+                <v-btn
+                  dark
+                  text
+                  to="/lesson Plans"
+                >
+                  Ir a los planes de clase
+                </v-btn>
+                <v-btn
+                  dark
+                  text
+                  @click="snackbar = false"
+                >
+                  cerrar
+                </v-btn>
+              </v-snackbar>
+    <!-- Temporary snackbar for quick info ends -->
     <div class="home mb-2 pb-0 ">
       <!-- carousel starts -->
       <Carousel class="mb-0 mt-5" />
@@ -82,10 +109,10 @@
               max-width="300px"
               min-width="300px"
             >
-              <v-card-title class=" round ">
+              <v-card-title class=" round pb-0">
                 <v-layout justify-center>
                   <v-avatar
-                    size="110"
+                    size="100"
                     class="ma-1"
                   >
                     <v-img
@@ -103,7 +130,7 @@
 
                 <v-layout
                   justify-center
-                  class="testimony-text px-5"
+                  class="testimony-text px-5 my-0"
                 >
                   <b>{{ item.position }}</b>
                 </v-layout>
@@ -209,6 +236,7 @@ export default {
   },
   data() {
     return {
+      snackbar: true,
       tesPhotos: [],
       principles: [
         {

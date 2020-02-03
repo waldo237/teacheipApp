@@ -3,7 +3,7 @@ import axios from "axios";
 const state = {
     feeds: [],
     CUEmail: {},
-    haveNotRead: false,
+    haveNotRead: {},
 };
 
 const getters = {
@@ -17,7 +17,10 @@ const actions = {
         try {
             const response = await axios.get(getFeedsURL);
             commit("setFeeds", response.data);
-            commit('setHaveNotRead', response.data[0].haveNotRead)
+            let res = {}
+            res.read = response.data.sort((a, b) =>new Date(b.date) - new Date(a.date));
+            res.num = await response.data.filter((item)=>{if (!item.haveNotRead) return item;});
+            commit('setHaveNotRead', res);
     } catch (error) {
       console.log("Could not connect because of internet is off");
     }

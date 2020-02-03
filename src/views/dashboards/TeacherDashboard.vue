@@ -36,11 +36,11 @@
                   {{ item.tittle }}
                 </div>
                 <div class="subheading font-weight-light grey--text">
-                  Ultimos 5 dias de clase
+            {{item.body}}
                 </div>
                 <v-divider class="my-2"></v-divider>
                 <v-icon class="mr-2" small>
-                  calendar_today
+                  {{item.icon}}
                 </v-icon>
                 <span class="caption grey--text font-weight-light"
                   >last registration 26 minutes ago</span
@@ -117,9 +117,11 @@ export default {
       {
         title: "Reporte de Asistencia semanal",
         background: "cyan",
-        color: "white"
+        color: "white",
+        body:"",
+        icon: ""
       },
-      { title: "Reporte de promedio", background: "orange", color: "black" }
+      { title: "Reporte de promedio", background: "orange", color: "black", body: "Ultimos 5 dias de clase", icon:"calendar_today" }
     ],
     labels: ["Mar5", "Mar6", "Mar7", "Mar8", "Mar9"],
     value: [200, 675, 410, 390, 310],
