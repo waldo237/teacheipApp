@@ -130,6 +130,18 @@ let router = new Router({
         resquiresValidation: true
       }
     },
+    { 
+      path: "/assessmentGuide",
+      name: "assessmentGuide",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/services/assessmentGuide.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true
+      }
+    },
     {
       path: "/landing/",
       name: "landing",
@@ -165,6 +177,18 @@ let router = new Router({
       component: () =>
         import(
           /* webpackChunkName: "about" */ "./views/session/ProfileEditorView.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true
+      }
+    },
+    {
+      path: "/completeUserInfo",
+      name: "completeUserInfo",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/session/completeUserInfo.vue"
         ),
       meta: {
         requiresAuth: true,

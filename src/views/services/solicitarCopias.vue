@@ -1,5 +1,10 @@
 <template>
-  <v-layout class="mb-5 pb-5" justify-center wrap column>
+  <v-layout
+    class="mb-5 pb-5"
+    justify-center
+    wrap
+    column
+  >
     <v-layout
       justify-center
       row
@@ -8,12 +13,21 @@
     >
       Solicitud de Copias de Examenes
     </v-layout>
-    <v-layout row wrap justify-center class="mb-5 px-0">
+    <v-layout
+      row
+      wrap
+      justify-center
+      class="mb-5 px-0"
+    >
       <v-card class="round px-3 grey lighten-4 elevation-9">
         <v-card-title class="grey lighten-4 py-3 title">
           Solicitar Copias de Examenes
         </v-card-title>
-        <v-layout row wrap justify-center>
+        <v-layout
+          row
+          wrap
+          justify-center
+        >
           <v-progress-circular
             :rotate="-90"
             :size="100"
@@ -27,11 +41,21 @@
           </v-progress-circular>
         </v-layout>
         <!-- ================================== -->
-        <v-layout row wrap justify-start class="mx-2" align-center>
-          <v-btn round color="sign-up" @click="$refs.inputUpload.click()">
+        <v-layout
+          row
+          wrap
+          justify-start
+          class="mx-2"
+          align-center
+        >
+          <v-btn
+            round
+            color="sign-up"
+            @click="$refs.inputUpload.click()"
+          >
             <v-icon small>
-              description </v-icon
-            >Subir Archivo de examen
+              description
+            </v-icon>Subir Archivo de examen
           </v-btn>
           <input
             v-show="false"
@@ -41,18 +65,36 @@
             id="file1"
             accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
                   text/plain, application/pdf"
-          />
-          <v-card class="ma-3" flat v-model="path">
+          >
+          <v-card
+            class="ma-3"
+            flat
+            v-model="path"
+          >
             {{ path }}
           </v-card>
-          <v-card flat row justify-space-around>
-            <v-btn round class="ma-auto" color="sign-up" @click="addAudio">
+          <v-card
+            flat
+            row
+            justify-space-around
+          >
+            <v-btn
+              round
+              class="ma-auto"
+              color="sign-up"
+              @click="addAudio"
+            >
               <v-icon small>
                 add
               </v-icon>
               track
             </v-btn>
-            <v-btn round class="ma-auto" color="sign-up" @click="removeAudio">
+            <v-btn
+              round
+              class="ma-auto"
+              color="sign-up"
+              @click="removeAudio"
+            >
               <v-icon small>
                 remove
               </v-icon>
@@ -61,7 +103,12 @@
           </v-card>
         </v-layout>
 
-        <v-layout wrap column justify-center align-center>
+        <v-layout
+          wrap
+          column
+          justify-center
+          align-center
+        >
           <v-layout
             class="ma-3 pa-2"
             row
@@ -69,23 +116,31 @@
             v-for="audio in audios"
             :key="audio.track"
           >
-            <v-card flat class="grey lighten-4">
-              <label :for="audio.input" class="mx-2"
-                ><v-icon small> volume_up </v-icon>audio
-                {{ audio.track }}</label
-              >
+            <v-card
+              flat
+              class="grey lighten-4"
+            >
+              <label
+                :for="audio.input"
+                class="mx-2"
+              ><v-icon small> volume_up </v-icon>audio
+                {{ audio.track }}</label>
               <input
-              class="sign-up mx-2 "
+                class="sign-up mx-2 "
                 :id="audio.input"
                 type="file"
                 @change="showPath"
                 accept="audio/*"
-              />
+              >
             </v-card>
           </v-layout>
         </v-layout>
 
-        <v-layout  wrap row justify-start>
+        <v-layout
+          wrap
+          row
+          justify-start
+        >
           <v-text-field
             prepend-icon="format_list_numbered"
             placeholder="numero de copias"
@@ -103,17 +158,28 @@
           />
         </v-layout>
 
-          <v-text-field
-            prepend-icon="notes"
-            placeholder="Comentario"
-            v-model="sugerenciasBody"
-          />
+        <v-text-field
+          prepend-icon="notes"
+          placeholder="Comentario"
+          v-model="sugerenciasBody"
+        />
     
 
-        <v-layout row wrap justify-start class="mx-2">
-          <v-layout align-center >
-            <v-avatar size="40px" class="mr-3">
-              <img :src="this.auth().currentUser.photoURL" alt />
+        <v-layout
+          row
+          wrap
+          justify-start
+          class="mx-2"
+        >
+          <v-layout align-center>
+            <v-avatar
+              size="40px"
+              class="mr-3"
+            >
+              <img
+                :src="this.auth().currentUser.photoURL"
+                alt
+              >
             </v-avatar>
             <v-text-field
               placeholder="Name"
@@ -137,7 +203,11 @@
         </v-layout>
 
         <!-- ================================== -->
-        <v-layout justify-center wrap row>
+        <v-layout
+          justify-center
+          wrap
+          row
+        >
           <!-- snackbar to notify completion starts -->
           <v-snackbar
             class="error"
@@ -149,30 +219,41 @@
           >
             {{ snackbarMessage }}
 
-            <v-btn dark text @click="snackbar = false">
+            <v-btn
+              dark
+              text
+              @click="snackbar = false"
+            >
               Close
             </v-btn>
           </v-snackbar>
           <!-- snackbar to notify completion ends -->
         </v-layout>
-          <v-layout row wrap justify-end>
-        <v-card-actions class="mb-5">
-
-          <v-btn flat round class="sign-up" @click="reset">
-            cancelar
-          </v-btn>
-          <v-btn
-            round
-            flat
-            @click="localPostSugerencia"
-            class="sign-in"
-            :loading="loading"
-          >
-            Enviar solicitud
-          </v-btn>
-            
-        </v-card-actions>
-          </v-layout>
+        <v-layout
+          row
+          wrap
+          justify-end
+        >
+          <v-card-actions class="mb-5">
+            <v-btn
+              flat
+              round
+              class="sign-up"
+              @click="reset"
+            >
+              cancelar
+            </v-btn>
+            <v-btn
+              round
+              flat
+              @click="localPostSugerencia"
+              class="sign-in"
+              :loading="loading"
+            >
+              Enviar solicitud
+            </v-btn>
+          </v-card-actions>
+        </v-layout>
       </v-card>
     </v-layout>
   </v-layout>
@@ -307,11 +388,10 @@ export default {
             throw new Error(`there was an Error ${err}`);
           });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     }
   },
-  created() {},
   beforeDestroy() {
     clearInterval(this.timeOut);
   },

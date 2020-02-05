@@ -6,12 +6,12 @@
       justify-center
       class="mt-3"
     >
-                <v-card-title
-              class="display-1 font-weight-light mt-4 text-xs-center main-title"
-            >
-              ABOUT THIS WEB APPPLICATION
-            </v-card-title>
-      <div class="px-4  content " >
+      <v-card-title
+        class="display-1 font-weight-light mt-4 text-xs-center main-title"
+      >
+        ABOUT THIS WEB APPPLICATION
+      </v-card-title>
+      <div class="px-4  content ">
         <div class="elevation-24 mx-4  mt-5 mb-0 pb-0 round grey lighten-1">
           <v-layout
             justify-space-around

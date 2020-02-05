@@ -6,21 +6,24 @@
     persistent
     hide-overlay
     v-if="checkIsLoggedIn"
+    
   >
     <v-layout justify-center>
       <v-card
         min-width="100%"
         min-height="100%"
+        color="grey lighten-3"
+        
       >
         <v-toolbar
-          color="white elevation-24"
+          color="grey lighten-5"
           dense
           app
         >
           <v-layout justify-center>
-            <span class="acronym title mt-2">Hello,{{ auth().currentUser.displayName }}. Welcome to</span>
-            <span class="teach display-1">Teach</span>
-            <span class="acronym display-1">EIP</span>
+            <span class="acronym title mt-2 mx-2">Hello,{{ auth().currentUser.displayName }}. Welcome to</span>
+            <span class="teach title acronym  mt-2">Teach</span>
+            <span class="acronym title mt-2">EIP</span>
           </v-layout>
           <v-spacer />
           <!-- profile avatar starts -->
@@ -96,7 +99,7 @@
               >
                 <v-card-title
                   primary-title
-                  class="gradient justify-center elevation-12 py-1"
+                  class="black-blue justify-center elevation-12 py-1"
                 >
                   <h3 class="title white--text text--accent-2">
                     Select your role to start
@@ -137,7 +140,7 @@
                     <v-btn
                       @click="formTrigger"
                       :disabled="select==''"
-                      class="justify-center mx-auto gradient font-weight-bold white--text grids"
+                      class="justify-center mx-auto black-blue font-weight-bold white--text grids"
                     >
                       <v-icon small>
                         directions_walk
@@ -317,7 +320,7 @@ export default {
   background: linear-gradient(
     0deg,
     rgba(2, 2, 32, 1) 33%,
-    rgb(57, 11, 165) 100%
+    rgb(65, 2, 0) 100%
   );
 }
 .grids {

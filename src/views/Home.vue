@@ -1,31 +1,29 @@
 <template>
   <div>
-
     <!-- Temporary snackbar for quick info starts -->
-              <v-snackbar
-                class="error"
-                v-model="snackbar"
-                color="#17a011"
-                multi-line
-                :timeout="30000"
-               
-              >
-                "Ahora los maestros pueden accesar los planes de clase sin necesidad de registrarse!"
-                <v-btn
-                  dark
-                  text
-                  to="/lesson Plans"
-                >
-                  Ir a los planes de clase
-                </v-btn>
-                <v-btn
-                  dark
-                  text
-                  @click="snackbar = false"
-                >
-                  cerrar
-                </v-btn>
-              </v-snackbar>
+    <v-snackbar
+      class="error"
+      v-model="snackbar"
+      color="#17a011"
+      multi-line
+      :timeout="30000"
+    >
+      "Ahora los maestros pueden accesar los planes de clase sin necesidad de registrarse!"
+      <v-btn
+        dark
+        text
+        to="/lesson Plans"
+      >
+        Ir a los planes de clase
+      </v-btn>
+      <v-btn
+        dark
+        text
+        @click="snackbar = false"
+      >
+        cerrar
+      </v-btn>
+    </v-snackbar>
     <!-- Temporary snackbar for quick info ends -->
     <div class="home mb-2 pb-0 ">
       <!-- carousel starts -->

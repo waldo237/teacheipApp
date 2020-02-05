@@ -32,7 +32,13 @@
                 <img :src="item.avatar">
               </v-list-tile-avatar>
               <v-list-tile-avatar v-else>
-               <v-btn small fab class="sign-up">{{initialize(item.name)}}</v-btn> 
+                <v-btn
+                  small
+                  fab
+                  class="sign-up"
+                >
+                  {{ initialize(item.name) }}
+                </v-btn> 
               </v-list-tile-avatar>
               <a
                 :href="item.link"

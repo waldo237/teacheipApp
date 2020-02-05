@@ -11,10 +11,7 @@
       <span v-if="tip">
         DASHBOARD
       </span>
-      <v-icon
-        color="white"
-        class="mr-0"
-      >
+      <v-icon color="white" class="mr-0">
         dashboard
       </v-icon>
     </v-btn>
@@ -30,11 +27,7 @@
         {{ item.title }}
       </router-link>
     </v-toolbar-items>
-    <v-btn
-      @click="toggleSU"
-      class="sign-up"
-      v-if="!checkIsLoggedIn"
-    >
+    <v-btn @click="toggleSU" class="sign-up" v-if="!checkIsLoggedIn">
       SIGN IN
     </v-btn>
 
@@ -44,12 +37,7 @@
       color="white"
       @click="$store.commit('setNotiFeeds', true)"
     >
-      <v-badge 
-        color="#c6192a"
-        width="100%"
-        overlap
-        v-model="tem"
-      >
+      <v-badge color="#c6192a" width="100%" overlap v-model="tem">
         <template v-slot:badge>
           <span style="font-size: 70%; font-weight: bold"> {{ feedNum }}</span>
         </template>
@@ -68,16 +56,10 @@
       @click="$emit('toggleProfile')"
       v-if="checkIsLoggedIn"
     >
-      <v-avatar v-if="auth().currentUser.photoURL">
-        <img
-          :src="auth().currentUser.photoURL"
-          :alt="auth().currentUser.displayName"
-        >
+      <v-avatar v-if="photoURL">
+        <img :src="photoURL" :alt="auth().currentUser.displayName" />
       </v-avatar>
-      <v-avatar
-        :color="colorize"
-        v-else
-      >
+      <v-avatar :color="colorize" v-else>
         <span class="white--text headline">{{ initialize }}</span>
       </v-avatar>
     </v-btn>
@@ -86,23 +68,26 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import colors from "@/assets/colors/colors.js";
 export default {
-  
+
   props: ["sandwich"],
   data() {
     return {
         tip: false,
         feedNum: null,
         tem: false,
+        photoURL: '',
     };
   },
   methods: {
     ...mapActions(["toggleSU"]),
     hideMenu(){this.$emit('hideMenu')},
-    
-   
   },
   computed: {
+     colorize() {
+      return colors[Math.floor(Math.random() * 280)];
+    },
     ...mapGetters(["checkIsLoggedIn", "getNavigation", "auth",  "feeds","haveNotRead"]),
     initialize() {
       return this.auth()
@@ -112,7 +97,7 @@ export default {
         .toUpperCase();
     },
   },
-    async updated(){
+ async mounted(){
     if(this.checkIsLoggedIn){
       this.$store.commit("setCUEmail", this.auth().currentUser.email);
        await this.$store.dispatch('fetchFeeds');
@@ -121,14 +106,19 @@ export default {
         if(this.feedNum== 0){
         this.tem = false
       }
+      
     }
   },
+ 
  async created(){
+   this.photoURL = await this.auth().currentUser.photoURL;
+  this.$root.$on('changedPhoto',async ()=>{
+       this.photoURL = await this.auth().currentUser.photoURL;
+    })
 
      this.$root.$on('removeBadget', ()=>{
        this.tem = false;
      })
-
   }
 };
 </script>

@@ -104,7 +104,7 @@ export default {
   computed: {
     ...mapGetters(["getEncargados"])
   },
-  async created() {
+  async mounted() {
     await this.fetchEncargados();
     this.getEncargados;
   }

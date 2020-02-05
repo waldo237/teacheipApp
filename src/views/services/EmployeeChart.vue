@@ -7,7 +7,7 @@
       row
       wrap
       primary-title
-       class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 "
+      class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 "
     >
       Maestros y Coordinadores
     </v-layout> 
@@ -20,7 +20,10 @@
     >
       <loading />
     </v-layout>
-    <div v-else class="mb-5 pb-5">
+    <div
+      v-else
+      class="mb-5 pb-5"
+    >
       <v-text-field
         v-model="search"
         append-icon="search"
@@ -54,20 +57,11 @@
             <td class="text-xs-left  px-auto">
               {{ props.item.TELEFONO }}
             </td>
-            <td class="text-xs-left  px-auto">
-              {{ props.item.GENERO }}
-            </td>
             <td class="text-xs-left px-auto">
               {{ props.item.CARGO }}
             </td>
             <td class="text-xs-left  px-auto">
               {{ props.item.CORREO }}
-            </td>
-            <td class="text-xs-left  px-auto">
-              {{ props.item.CARRERA }}
-            </td>
-            <td class="text-xs-left  px-auto">
-              {{ props.item.SUPERVISOR }}
             </td>
             <td class="text-xs-left px-0 mx-1">
               {{ props.item.CENTRO }}
@@ -102,11 +96,8 @@ export default {
           value: "NOMBRE"
         },
         { text: "TELEFONO", value: "TELEFONO" },
-        { text: "GENERO", value: "GENERO" },
         { text: "CARGO", value: "CARGO" },
         { text: "CORREO", value: "CORREO" },
-        { text: "CARRERA", value: "CARRERA" },
-        { text: "SUPERVISOR", value: "SUPERVISOR" },
         { text: "CENTRO", value: "CENTRO" },
         { text: "REGION", value: "REGION" },
         { text: "PROVINCIA", value: "PROVINCIA" }

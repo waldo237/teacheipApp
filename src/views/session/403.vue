@@ -4,7 +4,7 @@
     align-center
   >
     <v-card
-      class="mx-auto round pa-5 absoluta"
+      class="mx-auto  pa-5 absoluta grey darken-2"
       align-center
       dark
     >
@@ -16,7 +16,7 @@
           src="https://drive.google.com/uc?export=view&id=1nmxv4xn--Mh_pSqyqB44KUzSRlDD8aLN"
           lazy-src="https://drive.google.com/uc?export=view&id=1nmxv4xn--Mh_pSqyqB44KUzSRlDD8aLN"
           alt
-          width="400px"
+          width="300px"
           class="ma-0 pa-0"
         >
       </v-layout>
@@ -24,7 +24,7 @@
         row
         wrap
         justify-center
-        class="display-2 mx-auto text-uppercase"
+        class="display-2 mx-auto text-uppercase  bigWords"
       >
         We are so sorry, friend!
         <v-card-text class="title mx-auto">
@@ -41,7 +41,8 @@
           text
           block
           dark
-          class="info darken-3 white--text round"
+          round
+          class="info darken-3 white--text "
           to="/"
         >
           Back
@@ -60,17 +61,16 @@ export default {
           
         }
     }, 
-    async created() {
-     
-  },
- 
 }
 </script>
 <style >
 .absoluta {
   position: absolute;
-  top: 2%;
+height: 100% !important;
   width: 100% !important;
   z-index: 1;
+}
+.bigWords{
+   font-family: "Bebas Neue", serif !important;
 }
 </style>

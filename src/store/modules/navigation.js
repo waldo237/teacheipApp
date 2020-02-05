@@ -130,17 +130,18 @@ const state = {
     { title: "solicitar carta para empleado" }
   ],
   servicios: [
-    { title: "Planes de clase", link: "/lesson plans" },
-    { title: "Encargados", link: "/encargados" },
-    { title: "Manuales", link: "/manuales" },
-    { title: "Dossier",link:"/dossier", icon: "collections_bookmark", color: "#c6192a" },
+    { title: "Guia de Evaluacion por Nivel", link: "/assessmentGuide", class:'t' },
+    { title: "Planes de clase", link: "/lesson plans", class:'t'},
+    { title: "Encargados", link: "/encargados"},
+    { title: "Manuales", link: "/manuales", class:'t' },
+    { title: "Dossier",link:"/dossier", icon: "collections_bookmark", color: "#c6192a", class:'t'},
     { title: "Empleados en Centros", link: "/employees" },
-    { title: "Calendario Academico", link: "/calendario"},
-    { title: "Evaluaciones Formativas", link: "/formative"},
+    { title: "Calendario Academico", link: "/calendario", class:'t'},
+    { title: "Evaluaciones Formativas", link: "/formative", class:'t'},
     { title: "Resultados de Examen diagnostico" },
-    { title: "Curriculum" },
+    { title: "Curriculum", class:'t' },
     { title: "Exam blueprints" },
-    { title: "Estadandares de Competencias" },
+    { title: "Estadandares de Competencias", class:'t'},
     { title: "Mapas de Procedimientos" }
   ],
 };

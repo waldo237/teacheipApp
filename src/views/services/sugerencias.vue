@@ -22,11 +22,14 @@
       width="800px"
     >
       <v-card class="round grey lighten-4 elevation-9">
-        <v-layout row wrap justify-center>
-        <v-card-title class="font-weight-light title  text-xs-center main-title mt-2">
-          enviar sugerencias
-        </v-card-title>
-          
+        <v-layout
+          row
+          wrap
+          justify-center
+        >
+          <v-card-title class="font-weight-light title  text-xs-center main-title mt-2">
+            enviar sugerencias
+          </v-card-title>
         </v-layout>
         <v-container
           grid-list-sm

@@ -8,7 +8,6 @@
       class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 "
     >
       Manuales
-       
     </v-layout> 
     <!-- alternative circular loading starts -->
     <v-layout
@@ -191,7 +190,7 @@ export default {
     }
   },
 
-  async created() {
+ async mounted() {
     await this.fetchManuales();
     // set the value of local lPs
     this.lPs = this.getManuales;

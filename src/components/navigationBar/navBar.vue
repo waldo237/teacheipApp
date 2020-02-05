@@ -2,14 +2,24 @@
   <div>
     <!-- side menu starts -->
     <div v-on-clickaway="away">
-      <v-navigation-drawer app v-model="drawer" disable-resize-watcher>
+      <v-navigation-drawer
+        app
+        v-model="drawer"
+        disable-resize-watcher
+      >
         <supervisorsideMenu v-if="isSupervisor" />
         <coordinatorsideMenu v-else-if="isCoordinator" />
       </v-navigation-drawer>
     </div>
     <!-- side menu ends -->
     <!-- complete navigation starts -->
-    <v-toolbar app style="background-color:white" class="pa-0" dense sticky>
+    <v-toolbar
+      app
+      style="background-color:white"
+      class="pa-0"
+      dense
+      sticky
+    >
       <!--  sandwich menu for side bar/menu-->
 
       <v-btn
@@ -18,7 +28,14 @@
         fab
         flat
         class=" ma-0 pa-0 leftIcon"
-        ><v-icon medium slot> menu</v-icon></v-btn >
+      >
+        <v-icon
+          medium
+          slot
+        >
+          menu
+        </v-icon>
+      </v-btn>
         
  
       <!-- sandwich menu -->
@@ -51,9 +68,19 @@
       />
       <!-- expanded navigation bar ends-->
       <!--  minimized menu starts-->
-      <v-btn @click="sandwich = true" fab flat class="hidden-md-and-up  rightIcon "
-        ><v-icon medium slot> menu</v-icon></v-btn
+      <v-btn
+        @click="sandwich = true"
+        fab
+        flat
+        class="hidden-md-and-up  rightIcon "
       >
+        <v-icon
+          medium
+          slot
+        >
+          menu
+        </v-icon>
+      </v-btn>
       <navBtnMin
         :sandwich="sandwich"
         @hideMenu="hideMenu"
@@ -85,7 +112,6 @@ import alerting from "@/components/alerts.vue";
 import profile from "@/components/profile.vue";
 import navBtnMin from "@/components/navigationBar/navBtnMin.vue";
 import navBtnMax from "@/components/navigationBar/navBtnMax.vue";
-import colors from "@/assets/colors/colors.js";
 import { mapActions, mapGetters } from "vuex";
 import supervisorsideMenu from "@/components/RoleComponents/supervisorComponents/SupervisorSidemenu.vue";
 import coordinatorsideMenu from "@/components/RoleComponents/coordinatorComponents/CoordinatorSidemenu.vue";
@@ -161,9 +187,6 @@ export default {
         .map(n => n[0])
         .join("")
         .toUpperCase();
-    },
-    colorize() {
-      return colors[Math.floor(Math.random() * 280)];
     },
     ...mapGetters([
       "checkIsLoggedIn",

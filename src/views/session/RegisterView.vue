@@ -184,7 +184,6 @@ export default {
     },
     ...mapActions(["toggleSU", "runAlert", "fetchAllUsers", "validateToken"])
   },
-  async created() {},
   computed: mapGetters([
     "getSUDialog",
     "firebase",

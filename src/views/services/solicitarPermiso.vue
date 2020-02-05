@@ -1,6 +1,11 @@
 <template>
-  <v-layout class="mb-5 pb-5" justify-center wrap column>
-      <v-layout
+  <v-layout
+    class="mb-5 pb-5"
+    justify-center
+    wrap
+    column
+  >
+    <v-layout
       justify-center
       row
       wrap
@@ -8,10 +13,13 @@
       class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 "
     >
       Solicitud de permisos
-       
     </v-layout> 
     <v-card class="round mx-2 px-2 mb-5 pb-5 grey lighten-4 elevation-9">
-      <v-layout row justify-center class="grey lighten-4 py-3 title">
+      <v-layout
+        row
+        justify-center
+        class="grey lighten-4 py-3 title"
+      >
         Solicitar Permisos Extensos
       </v-layout>
       <v-container
@@ -312,8 +320,6 @@ export default {
         console.log(error);
       }
     }
-  },
-  created() {
   },
   beforeDestroy() {
     clearInterval(this.timeOut);

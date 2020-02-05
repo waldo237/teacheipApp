@@ -43,12 +43,11 @@
         />
       </v-layout>
       <v-layout
-      row
+        row
         wrap
         align-center
         justify-center
         class="mx-3 grey lighten-5"
-
       >
         <v-overflow-btn
           class=" px-auto mx-5 grey lighten-5 round"
@@ -97,7 +96,7 @@
           :class="(is2020(item.LastUpdated)? 'turnwhite': 'grey--text')"
         >
           <v-card-title
-              class="py-1"
+            class="py-1"
             :class="(is2020(item.LastUpdated)?'subtitle-1 deep font-weight-bold white--text': 'subtitle-1 blue-cards font-weight-bold white--text')"
           >
             <v-badge 

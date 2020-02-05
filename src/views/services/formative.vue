@@ -4,7 +4,7 @@
     wrap
     class="ma-5 pa-5"
   >
-     <v-layout
+    <v-layout
       justify-center
       row
       wrap
@@ -20,7 +20,7 @@
         class="pa-3"
         justify-space-around
       >
-        <i class="white--text ">
+        <i class="white--text bigger">
           "Teachers use formative assessment to check student learning BEFORE a
           summative assessment. Formative assessment is very important because
           teachers should know if students are learning the material before a
@@ -120,5 +120,8 @@ export default {
    animation-duration: 0.5s;
   animation-name: pulse;
   animation-timing-function: ease-in-out;
+}
+.bigger{
+  font-size: 120% !important;
 }
 </style>

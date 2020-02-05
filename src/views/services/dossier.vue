@@ -5,7 +5,7 @@
       row
       wrap
       primary-title
-       class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 "
+      class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 "
     >
       Formularios
     </v-layout> 
@@ -98,6 +98,7 @@
             </a>
             <v-spacer />
             <a :href="item.download">
+              
               <span class="white--text">download</span>
               <v-icon color="#c6192a">get_app</v-icon>
             </a>
