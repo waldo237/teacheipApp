@@ -150,10 +150,6 @@ export default {
   animation-name: bounceInLeft;
   animation-timing-function: ease-in-out;
 }
-.slideDown{
-       animation-duration: 1s;
-  animation-name: bounceInDown;
-  animation-timing-function: ease-in-out;
-}
+
 
 </style>

@@ -1,5 +1,6 @@
 import dialog from './modules/dialog'
 import  employees from './modules/employees'
+import  students from './modules/students'
 import  encargados from './modules/encargados'
 import  lessonPlans from './modules/lessonPlans'
 import  dossier from './modules/dossier'
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     modules:{
         dialog,
         employees,
+        students,
         sugerencia,
         lessonPlans,
         navigation,

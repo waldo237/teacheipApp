@@ -42,8 +42,8 @@
 
       <!-- logo starts -->
       <div class="logo-text px-0 my-0 mx-0 leftIcon">
-        <v-btn
-          href="/"
+        <router-link
+          to="/"
           flat
           
           round
@@ -51,7 +51,7 @@
         >
           <span class="teach font-weight-regular">Teach</span>
           <span class="acronym ">EIP</span>
-        </v-btn>
+        </router-link>
         <span class="full-title mt-0">
           with The English Immersion Program
         </span>

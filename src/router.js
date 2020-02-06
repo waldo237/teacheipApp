@@ -118,7 +118,7 @@ let router = new Router({
         resquiresValidation: true
       }
     },
-    { 
+    {
       path: "/calendario",
       name: "calendario",
       component: () =>
@@ -130,7 +130,7 @@ let router = new Router({
         resquiresValidation: true
       }
     },
-    { 
+    {
       path: "/assessmentGuide",
       name: "assessmentGuide",
       component: () =>
@@ -235,6 +235,20 @@ let router = new Router({
       }
     },
     {
+      path: "/student/:id",
+      name: "student",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/data/student.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true,
+        isTeacher: true,
+        // make seeable by coordinators and supervisors
+      }
+    },
+    {
       path: "/useterms",
       name: "useterms",
       component: () =>
@@ -264,40 +278,40 @@ router.beforeEach((to, from, next) => {
       });
     } else {
       // validate if session is valid starts
-          let user = session.getToken("sessionRole");
-          if (to.matched.some(record => record.meta.resquiresValidation)) {
-            if (user) {
-              next();
-            } else {
-              next({ name: "landing" });
-            }
-          } else {
-            next();
-          }
+      let user = session.getToken("sessionRole");
+      if (to.matched.some(record => record.meta.resquiresValidation)) {
+        if (user) {
+          next();
+        } else {
+          next({ name: "landing" });
+        }
+      } else {
+        next();
+      }
       // validate if session is valid ends
 
       // validate if is a Supervisor starts
-        if (to.matched.some(record => record.meta.isSupervisor)) {
-          if (atob(user) == 'supervisor') {
-            next();
-          } else {
-            next({ name: "403" });
-          }
-        } else {
+      if (to.matched.some(record => record.meta.isSupervisor)) {
+        if (atob(user) == 'supervisor') {
           next();
+        } else {
+          next({ name: "403" });
         }
+      } else {
+        next();
+      }
       // validate if is a Supervisor ends
 
       // validate if is a Coordinator starts
-        if (to.matched.some(record => record.meta.isCoordinator)) {
-          if (atob(user) == 'coordinator') {
-            next();
-          } else {
-            next({ name: "403" });
-          }
-        } else {
+      if (to.matched.some(record => record.meta.isCoordinator)) {
+        if (atob(user) == 'coordinator') {
           next();
+        } else {
+          next({ name: "403" });
         }
+      } else {
+        next();
+      }
       // validate if is a Coordinator ends
 
     }
