@@ -96,7 +96,7 @@
             max-width="300px"
           >
             <v-card-text v-for="(item, i) in servicios" :key="i" class="py-0 px-2">
-              <router-link tag="v-btn" small dark outline round :to="item.link" class="my-1" v-if="item.class">
+              <router-link tag="v-btn" small dark  :to="item.link" class="my-1" v-if="item.class">
                 {{
                 item.title
                 }}

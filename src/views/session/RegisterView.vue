@@ -137,7 +137,7 @@ export default {
       try {
         this.toggleSU();
         await this.validateToken();
-        if (this.validated.authenticated) {
+        if (this.validated.authenticated || localStorage.getItem('sessionToken')) {
           if (this.auth().currentUser) this.$store.commit("setLoggedIn", true);
           this.$root.$emit('loggedIn');
           this.$store.commit('setLoadingFull', false);

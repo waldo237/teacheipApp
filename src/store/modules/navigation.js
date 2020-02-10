@@ -138,11 +138,11 @@ const state = {
     { title: "Empleados en Centros", link: "/employees" },
     { title: "Calendario Academico", link: "/calendario", class:'t'},
     { title: "Evaluaciones Formativas", link: "/formative", class:'t'},
-    { title: "Resultados de Examen diagnostico" },
-    { title: "Curriculum", class:'t' },
-    { title: "Exam blueprints" },
-    { title: "Estadandares de Competencias", class:'t'},
-    { title: "Mapas de Procedimientos" }
+    { title: "Resultados de Examen diagnostico",link:'' },
+    { title: "Curriculum", class:'t', link:'' },
+    { title: "Exam blueprints", link:''},
+    { title: "Estadandares de Competencias", class:'t', link:''},
+    { title: "Mapas de Procedimientos", link:'' }
   ],
 };
 const getters = {

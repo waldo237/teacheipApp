@@ -47,7 +47,6 @@
                   maxlength="13"
                   type="text"
                   @keydown="prevent"
-                  @keyup="addDash"
                   @keydown.enter="verifyID"
                 />
               </v-flex>
@@ -208,29 +207,31 @@ export default {
                 this.errorMessage = error;
       }
     },
-    addDash() {
-      this.cedula = this.cedula.replace(
-        /(\d{3})\-?(\d{7})\-?(\d{1})/,
-        "$1-$2-$3"
-      );
-      this.isCorrect();
-    },
-    prevent() {
-      const e = event || window.event;
-      const key = e.keyCode || e.which;
-      if (key < 48 || key > 57) {
-        if (key != 8) {
-          if (e.preventDefault) e.preventDefault();
-          e.returnValue = false;
-        }
+  prevent(event) {
+      const char = String.fromCharCode(event.keyCode);
+      if (
+        !/[0-9]/.test(char) &&
+        event.keyCode != Number.parseInt("08") &&
+        event.keyCode != Number.parseInt("09") &&
+        event.keyCode != Number.parseInt("39") &&
+        event.keyCode != Number.parseInt("37")
+      ) {
+        event.preventDefault();
       }
     },
-    isCorrect() {
-      this.checkID = !this.cedula.match(/^((\d{3})\-?(\d{7})\-?(\d{1}))$/)
-        ? true
-        : false;
+     formatCedula() {
+      let s = this.cedula;
+      var s2 = ("" + s).replace(/\D/g, "");
+      var m = s2.match(/^(\d{3})(\d{7})(\d{1})$/);
+      if (m) this.cedula = m[1] + "-" + m[2] + "-" + m[3];  
+      this.checkID = !m;
     },
     ...mapActions(["requestToken", "getToken", "checkValidation", "validateToken"])
+  },
+  watch:{
+  cedula() {
+      this.formatCedula();
+    },
   },
   computed: { ...mapGetters(["validation","validated"]) },
   created() {

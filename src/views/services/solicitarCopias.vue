@@ -264,10 +264,10 @@ import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
 import session from "@/store/modules/session.js";
 import { directive as onClickaway } from "vue-clickaway";
-import Sidemenu from "@/components/RoleComponents/coordinatorComponents/CoordinatorSidemenu.vue";
+// import Sidemenu from "@/components/RoleComponents/coordinatorComponents/CoordinatorSidemenu.vue";
 export default {
   name: "CoordinatorDashboard",
-  components: { Sidemenu },
+  // components: { Sidemenu },
   directives: {
     onClickaway: onClickaway
   },

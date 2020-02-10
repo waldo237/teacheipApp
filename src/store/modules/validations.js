@@ -3,17 +3,55 @@ import { auth } from "firebase/app";
 import session from "./session";
 const state = {
   validation: {},
+  
   validated: session.validateToken(),
   id: "",
-  code: ""
+  code: "",
+  contactInfo:{},
 };
 const getters = {
   validation: state => state.validation,
   validated: state => state.validated,
   id: state => state.id,
-  code: state => state.code
+  code: state => state.code,
+  contactInfo: state => state.contactInfo
 };
 const actions = {
+
+  /**
+      * The following code makes a call to the main server to login and receives a token.
+      */
+async newValidation({ commit }){
+        let res = await axios.post("http://localhost:3000/auth/register",  {
+          'name': auth().currentUser.displayName,
+          'password': auth().currentUser.uid,
+          'cu_id':  auth().currentUser.uid,
+          'email': auth().currentUser.email,
+      });
+     
+    return await localStorage.setItem('serverToken', res.data.token);
+  },
+
+async verifyContact(){
+  const response =  await axios.get(`http://localhost:3000/contact/${auth().currentUser.uid}`, {headers: {
+        Authorization: 'JWT ' + localStorage.getItem('serverToken')
+      }});
+      localStorage.setItem('sessionRole', response.data);
+},
+/**
+ * 
+ * @param {*} param0 
+ */
+async completeContactInfo(){
+  console.log(state.contactInfo)
+ const response =  await axios.post(`http://localhost:3000/contacts`,state.contactInfo,  {headers: {
+        Authorization: 'JWT ' + localStorage.getItem('serverToken')
+      
+      }});
+     
+}, 
+
+
   async checkValidation({ commit }) {
     try {
       const response = await axios.get(
@@ -33,14 +71,11 @@ const actions = {
           auth().currentUser.email
         }&&id=${state.id}&&code=${state.code}`
       );
-      const d = new Date();
-      // set token for 30 days
-      d.setTime(d.getTime() + 30 * 24 * 60 * 60 * 1000);
-      const expires = `expires=${d.toUTCString()}`;
-      document.cookie = `sessionToken=${response.data.token};${expires};path=/`;
-      document.cookie = `sessionRole=${response.data.role};${expires};path=/`;
+
+      localStorage.setItem('sessionToken', response.data.token);
+      localStorage.setItem('sessionRole',response.data.role);
     } catch (error) {
-      // unlogged
+      console.log(error)
     }
   },
   // validate token and set validated global
@@ -56,26 +91,16 @@ const actions = {
   },
   // get token from local cookies
   getToken(cname) {
-    const name = cname + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
+    return localStorage.getItem(cname);
+
   }
 };
 const mutations = {
   setValidation: (state, value) => (state.validation = value),
   setValidated: (state, value) => (state.validated = value),
   setId: (state, value) => (state.id = value),
-  setCode: (state, value) => (state.code = value)
+  setCode: (state, value) => (state.code = value),
+  setContactInfo: (state, value) => (state.contactInfo = value)
 };
 
 export default {

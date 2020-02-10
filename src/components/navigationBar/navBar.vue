@@ -9,6 +9,7 @@
       >
         <supervisorsideMenu v-if="isSupervisor" />
         <coordinatorsideMenu v-else-if="isCoordinator" />
+        <teachersideMenu v-else-if="isTeacher"/>
       </v-navigation-drawer>
     </div>
     <!-- side menu ends -->
@@ -41,7 +42,7 @@
       <!-- sandwich menu -->
 
       <!-- logo starts -->
-      <div class="logo-text px-0 my-0 mx-0 leftIcon">
+      <div class="logo-text px-0 my-0 mx-0 " :class="(checkIsLoggedIn)? 'leftIcon':  ''">
         <router-link
           to="/"
           flat
@@ -113,9 +114,9 @@ import profile from "@/components/profile.vue";
 import navBtnMin from "@/components/navigationBar/navBtnMin.vue";
 import navBtnMax from "@/components/navigationBar/navBtnMax.vue";
 import { mapActions, mapGetters } from "vuex";
-import supervisorsideMenu from "@/components/RoleComponents/supervisorComponents/SupervisorSidemenu.vue";
-import coordinatorsideMenu from "@/components/RoleComponents/coordinatorComponents/CoordinatorSidemenu.vue";
-
+import supervisorsideMenu from "@/components/sideMenus/SupervisorSidemenu.vue";
+import coordinatorsideMenu from "@/components/sideMenus/CoordinatorSidemenu.vue";
+import teachersideMenu from "@/components/sideMenus/TeacherSidemenu.vue";
 export default {
   name: "Menu1",
   components: {
@@ -125,7 +126,8 @@ export default {
     alerting,
     profile,
     supervisorsideMenu,
-    coordinatorsideMenu
+    coordinatorsideMenu,
+    teachersideMenu
   },
   directives: {
     onClickaway: onClickaway
@@ -137,8 +139,9 @@ export default {
       signIn: false,
       drawer: false,
       tip: false,
-      isSupervisor: session.fetchRole() == "supervisor",
-      isCoordinator: session.fetchRole() == "coordinator"
+      isSupervisor:false,
+      isCoordinator: false,
+      isTeacher: false,
     };
   },
   methods: {
@@ -199,6 +202,9 @@ export default {
   beforeMount() {
     if (this.auth().currentUser && session.fetchRole()) {
       this.$store.commit("setLoggedIn", true);
+      if( session.fetchRole() == "supervisor") this.isSupervisor= true;
+      if( session.fetchRole() == "coordinator") this.isCoordinator= true;
+      if( session.fetchRole() == "teacher") this.isTeacher= true;
       this.$root.$emit("loggedIn");
     }
   },

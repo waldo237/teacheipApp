@@ -12,7 +12,7 @@ const state = {
     landing: true,
     loadingFull: false,
     notifeeds:false,
-
+    closeableForm: false,
 };
 const getters = {
     
@@ -27,7 +27,7 @@ const getters = {
     getYes:(state) => state.yes,
     loadingFull:(state) => state.loadingFull,
     notiFeeds:(state) => state.notifeeds,
-    
+    closeableForm:(state) => state.closeableForm,
 };
 const actions = {
     async runAlert({commit}, message){
@@ -64,6 +64,7 @@ const mutations = {
     setYes:  (state, value) =>(state.interact = value),
     setLoadingFull:  (state, value) =>(state.loadingFull = value),
     setNotiFeeds:  (state, value) =>(state.notifeeds = value),
+    setCloseableForm:  (state, value) =>(state.closeableForm = value),
 };
 
 export default{

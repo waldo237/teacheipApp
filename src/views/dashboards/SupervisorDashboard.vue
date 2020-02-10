@@ -286,10 +286,10 @@
 <script>
 import { mapGetters, mapActions, mapMutation } from "vuex";
 import { directive as onClickaway } from "vue-clickaway";
-import Sidemenu from "@/components/RoleComponents/supervisorComponents/SupervisorSidemenu.vue";
+// import Sidemenu from "@/components/RoleComponents/supervisorComponents/SupervisorSidemenu.vue";
 export default {
   name: "SupervisorDashboard",
-  components: { Sidemenu },
+  // components: { Sidemenu },
   directives: {
     onClickaway: onClickaway
   },
