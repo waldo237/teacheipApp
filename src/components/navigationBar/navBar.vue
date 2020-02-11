@@ -5,7 +5,9 @@
       <v-navigation-drawer
         app
         v-model="drawer"
-        disable-resize-watcher
+        disable-resize-watcher 
+        class="grey lighten-2"
+
       >
         <supervisorsideMenu v-if="isSupervisor" />
         <coordinatorsideMenu v-else-if="isCoordinator" />

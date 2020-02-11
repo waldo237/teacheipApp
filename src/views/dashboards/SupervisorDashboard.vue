@@ -1,6 +1,6 @@
 <template>
   <v-layout
-    class="mx-3 mb-5 pa-3 px-2 pb-5 pt-1 main-card"
+    class="mx-3 my-5  px-2 py-5 main-card"
     wrap
   >
     <v-layout
@@ -10,7 +10,7 @@
     >
       <!-- upcoming events starts -->
       <v-card
-        class="justify-center mx-1 elevation-24 grids"
+        class="justify-center mx-1 elevation-24 grids grey lighten-4"
         raised
         max-height="350px"
         max-width="400px"
@@ -18,20 +18,20 @@
       >
         <v-card-title
           primary-title
-          class="justify-center orangish elevation-12 py-1"
+          class="justify-center orangish py-1"
         >
-          <h3 class="title white--text text--accent-2">
+          <h3 class=" white--text text--accent-2">
             <v-icon
               color="white"
               medium
               class="mr-2"
             >
               alarm
-            </v-icon>Upcoming events
+            </v-icon>Publicar notificación para coordinadores y maestros
           </h3>
         </v-card-title>
-        <v-card-text class="title">
-          {{ direccion.notification }}
+        <v-card-text>
+          <SendNotification/>
         </v-card-text>
       </v-card>
       <!-- upcoming events ends -->
@@ -286,10 +286,10 @@
 <script>
 import { mapGetters, mapActions, mapMutation } from "vuex";
 import { directive as onClickaway } from "vue-clickaway";
-// import Sidemenu from "@/components/RoleComponents/supervisorComponents/SupervisorSidemenu.vue";
+import SendNotification from "@/components/utilities/SendNotification.vue";
 export default {
   name: "SupervisorDashboard",
-  // components: { Sidemenu },
+  components: { SendNotification },
   directives: {
     onClickaway: onClickaway
   },
@@ -297,10 +297,7 @@ export default {
     return {
       date: new Date().toISOString().substr(0, 10),
       menu: false,
-      direccion: {
-        notification:
-          "Zomnia and Giseh have set up a meeting  on Tuesday, August 27th at 9:00 am at Jean Piaget, Santiago."
-      },
+     
       centers: [
         { name: "Centro de Formación Integral de Clase (CEFORMA) " },
         { name: "Centro de Maimón Puerto Plata" },
@@ -332,7 +329,7 @@ export default {
       days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       value: [200, 675, 410, 390, 310, 460, 250, 240],
       attendance: [675, 500, 650, 675, 310]
-    };
+    }
   },
   methods:{
      

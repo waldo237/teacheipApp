@@ -99,6 +99,7 @@ export default {
   },
  async mounted(){
     if(this.checkIsLoggedIn){
+       this.photoURL = await this.auth().currentUser.photoURL;
       this.$store.commit("setCUEmail", this.auth().currentUser.email);
        await this.$store.dispatch('fetchFeeds');
       this.feedNum = await this.haveNotRead.num.length;
@@ -111,8 +112,11 @@ export default {
   },
  
  async created(){
-   this.photoURL = await this.auth().currentUser.photoURL;
+  
   this.$root.$on('changedPhoto',async ()=>{
+       this.photoURL = await this.auth().currentUser.photoURL;
+    })
+  this.$root.$on('loggedIn',async ()=>{
        this.photoURL = await this.auth().currentUser.photoURL;
     })
 

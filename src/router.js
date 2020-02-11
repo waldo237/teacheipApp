@@ -313,6 +313,18 @@ router.beforeEach((to, from, next) => {
         next();
       }
       // validate if is a Coordinator ends
+      
+      // validate if is a teacher starts
+      if (to.matched.some(record => record.meta.isTeacher)) {
+        if (atob(user) == 'teacher') {
+          next();
+        } else {
+          next({ name: "403" });
+        }
+      } else {
+        next();
+      }
+      // validate if is a teacher ends
 
     }
   } else if (to.matched.some(record => record.meta.requiresGuest)) {

@@ -2,11 +2,36 @@ import axios from "axios";
 import { async } from "q";
 const state = {
   sugerencia: {},
+  notificacionMessage: {},
 };
 const getters = {
   sugerencia: state => state.sugerencia,
+  notificacionMessage: state => state.notificacionMessage,
 };
 const actions = {
+
+  // ***************notification actions start *******************
+  async postNotificacion(){
+    return   new Promise(async(resolve, reject)=>{
+      try {
+        const response = await
+        axios.get(  `https://script.google.com/macros/s/AKfycbyTFdjfRbsMfIDOVMKYNHVbOKYgU3WblMu51DjNIF_vKrvo2iE/exec?
+        email=${state.notificacionMessage.email}
+        &name=${state.notificacionMessage.name}
+         &email=${state.notificacionMessage.email} 
+         &avatar=${state.notificacionMessage.avatar} 
+         &title=${state.notificacionMessage.title} 
+         &body=${state.notificacionMessage.body} 
+         &publishedDate=${state.notificacionMessage.publishedDate} 
+         &link=${state.notificacionMessage.link}`);
+         resolve(response.data) 
+         
+        } catch (error) {
+          reject(console.log(`Could not connect because of internet is off ${error}`));      
+        }
+    })
+  },
+  // ***************notification actions end *******************
   async postSugerencia(){
     return   new Promise(async(resolve, reject)=>{
       try {
@@ -32,6 +57,7 @@ const actions = {
 };
 const mutations = {
   setSugerencia: (state, value) => (state.sugerencia = value),
+  setNotificacionMessage: (state, value) => (state.notificacionMessage = value),
 };
 
 export default {

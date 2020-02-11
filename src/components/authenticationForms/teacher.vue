@@ -195,20 +195,7 @@ export default {
         await this.$router.push(`/completeUserInfo`);
       }
     },
-    // async signIn() {
-    //   try {
-    //     await this.requestToken();
-    //     await this.validateToken();
-    //     if(this.validated.authenticated){
-    //       this.loading1 = false;
-    //       await this.$store.commit("setLanding", false);
-    //       // await this.$router.push(`/coordinatorDashboard`);
-    //     }
-        
-    //   } catch (error) {
-    //             this.errorMessage = error;
-    //   }
-    // },
+  
   prevent(event) {
       const char = String.fromCharCode(event.keyCode);
       if (

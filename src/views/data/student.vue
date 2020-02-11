@@ -15,7 +15,7 @@
     <!-- alternative circular loading endsd -->
     <v-content v-else >
         <v-layout column wrap justify-center class="mb-5 pb-5">
-           <v-btn outline @click="goBack" round color="blue darken-4">Volver atrás</v-btn>
+           <v-btn outline @click="goBack" round color="blue darken-4 mt-5">Volver atrás</v-btn>
             <v-card min-width="360px" class="grey lighten-3" flat>
                 <v-card-title primary-title class="sign-in title  text-uppercase bigWords">
                     información básica de estudiante

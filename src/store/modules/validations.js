@@ -8,13 +8,15 @@ const state = {
   id: "",
   code: "",
   contactInfo:{},
+  superId: false,
 };
 const getters = {
   validation: state => state.validation,
   validated: state => state.validated,
   id: state => state.id,
   code: state => state.code,
-  contactInfo: state => state.contactInfo
+  contactInfo: state => state.contactInfo,
+  superId: state => state.superId
 };
 const actions = {
 
@@ -46,11 +48,36 @@ async completeContactInfo(){
   console.log(state.contactInfo)
  const response =  await axios.post(`http://localhost:3000/contacts`,state.contactInfo,  {headers: {
         Authorization: 'JWT ' + localStorage.getItem('serverToken')
-      
       }});
-     
+      localStorage.setItem('sessionRole', response.data);
 }, 
+// supervisor authentication starts
 
+    async fetchSuperId({ commit }) {
+      try {
+        const response = await axios.get(
+          `https://script.google.com/macros/s/AKfycbyNLUiUUjM3M69pAtwSen1p2Zey2iFEPkHGWH4XLOzEHZYu0Qk/exec?email=${auth().currentUser.email}&cedula=${state.id}`
+        );
+        commit("setSuperId", response.data);
+      } catch (error) {
+        new Error("Could not connect because of internet is off");
+      }
+    },
+
+    async authenticateSuper({ commit }) {
+      try {
+        const response = await axios.get(
+          `https://script.google.com/macros/s/AKfycbyNLUiUUjM3M69pAtwSen1p2Zey2iFEPkHGWH4XLOzEHZYu0Qk/exec?email=${auth().currentUser.email}&password=${state.code}`
+        );
+        commit("setSuperId", response.data);
+        localStorage.setItem('sessionToken', response.data.token);
+        localStorage.setItem('sessionRole',response.data.role);
+      } catch (error) {
+        new Error("Could not connect because of internet is off");
+      }
+    },
+
+// supervisor authentication ends
 
   async checkValidation({ commit }) {
     try {
@@ -100,7 +127,8 @@ const mutations = {
   setValidated: (state, value) => (state.validated = value),
   setId: (state, value) => (state.id = value),
   setCode: (state, value) => (state.code = value),
-  setContactInfo: (state, value) => (state.contactInfo = value)
+  setContactInfo: (state, value) => (state.contactInfo = value),
+  setSuperId: (state, value) => (state.superId = value)
 };
 
 export default {

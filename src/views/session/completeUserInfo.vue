@@ -366,7 +366,14 @@ export default {
         };
         this.$store.commit("setContactInfo", localContactInfo);
         // this.dialog = false;
-        this.completeContactInfo();
+       await this.completeContactInfo();
+       
+       let role = await atob(localStorage.getItem('sessionRole'))
+          if (role == 'teacher') {
+              await this.$router.push(`/teacherDashboard`);
+          } else {
+            await this.$router.push(`/completeUserInfo`);
+          }
       }
     },
     ...mapActions(["completeContactInfo"])
@@ -426,7 +433,8 @@ export default {
   z-index: 1 !important;
   position: fixed !important;
   top: 50px;
- 
+ left: 10px;
+ background-color: ghostwhite;
   justify-self: center !important;
  
 }

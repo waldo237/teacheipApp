@@ -13,216 +13,221 @@
       <!-- FIRST ROW STARTS -->
       <v-layout row wrap justify-center class="mb-2">
         <v-btn
-          color="sign-in"
+          color=""
+          :class="(gradesReport)? 'blur' : 'sign-in'"
           block
           large
           @click="gradesReport =!gradesReport"
         >PUBLICAR CALIFICACIONES</v-btn>
-        <v-btn color="sign-up" block large @click="dataTable =!dataTable">PASAR LISTA</v-btn>
+        <v-btn color=""  :class="(dataTable)? 'blur' : 'sign-up'"
+         block large @click="dataTable =!dataTable">PASAR LISTA</v-btn>
       </v-layout>
       <!-- FIRST ROW ENDS -->
       <!-- SECOND ROW STARTS -->
-      <v-layout row wrap justify-center class="mx-3">
-     <!-- CALENDAR STARTS -->
-        <v-card
-          min-width="300px"
-          max-width="400px"
-          class="mx-2 mt-2 mb-5 grey darken-4 elevation-24"
-          height="300px"
-        >
-          <v-card-title primary-title>
-            <v-layout row wrap justify-center>Calendario Academico</v-layout>
-          </v-card-title>
-          <v-sheet tile height="54" color="grey " class="d-flex" light>
-            <v-btn icon class="ma-2" @click="$refs.calendar.prev()">
-              <v-icon>arrow_back_ios</v-icon>
-            </v-btn>
-            <v-select
-              v-model="type"
-              :items="types"
-              dense
-              outlined
-              hide-details
-              class="ma-2"
-              label="type"
-            />
-            <v-select
-              v-model="mode"
-              :items="modes"
-              dense
-              outlined
-              hide-details
-              label="event-overlap-mode"
-              class="ma-2"
-            />
-            <v-select
-              v-model="weekday"
-              :items="weekdays"
-              dense
-              outlined
-              hide-details
-              label="weekdays"
-              class="ma-2"
-            />
-            <v-spacer />
-            <v-btn icon class="ma-2" @click="$refs.calendar.next()">
-              <v-icon>arrow_forward_ios</v-icon>
-            </v-btn>
-          </v-sheet>
-          <v-sheet light>
-            <v-calendar
-              ref="calendar"
-              color="red"
-              v-model="value1"
-              :weekdays="weekday"
-              :type="type"
-              :events="events"
-              :event-overlap-mode="mode"
-              :event-overlap-threshold="30"
-              :event-color="getEventColor"
-              @change="getEvents"
-            />
-          </v-sheet>
-        </v-card>
-        <!-- CALENDAR ENDS -->
-        <!-- SERVICES AND RESOURCES STARTS  -->
-        <v-card class="mt-4 mb-4 mx-2 grey darken-4">
-          <v-card class="card-offset mx-auto orange" elevation="12" max-width="calc(100% - 30px)">
-            <v-card-title>Recursos y Materiales</v-card-title>
-          </v-card>
+      <v-layout row wrap class="mb-2" v-if="!dataTable && !gradesReport">
+        <v-layout row wrap justify-center class="mx-3">
+          <!-- CALENDAR STARTS -->
           <v-card
-            class="scrollbar overflow grey darken-4 elevation-19"
-            height="285px"
-            max-width="300px"
+            min-width="300px"
+            max-width="400px"
+            class="mx-2 mt-2 mb-5 grey darken-4 elevation-24"
+            height="300px"
           >
-            <v-card-text v-for="(item, i) in servicios" :key="i" class="py-0 px-2">
-              <router-link tag="v-btn" small dark  :to="item.link" class="my-1" v-if="item.class">
-                {{
-                item.title
-                }}
-              </router-link>
+            <v-card-title primary-title>
+              <v-layout row wrap justify-center>Calendario Academico</v-layout>
+            </v-card-title>
+            <v-sheet tile height="54" color="grey " class="d-flex" light>
+              <v-btn icon class="ma-2" @click="$refs.calendar.prev()">
+                <v-icon>arrow_back_ios</v-icon>
+              </v-btn>
+              <v-select
+                v-model="type"
+                :items="types"
+                dense
+                outlined
+                hide-details
+                class="ma-2"
+                label="type"
+              />
+              <v-select
+                v-model="mode"
+                :items="modes"
+                dense
+                outlined
+                hide-details
+                label="event-overlap-mode"
+                class="ma-2"
+              />
+              <v-select
+                v-model="weekday"
+                :items="weekdays"
+                dense
+                outlined
+                hide-details
+                label="weekdays"
+                class="ma-2"
+              />
+              <v-spacer />
+              <v-btn icon class="ma-2" @click="$refs.calendar.next()">
+                <v-icon>arrow_forward_ios</v-icon>
+              </v-btn>
+            </v-sheet>
+            <v-sheet light>
+              <v-calendar
+                ref="calendar"
+                color="red"
+                v-model="value1"
+                :weekdays="weekday"
+                :type="type"
+                :events="events"
+                :event-overlap-mode="mode"
+                :event-overlap-threshold="30"
+                :event-color="getEventColor"
+                @change="getEvents"
+              />
+            </v-sheet>
+          </v-card>
+          <!-- CALENDAR ENDS -->
+          <!-- SERVICES AND RESOURCES STARTS  -->
+          <v-card class="mt-4 mb-4 mx-2 grey darken-4">
+            <v-card class="card-offset mx-auto orange" elevation="12" max-width="calc(100% - 30px)">
+              <v-card-title>Recursos y Materiales</v-card-title>
+            </v-card>
+            <v-card
+              class="scrollbar overflow grey darken-4 elevation-19"
+              height="285px"
+              max-width="300px"
+            >
+              <v-card-text v-for="(item, i) in servicios" :key="i" class="py-0 px-2">
+                <router-link tag="v-btn" small dark :to="item.link" class="my-1" v-if="item.class">
+                  {{
+                  item.title
+                  }}
+                </router-link>
+              </v-card-text>
+            </v-card>
+          </v-card>
+          <!-- SERVICES AND RESOURCES ENDS  -->
+
+          <!-- attendance report start -->
+          <v-card
+            class="mt-4 mb-4 mx-2 grey darken-4"
+            min-width="360px"
+            max-height="330px"
+            v-for="(item, i) in reports"
+            :key="i"
+          >
+            <v-sheet
+              class="v-sheet--offset mx-auto"
+              :color="item.background"
+              elevation="12"
+              max-width="calc(100% - 25px)"
+            >
+              <v-sparkline
+                :labels="labels"
+                :value="value"
+                :color="item.color"
+                line-width="2"
+                padding="12"
+              />
+            </v-sheet>
+
+            <v-card-text class="pt-0">
+              <div class="title font-weight-light mb-2">{{ item.tittle }}</div>
+              <div class="subheading font-weight-light grey--text">{{ item.body }}</div>
+              <v-divider class="my-2" />
+              <v-icon class="mr-2" small>{{ item.icon }}</v-icon>
+              <span class="caption grey--text font-weight-light">last registration 26 minutes ago</span>
             </v-card-text>
           </v-card>
-        </v-card>
-        <!-- SERVICES AND RESOURCES ENDS  -->
-
-      <!-- attendance report start -->
-        <v-card
-          class="mt-4 mb-4 mx-2 grey darken-4"
-          min-width="360px"
-          max-height="330px"
-          v-for="(item, i) in reports"
-          :key="i"
-        >
-          <v-sheet
-            class="v-sheet--offset mx-auto"
-            :color="item.background"
-            elevation="12"
-            max-width="calc(100% - 25px)"
-          >
-            <v-sparkline
-              :labels="labels"
-              :value="value"
-              :color="item.color"
-              line-width="2"
-              padding="12"
-            />
-          </v-sheet>
-
-          <v-card-text class="pt-0">
-            <div class="title font-weight-light mb-2">{{ item.tittle }}</div>
-            <div class="subheading font-weight-light grey--text">{{ item.body }}</div>
-            <v-divider class="my-2" />
-            <v-icon class="mr-2" small>{{ item.icon }}</v-icon>
-            <span class="caption grey--text font-weight-light">last registration 26 minutes ago</span>
-          </v-card-text>
-        </v-card>
-
-        <!-- attendance  report ends -->
-        <!-- publish  scores -->
-        <transition name="slideDown">
-          <v-layout row wrap justify-center v-if="gradesReport">
-            <v-card width="95%" class="pa-2 round" light flat>
-              <v-card-title primary-title class="bigWords title">
-                <v-layout row wrap justify-center>Formulario de reporte de calificaciones</v-layout>
-              </v-card-title>
-              <v-layout row wrap justify-center>
-                <!-- grades report starts-->
-                <v-text-field
-                  v-model="search"
-                  append-icon="search"
-                  label="Search"
-                  single-line
-                  hide-details
-                ></v-text-field>
-                <v-data-table
-                  style="width: 98%"
-                  :headers="gradesheaders"
-                  :pagination.sync="pagination"
-                  :items="students"
-                  :must-sort="true"
-                  light
-                  :search="search"
-                >
-                  <template v-slot:items="props">
-                    <td class="text-center mx-0 pl-2 text-uppercase sheet">
-                            <router-link
-                  :to="'/student/'+props.item.id">{{props.index+1}}- {{ props.item.name }}</router-link>
-                    </td>
-                    <td
-                      class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
-                      contenteditable="contenteditable"
-                    >
-                      <span class="py-2 px-4">{{ props.item.homework }}</span>
-                    </td>
-                    <td
-                      class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
-                      contenteditable="contenteditable"
-                    >
-                      <span class="py-2 px-4">{{ props.item.classwork }}</span>
-                    </td>
-                    <td
-                      class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
-                      contenteditable="contenteditable"
-                    >
-                      <span class="py-2 px-4">{{ props.item.pba }}</span>
-                    </td>
-                    <td
-                      class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
-                      contenteditable="contenteditable"
-                    >
-                      <span class="py-2 px-4">{{ props.item.midterm }}</span>
-                    </td>
-                    <td
-                      class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
-                      contenteditable="contenteditable"
-                    >
-                      <span class="py-2 px-4">{{ props.item.final }}</span>
-                    </td>
-                    <td class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet">
-                      <span class="py-2 px-4">
-                        {{
-                        (props.item.homework * 0.10)+
-                        (props.item.classwork * 0.10) +
-                        (props.item.pba * 0.30) +
-                        (props.item.midterm * 0.25) +
-                        (props.item.final * 0.25)
-                        }}%
-                      </span>
-                    </td>
-                  </template>
-                </v-data-table>
-                <v-btn class="sign-up mb-5" large block round>Guardar calificaciones</v-btn>
-
-                <!-- grades report ends-->
-              </v-layout>
-            </v-card>
-          </v-layout>
-        </transition>
-        <!-- publish  scores -->
-        <!-- call attendance starts -->
+        </v-layout>
       </v-layout>
+      <!-- attendance  report ends -->
       <!-- SECOND ROW ENDS -->
+      <!-- publish  scores -->
+      <transition name="slideDown">
+        <v-layout row wrap justify-center v-if="gradesReport">
+          <v-card width="95%" class="pa-2 round" light flat>
+            <v-card-title primary-title class="bigWords title">
+              <v-layout row wrap justify-center>Formulario de reporte de calificaciones</v-layout>
+            </v-card-title>
+            <v-layout row wrap justify-center>
+              <!-- grades report starts-->
+              <v-text-field
+                v-model="search"
+                append-icon="search"
+                label="Search"
+                single-line
+                hide-details
+              ></v-text-field>
+              <v-data-table
+                style="width: 98%"
+                :headers="gradesheaders"
+                :pagination.sync="pagination"
+                :items="students"
+                :must-sort="true"
+                light
+                :search="search"
+              >
+                <template v-slot:items="props">
+                  <td class="text-center mx-0 pl-2 text-uppercase sheet">
+                    <router-link
+                      :to="'/student/'+props.item.id"
+                    >{{props.index+1}}- {{ props.item.name }}</router-link>
+                  </td>
+                  <td
+                    class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
+                    contenteditable="contenteditable"
+                  >
+                    <span class="py-2 px-4">{{ props.item.homework }}</span>
+                  </td>
+                  <td
+                    class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
+                    contenteditable="contenteditable"
+                  >
+                    <span class="py-2 px-4">{{ props.item.classwork }}</span>
+                  </td>
+                  <td
+                    class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
+                    contenteditable="contenteditable"
+                  >
+                    <span class="py-2 px-4">{{ props.item.pba }}</span>
+                  </td>
+                  <td
+                    class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
+                    contenteditable="contenteditable"
+                  >
+                    <span class="py-2 px-4">{{ props.item.midterm }}</span>
+                  </td>
+                  <td
+                    class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
+                    contenteditable="contenteditable"
+                  >
+                    <span class="py-2 px-4">{{ props.item.final }}</span>
+                  </td>
+                  <td class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet">
+                    <span class="py-2 px-4">
+                      {{
+                      (props.item.homework * 0.10)+
+                      (props.item.classwork * 0.10) +
+                      (props.item.pba * 0.30) +
+                      (props.item.midterm * 0.25) +
+                      (props.item.final * 0.25)
+                      }}%
+                    </span>
+                  </td>
+                </template>
+              </v-data-table>
+              <v-btn class="sign-up mb-5" large block round>Guardar calificaciones</v-btn>
+
+              <!-- grades report ends-->
+            </v-layout>
+          </v-card>
+        </v-layout>
+      </transition>
+      <!-- publish  scores -->
+      <!-- call attendance starts -->
+
       <transition name="slideDown">
         <v-layout row wrap justify-center v-if="dataTable">
           <v-card width="95%" class="pa-2 round" light flat>
@@ -239,21 +244,23 @@
                 dense
               >
                 <template v-slot:items="props">
-                  
                   <td
-                    
                     class="text-center mx-0 pl-2 text-uppercase sheet"
                     id="name"
                     min-width="150px"
-                  >      <router-link
-:to="'/student/'+props.item.id">{{props.index+1}}-{{ props.item.name }} </router-link></td>
+                  >
+                    <router-link
+                      :to="'/student/'+props.item.id"
+                    >{{props.index+1}}-{{ props.item.name }}</router-link>
+                  </td>
 
                   <td
                     class="text-center mx-0 pl-2 text-uppercase sheet"
                     id="apellido"
                     min-width="150px"
-                  >      <router-link
-:to="'/student/'+props.item.id">{{ props.item.lastname }}</router-link></td>
+                  >
+                    <router-link :to="'/student/'+props.item.id">{{ props.item.lastname }}</router-link>
+                  </td>
 
                   <td class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet">
                     <v-radio-group row>
@@ -488,8 +495,13 @@ export default {
   animation-timing-function: ease-in-out;
 }
 .slideDown-leave-active {
-  animation-duration: 1s;
+  animation-duration: 0.30s;
   animation-name: bounceOutUp;
   animation-timing-function: ease-in-out;
+}
+.blur{
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.438) !important;
+    background-color: gray !important;
+    padding: 30px !important;
 }
 </style>
