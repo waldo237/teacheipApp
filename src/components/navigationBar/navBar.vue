@@ -52,8 +52,8 @@
           round
           class="px-0 my-0 mx-0 font-weight-bold"
         >
-          <span class="teach font-weight-regular">Teach</span>
-          <span class="acronym ">EIP</span>
+          <span class="teach font-weight-regular">Teach </span>
+          <span class="acronym ">EIP | version 1.2</span>
         </router-link>
         <span class="full-title mt-0">
           with The English Immersion Program

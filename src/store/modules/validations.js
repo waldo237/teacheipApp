@@ -26,7 +26,7 @@ const actions = {
       * The following code makes a call to the main server to login and receives a token.
       */
 async newValidation({ commit }){
-        let res = await axios.post("http://localhost:3000/auth/register",  {
+        let res = await axios.post("https://eip-server.herokuapp.com/auth/register",  {
           'name': auth().currentUser.displayName,
           'password': auth().currentUser.uid,
           'cu_id':  auth().currentUser.uid,
@@ -37,7 +37,7 @@ async newValidation({ commit }){
   },
 
 async verifyContact(){
-  const response =  await axios.get(`http://localhost:3000/contact/${auth().currentUser.uid}`, {headers: {
+  const response =  await axios.get(`https://eip-server.herokuapp.com/contact/${auth().currentUser.uid}`, {headers: {
         Authorization: 'JWT ' + localStorage.getItem('serverToken')
       }});
       localStorage.setItem('sessionRole', response.data);
@@ -48,7 +48,7 @@ async verifyContact(){
  */
 async completeContactInfo(){
   console.log(state.contactInfo)
- const response =  await axios.post(`http://localhost:3000/contacts`,state.contactInfo,  {headers: {
+ const response =  await axios.post(`https://eip-server.herokuapp.com/contacts`,state.contactInfo,  {headers: {
         Authorization: 'JWT ' + localStorage.getItem('serverToken')
       }});
       localStorage.setItem('sessionRole', response.data);

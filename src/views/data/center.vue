@@ -20,33 +20,36 @@
                 <v-card-title primary-title class="sign-in title  text-uppercase bigWords">
                     información del centro
                 </v-card-title>
-                    <v-layout row wrap justify-start class="mx-3">
-                        <span class="bigWords mx-1">Nombre del Centro:  </span>{{currentCenter.centro}} 
+                <v-layout column class="title">
+                  
+                    <v-layout row wrap justify-start class="ma-2">
+                        <span class="bigWords mx-1 ">Nombre del Centro:  </span>{{currentCenter.centro}} 
                     </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
+                    <v-layout row wrap justify-start  class="ma-2">
                     <span class="bigWords  mx-1">Region: </span>  {{currentCenter.region}}
                     </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
+                    <v-layout row wrap justify-start  class="ma-2">
                     <span class="bigWords  mx-1">Provincia:  </span>  {{currentCenter.provincia}}
                     </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
+                    <v-layout row wrap justify-start  class="ma-2">
                     <span class="bigWords  mx-1">municipio:  </span>  {{currentCenter.municipio}}
                     </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
+                    <v-layout row wrap justify-start  class="ma-2">
                     <span class="bigWords  mx-1">Responsable:  </span>  {{currentCenter.nameOfResponsible}}
                     </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
-                    <span class="bigWords  mx-1">Contacto:  </span>  {{currentCenter.phone}}
+                    <v-layout row wrap justify-start  class="ma-2">
+                    <span class="bigWords  mx-1" >Contacto:  </span> <a :href="'tel:'+currentCenter.phone">{{currentCenter.phone}}</a> 
                     </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
-                    <span class="bigWords  mx-1">Email:  </span>  {{currentCenter.email}}
+                    <v-layout row wrap justify-start  class="ma-2">
+                    <span class="bigWords  mx-1">Email:  </span><a :href="'mailto:'+currentCenter.email">{{currentCenter.email}}</a>  
                     </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
+                    <v-layout row wrap justify-start  class="ma-2">
                     <span class="bigWords  mx-1">supervisor:  </span>  {{currentCenter.supervisor}}
                     </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
+                    <v-layout row wrap justify-start  class="ma-2">
                     <span class="bigWords  mx-1">Serie de Libro:  </span>  {{currentCenter.libro}}
                     </v-layout>
+                </v-layout>
             </v-card>
           
             
