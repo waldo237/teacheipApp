@@ -125,7 +125,6 @@
 import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
 import loading from "@/components/loading.vue";
-import _ from "lodash";
 
 export default {
   components: { loading },

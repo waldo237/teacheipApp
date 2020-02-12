@@ -9,6 +9,7 @@ const state = {
   code: "",
   contactInfo:{},
   superId: false,
+  superCenters: [],
 };
 const getters = {
   validation: state => state.validation,
@@ -16,7 +17,8 @@ const getters = {
   id: state => state.id,
   code: state => state.code,
   contactInfo: state => state.contactInfo,
-  superId: state => state.superId
+  superId: state => state.superId,
+  superCenters: state => state.superCenters,
 };
 const actions = {
 
@@ -72,11 +74,21 @@ async completeContactInfo(){
         commit("setSuperId", response.data);
         localStorage.setItem('sessionToken', response.data.token);
         localStorage.setItem('sessionRole',response.data.role);
+        localStorage.setItem('superUid',response.data.uid);
       } catch (error) {
         new Error("Could not connect because of internet is off");
       }
     },
-
+    async fetchCenters({ commit }) {
+      try {
+        const response = await axios.get(
+          `https://script.google.com/macros/s/AKfycbw9Iy9czwYRQuz2HZbTDKnYqzRo94iPwY3Cif6HmwA4lNkILpiS/exec?supervisoruid=${localStorage.getItem('superUid')}`
+        );
+        commit("setSuperCenters", response.data);
+      } catch (error) {
+        new Error("Could not connect because of internet is off");
+      }
+    },
 // supervisor authentication ends
 
   async checkValidation({ commit }) {
@@ -128,7 +140,8 @@ const mutations = {
   setId: (state, value) => (state.id = value),
   setCode: (state, value) => (state.code = value),
   setContactInfo: (state, value) => (state.contactInfo = value),
-  setSuperId: (state, value) => (state.superId = value)
+  setSuperId: (state, value) => (state.superId = value),
+  setSuperCenters: (state, value) => (state.superCenters = value)
 };
 
 export default {

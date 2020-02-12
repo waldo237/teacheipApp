@@ -249,6 +249,20 @@ let router = new Router({
       }
     },
     {
+      path: "/center/:id",
+      name: "center",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/data/center.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true,
+        isSupervisor: true,
+        // make seeable by coordinators and supervisors
+      }
+    },
+    {
       path: "/useterms",
       name: "useterms",
       component: () =>

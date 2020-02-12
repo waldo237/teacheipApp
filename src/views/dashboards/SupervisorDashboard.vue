@@ -1,6 +1,6 @@
 <template>
   <v-layout
-    class="mx-3 my-5  px-2 py-5 main-card"
+    class=" my-5  px-2 py-5 grey lighten-2"
     wrap
   >
     <v-layout
@@ -133,9 +133,13 @@
       </v-card>
       <!-- intructions end -->
 
+      <!--******** services starts ********-->
+       <servicesScreen :servicesForSupervisor="servicesForSupervisor"/>
+      <!--******** services ends ********-->
+
       <!-- centers starts -->
       <v-card
-        class="justify-center mx-1 elevation-24 grids"
+        class="justify-center mx-1 elevation-24 grids "
         raised
         max-height="350px"
         max-width="240px"
@@ -144,7 +148,7 @@
       >
         <v-card-title
           primary-title
-          class="justify-center centers darken-4 elevation-12 py-1"
+          class="justify-center centers  darken-4 elevation-12 py-1"
         >
           <h3 class="title white--text text--accent-2">
             <v-icon
@@ -166,10 +170,10 @@
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody >
               <tr
                 v-for="(item, index) in centers"
-                :key="item.name"
+                :key="item.uuid"
               >
                 <v-tooltip left>
                   <template v-slot:activator="{ on }">
@@ -177,16 +181,18 @@
                       class="text-truncate"
                       style="max-width:190px"
                     >
-                      <v-btn
+                      <router-link
+                      tag="v-btn"
                         class="px-2 py-0 ma-0 caption"
                         flat
+                         :to="'/center/'+ item.uuid"
                         v-on="on"
                       >
-                        {{ index+1 }} - {{ item.name }}
-                      </v-btn>
+                        {{ index+1 }} - {{ item.centro}}
+                      </router-link>
                     </td>
                   </template>
-                  <span>{{ item.name }}</span>
+                  <span>{{ item.centro }}</span>
                 </v-tooltip>
               </tr>
             </tbody>
@@ -287,9 +293,11 @@
 import { mapGetters, mapActions, mapMutation } from "vuex";
 import { directive as onClickaway } from "vue-clickaway";
 import SendNotification from "@/components/utilities/SendNotification.vue";
+import servicesScreen from "@/components/utilities/servicesScreen.vue";
+import _ from "lodash";
 export default {
   name: "SupervisorDashboard",
-  components: { SendNotification },
+  components: { SendNotification,servicesScreen },
   directives: {
     onClickaway: onClickaway
   },
@@ -297,23 +305,8 @@ export default {
     return {
       date: new Date().toISOString().substr(0, 10),
       menu: false,
-     
-      centers: [
-        { name: "Centro de Formación Integral de Clase (CEFORMA) " },
-        { name: "Centro de Maimón Puerto Plata" },
-        { name: "Centro Tecnológico Comunitario Juan López " },
-        { name: "Centro Tecnológico Comunitario San Victor/ Moca " },
-        { name: "Centro Tecnológico de Gaspar Hernández" },
-        { name: "Centro Universitario Regional de Bonao " },
-        { name: "Colegio Simón Bolívar" },
-        { name: "Instituto de Inglés  ENCOM " },
-        { name: "Jean Piaget " },
-        { name: "Liceo Carmen Digna Evangelista, Dajabon " },
-        { name: "Liceo Jorge Sterling Echavarría Mendoza, Stgo Rodriguez " },
-        { name: "Liceo José Martí, Monte Cristi" },
-        { name: "Liceo Juan Pablo Duarte, Monción" },
-        { name: "UASD Santiago (CURSA)" }
-      ],
+     servicesForSupervisor: true,
+      centers: [],
       labels: [
         "Bc1-m",
         "Bc1-f",
@@ -332,20 +325,26 @@ export default {
     }
   },
   methods:{
-     
+     ...mapActions(['fetchCenters'])
   },
   computed: {
     ...mapGetters([
       "auth",
       "checkIsLoggedIn",
       "getSupervisorSideMenu",
+      "superCenters"
+      ,
 
     ])
   },
-
+ async created(){
+  await this.fetchCenters();
+ this.centers = await _.uniqBy(this.superCenters,'centro');
+ }
 };
 </script>
 <style scoped>
+
 .statistics-right {
   background: rgb(116, 49, 110);
   background: linear-gradient(90deg, rgb(153, 23, 0) 14%, rgb(0, 0, 0) 78%);
