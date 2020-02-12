@@ -7,11 +7,10 @@
         v-model="drawer"
         disable-resize-watcher 
         class="grey lighten-2"
-
       >
         <supervisorsideMenu v-if="isSupervisor" />
         <coordinatorsideMenu v-else-if="isCoordinator" />
-        <teachersideMenu v-else-if="isTeacher"/>
+        <teachersideMenu v-else-if="isTeacher" />
       </v-navigation-drawer>
     </div>
     <!-- side menu ends -->
@@ -44,7 +43,10 @@
       <!-- sandwich menu -->
 
       <!-- logo starts -->
-      <div class="logo-text px-0 my-0 mx-0 " :class="(checkIsLoggedIn)? 'leftIcon':  ''">
+      <div
+        class="logo-text px-0 my-0 mx-0 "
+        :class="(checkIsLoggedIn)? 'leftIcon': ''"
+      >
         <router-link
           to="/"
           flat

@@ -1,8 +1,7 @@
 
 <template>
-
   <v-container class="mb-5 pb-5">
-       <!-- alternative circular loading starts -->
+    <!-- alternative circular loading starts -->
     <v-layout
       row
       wrap
@@ -13,50 +12,117 @@
       <loading />
     </v-layout>
     <!-- alternative circular loading endsd -->
-    <v-content v-else >
-        <v-layout column wrap justify-center class="mb-5 pb-5">
-           <v-btn outline @click="goBack" round color="blue darken-4 mt-5">Volver atrás</v-btn>
-            <v-card min-width="360px" class="grey lighten-3" flat>
-                <v-card-title primary-title class="sign-in title  text-uppercase bigWords">
-                    información básica de estudiante
-                </v-card-title>
-                    <v-layout row wrap justify-start class="mx-3">
-                        <span class="bigWords mx-1">Nombre:  </span>{{currentStudent.name}} 
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
-                    <span class="bigWords  mx-1">Apellido: </span>  {{currentStudent.lastname}}
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
-                    <span class="bigWords  mx-1">Cedula:  </span>  {{currentStudent.cedula}}
-                    </v-layout>
-            </v-card>
-            <v-card min-width="360px" flat class="grey lighten-3">
-                <v-card-title primary-title class=" title  text-uppercase bigWords">
-                    calificaciones básico 1 =  {{ calculateTotal }} %
-                </v-card-title>
-                <v-layout row wrap>
-                    <v-layout row wrap justify-start class="mx-3">
-                        <span class="bigWords mx-1">Tareas:  </span>{{currentStudent.homework}} pts 
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
-                    <span class="bigWords  mx-1">Participación: </span>  {{currentStudent.classwork}} pts 
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="mx-3">
-                    <span class="bigWords  mx-1">Evaluación oral:  </span>  {{currentStudent.pba}} pts 
-                    </v-layout>
+    <v-content v-else>
+      <v-layout
+        column
+        wrap
+        justify-center
+        class="mb-5 pb-5"
+      >
+        <v-btn
+          outline
+          @click="goBack"
+          round
+          color="blue darken-4 mt-5"
+        >
+          Volver atrás
+        </v-btn>
+        <v-card
+          min-width="360px"
+          class="grey lighten-3"
+          flat
+        >
+          <v-card-title
+            primary-title
+            class="sign-in title  text-uppercase bigWords"
+          >
+            información básica de estudiante
+          </v-card-title>
+          <v-layout
+            row
+            wrap
+            justify-start
+            class="mx-3"
+          >
+            <span class="bigWords mx-1">Nombre:  </span>{{ currentStudent.name }} 
+          </v-layout>
+          <v-layout
+            row
+            wrap
+            justify-start
+            class="mx-3"
+          >
+            <span class="bigWords  mx-1">Apellido: </span>  {{ currentStudent.lastname }}
+          </v-layout>
+          <v-layout
+            row
+            wrap
+            justify-start
+            class="mx-3"
+          >
+            <span class="bigWords  mx-1">Cedula:  </span>  {{ currentStudent.cedula }}
+          </v-layout>
+        </v-card>
+        <v-card
+          min-width="360px"
+          flat
+          class="grey lighten-3"
+        >
+          <v-card-title
+            primary-title
+            class=" title  text-uppercase bigWords"
+          >
+            calificaciones básico 1 =  {{ calculateTotal }} %
+          </v-card-title>
+          <v-layout
+            row
+            wrap
+          >
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="mx-3"
+            >
+              <span class="bigWords mx-1">Tareas:  </span>{{ currentStudent.homework }} pts 
+            </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="mx-3"
+            >
+              <span class="bigWords  mx-1">Participación: </span>  {{ currentStudent.classwork }} pts 
+            </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="mx-3"
+            >
+              <span class="bigWords  mx-1">Evaluación oral:  </span>  {{ currentStudent.pba }} pts 
+            </v-layout>
                     
-                    <v-layout row wrap justify-start  class="mx-3">
-                    <span class="bigWords  mx-1">Primer examen:  </span>  {{currentStudent.midterm}} pts 
-                    </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="mx-3"
+            >
+              <span class="bigWords  mx-1">Primer examen:  </span>  {{ currentStudent.midterm }} pts 
+            </v-layout>
                     
-                    <v-layout row wrap justify-start  class="mx-3">
-                    <span class="bigWords  mx-1">Segundo examen:  </span>  {{currentStudent.final}} pts 
-                    </v-layout>
-                    
-                </v-layout>
-            </v-card>
-            
-        </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="mx-3"
+            >
+              <span class="bigWords  mx-1">Segundo examen:  </span>  {{ currentStudent.final }} pts 
+            </v-layout>
+          </v-layout>
+        </v-card>
+      </v-layout>
     </v-content>
   </v-container>
 </template>

@@ -12,8 +12,10 @@
         >
           device_hub
         </v-icon>
-        <v-list-tile-title class="headline font-weight-bold">
-          WORKSTATION
+        <v-list-tile-title class=" font-weight-bold">
+          <router-link to="/supervisorDashboard">
+            Supervisor's Dashboard
+          </router-link> 
         </v-list-tile-title>
       </v-list-tile>
       <!-- ACADEMIC starts -->

@@ -5,16 +5,15 @@
       class="error"
       v-model="snackbar"
       color="#17a011"
-      multi-line
       :timeout="30000"
     >
-      "Ahora los maestros pueden accesar los planes de clase sin necesidad de registrarse!"
+      "Anunciamos que los maestros ya pueden registrarse en esta plataforma!"
       <v-btn
         dark
         text
         to="/lesson Plans"
       >
-        Ir a los planes de clase
+        okay
       </v-btn>
       <v-btn
         dark

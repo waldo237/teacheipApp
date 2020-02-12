@@ -31,7 +31,7 @@
           </h3>
         </v-card-title>
         <v-card-text>
-          <SendNotification/>
+          <SendNotification />
         </v-card-text>
       </v-card>
       <!-- upcoming events ends -->
@@ -134,7 +134,7 @@
       <!-- intructions end -->
 
       <!--******** services starts ********-->
-       <servicesScreen :servicesForSupervisor="servicesForSupervisor"/>
+      <servicesScreen :services-for-supervisor="servicesForSupervisor" />
       <!--******** services ends ********-->
 
       <!-- centers starts -->
@@ -170,7 +170,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody >
+            <tbody>
               <tr
                 v-for="(item, index) in centers"
                 :key="item.uuid"
@@ -182,13 +182,13 @@
                       style="max-width:190px"
                     >
                       <router-link
-                      tag="v-btn"
+                        tag="v-btn"
                         class="px-2 py-0 ma-0 caption"
                         flat
-                         :to="'/center/'+ item.uuid"
+                        :to="'/center/'+ item.uuid"
                         v-on="on"
                       >
-                        {{ index+1 }} - {{ item.centro}}
+                        {{ index+1 }} - {{ item.centro }}
                       </router-link>
                     </td>
                   </template>

@@ -1,5 +1,5 @@
 <template>
-  <v-list dense >
+  <v-list dense>
     <template v-for="item in items">
       <v-layout
         v-if="item.heading"

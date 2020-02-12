@@ -51,12 +51,26 @@
       <v-list-tile-sub-title class="email">
         {{ auth().currentUser.email }}
       </v-list-tile-sub-title>
-      <v-card-actions class="justify-center">
-        <!-- editor dialog starts -->
-        <editor />
+      <!-- editor dialog starts -->
+     
+      
+      <editor
+        :profile-editor="profileEditor"
+        @profileEditor="profileEditor = false"
+        class="slideDown"
+      />
       <!-- editor dialog ends -->
-      </v-card-actions>
-      <v-card-actions class="justify-center">
+      <v-layout
+        column
+        class="justify-center px-3"
+      >
+        <v-btn
+          round
+          class="grey lighten-1"
+          @click="profileEditor = true"
+        >
+          edit profile
+        </v-btn>
         <v-btn
           round
           tag="v-btn"
@@ -68,7 +82,7 @@
             power_settings_new
           </v-icon>
         </v-btn>
-      </v-card-actions>
+      </v-layout>
     </v-list>
   </v-list-tile>
 </template>
@@ -80,6 +94,11 @@ import colors from "@/assets/colors/colors.js";
 
 export default {
   components: { editor },
+  data(){
+    return{
+      profileEditor: false,
+    }
+  },
   methods: {
     showAlert(message, icon, classy, interact) {
       this.$store.commit("setAlertType", { icon: icon, class: classy });

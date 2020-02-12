@@ -1,8 +1,7 @@
 
 <template>
-
   <v-container class="mb-5 pb-5">
-       <!-- alternative circular loading starts -->
+    <!-- alternative circular loading starts -->
     <v-layout
       row
       wrap
@@ -13,47 +12,114 @@
       <loading />
     </v-layout>
     <!-- alternative circular loading endsd -->
-    <v-content v-else >
-        <v-layout column wrap justify-center class="mb-5 pb-5">
-           <v-btn outline @click="goBack" round color="blue darken-4 mt-5">Volver atrás</v-btn>
-            <v-card min-width="360px" class="grey lighten-3" flat>
-                <v-card-title primary-title class="sign-in title  text-uppercase bigWords">
-                    información del centro
-                </v-card-title>
-                <v-layout column class="title">
-                  
-                    <v-layout row wrap justify-start class="ma-2">
-                        <span class="bigWords mx-1 ">Nombre del Centro:  </span>{{currentCenter.centro}} 
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="ma-2">
-                    <span class="bigWords  mx-1">Region: </span>  {{currentCenter.region}}
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="ma-2">
-                    <span class="bigWords  mx-1">Provincia:  </span>  {{currentCenter.provincia}}
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="ma-2">
-                    <span class="bigWords  mx-1">municipio:  </span>  {{currentCenter.municipio}}
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="ma-2">
-                    <span class="bigWords  mx-1">Responsable:  </span>  {{currentCenter.nameOfResponsible}}
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="ma-2">
-                    <span class="bigWords  mx-1" >Contacto:  </span> <a :href="'tel:'+currentCenter.phone">{{currentCenter.phone}}</a> 
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="ma-2">
-                    <span class="bigWords  mx-1">Email:  </span><a :href="'mailto:'+currentCenter.email">{{currentCenter.email}}</a>  
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="ma-2">
-                    <span class="bigWords  mx-1">supervisor:  </span>  {{currentCenter.supervisor}}
-                    </v-layout>
-                    <v-layout row wrap justify-start  class="ma-2">
-                    <span class="bigWords  mx-1">Serie de Libro:  </span>  {{currentCenter.libro}}
-                    </v-layout>
-                </v-layout>
-            </v-card>
-          
-            
-        </v-layout>
+    <v-content
+      v-else
+      class="mt-5"
+    >
+      <v-layout
+        column
+        wrap
+        justify-center
+        class="mb-5 pb-5"
+      >
+        <v-btn
+          outline
+          @click="goBack"
+          round
+          color="blue darken-4 mt-5"
+        >
+          Volver atrás
+        </v-btn>
+        <v-card
+          min-width="360px"
+          class="grey lighten-3"
+          flat
+        >
+          <v-card-title
+            primary-title
+            class="sign-in title  text-uppercase bigWords"
+          >
+            información del centro
+          </v-card-title>
+          <v-layout
+            column
+            class="title"
+          >
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
+              <span class="bigWords mx-1 ">Nombre del Centro:  </span>{{ currentCenter.centro }} 
+            </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
+              <span class="bigWords  mx-1">Region: </span>  {{ currentCenter.region }}
+            </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
+              <span class="bigWords  mx-1">Provincia:  </span>  {{ currentCenter.provincia }}
+            </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
+              <span class="bigWords  mx-1">municipio:  </span>  {{ currentCenter.municipio }}
+            </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
+              <span class="bigWords  mx-1">Responsable:  </span>  {{ currentCenter.nameOfResponsible }}
+            </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
+              <span class="bigWords  mx-1">Contacto:  </span> <a :href="'tel:'+currentCenter.phone">{{ currentCenter.phone }}</a> 
+            </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
+              <span class="bigWords  mx-1">Email:  </span><a :href="'mailto:'+currentCenter.email">{{ currentCenter.email }}</a>  
+            </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
+              <span class="bigWords  mx-1">supervisor:  </span>  {{ currentCenter.supervisor }}
+            </v-layout>
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
+              <span class="bigWords  mx-1">Serie de Libro:  </span>  {{ currentCenter.libro }}
+            </v-layout>
+          </v-layout>
+        </v-card>
+      </v-layout>
     </v-content>
   </v-container>
 </template>

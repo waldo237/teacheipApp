@@ -11,7 +11,10 @@
       <span v-if="tip">
         DASHBOARD
       </span>
-      <v-icon color="white" class="mr-0">
+      <v-icon
+        color="white"
+        class="mr-0"
+      >
         dashboard
       </v-icon>
     </v-btn>
@@ -27,7 +30,11 @@
         {{ item.title }}
       </router-link>
     </v-toolbar-items>
-    <v-btn @click="toggleSU" class="sign-up" v-if="!checkIsLoggedIn">
+    <v-btn
+      @click="toggleSU"
+      class="sign-up"
+      v-if="!checkIsLoggedIn"
+    >
       SIGN IN
     </v-btn>
 
@@ -37,7 +44,12 @@
       color="white"
       @click="$store.commit('setNotiFeeds', true)"
     >
-      <v-badge color="#c6192a" width="100%" overlap v-model="tem">
+      <v-badge
+        color="#c6192a"
+        width="100%"
+        overlap
+        v-model="tem"
+      >
         <template v-slot:badge>
           <span style="font-size: 70%; font-weight: bold"> {{ feedNum }}</span>
         </template>
@@ -57,9 +69,15 @@
       v-if="checkIsLoggedIn"
     >
       <v-avatar v-if="photoURL">
-        <img :src="photoURL" :alt="auth().currentUser.displayName" />
+        <img
+          :src="photoURL"
+          :alt="auth().currentUser.displayName"
+        >
       </v-avatar>
-      <v-avatar :color="colorize" v-else>
+      <v-avatar
+        :color="colorize"
+        v-else
+      >
         <span class="white--text headline">{{ initialize }}</span>
       </v-avatar>
     </v-btn>

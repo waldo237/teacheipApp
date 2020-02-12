@@ -6,14 +6,12 @@
     persistent
     hide-overlay
     v-if="checkIsLoggedIn"
-    
   >
     <v-layout justify-center>
       <v-card
         min-width="100%"
         min-height="100%"
         color="grey lighten-3"
-        
       >
         <v-toolbar
           color="grey lighten-5"
