@@ -596,6 +596,7 @@ export default {
   },
   async created() {
     await this.fetchStudents();
+    
   },
   computed: {
     ...mapGetters(["servicios", "students"])

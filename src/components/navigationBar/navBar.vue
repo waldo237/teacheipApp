@@ -185,6 +185,15 @@ export default {
           this.$router.push(`/${session.fetchRole()}Dashboard`);
       }
     },
+    refreshDrawer(){
+           if (this.auth().currentUser && session.fetchRole()) {
+      this.$store.commit("setLoggedIn", true);
+      if( session.fetchRole() == "supervisor") this.isSupervisor= true;
+      if( session.fetchRole() == "coordinator") this.isCoordinator= true;
+      if( session.fetchRole() == "teacher") this.isTeacher= true;
+      this.$root.$emit("loggedIn");
+    }
+    },
     ...mapActions(["toggleSU", "runAlert"])
   },
   computed: {
@@ -204,13 +213,8 @@ export default {
   },
 
   beforeMount() {
-    if (this.auth().currentUser && session.fetchRole()) {
-      this.$store.commit("setLoggedIn", true);
-      if( session.fetchRole() == "supervisor") this.isSupervisor= true;
-      if( session.fetchRole() == "coordinator") this.isCoordinator= true;
-      if( session.fetchRole() == "teacher") this.isTeacher= true;
-      this.$root.$emit("loggedIn");
-    }
+          this.refreshDrawer();
+    this.$on('drawerRefresh', this.refreshDrawer());
   },
   created() {
     this.onResize();

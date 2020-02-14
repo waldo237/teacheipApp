@@ -169,7 +169,7 @@ export default {
       if (this.errorMessage) this.errorMessage = "";
       this.loading1 = true;
       await this.$store.commit("setId", this.cedula);
-      await this.newValidation();
+      await this.registerUser();
       if (localStorage.getItem('serverToken')) {
         this.loading1 = false;
         this.e6 = 2;
@@ -184,12 +184,14 @@ export default {
     },
     async verifycCode() {
       this.loading1 = true;
-      await this.verifyContact();
+      await this.checkTeacherRegistered();
+      let permission = await atob(localStorage.getItem('permission'))
       let role = await atob(localStorage.getItem('sessionRole'))
-      if (role == 'teacher') {
+      if (permission == 'granted' && role == 'teacher') {
          this.loading1 = false;
           await this.$store.commit("setLanding", false);
           await this.$router.push(`/teacherDashboard`);
+          this.$emit('drawerRefresh');
       } else {
         this.loading1 = false;
         await this.$router.push(`/completeUserInfo`);
@@ -215,7 +217,7 @@ export default {
       if (m) this.cedula = m[1] + "-" + m[2] + "-" + m[3];  
       this.checkID = !m;
     },
-    ...mapActions(["requestToken", "getToken", "newValidation", "validateToken", "verifyContact"])
+    ...mapActions(["requestToken", "getToken", "registerUser", "validateToken", "checkTeacherRegistered"])
   },
   watch:{
   cedula() {

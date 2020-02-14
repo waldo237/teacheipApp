@@ -11,7 +11,7 @@
       <v-btn
         dark
         text
-        to="/lesson Plans"
+        @click="snackbar = false"
       >
         okay
       </v-btn>
@@ -101,7 +101,7 @@
 
               v-for="(item) in tesPhotos"
               :key="item.name"
-              class="justify-center ma-3 elevation-24 grids hovering grey darken-2 white--text"
+              class="justify-center ma-3 elevation-24 grids hovering grey darken-3 white--text"
               raised
               max-width="300px"
               min-width="300px"
@@ -268,8 +268,8 @@ export default {
             "When I started this program, one of the things that called my attention was the teachers. I have always had this general idea of teaching as a career where people were not enough motivated about what they were doing. The first day of classes in the E.I.P., I saw these people being so energetic, organized and willing to give the best of them to make us learn. I am not going to lie, I was amazed,  happy and with high expectations since that day. I am the type of person who appreciates teaching and when is done with effort. I think that a good teacher can have a huge influence on his/her students. This was what happened in the English Immersion Program: part of the discipline we put into this was a consequence teachers’ effort. Now, many of us have cultivated the motivation to become teachers, as well."
         },
         {
-          photo: "testimony3.png",
-          name: "Esther Leonela Rodríguez",
+          photo: "testimony3.jfif",
+          name: "Luisa M. Rodríguez",
           position: "Teacher",
           testimony: `Seeing my classmates working so hard to take advantage of every lesson, or something as simple as receiving WhatsApp messages from them exclusively in English, or the mere fact that many of them used to use their English dictionaries outside class time inspired me a lot, and I know that many of you feel the same. <br>10 months have passed, and I can say without any doubt that each of you did not see this program as another normal, or perhaps "boring" university course or subject, it was more than that. We met different people and we got involved with them 5 days a week for almost one year, and after all this time, we feel that we that we are like family. Sharing with every classmate was an experience per se, and learning with them has been a wonderful part of our lives and a meaningful memory to keep.`
         }

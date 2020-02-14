@@ -5,19 +5,12 @@
       fullscreen
       hide-overlay
       persistent
-      transition="dialog-bottom-transition "
+      transition="dialog-bottom-transition"
     >
       <v-toolbar
         dense
         app
       >
-        <v-btn
-          icon
-          @click="dialog = false"
-          v-if="closeableForm"
-        >
-          <v-icon>close</v-icon>
-        </v-btn>
         <v-toolbar-title>Registro de información</v-toolbar-title>
         <v-spacer />
         <span class="teach title">Teach</span>
@@ -174,6 +167,23 @@
               </v-btn>
             </v-snackbar>
             <!-- snackbar to notify completion ends -->
+            <!-- successnackbar to notify completion starts -->
+            <v-snackbar
+              class="error"
+              v-model="successSnackbar"
+              :timeout="6000"
+              top="top"
+            >
+              {{ saveMessage }}
+              <v-btn
+                dark
+                text
+                @click="snackbar = false"
+              >
+                cerrar
+              </v-btn>
+            </v-snackbar>
+            <!-- snackbar to notify completion ends -->
 
             <v-progress-linear
               height="22"
@@ -262,7 +272,7 @@
               <v-date-picker
                 v-model="date"
                 color="#c6192a"
-                @change="menu2 = false;calculateAge()"
+                @change="menu2 = false;calculateAge();"
               />
             </v-menu>
             <!-- date picker ends -->
@@ -297,6 +307,7 @@
             <v-select
               class="py-1"
               :items="regions"
+              :placeholder="region"
               v-model="regionSelect"
               label="Region"
             />
@@ -304,12 +315,14 @@
               class="py-1"
               v-model="provinceSelect"
               :items="provinces"
+              :placeholder="province"
               label="Provincia"
             />
             <v-select
               v-model="center"
               class="py-1"
               :items="recintos"
+              :placeholder="center"
               label="Recinto"
             />
           </v-layout>
@@ -338,13 +351,12 @@ export default {
       provinceSelect: "",
       yourAge: "",
       center: "",
+      province: '',
+      region: '',
       date: null,
-      date1: new Date().toISOString().substr(0, 10),
       menu2: false,
       gender: "",
       selectedFile: "",
-      dialog: true,
-      dialog3: false,
       snackbar: false,
       initials: "",
       progress: 0,
@@ -354,6 +366,10 @@ export default {
       recintos: [],
       errors: [],
       alert: true,
+      successSnackbar: false,
+      saveMessage: "",
+      timeout: {},
+      dialog: true,
     };
   },
   methods: {
@@ -442,26 +458,34 @@ export default {
       } catch (error) {}
     },
     checkForm() {
-    let valid = true;
-    
+      let valid = true;
+
       this.errors = [];
       if (!this.cedula) {
         this.errors.push("El numero de cedula es obligadorio.");
-         valid = false;
+        valid = false;
+      }
+       if (this.cedula.length <13) {
+        this.errors.push("Le faltan digitos a tu cedula de identidad.");
+        valid = false;
       }
       if (!this.phoneNumber) {
         this.errors.push("Necesitamos tu numero de telefono.");
+        valid = false;
+      }
+      if (this.phoneNumber.length <12) {
+        this.errors.push("Le faltan digitos a tu numero telefonico.");
         valid = false;
       }
       if (!this.gender) {
         this.errors.push("especifica tu sexo.");
         valid = false;
       }
-      if (!this.regionSelect) {
+      if (!this.regionSelect && !this.region) {
         this.errors.push("tienes que seleccionar la region.");
         valid = false;
       }
-      if (!this.provinceSelect) {
+      if (!this.provinceSelect && !this.province) {
         this.errors.push("tienes que seleccionar la provincia.");
         valid = false;
       }
@@ -484,26 +508,38 @@ export default {
           lastName: this.auth().currentUser.displayName.split(" ")[1],
           email: this.auth().currentUser.email,
           gender: this.gender,
-          birthdate: this.date,
+          birthday: this.date,
           cedula: this.cedula,
           phone: this.phoneNumber,
-          region: this.regionSelect,
-          province: this.provinceSelect,
+          region: (!this.regionSelect)? this.region: this.regionSelect,
+          province: (!this.provinceSelect)? this.province: this.provinceSelect,
           center: this.center
         };
         this.$store.commit("setContactInfo", localContactInfo);
-        // this.dialog = false;
-       await this.completeContactInfo();
-       
-       let role = await atob(localStorage.getItem('sessionRole'))
-          if (role == 'teacher') {
-              await this.$router.push(`/teacherDashboard`);
-          } else {
-            await this.$router.push(`/completeUserInfo`);
-          }
+      await this.fillTeacherInfo()
+       .then(()=>{
+              this.successSnackbar = true;
+              this.saveMessage= 'Tu perfil ha sido creado satisfactoriamente'
+          })
+       .then(this.timeout = setTimeout(()=> this.dialog = false, 4000))
+       .then(clearTimeout(this.timeOut))
+       .then(async()=>{
+        let role = await atob(localStorage.getItem('sessionRole'));
+            if (role == 'teacher') {
+                await this.$router.push(`/teacherDashboard`);
+                          this.$emit('drawerRefresh');
+
+            } else {
+              await this.$router.push(`/completeUserInfo`);
+            }
+              })
+       .catch(()=>{
+         this.saveMessage= 'ha ocurrido un error al editar tu perfil. Intentalo mas tarde.'
+              this.successSnackbar = true;
+          });
       }
     },
-    ...mapActions(["completeContactInfo"])
+    ...mapActions(["fillTeacherInfo", "getProfileInfo"])
   },
   watch: {
     phoneNumber() {
@@ -545,24 +581,35 @@ export default {
         .join("")
         .toUpperCase();
     },
-    ...mapGetters(["auth", "storage", "closeableForm", "id"])
+    ...mapGetters(["auth", "storage", "closeableForm","id", "contactInfo"])
   },
   async created() {
     await this.fetchCenters();
     this.photoURL = await this.auth().currentUser.photoURL;
     this.phoneNumber = this.auth().currentUser.phoneNumber;
-    this.cedula = this.id;
+
+    // set values from $store.contactInfo
+    await this.getProfileInfo();
+    if(this.contactInfo){
+      this.cedula = (this.id)? this.id: this.contactInfo.cedula;
+      this.gender = this.contactInfo.gender;
+      this.date =(this.contactInfo.birthday)? new Date(this.contactInfo.birthday).toISOString().substr(0, 10): null;
+      this.phoneNumber = this.contactInfo.phone;
+      this.region = this.contactInfo.region;
+      this.province = this.contactInfo.province;
+      this.center = this.contactInfo.center;
+
+    }
   }
 };
 </script>
 <style >
-.stayPut{
+.stayPut {
   z-index: 1 !important;
   position: fixed !important;
   top: 50px;
- left: 10px;
- background-color: ghostwhite;
+  left: 10px;
+  background-color: ghostwhite;
   justify-self: center !important;
- 
 }
 </style>

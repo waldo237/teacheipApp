@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grey lighten-3">
     <v-layout
       wrap
       justify-center
@@ -25,14 +25,15 @@
       v-else
       justify-center
       wrap
-      class="mx-5 px-5  mb-5 pb-5 mt-0 pt-0"
+      class="mx-5 px-5  mb-5 pb-5 mt-0 pt-0 "
     >
       <v-card
         v-for="item in getEncargados"
         :key="item.name"
         max-width="280px"
         min-width="280px"
-        class="my-5 mx-2 round elevation-24 move grey lighten-1"
+        dark
+        class="my-5 mx-2 round elevation-24 move grey darken-1"
       >
         <v-card-title class="encargados mb-0 pb-0">
           <v-layout
@@ -74,9 +75,9 @@
           <v-spacer />
           <span>{{ item.position }}</span>
           <v-spacer />
-          <span>{{ item.email }}</span>
+          <span><a :href="'mailto:'+item.email">{{ item.email }}</a></span>
           <v-spacer />
-          <span>{{ item.contact }}</span>
+          <span><a :href="'tel:'+item.contact ">{{ item.contact }}</a></span>
           <v-spacer />
         </v-card-text>
       </v-card>

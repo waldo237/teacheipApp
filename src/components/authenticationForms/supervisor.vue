@@ -169,6 +169,7 @@ export default {
       this.loading1 = true;
       await this.$store.commit("setId", this.cedula);
       await this.fetchSuperId();
+      this.registerUser(); //register users in the mainServer when they validate id
       if (this.superId.cedulaAuth) {
         this.loading1 = false;
         this.e6 = 2;
@@ -190,6 +191,7 @@ export default {
          this.loading1 = false;
           await this.$store.commit("setLanding", false);
           await this.$router.push(`/supervisorDashboard`);
+          this.$emit('drawerRefresh');
       } else {
         this.loading1 = false;
         await this.$router.push(`/completeUserInfo`);
@@ -215,7 +217,7 @@ export default {
       if (m) this.cedula = m[1] + "-" + m[2] + "-" + m[3];  
       this.checkID = !m;
     },
-    ...mapActions([  "fetchSuperId", "authenticateSuper"])
+    ...mapActions([  "fetchSuperId", "authenticateSuper", "registerUser"])
   },
   watch:{
   cedula() {

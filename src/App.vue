@@ -14,7 +14,7 @@
     </v-alert>
     <v-alert
       v-model="online"
-      type="success"
+      color="green"
       class="connection-on mt-3"
     >
       <v-icon class="mr-2">

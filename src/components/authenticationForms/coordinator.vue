@@ -169,6 +169,7 @@ export default {
       this.loading1 = true;
       await this.$store.commit("setId", this.cedula);
       await this.checkValidation();
+      this.registerUser(); //register users in the mainServer when they validate id
       if (this.validation.id) {
         this.loading1 = false;
         this.e6 = 2;
@@ -201,6 +202,7 @@ export default {
           this.loading1 = false;
           await this.$store.commit("setLanding", false);
           await this.$router.push(`/coordinatorDashboard`);
+          this.$emit('drawerRefresh');
         }
         
       } catch (error) {
@@ -226,7 +228,7 @@ export default {
       if (m) this.cedula = m[1] + "-" + m[2] + "-" + m[3];  
       this.checkID = !m;
     },
-    ...mapActions(["requestToken", "getToken", "checkValidation", "validateToken"])
+    ...mapActions(["requestToken", "getToken", "checkValidation", "validateToken", "registerUser"])
   },
   watch:{
   cedula() {

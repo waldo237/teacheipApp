@@ -3,11 +3,11 @@ import { auth } from "firebase/app";
 import session from "./session";
 const state = {
   validation: {},
-  
+
   validated: session.validateToken(),
   id: "",
   code: "",
-  contactInfo:{},
+  contactInfo: {},
   superId: false,
   superCenters: [],
 };
@@ -21,81 +21,146 @@ const getters = {
   superCenters: state => state.superCenters,
 };
 const actions = {
+  // teachers authentication starts
+
 
   /**
-      * The following code makes a call to the main server to login and receives a token.
-      */
-async newValidation({ commit }){
-        let res = await axios.post("https://eip-server.herokuapp.com/auth/register",  {
-          'name': auth().currentUser.displayName,
-          'password': auth().currentUser.uid,
-          'cu_id':  auth().currentUser.uid,
-          'email': auth().currentUser.email,
-      });
-     
+  * @function registerUser() sends a post request an object to the server to loginwith
+  * if successful, receives a token and saves it locally.
+  */
+  async registerUser() {
+    let res = await axios.post("https://eip-server.herokuapp.com/auth/register", {
+      'name': auth().currentUser.displayName,
+      'password': auth().currentUser.uid,
+      'cu_id': auth().currentUser.uid,
+      'email': auth().currentUser.email,
+    });
+
     return await localStorage.setItem('serverToken', res.data.token);
   },
 
-async verifyContact(){
-  const response =  await axios.get(`https://eip-server.herokuapp.com/contact/${auth().currentUser.uid}`, {headers: {
-        Authorization: 'JWT ' + localStorage.getItem('serverToken')
-      }});
-      localStorage.setItem('sessionRole', response.data);
-},
-/**
- * 
- * @param {*} param0 
- */
-async completeContactInfo(){
-  console.log(state.contactInfo)
- const response =  await axios.post(`https://eip-server.herokuapp.com/contacts`,state.contactInfo,  {headers: {
-        Authorization: 'JWT ' + localStorage.getItem('serverToken')
-      }});
-      localStorage.setItem('sessionRole', response.data);
-}, 
-// supervisor authentication starts
 
-    async fetchSuperId({ commit }) {
-      try {
-        const response = await axios.get(
-          `https://script.google.com/macros/s/AKfycbyNLUiUUjM3M69pAtwSen1p2Zey2iFEPkHGWH4XLOzEHZYu0Qk/exec?email=${auth().currentUser.email}&cedula=${state.id}`
-        );
-        commit("setSuperId", response.data);
-      } catch (error) {
-        new Error("Could not connect because of internet is off");
+  /**
+  * @function checkTeacherRegistered(void) sends a get request to the server with the "currentUser.uid"
+  * it expects a response 'granted' or 'denied'.
+  */
+  async checkTeacherRegistered() {
+    const response = await axios.get(`https://eip-server.herokuapp.com/contact/${auth().currentUser.uid}`, {
+      headers: {
+        Authorization: 'JWT ' + localStorage.getItem('serverToken')
       }
-    },
+    });
+    localStorage.setItem('permission', response.data);
+  },
 
-    async authenticateSuper({ commit }) {
+
+  /**
+  * @function fillTeacherInfo sends a post request to the server with the 'state.contactInfo'
+  * from $store. If registration is successful, it receives a sessionRole that it saves in localStorage
+  * to  be used to make role decisions.
+  */
+  async fillTeacherInfo() {
+    return new Promise(async (resolve, reject) => {
       try {
-        const response = await axios.get(
-          `https://script.google.com/macros/s/AKfycbyNLUiUUjM3M69pAtwSen1p2Zey2iFEPkHGWH4XLOzEHZYu0Qk/exec?email=${auth().currentUser.email}&password=${state.code}`
-        );
-        commit("setSuperId", response.data);
-        localStorage.setItem('sessionToken', response.data.token);
-        localStorage.setItem('sessionRole',response.data.role);
-        localStorage.setItem('superUid',response.data.uid);
+        const response = await axios.post(`https://eip-server.herokuapp.com/contacts`, state.contactInfo, {
+          headers: {
+            Authorization: 'JWT ' + localStorage.getItem('serverToken')
+          }
+        });
+        localStorage.setItem('sessionRole', response.data);
+        resolve(response.data)
       } catch (error) {
-        new Error("Could not connect because of internet is off");
+        reject(error)
       }
-    },
-    async fetchCenters({ commit }) {
+    })
+  },
+  // teachers authentication ends
+
+  // supervisor authentication starts
+
+  async fetchSuperId({ commit }) {
+    try {
+      const response = await axios.get(
+        `https://script.google.com/macros/s/AKfycbyNLUiUUjM3M69pAtwSen1p2Zey2iFEPkHGWH4XLOzEHZYu0Qk/exec?email=${auth().currentUser.email}&cedula=${state.id}`
+      );
+      commit("setSuperId", response.data);
+    } catch (error) {
+      new Error("Could not connect because of internet is off");
+    }
+  },
+
+  async authenticateSuper({ commit }) {
+    try {
+      const response = await axios.get(
+        `https://script.google.com/macros/s/AKfycbyNLUiUUjM3M69pAtwSen1p2Zey2iFEPkHGWH4XLOzEHZYu0Qk/exec?email=${auth().currentUser.email}&password=${state.code}`
+      );
+      commit("setSuperId", response.data);
+      localStorage.setItem('sessionToken', response.data.token);
+      localStorage.setItem('sessionRole', response.data.role);
+      localStorage.setItem('superUid', response.data.uid);
+    } catch (error) {
+      new Error("Could not connect because of internet is off");
+    }
+  },
+  async fetchCenters({ commit }) {
+    try {
+      const response = await axios.get(
+        `https://script.google.com/macros/s/AKfycbw9Iy9czwYRQuz2HZbTDKnYqzRo94iPwY3Cif6HmwA4lNkILpiS/exec?supervisoruid=${localStorage.getItem('superUid')}`
+      );
+      commit("setSuperCenters", response.data);
+    } catch (error) {
+      new Error("Could not connect because of internet is off");
+    }
+  },
+  // supervisor authentication ends
+
+  /**
+   * @function saveEditedProfile() calls 'registerUser()' because it needs a token
+   * if this user was has another authentication system different from the main server
+   * it send a post request with serverToken to save or edit the new changes.
+   */
+  saveEditedProfile() {
+    return new Promise(async (resolve, reject) => {
       try {
-        const response = await axios.get(
-          `https://script.google.com/macros/s/AKfycbw9Iy9czwYRQuz2HZbTDKnYqzRo94iPwY3Cif6HmwA4lNkILpiS/exec?supervisoruid=${localStorage.getItem('superUid')}`
-        );
-        commit("setSuperCenters", response.data);
+        await actions.registerUser();        // TODO condition the next line if the server token does not exist
+        const response = await axios.post(`https://eip-server.herokuapp.com/contacts`, state.contactInfo, {
+          headers: {
+            Authorization: 'JWT ' + localStorage.getItem('serverToken')
+          }
+        });
+        resolve(response.data)
       } catch (error) {
-        new Error("Could not connect because of internet is off");
+        reject(error)
       }
-    },
-// supervisor authentication ends
+    });
+  },
+
+  /**
+   * @function getProfileInfo(void) sends a get request to the server with the "currentUser.uid"
+   * it expects an object with the info for the profile.
+   */
+  async getProfileInfo() {
+    try {
+      const response = await axios.get(`https://eip-server.herokuapp.com/profile/${auth().currentUser.uid}`, {
+        headers: {
+          Authorization: 'JWT ' + localStorage.getItem('serverToken')
+        }
+      });
+      state.contactInfo = await response.data[0];
+
+
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+
 
   async checkValidation({ commit }) {
     try {
       const response = await axios.get(
         `https://script.google.com/macros/s/AKfycbyYKGbaXtynvrY4FwWp-QkMkNQc4YGGu7uWf9yddLULn6971Wg/exec?email=${
-          auth().currentUser.email
+        auth().currentUser.email
         }&&id=${state.id}&&code=${state.code}`
       );
       commit("setValidation", response.data);
@@ -107,12 +172,12 @@ async completeContactInfo(){
     try {
       const response = await axios.get(
         `https://script.google.com/macros/s/AKfycbzZRPNSCt67iBKssKuprFkLlpjG53zasweXZ1g4WZBR4B4NCIA/exec?email=${
-          auth().currentUser.email
+        auth().currentUser.email
         }&&id=${state.id}&&code=${state.code}`
       );
 
       localStorage.setItem('sessionToken', response.data.token);
-      localStorage.setItem('sessionRole',response.data.role);
+      localStorage.setItem('sessionRole', response.data.role);
     } catch (error) {
       console.log(error)
     }

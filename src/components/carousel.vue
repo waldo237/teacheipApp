@@ -47,7 +47,7 @@ export default {
         },
         {
          link: '',
-          photo:"carousel1.jpeg",
+          photo:"carousel1.jpg",
         },
         {
          link: '',

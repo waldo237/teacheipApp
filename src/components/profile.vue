@@ -56,7 +56,7 @@
       
       <editor
         :profile-editor="profileEditor"
-        @profileEditor="profileEditor = false"
+        @closeProfileEditor="profileEditor = false"
         class="slideDown"
       />
       <!-- editor dialog ends -->
