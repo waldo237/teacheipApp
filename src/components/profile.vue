@@ -107,7 +107,7 @@ export default {
     },
     async logout() {
       await this.showAlert(
-        " Are you sure you want to log out?",
+        " Estas seguro que quieres salir de la aplicación?",
         "help_outline",
         "warning orange",
         true

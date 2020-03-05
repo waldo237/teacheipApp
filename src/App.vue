@@ -22,9 +22,13 @@
       </v-icon>Back online!
     </v-alert>
     <!-- alerts online/offline ends-->
+
     <!-- feeds start -->
     <feeds />
     <!-- feeds end -->
+    <!-- IM starts -->
+    <IM v-if="IMComponent" :IM="IM" :participant="participant" @openIM="IM=true" @closeIM="IM=false"/>
+    <!-- IM ends -->
     <NavBar />
     <router-view />
     <Footer />
@@ -38,21 +42,27 @@ import NavBar from "@/components/navigationBar/navBar.vue";
 import { mapGetters } from "vuex";
 import Footer from "@/components/footer.vue";
 import Sugerencias from "@/views/services/sugerencias.vue";
+import IM from "@/components/utilities/IM.vue";
+
 import feeds from "@/components/feeds.vue";
 export default {
   name: "SiteHeade",
+    components: {
+      NavBar,
+      Footer,
+      Sugerencias,
+      IM,
+      feeds
+    },
   data() {
     return {
       log: false,
       online: false,
-      timeOut: {}
+      timeOut: {},
+      IM: false,
+      IMComponent: false,
+      participant: {},
     };
-  },
-  components: {
-    NavBar,
-    Footer,
-    Sugerencias,
-    feeds
   },
   methods: {
     init() {
@@ -72,6 +82,11 @@ export default {
   },
   computed: mapGetters([ "checkIsLoggedIn"]),
   async created() {
+    this.$root.$on('createRoom', (receivedParticipant)=>{
+      this.participant = receivedParticipant;
+      this.IMComponent = true;
+      this.IM = true;
+    })
     this.init();
   },
   beforeDestroy() {

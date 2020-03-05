@@ -152,6 +152,15 @@ let router = new Router({
       }
     },
     {
+      path: "/UnauthorizedDashboard",
+      name: "/UnauthorizedDashboard/",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/session/205.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: "/éeDashboard",
       name: "/éeDashboard/",
       component: () =>
@@ -259,6 +268,19 @@ let router = new Router({
         requiresAuth: true,
         resquiresValidation: true,
         isSupervisor: true,
+        // make seeable by coordinators and supervisors
+      }
+    },
+    {
+      path: "/member/:id",
+      name: "member",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/data/member.vue"
+        ),
+      meta: {
+        requiresAuth: true,
+        resquiresValidation: true,
         // make seeable by coordinators and supervisors
       }
     },

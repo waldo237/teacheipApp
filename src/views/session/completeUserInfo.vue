@@ -390,7 +390,7 @@ export default {
       try {
         let res = {};
         res = await axios.get(
-          "https://script.google.com/macros/s/AKfycbzpKy6DK0ZkUfRsXkn7Qergh4ibngE5f0uyTYIm5Q/exec"
+          "https://script.google.com/macros/s/AKfycbynGQjs4wN2_i_2TTFevcGNUoNElCHLI1PX7gY6UeWGyxbZOrL_/exec"
         );
         this.centers = res.data.centers;
       } catch (error) {}

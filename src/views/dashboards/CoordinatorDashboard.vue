@@ -2,43 +2,6 @@
   <div width="100%">
     <!--############ CONTENT/ DASHBOARD ##############-->
     <!--############ ALERT ##############-->
-    <!-- <div class="my-2 pt-2">
-      <v-alert
-        v-model="alert"
-        border="left"
-        close-text="Close Alert"
-        :color="announcement ? 'deep' : 'white'"
-        dismissible
-        class="mt-5 mb-0"
-      >
-        <v-layout row wrap justify-center>
-          <v-badge :color="announcement ? '#c6192a' : 'deep'" width="100%">
-            <template v-slot:badge>
-              <span style="font-size: 70%; font-weight: bold"> New</span>
-            </template>
-            <a
-              :href="
-                'https://drive.google.com/open?id=1MKFoq92IFERhrkfrUF_kYy7f13GkpgAD'
-              "
-              target="_blank"
-            >
-              <v-card
-                class="pa-4 round mx-auto"
-                round
-                block
-                rounded
-                :color="announcement ? 'white' : '#c6192a'"
-                :class="announcement ? 'black--text pr-4' : 'white--text '"
-              >
-                Hola, {{ this.auth().currentUser.displayName }}. Por favor
-                descarga el PROPEDEUTICO. Aqui se descargan los documentos
-              </v-card>
-            </a>
-          </v-badge>
-       
-        </v-layout>
-      </v-alert>
-    </div> -->
 
     <!--############ ALERT END ##############-->
     <v-layout
@@ -175,7 +138,6 @@ import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
 import session from "@/store/modules/session.js";
 import { directive as onClickaway } from "vue-clickaway";
-// import Sidemenu from "@/components/RoleComponents/coordinatorComponents/CoordinatorSidemenu.vue";
 export default {
   name: "CoordinatorDashboard",
   // components: { Sidemenu },
@@ -245,22 +207,12 @@ export default {
     ])
   },
   beforeDestroy() {
-    // clearInterval(this.interval);
   },
   async mounted() {
-    // if (this.alert) {
-    //   this.interval = setInterval(() => {
-    //     this.announcement = !this.announcement;
-    //   }, 3000);
-    // }
     await this.$store.commit("setCurrentRole", session.fetchRole());
     this.$store.commit("setLoggedIn", true);
   },
-  // created() {
-  //   this.announcementMessage = `Hola, ${
-  //     this.auth().currentUser.displayName
-  //   }. Nos place compartir con ustedes que comenzaremos las clases el dia 13 de Enero 2020`;
-  // }
+
 };
 </script>
 <style>

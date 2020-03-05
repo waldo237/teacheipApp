@@ -35,7 +35,8 @@ const actions = {
       'cu_id': auth().currentUser.uid,
       'email': auth().currentUser.email,
     });
-
+    // make the JWT token header the default value
+    // axios.defaults.headers.common['Authorization'] = 'JWT ' + res.data.token;
     return await localStorage.setItem('serverToken', res.data.token);
   },
 
@@ -90,6 +91,8 @@ const actions = {
   },
 
   async authenticateSuper({ commit }) {
+
+
     try {
       const response = await axios.get(
         `https://script.google.com/macros/s/AKfycbyNLUiUUjM3M69pAtwSen1p2Zey2iFEPkHGWH4XLOzEHZYu0Qk/exec?email=${auth().currentUser.email}&password=${state.code}`
@@ -99,7 +102,7 @@ const actions = {
       localStorage.setItem('sessionRole', response.data.role);
       localStorage.setItem('superUid', response.data.uid);
     } catch (error) {
-      new Error("Could not connect because of internet is off");
+      console.log(error)
     }
   },
   async fetchCenters({ commit }) {
@@ -149,6 +152,39 @@ const actions = {
       state.contactInfo = await response.data[0];
 
 
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  /**
+   * @function getMembers(void) returns a list of members
+   */
+  async getMembers() {
+    try {
+      await actions.getProfileInfo();
+      const response = await axios.get(`https://eip-server.herokuapp.com/contacts/${auth().currentUser.uid}`, {
+        headers: {
+          Authorization: 'JWT ' + localStorage.getItem('serverToken')
+        }
+      });
+      return await response.data;
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  /**
+   * @function getMember(_id) returns a member
+   * @param _id the id of the member
+   */
+  async getMember({commit},id) {
+    try {
+      const response = await axios.get(`https://eip-server.herokuapp.com/member/${id}`, {
+        headers: {
+          Authorization: 'JWT ' + localStorage.getItem('serverToken')
+        }
+      });
+      return await response.data;
     } catch (error) {
       console.log(error)
     }
@@ -215,3 +251,10 @@ export default {
   actions,
   mutations
 };
+
+
+try {
+  
+} catch (error) {
+  
+}

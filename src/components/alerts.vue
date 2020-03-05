@@ -46,7 +46,7 @@
           class="sign-up"
           @click.prevent="toggleAlert"
         >
-          Close
+          cerrar
         </v-btn>
         <v-btn
           round
@@ -62,7 +62,7 @@
           @click="setYes"
           v-else
         >
-          Yes
+          okay
         </v-btn>
       </v-layout>
     </v-card>
@@ -82,6 +82,10 @@ export default {
         .then(async () => {
           await this.$store.commit("setLoggedIn", false);
           await this.$store.commit("setValidated", {});
+          localStorage.removeItem('superUid')
+          localStorage.removeItem('sessionRole')
+          localStorage.removeItem('sessionToken')
+          localStorage.removeItem('serverToken')
           await this.$store.commit("setAlert", false);
           if (this.$route.path != "/") await this.$router.push("/");
         })

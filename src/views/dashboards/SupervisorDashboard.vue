@@ -1,13 +1,6 @@
 <template>
-  <v-layout
-    class=" my-5  px-2 py-5 grey lighten-2"
-    wrap
-  >
-    <v-layout
-      class="mx-2 px-1 justify-center"
-      flat
-      wrap
-    >
+  <v-layout class="my-5 px-2 py-5 grey lighten-2" wrap>
+    <v-layout class="mx-2 px-1 justify-center" flat wrap>
       <!-- upcoming events starts -->
       <v-card
         class="justify-center mx-1 elevation-24 grids grey lighten-4"
@@ -16,19 +9,8 @@
         max-width="400px"
         min-width="380px"
       >
-        <v-card-title
-          primary-title
-          class="justify-center orangish py-1"
-        >
-          <h3 class=" white--text text--accent-2">
-            <v-icon
-              color="white"
-              medium
-              class="mr-2"
-            >
-              alarm
-            </v-icon>Publicar notificación para coordinadores y maestros
-          </h3>
+        <v-card-title primary-title class="justify-center orangish py-1 white--text">
+          <v-icon color="white" class="mr-2">alarm</v-icon>Publicar notificación para coordinadores y maestros
         </v-card-title>
         <v-card-text>
           <SendNotification />
@@ -37,71 +19,30 @@
       <!-- upcoming events ends -->
       <!-- intructions start -->
       <v-card
-        class="justify-center mx-1 elevation-24 grids"
+        class="justify-center mx-1 elevation-24 grids grey lighten-4"
         raised
-        max-height="350px"
+        max-height="390"
         max-width="400px"
         min-width="380px"
       >
         <v-card-title
           primary-title
-          class="instructions justify-center elevation-12 py-1"
+          class="instructions justify-center elevation-12 py-1 white--text"
         >
-          <h3 class="title white--text text--accent-2">
-            <v-icon
-              color="white"
-              medium
-              class="mx-2"
-            >
-              sms
-            </v-icon>Task Report
-          </h3>
+          <v-icon color="white" class="mx-2">sms</v-icon>Administrador de Tareas
         </v-card-title>
-        <v-card-text class="justify-center">
-          <!-- date picker starts -->
-          <v-menu
-            ref="menu"
-            v-model="menu"
-            :close-on-content-click="false"
-            :return-value.sync="date"
-            transition="scale-transition"
-            offset-y
-            full-width
-            min-width="290px"
-          >
-            <template v-slot:activator="{ on }">
-              <v-text-field
-                class="mx-3 my-0"
-                v-model="date"
-                label="Today"
-                prepend-icon="event"
-                readonly
-                v-on="on"
-                disabled
-              />
-            </template>
-            <v-date-picker
-              v-model="date"
-              no-title
-              scrollable
-            >
-              <v-spacer />
-              <v-btn
-                text
-                color="primary"
-                @click="menu = false"
-              >
-                Cancel
-              </v-btn>
-              <v-btn
-                text
-                color="primary"
-                @click="$refs.menu.save(date)"
-              >
-                OK
-              </v-btn>
-            </v-date-picker>
-          </v-menu>
+
+        <!-- date picker starts -->
+        <v-layout row>
+          <v-text-field
+            class="mx-3 my-0"
+            v-model="date"
+            label="Hoy"
+            prepend-icon="event"
+            readonly
+            disabled
+          />
+
           <!-- date picker ends -->
           <!-- textfield with name starts -->
           <v-text-field
@@ -110,25 +51,63 @@
             prepend-icon="person"
             disabled
           />
-          <!-- textfield with name ends -->
-          <!-- textarea starts -->
-          <v-textarea
-            height="40px"
-            class="mx-2 mt-3"
-            hint="Please give a small description of what you are working on today."
-            name="input-7-4"
-            label="What are you working on today?"
+        </v-layout>
+        <!-- textfield with name ends -->
+        <!-- textarea starts -->
+
+        <v-layout row wrap align-center>
+          <v-text-field
+            class="mx-2 my-0"
+            hint="Escribe tu itinerario"
+            label="En que estas trabajando hoy?"
+            v-model="taskInput"
+            @keydown.enter="addTask"
           />
-          <!-- Submit button starts -->
-          <v-layout class="justify-end">
-            <v-btn
-              class="justify-center mx-auto instructions font-weight-bold black--text elevation-24"
-            >
-              submit
-            </v-btn>
-            <!-- Submit button ends -->
-          </v-layout>
-        </v-card-text>
+          <v-btn @click="addTask" prepend-icon="add" flat fab>
+            <v-icon>add</v-icon>
+          </v-btn>
+        </v-layout>
+        <!-- TASKS DISPLAY STARTS -->
+        <v-layout row wrap v-if="tasks.length > 0">
+          <v-card width="100%" max-height="135px" flat style="overflow:auto;" class="scrollbar">
+            <v-layout column v-for="(task, i) in tasks" :key="i">
+              <v-layout row wrap justify-start align-center class="ml-2 my-0 py-0">
+                <span>{{i+1}}-</span>
+                <!-- <div @click="$emit('checkbox', task)"> -->
+                <v-checkbox
+                  v-model="task.done"
+                  color="green"
+                  hide-details
+                  class="shrink mr-0 mt-0 mb-0"
+                  @change="editTask"
+                ></v-checkbox>
+                <!-- </div> -->
+                <v-tooltip  left>
+                  <template v-slot:activator="{ on }">
+                    
+               <span v-on="on">{{task.message}}</span> 
+                  </template>
+                  <span> creado el {{moment(task.date)}} </span>
+                </v-tooltip>
+                <v-btn @click="removeTask(task)" flat small fab class="ma-0 pa-0">
+                  <v-icon small color="red">delete</v-icon>
+                </v-btn>
+              </v-layout>
+            </v-layout>
+          </v-card>
+        </v-layout>
+        <!-- TASKS DISPLAY ENDS -->
+        <!-- Submit button starts -->
+        <v-layout column justify-center>
+          <v-switch class="my-0 py-0 mx-2" v-model="private" color="green" label="Privado"></v-switch>
+          <v-btn
+            round
+            @click="saveTasks"
+            small
+            class="mx-auto instructions white--text elevation-24"
+          >Guardar</v-btn>
+          <!-- Submit button ends -->
+        </v-layout>
         <!-- textarea ends -->
       </v-card>
       <!-- intructions end -->
@@ -137,167 +116,61 @@
       <servicesScreen :services-for-supervisor="servicesForSupervisor" />
       <!--******** services ends ********-->
 
-      <!-- centers starts -->
-      <v-card
-        class="justify-center mx-1 elevation-24 grids "
-        raised
-        max-height="350px"
-        max-width="240px"
-        min-width="240px"
-        style="overflow:auto;"
-      >
-        <v-card-title
-          primary-title
-          class="justify-center centers  darken-4 elevation-12 py-1"
+      <v-layout row wrap justify-space-around class="mx-5 px-2 mb-5 pb-5" align-end>
+        <!-- centers starts -->
+        <v-card
+          class="justify-center mx-1 elevation-24 grids"
+          raised
+          max-height="350px"
+          max-width="240px"
+          min-width="240px"
         >
-          <h3 class="title white--text text--accent-2">
-            <v-icon
-              color="white"
-              medium
-              class="mr-2 white--text"
-            >
-              location_city
-            </v-icon>Centers
-          </h3>
-        </v-card-title>
-
-        <div class="mb-2">
-          <table class="mx-2">
-            <thead>
-              <tr>
-                <th class="text-left">
-                  Name
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="(item, index) in centers"
-                :key="item.uuid"
-              >
-                <v-tooltip left>
-                  <template v-slot:activator="{ on }">
-                    <td
-                      class="text-truncate"
-                      style="max-width:190px"
-                    >
-                      <router-link
-                        tag="v-btn"
-                        class="px-2 py-0 ma-0 caption"
-                        flat
-                        :to="'/center/'+ item.uuid"
-                        v-on="on"
-                      >
-                        {{ index+1 }} - {{ item.centro }}
-                      </router-link>
-                    </td>
-                  </template>
-                  <span>{{ item.centro }}</span>
-                </v-tooltip>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </v-card>
-      <!-- centers ends -->
-    </v-layout>
-    <!-- statistics layout starts -->
-    <v-layout
-      class="mx-5 mb-5 pb-5"
-      flat
-      wrap
-      justify-center
-    >
-      <!-- statistics starts -->
-      <v-card
-        class="mx-2 mt-2 elevation-24 grids statistics-card"
-        min-width="500px"
-      >
-        <v-card-title
-          primary-title
-          class="justify-center statistics-right darken-4 elevation-12 py-1"
-        >
-          <h3 class="title white--text text--accent-2">
-            <v-icon
-              large
-              class="mr-2 white--text"
-            >
-              equalizer
-            </v-icon>Scores history in your centers
-          </h3>
-        </v-card-title>
-        <div>
-          <v-sheet
-            class="v-sheet--offset mx-auto"
-            color="black"
-            elevation="12"
+          <v-card-title
+            primary-title
+            class="justify-center centers darken-4 elevation-12 py-1 white--text"
           >
-            <v-sparkline
-              :labels="labels"
-              :value="value"
-              color="white"
-              line-width="3"
-              padding="16"
-            />
-          </v-sheet>
-        </div>
-      </v-card>
-      <!-- statistics ends -->
-      <!-- statistics starts -->
-      <v-card
-        class="mx-2 mt-2 elevation-24 grids statistics-card"
-        max-height="170px"
-        min-width="500px"
-      >
-        <v-card-title
-          primary-title
-          class="justify-center statistics darken-4 elevation-12 py-1"
-        >
-          <h3 class="title white--text text--accent-2">
-            <v-icon
-              large
-              class="mr-2 white--text"
-            >
-              timeline
-            </v-icon>Weekly Attendance in centers
-          </h3>
-        </v-card-title>
-        <div
-          style="overflow-x:auto;"
-          class="mb-5"
-        >
-          <div>
-            <v-sheet
-              class="v-sheet--offset mx-auto"
-              elevation="12"
-            >
-              <v-sparkline
-                class="black--text"
-                :labels="days"
-                :value="attendance"
-                line-width="3"
-                padding="16"
-              />
-            </v-sheet>
-          </div>
-        </div>
-      </v-card>
-      <!-- statistics ends -->
+            <v-icon color="white" class="mr-2 white--text">location_city</v-icon>Mis centros
+          </v-card-title>
+
+          <v-card
+            flat
+            max-height="340px"
+            class="mb-2 grey lighten-4 scrollbar"
+            style="overflow:auto;"
+          >
+            <v-layout column v-for="(item, index) in centers" :key="item.uuid">
+              <v-card flat class="text-truncate" style="max-width:190px">
+                <router-link
+                  tag="v-btn"
+                  class="px-2 py-0 ma-0 caption"
+                  flat
+                  :to="'/center/'+ item.uuid"
+                >{{ index+1 }} - {{ item.centro }}</router-link>
+              </v-card>
+            </v-layout>
+          </v-card>
+        </v-card>
+        <!-- centers ends -->
+        <v-card flat max-width="800px " class="carouselContainer grey lighten-2">
+          <memberCarousel class="mb-5" />
+        </v-card>
+      </v-layout>
     </v-layout>
-    <!-- statistics layout ends -->
   </v-layout>
   <!-- </div> -->
 </template>
 
 <script>
+import moment from 'moment'
 import { mapGetters, mapActions, mapMutation } from "vuex";
 import { directive as onClickaway } from "vue-clickaway";
 import SendNotification from "@/components/utilities/SendNotification.vue";
+import memberCarousel from "@/components/utilities/memberCarousel.vue";
 import servicesScreen from "@/components/utilities/servicesScreen.vue";
 import _ from "lodash";
 export default {
   name: "SupervisorDashboard",
-  components: { SendNotification,servicesScreen },
+  components: { SendNotification, servicesScreen, memberCarousel },
   directives: {
     onClickaway: onClickaway
   },
@@ -305,27 +178,43 @@ export default {
     return {
       date: new Date().toISOString().substr(0, 10),
       menu: false,
-     servicesForSupervisor: true,
+      servicesForSupervisor: true,
       centers: [],
-      labels: [
-        "Bc1-m",
-        "Bc1-f",
-        "Bc2-m",
-        "Bc2-f",
-        "In1-m",
-        "In1-f",
-        "In2-m",
-        "In2-f",
-        "Ad1-m",
-        "Ad1-f"
-      ],
-      days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      value: [200, 675, 410, 390, 310, 460, 250, 240],
-      attendance: [675, 500, 650, 675, 310]
-    }
+      tasks: [],
+      taskInput: "",
+      private: true,
+      targetTask: {}
+    };
   },
-  methods:{
-     ...mapActions(['fetchCenters'])
+  methods: {
+    ...mapActions(["fetchCenters"]),
+    addTask() {
+      if (this.taskInput)
+        this.tasks.push({
+          message: this.taskInput,
+          done: false,
+          date: new Date()
+        });
+      this.taskInput = "";
+      this.saveTasks();
+    },
+    async removeTask(task) {
+      const index = this.tasks.findIndex(s => s == task);
+      this.tasks.splice(index, 1);
+      this.saveTasks();
+    },
+    saveTasks() {
+      localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    },
+    async editTask(e) {
+      //   const index = await this.tasks.findIndex(s => s == this.targetTask);
+      //   this.targetTask.done = await e;
+      //  this.tasks[index] = this.targetTask;
+      this.saveTasks();
+    },
+    moment(date){
+      return moment(date).locale('es').format(" D MMMM YYYY, hh:mma")
+    }
   },
   computed: {
     ...mapGetters([
@@ -333,25 +222,31 @@ export default {
       "checkIsLoggedIn",
       "getSupervisorSideMenu",
       "superCenters"
-      ,
-
     ])
   },
- async created(){
-  await this.fetchCenters();
- this.centers = await _.uniqBy(this.superCenters,'centro');
- }
+  async created() {
+    // this.$on('checkbox', (target)=>{
+    //   this.targetTask = target;
+    // })
+    if (localStorage.getItem("tasks")) {
+      this.tasks = JSON.parse(localStorage.getItem("tasks"));
+    }
+    await this.fetchCenters();
+    this.centers = await _.uniqBy(this.superCenters, "centro");
+  }
 };
 </script>
-<style scoped>
-
-.statistics-right {
-  background: rgb(116, 49, 110);
-  background: linear-gradient(90deg, rgb(153, 23, 0) 14%, rgb(0, 0, 0) 78%);
+<style>
+.scrollbar::-webkit-scrollbar {
+  width: 0.7em;
 }
-.statistics {
-  background: rgb(116, 49, 110);
-  background: linear-gradient(90deg, rgb(0, 0, 0) 20%, rgb(119, 128, 0) 78%);
+
+.scrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: #717981;
+  border-radius: 25px;
 }
 .centers {
   background: linear-gradient(
@@ -373,7 +268,7 @@ export default {
   background: linear-gradient(
     0deg,
     rgba(5, 69, 70, 1) 34%,
-    rgba(218, 153, 13, 1) 100%
+    rgba(13, 218, 57, 0.815) 100%
   ) !important;
 }
 .grids {
@@ -386,18 +281,15 @@ export default {
   border-radius: 5px !important;
 }
 @media screen and (max-width: 960px) {
+  .carouselContainer {
+    max-width: 500px !important;
+  }
   .grids {
     margin-top: 5% !important;
   }
   .wrapper {
     margin: 0% !important;
     min-width: 520px !important;
-    margin-top: 5% !important;
-  }
-  .statistics-card {
-    min-width: 380px !important;
-    margin: 0 !important;
-    padding: 0% !important;
     margin-top: 5% !important;
   }
   .wrapper-div {

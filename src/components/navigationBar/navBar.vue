@@ -2,12 +2,7 @@
   <div>
     <!-- side menu starts -->
     <div v-on-clickaway="away">
-      <v-navigation-drawer
-        app
-        v-model="drawer"
-        disable-resize-watcher 
-        class="grey lighten-2"
-      >
+      <v-navigation-drawer app v-model="drawer" disable-resize-watcher class="grey lighten-2">
         <supervisorsideMenu v-if="isSupervisor" />
         <coordinatorsideMenu v-else-if="isCoordinator" />
         <teachersideMenu v-else-if="isTeacher" />
@@ -15,13 +10,7 @@
     </div>
     <!-- side menu ends -->
     <!-- complete navigation starts -->
-    <v-toolbar
-      app
-      style="background-color:white"
-      class="pa-0"
-      dense
-      sticky
-    >
+    <v-toolbar app style="background-color:white" class="pa-0" dense sticky>
       <!--  sandwich menu for side bar/menu-->
 
       <v-btn
@@ -29,62 +18,31 @@
         v-if="checkIsLoggedIn"
         fab
         flat
-        class=" ma-0 pa-0 leftIcon"
+        class="ma-0 pa-0 leftIcon"
       >
-        <v-icon
-          medium
-          slot
-        >
-          menu
-        </v-icon>
+        <v-icon medium slot>menu</v-icon>
       </v-btn>
-        
- 
+
       <!-- sandwich menu -->
 
       <!-- logo starts -->
-      <div
-        class="logo-text px-0 my-0 mx-0 "
-        :class="(checkIsLoggedIn)? 'leftIcon': ''"
-      >
-        <router-link
-          to="/"
-          flat
-          
-          round
-          class="px-0 my-0 mx-0 font-weight-bold"
-        >
-          <span class="teach font-weight-regular">Teach </span>
-          <span class="acronym ">EIP | version 1.2</span>
+      <div class="logo-text px-0 my-0 mx-0" :class="(checkIsLoggedIn)? 'leftIcon': ''">
+        <router-link to="/" flat round class="px-0 my-0 mx-0 font-weight-bold">
+          <span class="teach font-weight-regular">Teach</span>
+          <span class="acronym">EIP | version 1.2</span>
         </router-link>
-        <span class="full-title mt-0">
-          with The English Immersion Program
-        </span>
+        <span class="full-title mt-0">with The English Immersion Program</span>
       </div>
       <!-- logo ends -->
 
       <v-spacer />
 
       <!-- expanded navigation bar  starts-->
-      <navBtnMax
-        @hideMenu="hideMenu"
-        @toggleProfile="profileModel = true"
-        @rolePath="rolePath"
-      />
+      <navBtnMax @hideMenu="hideMenu" @toggleProfile="profileModel = true" @rolePath="rolePath" />
       <!-- expanded navigation bar ends-->
       <!--  minimized menu starts-->
-      <v-btn
-        @click="sandwich = true"
-        fab
-        flat
-        class="hidden-md-and-up  rightIcon "
-      >
-        <v-icon
-          medium
-          slot
-        >
-          menu
-        </v-icon>
+      <v-btn @click="sandwich = true" fab flat class="hidden-md-and-up rightIcon">
+        <v-icon medium slot>menu</v-icon>
       </v-btn>
       <navBtnMin
         :sandwich="sandwich"
@@ -143,9 +101,9 @@ export default {
       signIn: false,
       drawer: false,
       tip: false,
-      isSupervisor:false,
+      isSupervisor: false,
       isCoordinator: false,
-      isTeacher: false,
+      isTeacher: false
     };
   },
   methods: {
@@ -185,14 +143,14 @@ export default {
           this.$router.push(`/${session.fetchRole()}Dashboard`);
       }
     },
-    refreshDrawer(){
-           if (this.auth().currentUser && session.fetchRole()) {
-      this.$store.commit("setLoggedIn", true);
-      if( session.fetchRole() == "supervisor") this.isSupervisor= true;
-      if( session.fetchRole() == "coordinator") this.isCoordinator= true;
-      if( session.fetchRole() == "teacher") this.isTeacher= true;
-      this.$root.$emit("loggedIn");
-    }
+    refreshDrawer() {
+      if (this.auth().currentUser && session.fetchRole()) {
+        this.$store.commit("setLoggedIn", true);
+        if (session.fetchRole() == "supervisor") this.isSupervisor = true;
+        if (session.fetchRole() == "coordinator") this.isCoordinator = true;
+        if (session.fetchRole() == "teacher") this.isTeacher = true;
+        this.$root.$emit("loggedIn");
+      }
     },
     ...mapActions(["toggleSU", "runAlert"])
   },
@@ -213,8 +171,8 @@ export default {
   },
 
   beforeMount() {
-          this.refreshDrawer();
-    this.$on('drawerRefresh', this.refreshDrawer());
+    this.refreshDrawer();
+    this.$on("drawerRefresh", this.refreshDrawer());
   },
   created() {
     this.onResize();
@@ -287,7 +245,7 @@ export default {
 .logo-text:hover .full-title {
   display: inline;
   color: #135393;
- font-family: "Bebas Neue", serif !important;
+  font-family: "Bebas Neue", serif !important;
   font-weight: 400;
   animation-duration: 0.5s;
   animation-name: zoomInUp;
@@ -301,17 +259,15 @@ export default {
   animation-name: zoomInUp;
   animation-timing-function: ease-in-out;
 }
-.leftIcon{
-  position:relative;
+.leftIcon {
+  position: relative;
   left: -20px;
   margin-right: 1px !important;
-  
 }
-.rightIcon{
-  position:relative;
+.rightIcon {
+  position: relative;
   right: -20px;
   margin-right: 1px !important;
-  
 }
 
 @media screen and (max-width: 960px) {

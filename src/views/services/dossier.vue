@@ -34,7 +34,7 @@
       >
         <v-text-field
           class="mx-4 mt-3"
-          label="Need a form? Look it up!"
+          label="Necesitas un formulario? Buscalo aqui!"
           single-line
           prepend-icon="search"
           color="#c6192a"

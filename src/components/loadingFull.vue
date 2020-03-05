@@ -59,10 +59,12 @@
           wrap
         >
           <span class="font-weight-bold   py-t mx-5 ">
-            We are sorry the logging took too long. Apparently your connection is too slow or there was an issue with our system.
-          </span>
+Lamentablemente esta acción ha tardado demasiado. 
+Aparentemente su conexión a internet es lenta o hubo un problema con nuestro sistema.
+    Intentelo nuevamente.          
+      </span>
           <v-img
-            width="370px"
+            width="320px"
             :src="brokenImg()"
             :lazy-src="brokenImg()"
             alt="It took too long to load"
@@ -74,7 +76,7 @@
             @click="goBack"
           >
             <span class="font-weight-bold title  py-2  ">
-              go back and start again
+              volver a intentar
             </span>
           </v-btn>
         </v-layout>

@@ -46,8 +46,8 @@
         <v-text-field
           v-model="name"
           class="my-0"
-          placeholder="Name"
-          :value="this.auth().currentUser.displayName"
+          :placeholder="auth().currentUser.displayName"
+          :value="auth().currentUser.displayName"
           disabled
         />
         <v-text-field
@@ -117,6 +117,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn
+        small
           flat
           round
           class="sign-up"
@@ -125,6 +126,7 @@
           cancelar
         </v-btn>
         <v-btn
+        small
           round
           flat
           @click="collector"

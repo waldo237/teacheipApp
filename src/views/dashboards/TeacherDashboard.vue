@@ -1,64 +1,32 @@
 <template>
   <v-content class="mb-5 pb-5">
-    <v-card
-      fluid
-      dark
-      color="grey lighten-2"
-    >
-      <!-- <v-navigation-drawer
-      v-model="primaryDrawer.model"
-      app
-      ></v-navigation-drawer>-->
-      <v-layout
-        wrap
-        justify-center
-      >
+    <v-card fluid dark color="grey lighten-2">
+      <v-layout wrap justify-center class="pt-5">
         <div
           class="display-1 font-weight-light text-xs-center main-title my-1 py-1 mx-4 px-1"
-        >
-          Teacher's dashboard
-        </div>
+        >Teacher's dashboard</div>
       </v-layout>
       <!-- FIRST ROW STARTS -->
-      <v-layout
-        row
-        wrap
-        justify-center
-        class="mb-2"
-      >
+      <v-layout row wrap justify-center class="mb-2">
         <v-btn
-          color=""
+          color
           :class="(gradesReport)? 'blur' : 'sign-in'"
           block
           large
           @click="gradesReport =!gradesReport"
-        >
-          PUBLICAR CALIFICACIONES
-        </v-btn>
+        >PUBLICAR CALIFICACIONES</v-btn>
         <v-btn
-          color=""
+          color
           :class="(dataTable)? 'blur' : 'sign-up'"
           block
           large
           @click="dataTable =!dataTable"
-        >
-          PASAR LISTA
-        </v-btn>
+        >PASAR LISTA</v-btn>
       </v-layout>
       <!-- FIRST ROW ENDS -->
       <!-- SECOND ROW STARTS -->
-      <v-layout
-        row
-        wrap
-        class="mb-2"
-        v-if="!dataTable && !gradesReport"
-      >
-        <v-layout
-          row
-          wrap
-          justify-center
-          class="mx-3"
-        >
+      <v-layout row wrap class="mb-0 pb-0" v-if="!dataTable && !gradesReport">
+        <v-layout row wrap justify-center class="mx-3">
           <!-- CALENDAR STARTS -->
           <v-card
             min-width="300px"
@@ -67,26 +35,10 @@
             height="300px"
           >
             <v-card-title primary-title>
-              <v-layout
-                row
-                wrap
-                justify-center
-              >
-                Calendario Academico
-              </v-layout>
+              <v-layout row wrap justify-center>Calendario Academico</v-layout>
             </v-card-title>
-            <v-sheet
-              tile
-              height="54"
-              color="grey "
-              class="d-flex"
-              light
-            >
-              <v-btn
-                icon
-                class="ma-2"
-                @click="$refs.calendar.prev()"
-              >
+            <v-sheet tile height="54" color="grey " class="d-flex" light>
+              <v-btn icon class="ma-2" @click="$refs.calendar.prev()">
                 <v-icon>arrow_back_ios</v-icon>
               </v-btn>
               <v-select
@@ -117,11 +69,7 @@
                 class="ma-2"
               />
               <v-spacer />
-              <v-btn
-                icon
-                class="ma-2"
-                @click="$refs.calendar.next()"
-              >
+              <v-btn icon class="ma-2" @click="$refs.calendar.next()">
                 <v-icon>arrow_forward_ios</v-icon>
               </v-btn>
             </v-sheet>
@@ -169,19 +117,10 @@
             </v-sheet>
 
             <v-card-text class="pt-0">
-              <div class="title font-weight-light mb-2">
-                {{ item.tittle }}
-              </div>
-              <div class="subheading font-weight-light grey--text">
-                {{ item.body }}
-              </div>
+              <div class="title font-weight-light mb-2">{{ item.tittle }}</div>
+              <div class="subheading font-weight-light grey--text">{{ item.body }}</div>
               <v-divider class="my-2" />
-              <v-icon
-                class="mr-2"
-                small
-              >
-                {{ item.icon }}
-              </v-icon>
+              <v-icon class="mr-2" small>{{ item.icon }}</v-icon>
               <span class="caption grey--text font-weight-light">last registration 26 minutes ago</span>
             </v-card-text>
           </v-card>
@@ -191,35 +130,12 @@
       <!-- SECOND ROW ENDS -->
       <!-- publish  scores -->
       <transition name="slideDown">
-        <v-layout
-          row
-          wrap
-          justify-center
-          v-if="gradesReport"
-        >
-          <v-card
-            width="95%"
-            class="pa-2 round"
-            light
-            flat
-          >
-            <v-card-title
-              primary-title
-              class="bigWords title"
-            >
-              <v-layout
-                row
-                wrap
-                justify-center
-              >
-                Formulario de reporte de calificaciones
-              </v-layout>
+        <v-layout row wrap justify-center v-if="gradesReport">
+          <v-card width="95%" class="pa-2 round" light flat>
+            <v-card-title primary-title class="bigWords title">
+              <v-layout row wrap justify-center>Formulario de reporte de calificaciones</v-layout>
             </v-card-title>
-            <v-layout
-              row
-              wrap
-              justify-center
-            >
+            <v-layout row wrap justify-center>
               <!-- grades report starts-->
               <v-text-field
                 v-model="search"
@@ -241,9 +157,7 @@
                   <td class="text-center mx-0 pl-2 text-uppercase sheet">
                     <router-link
                       :to="'/student/'+props.item.id"
-                    >
-                      {{ props.index+1 }}- {{ props.item.name }}
-                    </router-link>
+                    >{{ props.index+1 }}- {{ props.item.name }}</router-link>
                   </td>
                   <td
                     class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet"
@@ -278,24 +192,17 @@
                   <td class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet">
                     <span class="py-2 px-4">
                       {{
-                        (props.item.homework * 0.10)+
-                          (props.item.classwork * 0.10) +
-                          (props.item.pba * 0.30) +
-                          (props.item.midterm * 0.25) +
-                          (props.item.final * 0.25)
+                      (props.item.homework * 0.10)+
+                      (props.item.classwork * 0.10) +
+                      (props.item.pba * 0.30) +
+                      (props.item.midterm * 0.25) +
+                      (props.item.final * 0.25)
                       }}%
                     </span>
                   </td>
                 </template>
               </v-data-table>
-              <v-btn
-                class="sign-up mb-5"
-                large
-                block
-                round
-              >
-                Guardar calificaciones
-              </v-btn>
+              <v-btn class="sign-up mb-5" large block round>Guardar calificaciones</v-btn>
 
               <!-- grades report ends-->
             </v-layout>
@@ -306,35 +213,12 @@
       <!-- call attendance starts -->
 
       <transition name="slideDown">
-        <v-layout
-          row
-          wrap
-          justify-center
-          v-if="dataTable"
-        >
-          <v-card
-            width="95%"
-            class="pa-2 round"
-            light
-            flat
-          >
-            <v-card-title
-              primary-title
-              class="bigWords title"
-            >
-              <v-layout
-                row
-                wrap
-                justify-center
-              >
-                Formulario de pase de Lista
-              </v-layout>
+        <v-layout row wrap justify-center v-if="dataTable">
+          <v-card width="95%" class="pa-2 round" light flat>
+            <v-card-title primary-title class="bigWords title">
+              <v-layout row wrap justify-center>Formulario de pase de Lista</v-layout>
             </v-card-title>
-            <v-layout
-              row
-              wrap
-              justify-center
-            >
+            <v-layout row wrap justify-center>
               <v-data-table
                 style="width: 98%"
                 :headers="headers"
@@ -351,9 +235,7 @@
                   >
                     <router-link
                       :to="'/student/'+props.item.id"
-                    >
-                      {{ props.index+1 }}-{{ props.item.name }}
-                    </router-link>
+                    >{{ props.index+1 }}-{{ props.item.name }}</router-link>
                   </td>
 
                   <td
@@ -361,33 +243,15 @@
                     id="apellido"
                     min-width="150px"
                   >
-                    <router-link :to="'/student/'+props.item.id">
-                      {{ props.item.lastname }}
-                    </router-link>
+                    <router-link :to="'/student/'+props.item.id">{{ props.item.lastname }}</router-link>
                   </td>
 
                   <td class="text-center mx-1 px-0 text-uppercase font-weight-bold sheet">
                     <v-radio-group row>
-                      <v-radio
-                        label="P"
-                        color="green"
-                        value="radio-1"
-                      />
-                      <v-radio
-                        label="A"
-                        color="red"
-                        value="radio-2"
-                      />
-                      <v-radio
-                        label="E"
-                        color="yellow"
-                        value="radio-3"
-                      />
-                      <v-radio
-                        label="T"
-                        color="blue"
-                        value="radio-4"
-                      />
+                      <v-radio label="P" color="green" value="radio-1" />
+                      <v-radio label="A" color="red" value="radio-2" />
+                      <v-radio label="E" color="yellow" value="radio-3" />
+                      <v-radio label="T" color="blue" value="radio-4" />
                     </v-radio-group>
                   </td>
                   <td
@@ -396,31 +260,27 @@
                   />
                 </template>
               </v-data-table>
-              <v-btn
-                class="sign-up mb-5"
-                large
-                block
-                round
-              >
-                Guardar
-              </v-btn>
+              <v-btn class="sign-up mb-5" large block round>Guardar</v-btn>
             </v-layout>
           </v-card>
         </v-layout>
       </transition>
       <!-- call attendance ends -->
+      <memberCarousel class="mb-5"/>
     </v-card>
   </v-content>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import servicesScreen from '@/components/utilities/servicesScreen.vue'
-                        
+import servicesScreen from "@/components/utilities/servicesScreen.vue";
+import memberCarousel from "@/components/utilities/memberCarousel.vue";
+
 import moment from "moment";
 export default {
-  components:{
+  components: {
     servicesScreen,
+    memberCarousel
   },
   data: () => ({
     dataTable: false,
@@ -596,7 +456,6 @@ export default {
   },
   async created() {
     await this.fetchStudents();
-    
   },
   computed: {
     ...mapGetters(["servicios", "students"])
@@ -629,13 +488,13 @@ export default {
   animation-timing-function: ease-in-out;
 }
 .slideDown-leave-active {
-  animation-duration: 0.30s;
+  animation-duration: 0.3s;
   animation-name: bounceOutUp;
   animation-timing-function: ease-in-out;
 }
-.blur{
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.438) !important;
-    background-color: gray !important;
-    padding: 30px !important;
+.blur {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.438) !important;
+  background-color: gray !important;
+  padding: 30px !important;
 }
 </style>

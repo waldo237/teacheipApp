@@ -107,7 +107,7 @@
                 <v-form @submit.prevent>
                   <v-text-field
                     v-model="cCode"
-                    label="Codigo de centro"
+                    label="Codigo de supervisor"
                     required
                     autocomplete
                     maxlength="25"
@@ -183,18 +183,23 @@ export default {
       }
     },
     async verifycCode() {
-      this.loading1 = true;
-       await this.$store.commit("setCode", this.cCode);
-      await this.authenticateSuper();
-      let role = await atob(localStorage.getItem('sessionRole'))
-      if (role == 'supervisor') {
-         this.loading1 = false;
-          await this.$store.commit("setLanding", false);
-          await this.$router.push(`/supervisorDashboard`);
-          this.$emit('drawerRefresh');
-      } else {
-        this.loading1 = false;
-        await this.$router.push(`/completeUserInfo`);
+      try {
+        this.loading1 = true;
+         await this.$store.commit("setCode", this.cCode);
+        await this.authenticateSuper();
+        let role = await atob(localStorage.getItem('sessionRole'))
+        if (role == 'supervisor') {
+           this.loading1 = false;
+            await this.$store.commit("setLanding", false);
+            await this.$router.push(`/supervisorDashboard`);
+            this.$emit('drawerRefresh');
+        } else {
+          this.loading1 = false;
+          // await this.$router.push('/landing');
+        }
+        
+      } catch (error) {
+        console.log(error)
       }
     },
   

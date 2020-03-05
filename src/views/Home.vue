@@ -223,7 +223,6 @@
 <script>
 // @ is an alias to /src
 import { mapGetters, mapActions } from "vuex";
-import axios from "axios";
 import Carousel from "@/components/carousel.vue";
 
 export default {
@@ -277,23 +276,16 @@ export default {
     };
   },
   methods: {
+   async callImg(img){
+      return await img;
+    },
     ...mapActions([ "initializeFetch"]),
-    // returnRef(photo) {
-    //   try {
-    //     let res = "";
-    //     this.tesPhotos.map(item => {
-    //       if (item.photo == photo) res = item.url;
-    //     });
-    //     return res;
-    //   } catch (error) {
-    //   }
-    // },
+ 
     },
   computed: {
     ...mapGetters(["storage"])
   },
  async created() {
-   
    if(this.tesPhotos.length == 0){
      this.$store.commit('setArrayObjsWPhotos', this.testimonies);
      this.tesPhotos = await this.initializeFetch();
@@ -303,6 +295,10 @@ export default {
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
+
+.memberCarousel {
+   overflow-x:scroll;
+}
 
 .grids {
   border-radius: 8px !important;
