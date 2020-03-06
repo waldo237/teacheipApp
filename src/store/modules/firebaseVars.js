@@ -9,7 +9,7 @@ const state = {
     GoogleAuthProvider: new firebase.auth.GoogleAuthProvider(),
     FacebookAuthProvider: new firebase.auth.FacebookAuthProvider(),
     providerMicrosoft: new firebase.auth.OAuthProvider("microsoft.com"),
-
+    
 };
 const getters = {
     auth: (state) => state.auth,

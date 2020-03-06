@@ -55,6 +55,7 @@
      
       
       <editor
+      v-if="!showEditProfile"
         :profile-editor="profileEditor"
         @closeProfileEditor="profileEditor = false"
         class="slideDown"
@@ -65,11 +66,12 @@
         class="justify-center px-3"
       >
         <v-btn
+          v-if="!showEditProfile"
           round
           class="grey lighten-1"
           @click="profileEditor = true"
         >
-          edit profile
+          editar perfil
         </v-btn>
         <v-btn
           round
@@ -77,7 +79,7 @@
           class="sign-up"
           @click="logout"
         >
-          Log out
+          cerrar sesión
           <v-icon class="mx-1">
             power_settings_new
           </v-icon>
@@ -94,6 +96,7 @@ import colors from "@/assets/colors/colors.js";
 
 export default {
   components: { editor },
+  props:['showEditProfile'],
   data(){
     return{
       profileEditor: false,

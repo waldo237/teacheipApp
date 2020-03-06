@@ -1,7 +1,7 @@
 <template>
   <v-layout class="my-5 px-2 py-5 grey lighten-2" wrap>
     <v-layout class="mx-2 px-1 justify-center" flat wrap>
-      <!-- upcoming events starts -->
+      <!-- send notification starts -->
       <v-card
         class="justify-center mx-1 elevation-24 grids grey lighten-4"
         raised
@@ -16,100 +16,11 @@
           <SendNotification />
         </v-card-text>
       </v-card>
-      <!-- upcoming events ends -->
-      <!-- intructions start -->
-      <v-card
-        class="justify-center mx-1 elevation-24 grids grey lighten-4"
-        raised
-        max-height="390"
-        max-width="400px"
-        min-width="380px"
-      >
-        <v-card-title
-          primary-title
-          class="instructions justify-center elevation-12 py-1 white--text"
-        >
-          <v-icon color="white" class="mx-2">sms</v-icon>Administrador de Tareas
-        </v-card-title>
-
-        <!-- date picker starts -->
-        <v-layout row>
-          <v-text-field
-            class="mx-3 my-0"
-            v-model="date"
-            label="Hoy"
-            prepend-icon="event"
-            readonly
-            disabled
-          />
-
-          <!-- date picker ends -->
-          <!-- textfield with name starts -->
-          <v-text-field
-            :label="auth().currentUser.displayName"
-            class="mx-3 my-0"
-            prepend-icon="person"
-            disabled
-          />
-        </v-layout>
-        <!-- textfield with name ends -->
-        <!-- textarea starts -->
-
-        <v-layout row wrap align-center>
-          <v-text-field
-            class="mx-2 my-0"
-            hint="Escribe tu itinerario"
-            label="En que estas trabajando hoy?"
-            v-model="taskInput"
-            @keydown.enter="addTask"
-          />
-          <v-btn @click="addTask" prepend-icon="add" flat fab>
-            <v-icon>add</v-icon>
-          </v-btn>
-        </v-layout>
-        <!-- TASKS DISPLAY STARTS -->
-        <v-layout row wrap v-if="tasks.length > 0">
-          <v-card width="100%" max-height="135px" flat style="overflow:auto;" class="scrollbar">
-            <v-layout column v-for="(task, i) in tasks" :key="i">
-              <v-layout row wrap justify-start align-center class="ml-2 my-0 py-0">
-                <span>{{i+1}}-</span>
-                <!-- <div @click="$emit('checkbox', task)"> -->
-                <v-checkbox
-                  v-model="task.done"
-                  color="green"
-                  hide-details
-                  class="shrink mr-0 mt-0 mb-0"
-                  @change="editTask"
-                ></v-checkbox>
-                <!-- </div> -->
-                <v-tooltip  left>
-                  <template v-slot:activator="{ on }">
-                    
-               <span v-on="on">{{task.message}}</span> 
-                  </template>
-                  <span> creado el {{moment(task.date)}} </span>
-                </v-tooltip>
-                <v-btn @click="removeTask(task)" flat small fab class="ma-0 pa-0">
-                  <v-icon small color="red">delete</v-icon>
-                </v-btn>
-              </v-layout>
-            </v-layout>
-          </v-card>
-        </v-layout>
-        <!-- TASKS DISPLAY ENDS -->
-        <!-- Submit button starts -->
-        <v-layout column justify-center>
-          <v-switch class="my-0 py-0 mx-2" v-model="private" color="green" label="Privado"></v-switch>
-          <v-btn
-            round
-            @click="saveTasks"
-            small
-            class="mx-auto instructions white--text elevation-24"
-          >Guardar</v-btn>
-          <!-- Submit button ends -->
-        </v-layout>
-        <!-- textarea ends -->
-      </v-card>
+      <!-- send notification ends -->
+      <!--  TASKS STARTS -->
+        <Tasks/>
+      <!--  TASKS ENDS -->
+      
       <!-- intructions end -->
 
       <!--******** services starts ********-->
@@ -167,54 +78,23 @@ import { directive as onClickaway } from "vue-clickaway";
 import SendNotification from "@/components/utilities/SendNotification.vue";
 import memberCarousel from "@/components/utilities/memberCarousel.vue";
 import servicesScreen from "@/components/utilities/servicesScreen.vue";
+import Tasks from "@/components/utilities/tasks.vue";
 import _ from "lodash";
 export default {
   name: "SupervisorDashboard",
-  components: { SendNotification, servicesScreen, memberCarousel },
+  components: { SendNotification, servicesScreen, memberCarousel,Tasks },
   directives: {
     onClickaway: onClickaway
   },
   data() {
     return {
       date: new Date().toISOString().substr(0, 10),
-      menu: false,
       servicesForSupervisor: true,
       centers: [],
-      tasks: [],
-      taskInput: "",
-      private: true,
-      targetTask: {}
     };
   },
   methods: {
     ...mapActions(["fetchCenters"]),
-    addTask() {
-      if (this.taskInput)
-        this.tasks.push({
-          message: this.taskInput,
-          done: false,
-          date: new Date()
-        });
-      this.taskInput = "";
-      this.saveTasks();
-    },
-    async removeTask(task) {
-      const index = this.tasks.findIndex(s => s == task);
-      this.tasks.splice(index, 1);
-      this.saveTasks();
-    },
-    saveTasks() {
-      localStorage.setItem("tasks", JSON.stringify(this.tasks));
-    },
-    async editTask(e) {
-      //   const index = await this.tasks.findIndex(s => s == this.targetTask);
-      //   this.targetTask.done = await e;
-      //  this.tasks[index] = this.targetTask;
-      this.saveTasks();
-    },
-    moment(date){
-      return moment(date).locale('es').format(" D MMMM YYYY, hh:mma")
-    }
   },
   computed: {
     ...mapGetters([
@@ -225,12 +105,6 @@ export default {
     ])
   },
   async created() {
-    // this.$on('checkbox', (target)=>{
-    //   this.targetTask = target;
-    // })
-    if (localStorage.getItem("tasks")) {
-      this.tasks = JSON.parse(localStorage.getItem("tasks"));
-    }
     await this.fetchCenters();
     this.centers = await _.uniqBy(this.superCenters, "centro");
   }
@@ -255,15 +129,7 @@ export default {
     rgba(88, 17, 254, 1) 100%
   );
 }
-.instructions {
-  background: rgb(79, 177, 83) !important;
-  background: linear-gradient(
-    0deg,
-    rgb(27, 117, 30) 42%,
-    rgba(59, 200, 4, 0.904) 100%,
-    rgb(28, 28, 218) 100%
-  ) !important;
-}
+
 .orangish {
   background: linear-gradient(
     0deg,

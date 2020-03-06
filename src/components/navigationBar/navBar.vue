@@ -31,7 +31,7 @@
           <span class="teach font-weight-regular">Teach</span>
           <span class="acronym">EIP | version 1.2</span>
         </router-link>
-        <span class="full-title mt-0">with The English Immersion Program</span>
+        <span class="full-title mt-0"> with The English Immersion Program</span>
       </div>
       <!-- logo ends -->
 
@@ -201,14 +201,15 @@ export default {
   top: 148px;
   right: 2%;
   text-align: center;
-  animation-duration: 0.1s;
+    display: block;
+    animation-duration: 0.1s;
   animation-name: slideInDown;
   animation-timing-function: ease-in-out;
-  display: block;
+
 }
 
 .black-blue {
-  background: linear-gradient(0deg, rgb(0, 0, 0) 45%, rgb(13, 71, 136));
+  background: linear-gradient(0deg, rgb(0, 0, 0) 45%, #032950);
 }
 .sign-in {
   color: white !important;

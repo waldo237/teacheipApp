@@ -35,8 +35,7 @@ const actions = {
       'cu_id': auth().currentUser.uid,
       'email': auth().currentUser.email,
     });
-    // make the JWT token header the default value
-    // axios.defaults.headers.common['Authorization'] = 'JWT ' + res.data.token;
+
     return await localStorage.setItem('serverToken', res.data.token);
   },
 
@@ -151,9 +150,8 @@ const actions = {
       });
       state.contactInfo = await response.data[0];
 
-
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   },
 

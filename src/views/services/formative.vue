@@ -2,7 +2,7 @@
   <v-layout
     row
     wrap
-    class="ma-5 pa-5"
+    class="my-5 pa-5 grey lighten-3"
   >
     <v-layout
       justify-center

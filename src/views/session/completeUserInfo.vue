@@ -459,7 +459,6 @@ export default {
     },
     checkForm() {
       let valid = true;
-
       this.errors = [];
       if (!this.cedula) {
         this.errors.push("El numero de cedula es obligadorio.");
@@ -500,43 +499,47 @@ export default {
       return valid;
     },
     async save() {
-      if (this.checkForm()) {
-        const localContactInfo = {
-          cu_id: this.auth().currentUser.uid,
-          photoURL: this.photoURL,
-          firstName: this.auth().currentUser.displayName.split(" ")[0],
-          lastName: this.auth().currentUser.displayName.split(" ")[1],
-          email: this.auth().currentUser.email,
-          gender: this.gender,
-          birthday: this.date,
-          cedula: this.cedula,
-          phone: this.phoneNumber,
-          region: (!this.regionSelect)? this.region: this.regionSelect,
-          province: (!this.provinceSelect)? this.province: this.provinceSelect,
-          center: this.center
-        };
-        this.$store.commit("setContactInfo", localContactInfo);
-      await this.fillTeacherInfo()
-       .then(()=>{
-              this.successSnackbar = true;
-              this.saveMessage= 'Tu perfil ha sido creado satisfactoriamente'
-          })
-       .then(this.timeout = setTimeout(()=> this.dialog = false, 4000))
-       .then(clearTimeout(this.timeOut))
-       .then(async()=>{
-        let role = await atob(localStorage.getItem('sessionRole'));
-            if (role == 'teacher') {
-                await this.$router.push(`/teacherDashboard`);
-                          this.$emit('drawerRefresh');
-
-            } else {
-              await this.$router.push(`/completeUserInfo`);
-            }
-              })
-       .catch(()=>{
-         this.saveMessage= 'ha ocurrido un error al editar tu perfil. Intentalo mas tarde.'
-              this.successSnackbar = true;
-          });
+      try {
+        if (this.checkForm()) {
+          const localContactInfo = {
+            cu_id: this.auth().currentUser.uid,
+            photoURL: this.photoURL,
+            firstName: this.auth().currentUser.displayName.split(" ")[0],
+            lastName: this.auth().currentUser.displayName.split(" ")[1],
+            email: this.auth().currentUser.email,
+            gender: this.gender,
+            birthday: this.date,
+            cedula: this.cedula,
+            phone: this.phoneNumber,
+            region: (!this.regionSelect)? this.region: this.regionSelect,
+            province: (!this.provinceSelect)? this.province: this.provinceSelect,
+            center: this.center
+          };
+          this.$store.commit("setContactInfo", localContactInfo);
+        await this.fillTeacherInfo()
+         .then(()=>{
+                this.successSnackbar = true;
+                this.saveMessage= 'Tu perfil ha sido creado satisfactoriamente'
+            })
+         .then(this.timeout = setTimeout(()=> this.dialog = false, 4000))
+         .then(clearTimeout(this.timeOut))
+         .then(async()=>{
+          let role = await atob(localStorage.getItem('sessionRole'));
+              if (role == 'teacher') {
+                  await this.$router.push(`/teacherDashboard`);
+                            this.$emit('drawerRefresh');
+  
+              } else {
+                await this.$router.push(`/completeUserInfo`);
+              }
+                })
+         .catch(()=>{
+           this.saveMessage= 'ha ocurrido un error al editar tu perfil. Intentalo mas tarde.'
+                this.successSnackbar = true;
+            });
+        }
+      } catch (error) {
+        
       }
     },
     ...mapActions(["fillTeacherInfo", "getProfileInfo"])

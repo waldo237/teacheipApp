@@ -19,7 +19,7 @@
           app
         >
           <v-layout justify-center>
-            <span class="acronym title mt-2 mx-2">Hello,{{ auth().currentUser.displayName }}. Welcome to</span>
+            <span class="acronym title mt-2 mx-2">Hola, {{ auth().currentUser.displayName }}. Gracias por visitar a</span>
             <span class="teach title acronym  mt-2">Teach</span>
             <span class="acronym title mt-2">EIP</span>
           </v-layout>
@@ -56,6 +56,7 @@
             <Profile
               class="profile"
               v-if="profileModel"
+              :show-edit-profile="true"
               @closeProfile="toggleProfile"
             />
           </v-list-tile>
@@ -89,7 +90,7 @@
             >
               <!-- cards starts -->
               <v-card
-                class="justify-center mx-1 grids"
+                class="justify-center mx-1 grids grey lighten-2 elevation-17"
                 raised
                 max-height="200px"
                 max-width="400px"
@@ -100,7 +101,7 @@
                   class="black-blue justify-center elevation-12 py-1"
                 >
                   <h3 class="title white--text text--accent-2">
-                    Select your role to start
+                    Selecciona un rol para continuar
                   </h3>
                 </v-card-title>
                 <v-flex
@@ -112,7 +113,7 @@
                     :items="actors"
                     text="text"
                     value="value"
-                    label="Role"
+                    label="rol"
                     return-object
                   />
                 </v-flex>
@@ -133,7 +134,7 @@
                           v-on="on"
                         />
                       </template>
-                      <span>Please select a role</span>
+                      <span>Por favor escoje un rol</span>
                     </v-tooltip>
                     <v-btn
                       @click="formTrigger"
@@ -142,7 +143,7 @@
                     >
                       <v-icon small>
                         directions_walk
-                      </v-icon>Go in
+                      </v-icon>Entrar
                     </v-btn>
                   </v-layout>
                 </v-card-text>
@@ -314,13 +315,7 @@ export default {
 };
 </script>
 <style scoped>
-.gradient {
-  background: linear-gradient(
-    0deg,
-    rgba(2, 2, 32, 1) 33%,
-    rgb(65, 2, 0) 100%
-  );
-}
+
 .grids {
   border-radius: 5px !important;
 }

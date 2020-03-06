@@ -8,8 +8,8 @@
       step="1"
       color="green"
     >
-      Introduce your cedula
-      <small>Please type in your cedula number in the filed</small>
+      Escribe tu número de cedula
+      <small>Por favor escribe tu número de cedula en este espacio </small>
     </v-stepper-step>
     <v-stepper-content
       step="1"
@@ -59,14 +59,14 @@
           :loading="loading1"
           @click="verifyID"
         >
-          verify
+          verificar
         </v-btn>
         <v-btn
           class="sign-up"
           @click="close"
           text
         >
-          Cancel
+          Cancelar
         </v-btn>
       </v-form>
       <!-- form ends -->
@@ -77,7 +77,7 @@
       step="2"
       color="green"
     >
-      Type in your Coordinator code
+      Escribe tu código de coordinador
     </v-stepper-step>
     <v-stepper-content step="2">
       <!-- form starts -->
@@ -107,7 +107,7 @@
                 <v-form @submit.prevent>
                   <v-text-field
                     v-model="cCode"
-                    label="Coordinator code"
+                    label="Código de coordinador"
                     required
                     autocomplete
                     maxlength="25"
@@ -178,7 +178,7 @@ export default {
         this.loading1 = false;
         this.errorMessage = this.validation.error
           ? (this.errorMessage = this.validation.error)
-          : "There was a problem validating your id, try again or contact the administrator.";
+          : "Ha ocurrido un error al validar tu cedula, asegúrate que este correcto o contacta al administrador.";
       }
     },
     async verifycCode() {
@@ -191,7 +191,7 @@ export default {
         this.loading1 = false;
         this.errorMessage = this.validation.error
           ? (this.errorMessage = this.validation.error)
-          : "There was a problem validating your Code, try again or contact the administrator.";
+          : "Ha ocurrido un error al validar tu código, asegúrate que este correcto o contacta al administrador";
       }
     },
     async signIn() {

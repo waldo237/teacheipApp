@@ -1,11 +1,11 @@
 <template>
   <v-card class="mt-4 mb-4 mx-2 grey darken-4">
     <v-card
-      class="card-offset mx-auto orange"
+      class="card-offset mx-auto blue"
       elevation="12"
       max-width="calc(100% - 30px)"
     >
-      <v-card-title>Recursos y Materiales</v-card-title>
+      <v-card-title>Solicitudes</v-card-title>
     </v-card>
     <v-card
       class="scrollbar overflow grey darken-4 elevation-19"
@@ -13,7 +13,7 @@
       max-width="300px"
     >
       <v-card-text
-        v-for="(item, i) in servicios"
+        v-for="(item, i) in solicitudes"
         :key="i"
         class="py-0 px-2"
       >
@@ -31,13 +31,14 @@
             }}
           </router-link>      
         </v-layout>
-        <v-layout v-if="servicesForSupervisor">
+        <v-layout v-if="allSolicitudes">
           <router-link
             tag="v-btn"
             small
             dark
             :to="item.link"
             class="my-1 white--text grey darken-4"
+            v-if="item.link"
           >
             {{
               item.title
@@ -51,9 +52,9 @@
 <script>
 import {mapGetters} from 'vuex';
 export default {
-    props:['servicesForTeacher', 'servicesForSupervisor'],
+    props:['servicesForTeacher', 'allSolicitudes'],
     computed: {
-    ...mapGetters(["servicios"])
+    ...mapGetters(["solicitudes"])
   }
 }
 </script>

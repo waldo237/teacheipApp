@@ -2,10 +2,9 @@
   <div>
     <!-- Temporary snackbar for quick info starts -->
     <v-snackbar
-      class="error"
       v-model="snackbar"
-      color="#17a011"
-      :timeout="30000"
+      :timeout="10000"
+      class="grey darken-4"
     >
       "Anunciamos que los maestros ya pueden registrarse en esta plataforma!"
       <v-btn

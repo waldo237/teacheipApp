@@ -126,7 +126,7 @@ export default {
             this.tookTooLong = true;
             clearInterval(this.interval);
             clearTimeout(this.timeOut);
-            }, 260*60);
+            }, 560*60);
       }else{
            this.tookTooLong = false;
             clearInterval(this.interval);

@@ -3,6 +3,7 @@
     class="mx-auto"
     width="300"
   >
+  <div>
     <v-list>
       <v-list-tile class="mt-4 mb-3">
         <v-icon
@@ -27,11 +28,11 @@
               class="mr-2"
             >
               school
-            </v-icon>Academic
+            </v-icon>Académico
           </v-list-tile-title>
         </template>
         <v-list-tile
-          v-for="(item, i) in getNavigation.academic"
+          v-for="(item, i) in servicios"
           :key="i"
           class="list"
         >
@@ -102,11 +103,11 @@
               class="mr-2"
             >
               work
-            </v-icon>Administrative
+            </v-icon>Administrativo
           </v-list-tile-title>
         </template>
         <v-list-tile
-          v-for="(item, i) in getNavigation.administrative"
+          v-for="(item, i) in solicitudes"
           :key="i"
           class="list"
         >
@@ -166,6 +167,8 @@
       </v-list-group>
     </v-list>
     <!-- ADMINISTRATIVE ends -->
+    
+  </div>
   </v-card>
 </template>
 
@@ -190,6 +193,6 @@ export default {
       value: false,     
     };
   },
-  computed: mapGetters(["getNavigation", "checkIsLoggedIn"]),
+  computed: mapGetters(["getNavigation", "checkIsLoggedIn", "servicios", "solicitudes"]),
 };
 </script>

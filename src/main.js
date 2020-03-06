@@ -23,3 +23,7 @@ Vue.use(Vuetify, {
 }) 
 
 
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || 'Dirección de Lenguas extranjeras | MESCyT';
+  next();
+});
