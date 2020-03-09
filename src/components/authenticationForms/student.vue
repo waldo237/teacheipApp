@@ -58,18 +58,20 @@
           </v-container>
         </v-card> 
         <v-btn
-          class="sign-in"
-          :disabled="checkID"
-          @click="verify"
-        >
-          verify
-        </v-btn>
-        <v-btn
+          round
           class="sign-up"
           @click="close"
           text
         >
-          Cancel
+          Cancelar
+        </v-btn>
+        <v-btn
+          round
+          class="sign-in"
+          :disabled="checkID"
+          @click="verify"
+        >
+          verificar
         </v-btn>
       </v-form>
     <!-- form ends -->

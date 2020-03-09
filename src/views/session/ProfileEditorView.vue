@@ -7,8 +7,14 @@
       persistent
       transition="dialog-bottom-transition "
     >
-      <v-toolbar dense app>
-        <v-btn icon @click="$emit('closeProfileEditor')">
+      <v-toolbar
+        dense
+        app
+      >
+        <v-btn
+          icon
+          @click="$emit('closeProfileEditor')"
+        >
           <v-icon>close</v-icon>
         </v-btn>
         <v-toolbar-title>Registro de información</v-toolbar-title>
@@ -17,12 +23,27 @@
         <span class="acronym title">EIP</span>
         <v-spacer />
         <v-toolbar-items>
-          <v-btn text @click="save" class="sign-up">Guardar</v-btn>
+          <v-btn
+            text
+            @click="save"
+            class="sign-up"
+          >
+            Guardar
+          </v-btn>
         </v-toolbar-items>
       </v-toolbar>
-      <v-card class="grey lighten-2" @click="errors = []">
-        <v-layout row wrap justify-center>
-          <v-subheader class="title mt-5">Información Básica de Usuario</v-subheader>
+      <v-card
+        class="grey lighten-2"
+        @click="errors = []"
+      >
+        <v-layout
+          row
+          wrap
+          justify-center
+        >
+          <v-subheader class="title mt-5">
+            Información Básica de Usuario
+          </v-subheader>
         </v-layout>
 
         <!-- error show starts  -->
@@ -37,7 +58,12 @@
         >
           No fue posible seguir por las siguientes razones:
           <ul>
-            <li v-for="(error,i) in errors" :key="i">{{ error }}</li>
+            <li
+              v-for="(error,i) in errors"
+              :key="i"
+            >
+              {{ error }}
+            </li>
           </ul>
         </v-alert>
 
@@ -47,15 +73,33 @@
           <v-list-tile-title class="subtitle-1" />
           <!-- avatar starts -->
           <v-divider />
-          <v-layout class="pt-3 pb-0" justify-center row>
+          <v-layout
+            class="pt-3 pb-0"
+            justify-center
+            row
+          >
             <v-list-tile class="my-4">
-              <v-layout column wrap justify-center>
+              <v-layout
+                column
+                wrap
+                justify-center
+              >
                 <span class="mx-auto">Cambiar foto de avatar</span>
-                <v-layout row wrap>
+                <v-layout
+                  row
+                  wrap
+                >
                   <v-avatar v-if="photoURL">
-                    <img :src="photoURL" :lazy-src="photoURL" :alt="auth().currentUser.displayName" />
+                    <img
+                      :src="photoURL"
+                      :lazy-src="photoURL"
+                      :alt="auth().currentUser.displayName"
+                    >
                   </v-avatar>
-                  <v-avatar color="#c6192a" v-else>
+                  <v-avatar
+                    color="#c6192a"
+                    v-else
+                  >
                     <span class="white--text headline">{{ initialize }}</span>
                   </v-avatar>
 
@@ -66,10 +110,26 @@
                     color="sign-up"
                     @click="$refs.inputUpload.click()"
                   >
-                    <v-icon small class="mx-1">image</v-icon>Buscar
+                    <v-icon
+                      small
+                      class="mx-1"
+                    >
+                      image
+                    </v-icon>Buscar
                   </v-btn>
-                  <v-btn round small class="mx-2 px-1" color="sign-in" @click="uploadPhoto">
-                    <v-icon small class="mx-1">cloud_upload</v-icon>Subir
+                  <v-btn
+                    round
+                    small
+                    class="mx-2 px-1"
+                    color="sign-in"
+                    @click="uploadPhoto"
+                  >
+                    <v-icon
+                      small
+                      class="mx-1"
+                    >
+                      cloud_upload
+                    </v-icon>Subir
                   </v-btn>
                 </v-layout>
                 <!-- showSelected starts -->
@@ -89,21 +149,45 @@
                 type="file"
                 id="file"
                 accept="image/x-png, image/gif, image/jpeg"
-              />
+              >
             </v-list-tile>
           </v-layout>
 
           <v-layout justify-center>
             <!-- snackbar to notify completion starts -->
-            <v-snackbar class="error" v-model="snackbar" color multi-line :timeout="6000" top="top">
+            <v-snackbar
+              class="error"
+              v-model="snackbar"
+              color
+              multi-line
+              :timeout="6000"
+              top="top"
+            >
               "Tu foto de perfil ha sido cambiada"
-              <v-btn dark text @click="snackbar = false">cerrar</v-btn>
+              <v-btn
+                dark
+                text
+                @click="snackbar = false"
+              >
+                cerrar
+              </v-btn>
             </v-snackbar>
             <!-- snackbar to notify completion ends -->
             <!-- successnackbar to notify completion starts -->
-            <v-snackbar class="error" v-model="successSnackbar" :timeout="6000" top="top">
+            <v-snackbar
+              class="error"
+              v-model="successSnackbar"
+              :timeout="6000"
+              top="top"
+            >
               {{ saveMessage }}
-              <v-btn dark text @click="snackbar = false">cerrar</v-btn>
+              <v-btn
+                dark
+                text
+                @click="snackbar = false"
+              >
+                cerrar
+              </v-btn>
             </v-snackbar>
             <!-- snackbar to notify completion ends -->
 
@@ -115,7 +199,11 @@
               class="white--text"
               v-if="progress > 0"
             >
-              <v-layout row wrap justify-center>
+              <v-layout
+                row
+                wrap
+                justify-center
+              >
                 <span class="title">{{ Math.ceil(progress) }}%</span>
               </v-layout>
             </v-progress-linear>
@@ -138,17 +226,39 @@
             type="email"
           />
 
-          <v-layout row justify-center class="my-0 py-0">
+          <v-layout
+            row
+            justify-center
+            class="my-0 py-0"
+          >
             <p>{{ gender || "Genero" }}</p>
-            <v-radio-group v-model="gender" :mandatory="false">
-              <v-radio label="Femenino" value="F " color="#c6192a" />
-              <v-radio label="Masculino" value="M" color="#135393" />
+            <v-radio-group
+              v-model="gender"
+              :mandatory="false"
+            >
+              <v-radio
+                label="Femenino"
+                value="F "
+                color="#c6192a"
+              />
+              <v-radio
+                label="Masculino"
+                value="M"
+                color="#135393"
+              />
             </v-radio-group>
 
             <!-- date picker starts -->
-            <v-menu v-model="menu2" :close-on-content-click="false" max-width="290">
+            <v-menu
+              v-model="menu2"
+              :close-on-content-click="false"
+              max-width="290"
+            >
               <template v-slot:activator="{ on }">
-                <v-layout column wrap>
+                <v-layout
+                  column
+                  wrap
+                >
                   <v-text-field
                     :value="computedDateFormattedMomentjs"
                     clearable
@@ -157,7 +267,12 @@
                     v-on="on"
                     @click:clear="date = null"
                   />
-                  <p v-if="date" class="slideRight">{{ yourAge }}</p>
+                  <p
+                    v-if="date"
+                    class="slideRight"
+                  >
+                    {{ yourAge }}
+                  </p>
                 </v-layout>
               </template>
               <v-date-picker
@@ -191,7 +306,10 @@
             pattern="[0-9]"
           />
           <!-- information about the center starts -->
-          <v-layout row wrap>
+          <v-layout
+            row
+            wrap
+          >
             <v-select
               class="py-1"
               :items="regions"

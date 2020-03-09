@@ -1,89 +1,176 @@
 <template>
   <v-layout>
-    <v-dialog v-model="getSUDialog" persistent class="round px-5">
-      <v-form class>
-        <v-card class="round">
-          <v-layout justify-center>
-            <v-toolbar dense class="round" flat color="white">
-              <v-toolbar-title class="logo">
-                <v-icon>lock_open</v-icon>
-                <span class="teach">Teach</span>
-                <span class="acronym">EIP</span>
-              </v-toolbar-title>
-              <v-spacer />
-              <v-btn icon @click.prevent="closeDialog">
-                <v-icon>close</v-icon>
-              </v-btn>
-            </v-toolbar>
-          </v-layout>
-          <v-layout class="py-4 px-5" column justify-center wrap>
-            <div v-if="!otherOption">
+    <v-dialog
+      v-model="getSUDialog"
+      persistent
+      max-width="700px"
+    >
+      <v-card class=" mx-0">
+        <v-toolbar
+          dense
+          class="round"
+          flat
+          color="white"
+        >
+          <v-toolbar-title class="logo">
+            <v-icon>lock_open</v-icon>
+            <span class="teach">Teach</span>
+            <span class="acronym">EIP</span>
+          </v-toolbar-title>
+          <v-spacer />
+          <v-btn
+            icon
+            @click.prevent="closeDialog"
+          >
+            <v-icon>close</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-layout
+          class=""
+          column
+          justify-center
+          wrap
+        >
+          <div v-if="!otherOption">
+            <v-layout
+              column
+              justify-center
+              align-center
+            >
               <v-btn
                 @click.prevent="google"
                 round
-                large
-                block
-                class="pa-2 ma-2 elevation-10 white--text"
+                medium
+                
+                class="button py-2 my-2 elevation-10 white--text"
                 color="#de4c33"
                 :loading="loading"
               >
-                <v-icon size="30" class="mx-2">fab fa-google</v-icon>sign up
+                <v-icon
+                  size="20"
+                  class="mx-2"
+                >
+                  fab fa-google
+                </v-icon>sign up
                 with google
               </v-btn>
               <v-btn
                 @click.prevent="facebook"
                 round
-                large
-                block
+                medium
+                
                 color="#415dae"
-                class="pa-2 ma-2 elevation-10 white--text"
+                class=" button py-2 my-2 elevation-10 white--text"
               >
-                <v-icon size="30" class="mx-2">fab fa-facebook-square</v-icon>sign up with Faceboook
+                <v-icon
+                  size="20"
+                  class="mx-2"
+                >
+                  fab fa-facebook-square
+                </v-icon>sign up with Faceboook
               </v-btn>
               <v-btn
                 @click.prevent="microsoft"
                 round
-                large
-                block
+                medium
+                
                 color="#36af5b"
-                class="pa-2 ma-2 elevation-10"
+                class=" button py-2 my-2 elevation-10 font-weight-bold"
               >
-                <v-icon size="30" class="mx-2">fab fa-windows</v-icon>sign up
+                <v-icon
+                  size="20"
+                  class="mx-2"
+                >
+                  fab fa-windows
+                </v-icon>sign up
                 with Microsoft
               </v-btn>
               <v-btn
                 @click="otherOption =true; question= true"
                 round
-                large
-                block
                 dark
+                medium
                 color="black"
-                class="pa-2 ma-2 elevation-10"
+                class="button pa-0 mb-4 elevation-10"
               >
-                <v-icon size="30" class="mx-2">fas fa-wrench</v-icon>Having trouble with the other options?
-              </v-btn>
-            </div>
-            
-            <div v-else>
-              <v-card v-if="question" flat min-height="200px" :class="(left)?'slideLeft':'slide'">
-                <v-layout column justify-center align-center>
-                  <span class="title">Do you already have an account?</span>
-                  <div>
-                    <v-btn class="sign-up" small round @click="question=false; hasAccount= false">no</v-btn>
-                    <v-btn class="sign-in" small round @click="question=false; hasAccount= true">yes</v-btn>
-                  </div>
+                <v-layout
+                  row
+                  wrap
+                  class="px-2"
+                  justify-center
+                  align-center
+                >
+                  <v-icon
+                    size="20"
+                    class="mx-2"
+                  >
+                    fas fa-wrench
+                  </v-icon>Having trouble with the other options?
                 </v-layout>
-              </v-card>
+              </v-btn>
+            </v-layout>
+          </div>
+            
+          <div v-else>
+            <v-card
+              v-if="question"
+              flat
+              min-height="200px"
+              :class="(left)?'slideLeft':'slide'"
+            >
+              <v-layout
+                column
+                justify-center
+                align-center
+              >
+                <span class="title logo">Do you already have an account?</span>
+                <div>
+                  <v-btn
+                    class="sign-up"
+                    small
+                    round
+                    @click="question=false; hasAccount= false"
+                  >
+                    no
+                  </v-btn>
+                  <v-btn
+                    class="sign-in"
+                    small
+                    round
+                    @click="question=false; hasAccount= true"
+                  >
+                    yes
+                  </v-btn>
+                </div>
+              </v-layout>
+            </v-card>
 
-              <div v-else>
-                <v-btn class="sign-up slide" fab small @click="question=true; left=true" :key="0"><v-icon>keyboard_backspace</v-icon> </v-btn>
-                <signWithEmail class="slide" @closeDialog="closeDialog" v-if="hasAccount" :key="1"/>
-                <signUpFirstTime class="slide" @closeDialog="closeDialog" v-else :key="2"/>
-              </div>
+            <div v-else>
+              <v-btn
+                class="sign-up slide"
+                fab
+                small
+                @click="question=true; left=true"
+                :key="0"
+              >
+                <v-icon>keyboard_backspace</v-icon>
+              </v-btn>
+              <signWithEmail
+                class="slide"
+                @closeDialog="closeDialog"
+                v-if="hasAccount"
+                :key="1"
+              />
+              <signUpFirstTime
+                class="slide"
+                @closeDialog="closeDialog"
+                v-else
+                :key="2"
+              />
             </div>
-          </v-layout>
-        </v-card>
-      </v-form>
+          </div>
+        </v-layout>
+      </v-card>
     </v-dialog>
     <LoadingFull />
   </v-layout>
@@ -223,5 +310,16 @@ export default {
   animation-name: bounceInLeft;
   animation-timing-function: ease-in-out;
 }
-
+.button{
+  width: 400px !important;
+}
+@media screen and (max-width: 960px) {
+  .button {
+    width: 300px !important;
+    font-size: 90% !important;
+  }
+  .logo{
+     font-size: 95% !important;
+  }
+}
 </style>

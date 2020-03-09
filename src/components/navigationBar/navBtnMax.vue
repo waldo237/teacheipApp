@@ -61,7 +61,7 @@
     <!-- notification ends -->
     <!-- profile avatar starts -->
     <v-btn
-      depressed
+      flat
       fab
       color="white"
       class="avatar-button"

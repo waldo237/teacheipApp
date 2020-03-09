@@ -2,7 +2,12 @@
   <div>
     <!-- side menu starts -->
     <div v-on-clickaway="away">
-      <v-navigation-drawer app v-model="drawer" disable-resize-watcher class="grey lighten-2">
+      <v-navigation-drawer
+        app
+        v-model="drawer"
+        disable-resize-watcher
+        class="grey lighten-2"
+      >
         <supervisorsideMenu v-if="isSupervisor" />
         <coordinatorsideMenu v-else-if="isCoordinator" />
         <teachersideMenu v-else-if="isTeacher" />
@@ -10,7 +15,13 @@
     </div>
     <!-- side menu ends -->
     <!-- complete navigation starts -->
-    <v-toolbar app style="background-color:white" class="pa-0" dense sticky>
+    <v-toolbar
+      app
+      style="background-color:white"
+      class="pa-0"
+      dense
+      sticky
+    >
       <!--  sandwich menu for side bar/menu-->
 
       <v-btn
@@ -20,29 +31,56 @@
         flat
         class="ma-0 pa-0 leftIcon"
       >
-        <v-icon medium slot>menu</v-icon>
+        <v-icon
+          medium
+          slot
+        >
+          menu
+        </v-icon>
       </v-btn>
 
       <!-- sandwich menu -->
 
       <!-- logo starts -->
-      <div class="logo-text px-0 my-0 mx-0" :class="(checkIsLoggedIn)? 'leftIcon': ''">
-        <router-link to="/" flat round class="px-0 my-0 mx-0 font-weight-bold">
+      <div
+        class="logo-text px-0 my-0 mx-0"
+        :class="(checkIsLoggedIn)? 'leftIcon': ''"
+      >
+        <router-link
+          to="/"
+          flat
+          round
+          class="px-0 my-0 mx-0 font-weight-bold"
+        >
           <span class="teach font-weight-regular">Teach</span>
           <span class="acronym">EIP | version 1.2</span>
         </router-link>
-        <span class="full-title mt-0"> with The English Immersion Program</span>
+        <span class="full-title mt-0">with The English Immersion Program</span>
       </div>
       <!-- logo ends -->
 
       <v-spacer />
 
       <!-- expanded navigation bar  starts-->
-      <navBtnMax @hideMenu="hideMenu" @toggleProfile="profileModel = true" @rolePath="rolePath" />
+      <navBtnMax
+        @hideMenu="hideMenu"
+        @toggleProfile="profileModel = true"
+        @rolePath="rolePath"
+      />
       <!-- expanded navigation bar ends-->
       <!--  minimized menu starts-->
-      <v-btn @click="sandwich = true" fab flat class="hidden-md-and-up rightIcon">
-        <v-icon medium slot>menu</v-icon>
+      <v-btn
+        @click="sandwich = true"
+        fab
+        flat
+        class="hidden-md-and-up rightIcon"
+      >
+        <v-icon
+          medium
+          slot
+        >
+          menu
+        </v-icon>
       </v-btn>
       <navBtnMin
         :sandwich="sandwich"
@@ -51,13 +89,14 @@
         @rolePath="rolePath"
       />
       <!--  minimized menu ends-->
+      <!-- PRFILE STARTS -->
       <profile
         v-if="profileModel"
         class="profile"
         v-on-clickaway="closeProfile"
         @closeProfile="closeProfile"
       />
-      <!-- profile insertion ends-->
+      <!-- PRFILE ENDS -->
     </v-toolbar>
     <!-- complete navigation ends -->
     <!-- communication dialogs -->
@@ -186,8 +225,8 @@ export default {
   width: 250px;
   z-index: 1;
   position: fixed;
-  top: 50px;
-  right: 3px;
+  top: 48px;
+  right: 1px;
   text-align: center;
   animation-duration: 0.1s;
   animation-name: slideInDown;
@@ -198,14 +237,13 @@ export default {
   width: 250px;
   z-index: 1;
   position: fixed;
-  top: 148px;
-  right: 2%;
+  top: 48px;
+  right: 1px;
   text-align: center;
-    display: block;
-    animation-duration: 0.1s;
+  display: block;
+  animation-duration: 0.1s;
   animation-name: slideInDown;
   animation-timing-function: ease-in-out;
-
 }
 
 .black-blue {

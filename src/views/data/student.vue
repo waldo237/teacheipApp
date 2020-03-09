@@ -17,7 +17,7 @@
         column
         wrap
         justify-center
-        class="mb-5 pb-5"
+        class="mb-5 pb-5 dashboard-component"
       >
         <v-btn
           outline
@@ -28,8 +28,8 @@
           Volver atrás
         </v-btn>
         <v-card
-          min-width="360px"
-          class="grey lighten-3"
+         
+          class="grey lighten-3 "
           flat
         >
           <v-card-title
@@ -64,7 +64,6 @@
           </v-layout>
         </v-card>
         <v-card
-          min-width="360px"
           flat
           class="grey lighten-3"
         >

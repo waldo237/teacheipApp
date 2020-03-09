@@ -27,7 +27,13 @@
     <feeds />
     <!-- feeds end -->
     <!-- IM starts -->
-    <IM v-if="IMComponent" :IM="IM" :participant="participant" @openIM="IM=true" @closeIM="IM=false"/>
+    <IM
+      v-if="IMComponent"
+      :i-m="IM"
+      :participant="participant"
+      @openIM="IM=true"
+      @closeIM="IM=false"
+    />
     <!-- IM ends -->
     <NavBar />
     <router-view />
@@ -116,31 +122,22 @@ body {
 }
 
 @media screen and (max-width: 960px) {
-  #img-mescyt {
-    width: 80%;
+  .font-95{
+    font-size: 95% !important;
   }
-  .site-title {
-    font-size: 60% !important;
-    padding: 0%;
+ 
+}
+@media screen and (max-width: 700px) {
+  .font-95{
+    font-size: 95% !important;
   }
-  .page-title {
-    font-size: 30% !important;
-    padding: 0%;
+  .dashboard-component{
+    max-width: 360px !important;
   }
+
 }
 
-.titles {
-  font-family: "Oswald", sans-serif !important;
-}
-.titles a {
-  color: #135393 !important;
-}
-.titles:hover {
-  color: #d13c34;
-  animation-duration: 1.5s;
-  animation-name: rubberBand;
-  animation-timing-function: ease-in-out;
-}
+
 
 a {
   text-decoration: none;

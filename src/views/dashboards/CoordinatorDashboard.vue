@@ -1,32 +1,49 @@
 <template>
-<div class="grey lighten-3">
-  <v-container class="mb-5 pb-5 grey lighten-3">
-    <v-content class="mb-5 pb-5 ">
-      <!-- TITLE STARTS -->
-      <v-layout wrap justify-center class="pt-3">
-        <div
-          class="display-1 font-weight-light text-xs-center main-title my-1 py-1 mx-4 px-1"
-        >Coordinator's dashboard</div>
-      </v-layout>
-      <!-- TITLE ENDS -->
-      <!-- FIRST ROW STARTS-->
-      <v-layout row wrap justify-space-around>
-        <servicesScreen :services-for-supervisor="servicesForSupervisor" />
-        <solicitudesScreen :allSolicitudes="allSolicitudes" />
-        <Tasks class="mb-2"/>
-      </v-layout>
-      <v-layout row wrap justify-space-around class="mx-5 px-5" >
-          <v-card max-width="1000px" flat  dark class="grey lighten-1 elevation-24">
-           <memberCarousel />
-            
+  <div class="grey lighten-3">
+    <v-container class="pt-4 mb-5 pb-5 grey lighten-3">
+      <v-content class="mb-5 pb-5 ">
+        <!-- TITLE STARTS -->
+        <v-layout
+          wrap
+          justify-center
+          class="pt-3"
+        >
+          <div
+            class="display-1 font-weight-light text-xs-center main-title my-1 py-1 mx-4 px-1"
+          >
+            Coordinator's dashboard
+          </div>
+        </v-layout>
+        <!-- TITLE ENDS -->
+        <!-- FIRST ROW STARTS-->
+        <v-layout
+          row
+          wrap
+          justify-space-around
+        >
+          <servicesScreen :services-for-supervisor="servicesForSupervisor" />
+          <solicitudesScreen :all-solicitudes="allSolicitudes" />
+          <Tasks class="mb-2" />
+        </v-layout>
+        <v-layout
+          row
+          wrap
+          justify-space-around
+          class="mx-5 px-5"
+        >
+          <v-card
+            width="700px"
+            flat
+            dark
+            class="grey lighten-1 elevation-24 dashboard-component"
+          >
+            <memberCarousel />
           </v-card>
-          
-      </v-layout>
+        </v-layout>
       <!-- FIRST ROW ENDS-->
-    </v-content>
-  </v-container>
-
-</div>
+      </v-content>
+    </v-container>
+  </div>
 </template>
 
 <script>

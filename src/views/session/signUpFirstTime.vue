@@ -1,11 +1,17 @@
 <template>
   <v-layout column>
-    <v-toolbar class="sign-up elevation-10" dense>
-      <span class="title">
+    <v-toolbar
+      class="sign-up elevation-10"
+      dense
+    >
+      <span class="title font-95">
         <v-icon class="mr-3">new_releases</v-icon>Iniciar sesión por primera vez
       </span>
     </v-toolbar>
-    <v-card class="pa-3" flat>
+    <v-card
+      class="pa-3"
+      flat
+    >
       <v-text-field
         prepend-icon="person"
         v-model="name"
@@ -15,7 +21,7 @@
         data-vv-name="name"
         required
         type="text"
-      ></v-text-field>
+      />
 
       <v-text-field
         autocomplete
@@ -27,7 +33,7 @@
         data-vv-name="email"
         required
         type="email"
-      ></v-text-field>
+      />
 
       <v-text-field
         autocomplete
@@ -37,32 +43,43 @@
         label="contraseña"
         id="password"
         required
-        passEError
+        pass-e-error
         v-model="password"
         hint="Your password should be at least 6 characters"
         :type="showPassword ? 'text': 'password' "
         :append-icon="showPassword ? 'visibility': 'visibility_off'"
         @click:append="showPassword = !showPassword"
-      ></v-text-field>
+      />
 
-      <v-layout row wrap class="policy">
+      <v-layout
+        row
+        wrap
+        class="policy"
+      >
         <!-- buttons box starts -->
-        <v-card-actions class="ml-5">
-          <v-flex xl12 xs12>
+        <v-card-actions>
+          <v-layout
+            row
+            align-content-end
+          >
             <v-btn
               class="sign-up elevation-12 mx-2"
               small
               round
               @click="$emit('closeDialog')"
-            >cerrar</v-btn>
+            >
+              cerrar
+            </v-btn>
             <v-btn
-              class="sign-in elevation-12 mx-3"
+              class="sign-in elevation-12 mx-2"
               small
               round
               @click="submit"
               :loading="loading"
-            >Iniciar sesión</v-btn>
-          </v-flex>
+            >
+              Iniciar sesión
+            </v-btn>
+          </v-layout>
         </v-card-actions>
         <!-- buttons box ends -->
       </v-layout>
@@ -159,3 +176,7 @@ export default {
   computed: mapGetters(["getCurrentUser", "getUserDB", "getUsers", "auth"])
 };
 </script>
+<style>
+
+
+</style>

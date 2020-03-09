@@ -55,18 +55,20 @@
           </v-container>
         </v-card>
         <v-btn
-          class="sign-in"
-          :disabled="checkID"
-          @click.prevent="verifyID"
-        >
-          verify
-        </v-btn>
-        <v-btn
+          round
           class="sign-up"
           @click="close"
           text
         >
-          Cancel
+          Cancelar
+        </v-btn>
+        <v-btn
+          round
+          class="sign-in"
+          :disabled="checkID"
+          @click.prevent="verifyID"
+        >
+          verificar
         </v-btn>
       </v-form>
       <!-- form ends -->
@@ -111,17 +113,19 @@
           </v-container>
         </v-card>
         <v-btn
-          class="sign-in"
-          @click="verifyECode"
-        >
-          Continue
-        </v-btn>
-        <v-btn
+          round
           class="sign-up"
           @click="close"
           text
         >
-          Cancel
+          Cancelar
+        </v-btn>
+        <v-btn
+          round
+          class="sign-in"
+          @click="verifyECode"
+        >
+          Continuar
         </v-btn>
       </v-form>
       <!-- form ends -->
@@ -164,17 +168,19 @@
           </v-container>
         </v-card>
         <v-btn
-          class="sign-in"
-          @click="verifyDCode"
-        >
-          Continue
-        </v-btn>
-        <v-btn
+          round
           class="sign-up"
           @click="close"
           text
         >
-          Cancel
+          Cancelar
+        </v-btn>
+        <v-btn
+          round
+          class="sign-in"
+          @click="verifyDCode"
+        >
+          Continuar
         </v-btn>
       </v-form>
       <!-- form ends -->

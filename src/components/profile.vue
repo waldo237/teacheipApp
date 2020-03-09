@@ -1,7 +1,6 @@
-// this component will manage all operations that are related to profile
 <template>
-  <v-list-tile>
-    <v-list
+  <div>
+    <v-card
       class="tile round"
       v-if="checkIsLoggedIn"
     >
@@ -15,7 +14,7 @@
         <v-layout
           row
           wrap
-          class="ma-auto pl-5"
+          class="ma-auto"
           justify-center
         >
           <span class="teach title">Teach</span>
@@ -55,7 +54,7 @@
      
       
       <editor
-      v-if="!showEditProfile"
+        v-if="!showEditProfile"
         :profile-editor="profileEditor"
         @closeProfileEditor="profileEditor = false"
         class="slideDown"
@@ -85,8 +84,8 @@
           </v-icon>
         </v-btn>
       </v-layout>
-    </v-list>
-  </v-list-tile>
+    </v-card>
+  </div>
 </template>
 
 <script>

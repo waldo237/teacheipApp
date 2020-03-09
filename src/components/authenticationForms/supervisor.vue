@@ -54,19 +54,21 @@
           </v-container>
         </v-card>
         <v-btn
+          round
+          class="sign-up"
+          @click="close"
+          text
+        >
+          Cancelar
+        </v-btn>
+        <v-btn
+          round
           class="sign-in"
           :disabled="checkID"
           :loading="loading1"
           @click="verifyID"
         >
           Verificar
-        </v-btn>
-        <v-btn
-          class="sign-up"
-          @click="close"
-          text
-        >
-          Cancelar
         </v-btn>
       </v-form>
       <!-- form ends -->
@@ -122,22 +124,25 @@
             </v-layout>
           </v-container>
         </v-card>
-        <v-spacer />
-        <v-btn
-          class="sign-in"
-          @click="verifycCode"
-         
-          :loading="loading1"
-        >
-          Continuar
-        </v-btn>
-        <v-btn
-          class="sign-up"
-          @click="close"
-          text
-        >
-          Cancelar
-        </v-btn>
+        <v-layout row>
+          <v-btn
+            round
+            class="sign-up"
+            @click="close"
+            text
+          >
+            Cancelar
+          </v-btn>
+          <v-btn
+            round
+            class="sign-in"
+            @click="verifycCode"
+          
+            :loading="loading1"
+          >
+            Continuar
+          </v-btn>
+        </v-layout>
       </v-card>
       <!-- form ends -->
     </v-stepper-content>

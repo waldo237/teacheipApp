@@ -1,16 +1,30 @@
 <template>
-  <v-layout class="my-5 px-2 py-5 grey lighten-2" wrap>
-    <v-layout class="mx-2 px-1 justify-center" flat wrap>
+  <v-layout
+    class="my-5 px-2 py-5 grey lighten-2"
+    wrap
+  >
+    <v-layout
+      class="mx-2 px-1 justify-center"
+      flat
+      wrap
+    >
       <!-- send notification starts -->
       <v-card
-        class="justify-center mx-1 elevation-24 grids grey lighten-4"
+        class="justify-center mx-1 elevation-24 grids grey lighten-4 dashboard-component"
         raised
         max-height="350px"
         max-width="400px"
-        min-width="380px"
       >
-        <v-card-title primary-title class="justify-center orangish py-1 white--text">
-          <v-icon color="white" class="mr-2">alarm</v-icon>Publicar notificación para coordinadores y maestros
+        <v-card-title
+          primary-title
+          class="justify-center orangish py-1 white--text"
+        >
+          <v-icon
+            color="white"
+            class="mr-2"
+          >
+            alarm
+          </v-icon>Publicar notificación para coordinadores y maestros
         </v-card-title>
         <v-card-text>
           <SendNotification />
@@ -18,7 +32,7 @@
       </v-card>
       <!-- send notification ends -->
       <!--  TASKS STARTS -->
-        <Tasks/>
+      <Tasks />
       <!--  TASKS ENDS -->
       
       <!-- intructions end -->
@@ -27,7 +41,13 @@
       <servicesScreen :services-for-supervisor="servicesForSupervisor" />
       <!--******** services ends ********-->
 
-      <v-layout row wrap justify-space-around class="mx-5 px-2 mb-5 pb-5" align-end>
+      <v-layout
+        row
+        wrap
+        justify-space-around
+        class="mx-5 px-2 mb-5 pb-5"
+        align-end
+      >
         <!-- centers starts -->
         <v-card
           class="justify-center mx-1 elevation-24 grids"
@@ -40,7 +60,12 @@
             primary-title
             class="justify-center centers darken-4 elevation-12 py-1 white--text"
           >
-            <v-icon color="white" class="mr-2 white--text">location_city</v-icon>Mis centros
+            <v-icon
+              color="white"
+              class="mr-2 white--text"
+            >
+              location_city
+            </v-icon>Mis centros
           </v-card-title>
 
           <v-card
@@ -49,20 +74,34 @@
             class="mb-2 grey lighten-4 scrollbar"
             style="overflow:auto;"
           >
-            <v-layout column v-for="(item, index) in centers" :key="item.uuid">
-              <v-card flat class="text-truncate" style="max-width:190px">
+            <v-layout
+              column
+              v-for="(item, index) in centers"
+              :key="item.uuid"
+            >
+              <v-card
+                flat
+                class="text-truncate"
+                style="max-width:190px"
+              >
                 <router-link
                   tag="v-btn"
                   class="px-2 py-0 ma-0 caption"
                   flat
                   :to="'/center/'+ item.uuid"
-                >{{ index+1 }} - {{ item.centro }}</router-link>
+                >
+                  {{ index+1 }} - {{ item.centro }}
+                </router-link>
               </v-card>
             </v-layout>
           </v-card>
         </v-card>
         <!-- centers ends -->
-        <v-card flat max-width="800px " class="carouselContainer grey lighten-2">
+        <v-card
+          flat
+          width="700px "
+          class=" grey lighten-2 dashboard-component"
+        >
           <memberCarousel class="mb-5" />
         </v-card>
       </v-layout>
@@ -147,9 +186,7 @@ export default {
   border-radius: 5px !important;
 }
 @media screen and (max-width: 960px) {
-  .carouselContainer {
-    max-width: 500px !important;
-  }
+
   .grids {
     margin-top: 5% !important;
   }

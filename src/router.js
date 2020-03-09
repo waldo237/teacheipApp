@@ -30,6 +30,16 @@ let router = new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
+      path: "/testimonials",
+      name: "testimonials",
+      meta:{
+        title: 'Acerca de TEACHEIP.com - DLE MESCyT',
+      },
+      // which is lazy-loaded when the route is visited.
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/data/testimonials.vue")
+    },
+    {
       path: "/lesson plans",
       name: "lesson plans",
       component: () =>

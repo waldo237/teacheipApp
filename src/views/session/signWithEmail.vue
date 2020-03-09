@@ -1,8 +1,14 @@
 <template>
-  <v-card class="m-1 p-2" flat>
+  <v-card
+    class="m-1 p-2"
+    flat
+  >
     <v-layout align-content-start>
-      <v-toolbar class="sign-in elevation-10" dense>
-        <span class="title">
+      <v-toolbar
+        class="sign-in elevation-10"
+        dense
+      >
+        <span class="title font-95">
           <v-icon class="mr-3">new_releases</v-icon>Iniciar sesión con correo electronico
         </span>
       </v-toolbar>
@@ -11,8 +17,10 @@
       <v-form>
         <v-layout
           justify-center
-          class="text-center text-uppercase font-weight-bold pa-1 grey--text"
-        >Entrar con correo electronico</v-layout>
+          class="font-95 text-center text-uppercase font-weight-bold pa-1 grey--text"
+        >
+          Entrar con correo electronico
+        </v-layout>
 
         <v-text-field
           autocomplete
@@ -24,7 +32,7 @@
           data-vv-name="email"
           required
           type="email"
-        ></v-text-field>
+        />
 
         <v-text-field
           autocomplete
@@ -42,14 +50,23 @@
         </v-label>-->
         <v-card-actions>
           <v-spacer />
-          <v-btn small round class="sign-up elevation-20" @click="$emit('closeDialog')">cerrar</v-btn>
+          <v-btn
+            small
+            round
+            class="sign-up elevation-20"
+            @click="$emit('closeDialog')"
+          >
+            cerrar
+          </v-btn>
           <v-btn
             small
             round
             class="sign-in elevation-20"
             @click="signIn"
             :loading="loading"
-          >Iniciar sesión</v-btn>
+          >
+            Iniciar sesión
+          </v-btn>
         </v-card-actions>
       </v-form>
     </v-card-text>

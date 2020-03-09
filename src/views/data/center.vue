@@ -2,55 +2,135 @@
 <template>
   <v-container class="mb-5 pb-5">
     <!-- alternative circular loading starts -->
-    <v-layout row wrap justify-center v-if="stillLoading" class="ma-5 pa-5">
+    <v-layout
+      row
+      wrap
+      justify-center
+      v-if="stillLoading"
+      class="ma-5 pa-5"
+    >
       <loading />
     </v-layout>
     <!-- alternative circular loading endsd -->
-    <v-content v-else class="mt-5">
-      <v-layout column wrap justify-center class="mb-5 pb-5">
-        <v-btn outline @click="goBack" round color="blue darken-4 mt-5">Volver atrás</v-btn>
+    <v-content
+      v-else
+      class="mt-5"
+    >
+      <v-layout
+        column
+        justify-center
+        class="mb-5 pb-5"
+        align-center
+      >
+        <v-btn
+          outline
+          @click="goBack"
+          round
+          block
+          color="blue darken-4 mt-5"
+        >
+          Volver atrás
+        </v-btn>
         <!-- GENERAL INFORMATION STARTS-->
-        <v-card min-width="360px" class="grey lighten-3" flat>
+        <v-card
+          class="grey lighten-2 dashboard-component"
+          flat
+          width="100%"
+        >
           <v-card-title
             primary-title
             class="sign-in title text-uppercase bigWords"
-          ><v-layout row wrap justify-center>
-            {{currentCenter.centro}}
-          </v-layout></v-card-title>
-          <v-layout column class="general-information">
-            <v-layout row wrap justify-start class="ma-2">
+          >
+            <v-layout
+              row
+              wrap
+              justify-center
+            >
+              {{ currentCenter.centro }}
+            </v-layout>
+          </v-card-title>
+          <v-layout
+            column
+            class="general-information"
+          >
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
               <span class="bigWords mx-1">Nombre del Centro:</span>
               {{ currentCenter.centro }}
             </v-layout>
-            <v-layout row wrap justify-start class="ma-2">
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
               <span class="bigWords mx-1">Region:</span>
               {{ currentCenter.region }}
             </v-layout>
-            <v-layout row wrap justify-start class="ma-2">
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
               <span class="bigWords mx-1">Provincia:</span>
               {{ currentCenter.provincia }}
             </v-layout>
-            <v-layout row wrap justify-start class="ma-2">
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
               <span class="bigWords mx-1">municipio:</span>
               {{ currentCenter.municipio }}
             </v-layout>
-            <v-layout row wrap justify-start class="ma-2">
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
               <span class="bigWords mx-1">Responsable:</span>
               {{ currentCenter.nameOfResponsible }}
             </v-layout>
-            <v-layout row wrap justify-start class="ma-2">
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
               <span class="bigWords mx-1">Contacto:</span>
               <a :href="'tel:'+currentCenter.phone">{{ currentCenter.phone }}</a>
             </v-layout>
-            <v-layout row wrap justify-start class="ma-2">
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
               <span class="bigWords mx-1">Email:</span>
               <a :href="'mailto:'+currentCenter.email">{{ currentCenter.email }}</a>
             </v-layout>
-            <v-layout row wrap justify-start class="ma-2">
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
               <span class="bigWords mx-1">supervisor:</span>
               {{ currentCenter.supervisor }}
             </v-layout>
-            <v-layout row wrap justify-start class="ma-2">
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="ma-2"
+            >
               <span class="bigWords mx-1">Serie de Libro:</span>
               {{ currentCenter.libro }}
             </v-layout>
@@ -59,51 +139,115 @@
         <!-- GENERAL INFORMATION ENDS-->
 
         <!-- REPORTS STARTS-->
-        <v-layout row wrap justify-space-around class="mt-3">
-          <v-card class="grey lighten-3 elevation-18 mx-2" max-width="400px">
-            <v-card-title primary-title width="300px" class="title">
-              Ultimo reporte hecho por {{currentCenter.nameOfResponsible}}
-              
+        <v-layout
+          row
+          wrap
+          justify-space-around
+          class="mt-3"
+        >
+          <v-card
+            class="grey my-2 lighten-2 elevation-18 mx-2"
+            max-width="400px dashboard-component"
+          >
+            <v-card-title
+              primary-title
+              class="title"
+            >
+              Ultimo reporte hecho por {{ currentCenter.nameOfResponsible }}
             </v-card-title>
-            <span class="body-1 mx-4">{{new Date()}}</span> 
-            <v-layout row wrap justify-center align-center>
+            <span class="body-1 mx-4">{{ new Date() }}</span>
+            <v-layout
+              row
+              wrap
+              justify-center
+              align-center
+            >
               <v-card
-             
                 flat
                 class="grey lighten-3 pa-2 ma-2"
-              >It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</v-card>
+              >
+                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+              </v-card>
             </v-layout>
           </v-card>
-          <v-card class="grey lighten-3 pa-2 mx-2">
-            <v-card-title primary-title min-width="300px" class="title">
+          <v-card class="grey lighten-3 pa-2 my-2 mx-2 dashboard-component">
+            <v-card-title
+              primary-title
+              class="title"
+            >
               Reporte de supervisor
             </v-card-title>
-             <span class="body-1">{{new Date()}}</span> 
-              <v-textarea solo name="input-7-5" label="Escribir reporte"></v-textarea>
+            <span class="body-1">{{ new Date() }}</span>
+            <v-textarea
+              solo
+              name="input-7-5"
+              label="Escribir reporte"
+            />
             <v-card-actions>
-              <v-btn outline color="red" round small>Enviar al coordinador</v-btn>
-              <v-btn outline color="enviar a correo electronico" round small>enviar por email</v-btn>
-              <v-btn outline color="green" round small>guardar</v-btn>
+              <v-layout
+                row
+                wrap
+              >
+                <v-btn
+                  outline
+                  color="red"
+                  round
+                  small
+                >
+                  Enviar al coordinador
+                </v-btn>
+                <v-btn
+                  outline
+                  color="enviar a correo electronico"
+                  round
+                  small
+                >
+                  enviar por email
+                </v-btn>
+                <v-btn
+                  outline
+                  color="green"
+                  round
+                  small
+                >
+                  guardar
+                </v-btn>
+              </v-layout>
             </v-card-actions>
           </v-card>
         </v-layout>
         <!-- REPORTS ENDS-->
 
         <!-- STATISTICS STARTS -->
-        <v-layout class flat wrap justify-center>
+        <v-layout
+          class
+          flat
+          wrap
+          justify-center
+        >
           <v-card
             flat
-            class="mx-2 mt-2 elevation-24 grids black statistics-card"
-            min-width="500px"
+            class="mx-2 mt-2 elevation-24 grids black statistics-card dashboard-component"
             dark
+            max-height="210px"
+            width="400px"
           >
             <v-card-title class="statistics-right">
               <h3 class="title text--accent-2 py-2">
-                <v-icon large class="mr-2 white--text">equalizer</v-icon>Historial de calificaciones
+                <v-icon
+                  large
+                  class="mr-2 white--text"
+                >
+                  equalizer
+                </v-icon>Historial de calificaciones
               </h3>
             </v-card-title>
             <div>
-              <v-sheet class="v-sheet--offset mx-auto" color="black" elevation="12">
+              <v-sheet
+                class="v-sheet--offset mx-auto"
+                color="black"
+                elevation="12"
+              >
                 <v-sparkline
                   :labels="labels"
                   :value="value"
@@ -116,18 +260,29 @@
           </v-card>
 
           <v-card
-            class="mx-2 mt-2 elevation-24 grids statistics-card"
+            class="mx-2 mt-2 elevation-24 grids statistics-card dashboard-component"
             max-height="210px"
-            min-width="500px"
+            width="400px"
           >
-            <v-card-title primary-title class="statistics darken-4 py-1 mb-2">
+            <v-card-title
+              primary-title
+              class="statistics darken-4 py-1 mb-2"
+            >
               <h3 class="title white--text text--accent-2 py-2">
-                <v-icon large class="mr-2 white--text">timeline</v-icon>Asistencia semanal
+                <v-icon
+                  large
+                  class="mr-2 white--text"
+                >
+                  timeline
+                </v-icon>Asistencia semanal
               </h3>
             </v-card-title>
-            <div style="overflow-x:auto;" class="mb-5">
+            <div class="mb-5">
               <div>
-                <v-sheet class="v-sheet--offset mx-auto" flat>
+                <v-sheet
+                  class="v-sheet--offset mx-auto"
+                  flat
+                >
                   <v-sparkline
                     class="black--text"
                     :labels="days"

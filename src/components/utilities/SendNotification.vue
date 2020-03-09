@@ -117,20 +117,21 @@
       <v-card-actions>
         <v-spacer />
         <v-btn
-        small
+          small
           flat
           round
-          class="sign-up"
+          class=" elevation-24 "
           @click="reset"
         >
-          cancelar
+          limpiar
         </v-btn>
         <v-btn
-        small
+          small
           round
           flat
+          dark
           @click="collector"
-          class="sign-in"
+          class="orangish elevation-24"
           :loading="loading"
         >
           Enviar

@@ -1,29 +1,6 @@
 <template>
-  <div>
-    <!-- Temporary snackbar for quick info starts -->
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="10000"
-      class="grey darken-4"
-    >
-      "Anunciamos que los maestros ya pueden registrarse en esta plataforma!"
-      <v-btn
-        dark
-        text
-        @click="snackbar = false"
-      >
-        okay
-      </v-btn>
-      <v-btn
-        dark
-        text
-        @click="snackbar = false"
-      >
-        cerrar
-      </v-btn>
-    </v-snackbar>
-    <!-- Temporary snackbar for quick info ends -->
-    <div class="home mb-2 pb-0 ">
+  <div class="grey lighten-4">
+    <div class="pb-0">
       <!-- carousel starts -->
       <Carousel class="mb-0 mt-5" />
       <!-- carousel ends -->
@@ -34,169 +11,183 @@
         wrap
       >
         <v-card
-          class="mx-2 justify-center  mt-2 grids"
+          class="mx-2 justify-center mt-2 grids grey lighten-4"
           flat
           wrap
           min-width="80%"
         >
-          <v-layout
-            class="justify-center"
-            flat
-            wrap
-          >
-            <v-card-title
-              class="display-1 font-weight-light my-0 text-xs-center main-title"
-            >
-              The English Immersion Program
-            </v-card-title>
-          </v-layout>
-          <v-layout
-            class="justify-center mb-2 pb-2"
-            flat
-            wrap
-          >
-            <!-- story starts -->
-            <v-card
-              v-for="item in principles"
-              :key="item.title"
-              class="justify-center mx-1 elevation-24 grids mt-2 hovering"
-              hover
-              shaped
-              dark
-              max-height="350px"
-              max-width="320px"
-              min-width="320px"
-              style="overflow:auto;"
+          <header>
+            <v-layout
+              class="justify-center"
+              flat
+              wrap
             >
               <v-card-title
-                primary-title
-                class="justify-center  elevation-15 title py-2 cardTitle"
+                class="display-1 font-weight-light my-0 text-xs-center main-title"
               >
-                {{ item.title }}
+                The English Immersion Program
               </v-card-title>
-              <v-card-text
-                class="text-lg-justify text-md-justify text-sm-justify text-xs-justify"
+            </v-layout>
+          </header>
+          <section>
+            <v-layout
+              class="justify-center mb-2 pb-2"
+              flat
+              wrap
+            >
+              <!-- story starts -->
+              <v-card
+                v-for="item in principles"
+                :key="item.title"
+                class="justify-center mx-1 elevation-24 grids mt-2 hovering grey darken-4"
+                hover
+                shaped
+                dark
+                max-height="350px"
+                max-width="320px"
+                min-width="320px"
+                style="overflow:auto;"
               >
-                {{ item.body }}
-              </v-card-text>
-            </v-card>
-          </v-layout>
-          <!-- Testimonials starts -->
-          <v-layout
-            justify-center
-            flat
-          >
-            <v-card-title
-              class="display-1 font-weight-light my-0 text-xs-center main-title"
+                <v-card-title
+                  primary-title
+                  class="justify-center elevation-15 title py-2 cardTitle"
+                >
+                  {{ item.title }}
+                </v-card-title>
+                <v-card-text
+                  class="text-lg-justify text-md-justify text-sm-justify text-xs-justify"
+                >
+                  {{ item.body }}
+                </v-card-text>
+              </v-card>
+            </v-layout>
+          </section>
+          <article>
+            <!-- Testimonials starts -->
+            <v-layout
+              justify-center
+              flat
             >
-              Their experiences
-            </v-card-title>
-          </v-layout>
-          <v-layout
-            justify-center
-            wrap
-          >
-            <v-card
-
-              v-for="(item) in tesPhotos"
-              :key="item.name"
-              class="justify-center ma-3 elevation-24 grids hovering grey darken-3 white--text"
-              raised
-              max-width="300px"
-              min-width="300px"
+              <v-card-title
+                class="display-1 font-weight-light my-0 text-xs-center main-title"
+              >
+                Their experiences
+              </v-card-title>
+            </v-layout>
+            <v-layout
+              justify-center
+              wrap
             >
-              <v-card-title class=" round pb-0">
-                <v-layout justify-center>
-                  <v-avatar
-                    size="100"
-                    class="ma-1"
+              <v-card
+                v-for="(item) in tesPhotos"
+                :key="item.name"
+                class="justify-center ma-3 elevation-24 grids hovering grey darken-4 white--text"
+                raised
+                max-width="300px"
+                min-width="300px"
+              >
+                <v-card-title class="round pb-0">
+                  <v-layout justify-center>
+                    <v-avatar
+                      size="80"
+                      class="ma-1"
+                    >
+                      <v-img
+                        :src="item.url"
+                        alt="testimony"
+                      />
+                    </v-avatar>
+                  </v-layout>
+                  <v-layout
+                    justify-center
+                    class="testimony-text px-5"
                   >
-                    <v-img
-                      :src="item.url"
-                      alt="testimony"
-                    />
-                  </v-avatar>
-                </v-layout>
+                    {{ item.name }}
+                  </v-layout>
+
+                  <v-layout
+                    justify-center
+                    class="testimony-text px-5 my-0"
+                  >
+                    <b>{{ item.position }}</b>
+                  </v-layout>
+                </v-card-title>
                 <v-layout
-                  justify-center
-                  class="testimony-text px-5"
+                  row
+                  width="100%"
+                  class="my-0 py-0"
                 >
-                  {{ item.name }}
+                  <v-card
+                    color="#376092"
+                    class="blueCutSmall my-0 py-0"
+                    width="90%"
+                    height="50px"
+                  />
+                  <v-card
+                    id="red"
+                    class="sign-up redCutSmall my-0 py-0"
+                    width="60%"
+                    height="50px"
+                  />
                 </v-layout>
 
-                <v-layout
-                  justify-center
-                  class="testimony-text px-5 my-0"
-                >
-                  <b>{{ item.position }}</b>
-                </v-layout>
-              </v-card-title>
-              <v-layout
-                row
-                width="100%"
-                class="my-0 py-0"
-              >
-                <v-card
-                  color="#376092"
-                  class="blueCutSmall my-0 py-0"
-                  width="90%"
-                  height="50px"
-                />
-                <v-card
-                  id="red"
-                  class="sign-up redCutSmall my-0 py-0"
-                  width="60%"
-                  height="50px"
-                />
-              </v-layout>
+                <v-card-text class="testimony-text">
+                  <v-icon
+                    color="#d13c34"
+                    medium
+                    class="flip"
+                  >
+                    format_quote
+                  </v-icon>
+                  <div v-html="item.testimony" />
+                  <v-icon
+                    color="#d13c34"
+                    medium
+                  >
+                    format_quote
+                  </v-icon>
 
-              <v-card-text class="testimony-text">
-                <v-icon
-                  color="#d13c34"
-                  medium
-                  class="flip"
-                >
-                  format_quote
-                </v-icon>
-                <div v-html="item.testimony" />
-                <v-icon
-                  color="#d13c34"
-                  medium
-                >
-                  format_quote
-                </v-icon>
-              </v-card-text>
-            </v-card>
-          </v-layout>
-          <!-- Testimonials ends -->
+                  <router-link
+                    to="/testimonials"
+                    class="sign-in pa-1"
+                  >
+                    more stories
+                  </router-link>
+                </v-card-text>
+              </v-card>
+            </v-layout>
+            <!-- Testimonials ends -->
+          </article>
         </v-card>
       </v-layout>
     </div>
-    <v-layout
-      row
-      wrap
-      class="mx-5 px-5 mb-0 pb-0 pt-2"
-      justify-center
-    >
-      <iframe
-        width="500px"
-        height="300px"
-        class="mx-auto round mb-0 pb-0"
-        src="https://www.youtube.com/embed/fDqy5IbfWjQ"
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-      />'
-      <iframe
-        width="500px"
-        height="300px"
-        class="mx-auto round mb-0 pb-0"
-        src="https://www.youtube.com/embed/kA_sBSUi2bI?t=173"
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        allowfullscreen
-      />'
-    </v-layout>
+    <aside>
+      <v-layout
+        row
+        wrap
+        class="mx-5 px-5 mb-0 pb-0 pt-2"
+        justify-center
+      >
+        <iframe
+          width="500px"
+          height="300px"
+          class="mx-auto round mb-0 pb-0"
+          src="https://www.youtube.com/embed/fDqy5IbfWjQ"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        />'
+        <iframe
+          width="500px"
+          height="300px"
+          class="mx-auto round mb-0 pb-0"
+          src="https://www.youtube.com/embed/kA_sBSUi2bI?t=173"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        />'
+      </v-layout>
+    </aside>
     <v-layout
       row
       width="100%"
@@ -216,6 +207,25 @@
         height="500px"
       />
     </v-layout>
+
+    <!-- Temporary snackbar for quick info starts -->
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="10000"
+      dark
+      color="black"
+      dismissable
+    >
+      "Anunciamos que los maestros ya pueden registrarse en esta plataforma!"
+      <v-btn
+        dark
+        text
+        @click="snackbar = false"
+      >
+        cerrar
+      </v-btn>
+    </v-snackbar>
+    <!-- Temporary snackbar for quick info ends -->
   </div>
 </template>
 
@@ -275,20 +285,19 @@ export default {
     };
   },
   methods: {
-   async callImg(img){
+    async callImg(img) {
       return await img;
     },
-    ...mapActions([ "initializeFetch"]),
- 
-    },
+    ...mapActions(["initializeFetch"])
+  },
   computed: {
     ...mapGetters(["storage"])
   },
- async created() {
-   if(this.tesPhotos.length == 0){
-     this.$store.commit('setArrayObjsWPhotos', this.testimonies);
-     this.tesPhotos = await this.initializeFetch();
-   } 
+  async created() {
+    if (this.tesPhotos.length == 0) {
+      this.$store.commit("setArrayObjsWPhotos", this.testimonies);
+      this.tesPhotos = await this.initializeFetch();
+    }
   }
 };
 </script>
@@ -296,7 +305,7 @@ export default {
 @import url("https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap");
 
 .memberCarousel {
-   overflow-x:scroll;
+  overflow-x: scroll;
 }
 
 .grids {
@@ -310,7 +319,7 @@ export default {
   font-style: italic !important;
   text-align: justify !important;
 }
-.cardTitle{
+.cardTitle {
   font-family: "Bebas Neue", serif !important;
 }
 .flip {
@@ -331,7 +340,9 @@ export default {
   animation-name: pulse;
   animation-timing-function: ease-in-out;
 }
-
+.ellipsis {
+  text-overflow: ellipsis !important;
+}
 .redCut {
   clip-path: polygon(0 39%, 0% 100%, 100% 100%);
   z-index: 0 !important;
@@ -356,19 +367,19 @@ export default {
 }
 @media screen and (max-width: 960px) {
   .redCut {
-  clip-path: polygon(0 39%, 0% 100%, 100% 100%);
-  z-index: 0 !important;
-  position: relative !important;
-  height: 250px !important;
-  margin-top: 0% !important;
-  margin-bottom: 100px !important;
-}
-.blueCut {
-  clip-path: polygon(0 100%, 100% 100%, 100% 42%);
-  position: absolute !important;
-  right: 0%;
-  height: 250px !important;
-  margin-bottom: 100px !important;
-}
+    clip-path: polygon(0 39%, 0% 100%, 100% 100%);
+    z-index: 0 !important;
+    position: relative !important;
+    height: 250px !important;
+    margin-top: 0% !important;
+    margin-bottom: 100px !important;
+  }
+  .blueCut {
+    clip-path: polygon(0 100%, 100% 100%, 100% 42%);
+    position: absolute !important;
+    right: 0%;
+    height: 250px !important;
+    margin-bottom: 100px !important;
+  }
 }
 </style>

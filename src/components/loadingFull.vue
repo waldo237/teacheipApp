@@ -59,10 +59,10 @@
           wrap
         >
           <span class="font-weight-bold   py-t mx-5 ">
-Lamentablemente esta acción ha tardado demasiado. 
-Aparentemente su conexión a internet es lenta o hubo un problema con nuestro sistema.
-    Intentelo nuevamente.          
-      </span>
+            Lamentablemente esta acción ha tardado demasiado. 
+            Aparentemente su conexión a internet es lenta o hubo un problema con nuestro sistema.
+            Intentelo nuevamente.          
+          </span>
           <v-img
             width="320px"
             :src="brokenImg()"

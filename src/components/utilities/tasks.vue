@@ -4,33 +4,39 @@
     raised
     max-height="390"
     max-width="400px"
-    min-width="380px"
   >
-
-  <!--  SNACKBAR STARTS -->
-   <!-- snackbar to notify completion starts -->
-          <v-snackbar
-            class="error"
-            v-model="snackbar"
-            color
-            multi-line
-            :timeout="6000"
-            top="top"
-          >
-            {{ snackbarMessage }}
+    <!--  SNACKBAR STARTS -->
+    <!-- snackbar to notify completion starts -->
+    <v-snackbar
+      class="error"
+      v-model="snackbar"
+      color
+      multi-line
+      :timeout="6000"
+      top="top"
+    >
+      {{ snackbarMessage }}
             
-            <v-btn
-              dark
-              text
-              @click="snackbar = false"
-            >
-              Close
-            </v-btn>
-          </v-snackbar>
-          <!-- snackbar to notify completion ends -->
-  <!--  SNACKBAR ENDS -->
-    <v-card-title primary-title class="instructions justify-center elevation-12 py-1 white--text">
-      <v-icon color="white" class="mx-2">sms</v-icon>Administrador de Tareas
+      <v-btn
+        dark
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+    <!-- snackbar to notify completion ends -->
+    <!--  SNACKBAR ENDS -->
+    <v-card-title
+      primary-title
+      class="instructions justify-center elevation-12 py-1 white--text"
+    >
+      <v-icon
+        color="white"
+        class="mx-2"
+      >
+        sms
+      </v-icon>Administrador de Tareas
     </v-card-title>
 
     <!-- date picker starts -->
@@ -56,7 +62,11 @@
     <!-- textfield with name ends -->
     <!-- textarea starts -->
 
-    <v-layout row wrap align-center>
+    <v-layout
+      row
+      wrap
+      align-center
+    >
       <v-text-field
         class="mx-2 my-0"
         hint="Escribe tu itinerario"
@@ -64,16 +74,41 @@
         v-model="taskInput"
         @keydown.enter="addTask"
       />
-      <v-btn @click="addTask" prepend-icon="add" flat fab>
+      <v-btn
+        @click="addTask"
+        prepend-icon="add"
+        flat
+        fab
+      >
         <v-icon>add</v-icon>
       </v-btn>
     </v-layout>
     <!-- TASKS DISPLAY STARTS -->
-    <v-layout row wrap v-if="tasks.length > 0">
-      <v-card width="100%" max-height="135px" flat style="overflow:auto;" class="scrollbar">
-        <v-layout column v-for="(task, i) in tasks" :key="i">
-          <v-layout row wrap justify-start align-center class="ml-2 my-0 py-0">
-            <span>{{i+1}}-</span>
+    <v-layout
+      row
+      wrap
+      v-if="tasks.length > 0"
+    >
+      <v-card
+        width="100%"
+        max-height="135px"
+        flat
+        style="overflow:auto;"
+        class="scrollbar"
+      >
+        <v-layout
+          column
+          v-for="(task, i) in tasks"
+          :key="i"
+        >
+          <v-layout
+            row
+            wrap
+            justify-start
+            align-center
+            class="ml-2 my-0 py-0"
+          >
+            <span>{{ i+1 }}-</span>
             <!-- <div @click="$emit('checkbox', task)"> -->
             <v-checkbox
               v-model="task.done"
@@ -81,16 +116,30 @@
               hide-details
               class="shrink mr-0 mt-0 mb-0"
               @change="editTask"
-            ></v-checkbox>
+            />
             <!-- </div> -->
             <v-tooltip left>
               <template v-slot:activator="{ on }">
-                <span v-on="on" :class="(task.done)? 'strike': ''">{{task.message}}</span>
+                <span
+                  v-on="on"
+                  :class="(task.done)? 'strike': ''"
+                >{{ task.message }}</span>
               </template>
-              <span>creado el {{moment(task.date)}}</span>
+              <span>creado el {{ moment(task.date) }}</span>
             </v-tooltip>
-            <v-btn @click="removeTask(task)" flat small fab class="ma-0 pa-0">
-              <v-icon small color="red">delete</v-icon>
+            <v-btn
+              @click="removeTask(task)"
+              flat
+              small
+              fab
+              class="ma-0 pa-0"
+            >
+              <v-icon
+                small
+                color="red"
+              >
+                delete
+              </v-icon>
             </v-btn>
           </v-layout>
         </v-layout>
@@ -98,15 +147,25 @@
     </v-layout>
     <!-- TASKS DISPLAY ENDS -->
     <!-- Submit button starts -->
-    <v-layout column justify-center>
-      <v-switch class="my-0 py-0 mx-2" :value="true" color="green" label="Privado"></v-switch>
+    <v-layout
+      column
+      justify-center
+    >
+      <v-switch
+        class="my-0 py-0 mx-2"
+        :value="true"
+        color="green"
+        label="Privado"
+      />
       <v-btn
         round
         @click="postTasks"
         small
         :loading="loading"
         class="mx-auto instructions white--text elevation-24"
-      >Guardar</v-btn>
+      >
+        Guardar
+      </v-btn>
       <!-- Submit button ends -->
     </v-layout>
     <!-- textarea ends -->

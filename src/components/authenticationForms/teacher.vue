@@ -54,19 +54,21 @@
           </v-container>
         </v-card>
         <v-btn
+          round
+          class="sign-up"
+          @click="close"
+          text
+        >
+          Cancelar
+        </v-btn>
+        <v-btn
+          round
           class="sign-in"
           :disabled="checkID"
           :loading="loading1"
           @click="verifyID"
         >
           Verificar
-        </v-btn>
-        <v-btn
-          class="sign-up"
-          @click="close"
-          text
-        >
-          Cancelar
         </v-btn>
       </v-form>
       <!-- form ends -->
@@ -123,22 +125,28 @@
             </v-layout>
           </v-container>
         </v-card>
-        <v-spacer />
-        <v-btn
-          class="sign-in"
-          @click="verifycCode"
-         
-          :loading="loading1"
+        <v-layout
+          row
+          justify-start
+          align-center
         >
-          Continuar
-        </v-btn>
-        <v-btn
-          class="sign-up"
-          @click="close"
-          text
-        >
-          Cancelar
-        </v-btn>
+          <v-btn
+            round
+            class="sign-up"
+            @click="close"
+            text
+          >
+            Cancelar
+          </v-btn>
+          <v-btn
+            round
+            class="sign-in"
+            @click="verifycCode"
+            :loading="loading1"
+          >
+            Continuar
+          </v-btn>
+        </v-layout>
       </v-card>
       <!-- form ends -->
     </v-stepper-content>
@@ -170,11 +178,11 @@ export default {
       this.loading1 = true;
       await this.$store.commit("setId", this.cedula);
       await this.registerUser();
-      if (localStorage.getItem('serverToken')) {
+      if (localStorage.getItem("serverToken")) {
         this.loading1 = false;
         this.e6 = 2;
         this.errorMessage = "";
-        this.cCode = this.auth().currentUser.uid
+        this.cCode = this.auth().currentUser.uid;
       } else {
         this.loading1 = false;
         this.errorMessage = this.validation.error
@@ -185,20 +193,20 @@ export default {
     async verifycCode() {
       this.loading1 = true;
       await this.checkTeacherRegistered();
-      let permission = await atob(localStorage.getItem('permission'))
-      let role = await atob(localStorage.getItem('sessionRole'))
-      if (permission == 'granted' && role == 'teacher') {
-         this.loading1 = false;
-          await this.$store.commit("setLanding", false);
-          await this.$router.push(`/teacherDashboard`);
-          this.$emit('drawerRefresh');
+      let permission = await atob(localStorage.getItem("permission"));
+      let role = await atob(localStorage.getItem("sessionRole"));
+      if (permission == "granted" && role == "teacher") {
+        this.loading1 = false;
+        await this.$store.commit("setLanding", false);
+        await this.$router.push(`/teacherDashboard`);
+        this.$emit("drawerRefresh");
       } else {
         this.loading1 = false;
         await this.$router.push(`/completeUserInfo`);
       }
     },
-  
-  prevent(event) {
+
+    prevent(event) {
       const char = String.fromCharCode(event.keyCode);
       if (
         !/[0-9]/.test(char) &&
@@ -210,21 +218,27 @@ export default {
         event.preventDefault();
       }
     },
-     formatCedula() {
+    formatCedula() {
       let s = this.cedula;
       var s2 = ("" + s).replace(/\D/g, "");
       var m = s2.match(/^(\d{3})(\d{7})(\d{1})$/);
-      if (m) this.cedula = m[1] + "-" + m[2] + "-" + m[3];  
+      if (m) this.cedula = m[1] + "-" + m[2] + "-" + m[3];
       this.checkID = !m;
     },
-    ...mapActions(["requestToken", "getToken", "registerUser", "validateToken", "checkTeacherRegistered"])
+    ...mapActions([
+      "requestToken",
+      "getToken",
+      "registerUser",
+      "validateToken",
+      "checkTeacherRegistered"
+    ])
   },
-  watch:{
-  cedula() {
+  watch: {
+    cedula() {
       this.formatCedula();
-    },
+    }
   },
-  computed: { ...mapGetters(["validation","validated", 'auth']) },
+  computed: { ...mapGetters(["validation", "validated", "auth"]) },
   created() {
     this.checkID = true;
   }

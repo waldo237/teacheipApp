@@ -11,7 +11,7 @@
         class="pb-1 white"
       >
         <v-btn
-          depressed
+          flat
           fab
           class="avatar-button mx-auto my-0 pt-0"
         >

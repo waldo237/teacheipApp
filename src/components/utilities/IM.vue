@@ -1,48 +1,123 @@
 <template>
-  <v-layout column :class="(IM)?'chat my-0 py-0 elevation-15':''">
-    <v-card dark v-if="IM" class="round">
+  <v-layout
+    column
+    :class="(IM)?'chat my-0 py-0 elevation-15':''"
+  >
+    <v-card
+      dark
+      v-if="IM"
+      class="round"
+    >
       <v-card class="grey darken-4">
         <v-card-title class="my-0 py-1">
-          <v-layout row justify-space-between align-center>
-            <v-avatar size="40" color="red">
-              <img :src="participant.photoURL" alt="alt" />
+          <v-layout
+            row
+            justify-space-between
+            align-center
+          >
+            <v-avatar
+              size="40"
+              color="red"
+            >
+              <img
+                :src="participant.photoURL"
+                alt="alt"
+              >
             </v-avatar>
-            {{ participant.firstName}}
-            <v-btn round icon class="ma-0 pa-0" @click="$emit('closeIM')">
+            {{ participant.firstName }}
+            <v-btn
+              round
+              icon
+              class="ma-0 pa-0"
+              @click="$emit('closeIM')"
+            >
               <v-icon>close</v-icon>
             </v-btn>
           </v-layout>
         </v-card-title>
       </v-card>
-      <v-card max-height="260px" class="scrollbar chatCard grey" v-if="IM">
+      <v-card
+        max-height="260px"
+        class="scrollbar chatCard grey"
+        v-if="IM"
+      >
         <v-card-text class="scrollbar">
-          <span>este dialogo comenzo el {{fecha()}}</span>
-          <v-layout row  justify-start align-center>
-            <v-card class="mr-3 my-2 sent" light>Me interesa enviar mensajes a {{participant.firstName}} <br><span class="caption timestamp mr-1">{{time()}} </span></v-card>
-            <v-avatar size="30" color="red">
-              <img :src="auth().currentUser.photoURL" alt="alt" />
+          <span>este dialogo comenzo el {{ fecha() }}</span>
+          <v-layout
+            row
+            justify-start
+            align-center
+          >
+            <v-card
+              class="mr-3 my-2 sent"
+              light
+            >
+              Me interesa enviar mensajes a {{ participant.firstName }} <br><span class="caption timestamp mr-1">{{ time() }} </span>
+            </v-card>
+            <v-avatar
+              size="30"
+              color="red"
+            >
+              <img
+                :src="auth().currentUser.photoURL"
+                alt="alt"
+              >
             </v-avatar>
           </v-layout>
-          <v-layout row  justify-end align-center>
-             <v-avatar size="30" color="red">
-              <img :src="participant.photoURL" alt="alt" />
+          <v-layout
+            row
+            justify-end
+            align-center
+          >
+            <v-avatar
+              size="30"
+              color="red"
+            >
+              <img
+                :src="participant.photoURL"
+                alt="alt"
+              >
             </v-avatar>
-            <v-card class="ml-3 my-2 received" light>Este servicio estara disponible pronto, {{auth().currentUser.displayName}} <span class="caption timestamp mr-1" flat> {{time()}} 
-            </span></v-card> 
+            <v-card
+              class="ml-3 my-2 received"
+              light
+            >
+              Este servicio estara disponible pronto, {{ auth().currentUser.displayName }} <span
+                class="caption timestamp mr-1"
+                flat
+              > {{ time() }} 
+              </span>
+            </v-card> 
           </v-layout>
         </v-card-text>
       </v-card>
 
       <v-card class="px-2 grey darken-4">
-        <v-text-field label="escribe mensaje" name="name"></v-text-field>
+        <v-text-field
+          label="escribe mensaje"
+          name="name"
+        />
       </v-card>
     </v-card>
     <v-card class="btn grey darken-4">
-      <v-btn v-if="!IM" x-large dark flat @click="$emit('openIM')">
-        <v-avatar size="40" color="red" class="mx-2">
-          <img :src="participant.photoURL" alt="alt" />
+      <v-btn
+        v-if="!IM"
+        x-large
+        dark
+        flat
+        @click="$emit('openIM')"
+      >
+        <v-avatar
+          size="40"
+          color="red"
+          class="mx-2"
+        >
+          <img
+            :src="participant.photoURL"
+            alt="alt"
+          >
         </v-avatar>
-        {{participant.firstName }} {{participant.lastName}}
+        {{ participant.firstName }} {{ participant.lastName }}
       </v-btn>
     </v-card>
   </v-layout>
@@ -51,7 +126,7 @@
 <script>
 import moment from 'moment'
 export default {
-  props: ["IM", "participant"],
+  props: ["iM", "participant"],
   data(){
     return {
       auth: this.$store.getters.auth
@@ -75,7 +150,7 @@ export default {
   z-index: 2;
   position: fixed;
   bottom: 1px;
-  right: 160px;
+  right: 2px;
   text-align: center;
   animation-duration: 0.1s;
   animation-name: slideInUp;
