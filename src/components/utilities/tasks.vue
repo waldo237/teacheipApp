@@ -2,7 +2,7 @@
   <v-card
     class="justify-center mx-1 elevation-24 grids grey lighten-4"
     raised
-    max-height="390"
+    max-height="390px"
     max-width="400px"
   >
     <!--  SNACKBAR STARTS -->
@@ -94,7 +94,7 @@
         max-height="135px"
         flat
         style="overflow:auto;"
-        class="scrollbar"
+        class="scrollbar bigger"
       >
         <v-layout
           column
@@ -155,7 +155,7 @@
         class="my-0 py-0 mx-2"
         :value="true"
         color="green"
-        label="Privado"
+        label="Publico"
       />
       <v-btn
         round
@@ -247,6 +247,10 @@ export default {
 <style scoped>
 .strike{
     text-decoration: line-through;
+}
+.bigger:hover{
+    width: 600px !important;
+ max-height: 280px !important;
 }
 .instructions {
   background: rgb(79, 177, 83) !important;
