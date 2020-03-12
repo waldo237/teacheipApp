@@ -7,7 +7,7 @@
     :value="percent"
     color="#c6192a"
   >
-    <v-spacer />coming right up...
+    <v-spacer />Espere un momento...
     <span class="font-weight-bold title">{{ percent }}</span>
   </v-progress-circular>
 </template>

@@ -10,7 +10,8 @@
     >
       <v-icon class="mr-2">
         signal_wifi_off
-      </v-icon>You are currently offline
+      </v-icon>estás desconectado en este momento
+
     </v-alert>
     <v-alert
       v-model="online"
@@ -19,7 +20,7 @@
     >
       <v-icon class="mr-2">
         check_circle_outline
-      </v-icon>Back online!
+      </v-icon>Estás de vuelta en línea!
     </v-alert>
     <!-- alerts online/offline ends-->
 

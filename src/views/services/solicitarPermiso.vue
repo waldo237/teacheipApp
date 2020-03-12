@@ -13,25 +13,22 @@
     <main>
       <v-container grid-list-sm class="pa-3">
         <v-card class="round mx-2 px-2 mb-5 pb-5 grey lighten-4 elevation-9">
-          <v-layout row justify-center class="grey lighten-4 py-3 title"
-            >Solicitar Permisos Extensos</v-layout
+          <v-layout row justify-center class="grey lighten-4 title"
+            >Solicitar Permisos</v-layout
           >
-          <v-layout row wrap>
-            <v-progress-circular
-              :rotate="-90"
-              :size="100"
-              :width="15"
-              v-model="progress"
-              reactive
-              v-if="progress > 0"
-              color="#376092"
+          <v-layout justify-center align-center class="grey lighten-4">
+            <span class="orange--text lighten-3 upper">En funcionamiento</span>
+            <v-icon background-color="orange lighten-3" color="orange"
+              >mood</v-icon
             >
-              <strong>{{ Math.ceil(progress) }}%</strong>
-            </v-progress-circular>
           </v-layout>
-          <!-- ================================== -->
-          <!-- ================================== -->
-          <div @click="errors = []">
+          <!-- WAITING STARTS -->
+          <v-layout row wrap justify-center v-if="loading" class="slide">
+            <waiting />
+          </v-layout>
+          <!-- WAITING ENDS -->
+
+          <div @click="errors = []" v-else class="slide">
             <v-layout row wrap justify-start>
               <v-layout align-center>
                 <v-avatar size="40px" class="mr-3">
@@ -76,19 +73,6 @@
               <v-card class="ma-3" flat v-model="path">{{ path }}</v-card>
             </v-layout>
 
-            <v-layout xs6 wrap row justify-start>
-              <v-text-field
-                prepend-icon="format_list_numbered"
-                placeholder="Numero de dias a solicitar"
-                type="number"
-                pattern="[0-9]*"
-                size="1"
-                max="9"
-                required
-                clearable
-                v-model="request.days"
-              />
-            </v-layout>
             <v-flex xs12>
               <v-text-field
                 prepend-icon="notes"
@@ -108,12 +92,13 @@
                 <template v-slot:activator="{ on }">
                   <v-layout column wrap>
                     <v-text-field
-                       :value="computedDateFormattedMomentjs(request.starts)"
+                      :value="dateFormater(request.starts)"
                       clearable
                       label="Cuando empiezar este permiso"
                       readonly
                       v-on="on"
                       @click:clear="request.starts = null"
+                      class="mx-2"
                     />
                   </v-layout>
                 </template>
@@ -132,12 +117,13 @@
                 <template v-slot:activator="{ on }">
                   <v-layout column wrap>
                     <v-text-field
-                      :value="computedDateFormattedMomentjs(request.ends)"
+                      :value="dateFormater(request.ends)"
                       clearable
                       label="Cuando termina este permiso"
                       readonly
                       v-on="on"
                       @click:clear="request.ends = null"
+                      class="mx-2"
                     />
                   </v-layout>
                 </template>
@@ -184,12 +170,22 @@
         </v-card>
       </v-container>
     </main>
+    <aside>
+      <v-layout column wrap class="mx-5 pax-5">
+          <v-card v-for="item in permissions" :key="item.permission_id">
+            <v-card-title class="title">
+              {{item.body}}
+            </v-card-title>
+            {{item}}
+          </v-card>
+      </v-layout>
+    </aside>
     <figure>
-      <!-- error show starts  -->
+      <!--  ERROR ALERT STARTS -->
       <v-alert
         outline
         rounded
-        class="round slideRight stayPut"
+        class="round slideRight stayPut mx-4"
         color="#c6192a"
         type="error"
         v-if="errors.length"
@@ -200,6 +196,7 @@
           <li v-for="(error, i) in errors" :key="i">{{ error }}</li>
         </ul>
       </v-alert>
+      <!--  ERROR ALERT ENDS -->
     </figure>
   </v-layout>
 </template>
@@ -209,12 +206,10 @@ import { mapGetters, mapActions } from "vuex";
 import moment from "moment";
 import axios from "axios";
 import session from "@/store/modules/session.js";
-import { directive as onClickaway } from "vue-clickaway";
+import waiting from "@/components/loading.vue";
 export default {
   name: "SolicitarPermiso",
-  directives: {
-    onClickaway: onClickaway
-  },
+  components: { waiting },
   data: () => {
     return {
       path: "",
@@ -222,7 +217,6 @@ export default {
       loading: false,
       snackbar: false,
       snackbarMessage: "",
-      progress: 0,
       timeOut: {},
       errors: [],
       request: {},
@@ -230,6 +224,8 @@ export default {
       date: null,
       menu2: false,
       menu1: false,
+      file: null,
+      permissions: []
     };
   },
   methods: {
@@ -253,6 +249,7 @@ export default {
         }
       }
     },
+
     validate() {
       let valid = true;
       this.errors = [];
@@ -264,11 +261,18 @@ export default {
         this.errors.push("Tiene que escoger un archivo para solicitar permiso");
         valid = false;
       }
-      if (!this.request.days) {
+      if (!this.request.starts || !this.request.ends) {
         this.errors.push(
-          "Tiene que especificar el numero de dias que no estara"
+          "Favor indicar la fecha que comienza y termina el permiso"
         );
         valid = false;
+      } else {
+        if (this.compareDates()) {
+          this.errors.push(
+            `La fecha de inicio ${this.request.starts} es mayor a la fecha que termina el permiso ${this.request.starts}`
+          );
+          valid = false;
+        }
       }
       if (!this.request.body) {
         this.errors.push(
@@ -276,24 +280,35 @@ export default {
         );
         valid = false;
       }
+      if (this.file) {
+        if (this.file.size >= 15728640) {
+          this.errors.push(
+            "El archivo para la constancia excede los 15MB. Por favor guardelo en otro formato o reduzcalo."
+          );
+          valid = false;
+        }
+      }
+
       return valid;
     },
     reset() {
       this.loading = false;
-      this.progress = 0;
       this.path = "";
+      this.request.starts = "";
+      this.request.ends = "";
+      this.request.body = "";
     },
     showPath() {
+      this.file = document.getElementById("file1").files[0];
       this.path = document.getElementById("file1").value;
     },
     getFileName() {
-      const fullPath = document.getElementById("file1").value;
-      if (fullPath) {
+      if (this.path) {
         const startIndex =
-          fullPath.indexOf("\\") >= 0
-            ? fullPath.lastIndexOf("\\")
-            : fullPath.lastIndexOf("/");
-        let filename = fullPath.substring(startIndex);
+          this.path.indexOf("\\") >= 0
+            ? this.path.lastIndexOf("\\")
+            : this.path.lastIndexOf("/");
+        let filename = this.path.substring(startIndex);
         if (filename.indexOf("\\") === 0 || filename.indexOf("/") === 0) {
           filename = filename.substring(1);
         }
@@ -303,17 +318,16 @@ export default {
     postRequest() {
       return new Promise((resolve, reject) => {
         this.loading = true;
-        var file = document.getElementById("file1").files[0];
         var reader = new FileReader();
         reader.onloadend = async () => {
           try {
             this.request.file = await reader.result;
             this.request.file = this.request.file.split("base64,")[1];
-            this.request.filename = this.getFileName();
+            this.request.filename = `${this.request.name}_${this.request.date}`;
+            this.request.fileSize = this.file.size;
             this.request.format = this.getFileName()
               .split(".")
               .pop();
-
             this.request.res = await axios.post(
               "https://script.google.com/macros/s/AKfycbxXk9Y8hRkF7sgyT3UAmpyZkaeQK9yONtsEc40nRFYKRduZWss/exec",
               JSON.stringify(this.request)
@@ -324,26 +338,37 @@ export default {
             reject(error);
           }
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(this.file);
       });
     },
-    computedDateFormattedMomentjs(d) {
+  async  fetchPermissions() {
+        this.permissions. = await axios.get(
+              `https://script.google.com/macros/s/AKfycbxXk9Y8hRkF7sgyT3UAmpyZkaeQK9yONtsEc40nRFYKRduZWss/exec?uid=${this.auth().currentUser.uid}`)
+    },
+    dateFormater(d) {
       return d
         ? moment(d)
             .locale("es")
             .format("dddd, MMMM D YYYY")
         : "";
+    },
+    compareDates() {
+      return this.request.starts >= this.request.ends;
     }
   },
   beforeDestroy() {
     clearInterval(this.timeOut);
   },
   computed: {
-    ...mapGetters(["auth", "storage"]),
+    ...mapGetters(["auth", "storage"])
   },
-  created() {
+ async created() {
     this.request.name = this.auth().currentUser.displayName;
     this.request.email = this.auth().currentUser.email;
+    this.request.uid = this.auth().currentUser.uid;
+    this.request.date = new Date();
+  await  this.fetchPermissions();
+    console.log(this.permissions)
   }
 };
 </script>

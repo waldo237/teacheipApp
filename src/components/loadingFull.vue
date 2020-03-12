@@ -44,7 +44,7 @@
             round
           >
             <span class="font-weight-bold title py-2 ">
-              coming right up... {{ percent }}
+              espere un momento... {{ percent }}
             </span>
           </v-btn>
         </v-layout>
