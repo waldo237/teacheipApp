@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="mb-5 pb-5" justify-center wrap column>
+  <v-layout class="mb-5 pb-5 grey lighten-4" justify-center wrap column>
     <header>
       <v-layout
         justify-center
@@ -12,8 +12,11 @@
     </header>
     <main>
       <v-container grid-list-sm class="pa-3">
-        <v-card class="round mx-2 px-2 mb-5 pb-5 grey lighten-4 elevation-9">
-          <v-layout row justify-center class="grey lighten-4 title"
+        <v-card class="round mx-2 pa-2 mb-5 pb-5 grey lighten-4 elevation-9">
+          <v-layout
+            row
+            justify-center
+            class="grey lighten-4 title text-uppercase"
             >Solicitar Permisos</v-layout
           >
           <v-layout justify-center align-center class="grey lighten-4">
@@ -52,7 +55,7 @@
             </v-layout>
 
             <!-- ================================== -->
-            <v-layout row wrap justify-start class="mx-0">
+            <v-layout row wrap justify-start class="mx-0" v-if="!editingMode">
               <v-btn
                 small
                 round
@@ -76,7 +79,7 @@
             <v-flex xs12>
               <v-text-field
                 prepend-icon="notes"
-                placeholder="Razon para el permiso"
+                placeholder="Justificación para el permiso"
                 v-model="request.body"
                 maxlength="400"
                 type="text"
@@ -93,7 +96,6 @@
                   <v-layout column wrap>
                     <v-text-field
                       :value="dateFormater(request.starts)"
-                      clearable
                       label="Cuando empiezar este permiso"
                       readonly
                       v-on="on"
@@ -118,7 +120,6 @@
                   <v-layout column wrap>
                     <v-text-field
                       :value="dateFormater(request.ends)"
-                      clearable
                       label="Cuando termina este permiso"
                       readonly
                       v-on="on"
@@ -135,7 +136,7 @@
               </v-menu>
             </v-layout>
             <!-- date picker ends -->
-            <!-- ================================== -->
+
             <v-layout justify-center wrap row>
               <!-- snackbar to notify completion starts -->
               <v-snackbar
@@ -161,8 +162,19 @@
               small
               round
               flat
-              @click="localPostSugerencia"
-              class="sign-in"
+              @click="editPermission"
+              class="green font-weight-bold slide"
+              :loading="loading"
+              v-if="editingMode"
+              >Editar solicitud</v-btn
+            >
+            <v-btn
+              v-else
+              small
+              round
+              flat
+              @click="localPostPermission"
+              class="sign-in slide"
               :loading="loading"
               >Enviar solicitud</v-btn
             >
@@ -171,13 +183,93 @@
       </v-container>
     </main>
     <aside>
-      <v-layout column wrap class="mx-5 pax-5">
-          <v-card v-for="item in permissions" :key="item.permission_id">
-            <v-card-title class="title">
-              {{item.body}}
-            </v-card-title>
-            {{item}}
+      <v-layout column wrap class="my-2 mx-4 mb-5" justify-center align-center>
+        <v-card-title
+          class="title font-weight-light text-xs-center main-title mx-4 px-1"
+          >Historial de permisos</v-card-title
+        >
+        <v-layout wrap>
+          <v-card
+            v-for="item in permissions"
+            :key="item.permission_id"
+            class="ma-2 pa-4 elevation-24 grey lighten-2"
+          >
+            <v-layout column>
+              <v-layout row wrap justify-end>
+                <v-btn flat small fab @click="setEditingMode(item)">
+                  <v-icon color="green">edit</v-icon>
+                </v-btn>
+                <v-btn
+                  class="slide"
+                  flat
+                  small
+                  fab
+                  @click="setDeleteMode(item)"
+                  v-if="!deleteMode"
+                >
+                  <v-icon color="red">delete</v-icon>
+                </v-btn>
+                <v-layout row wrap v-if="deleteMode && currentPermission == item.permission_id">
+                  Esta seguro que quieres borrar la informacion?
+                  <v-btn
+                    small
+                    fab
+                    class="slide sign-in"
+                    @click="deleteMode = false;"
+                  >
+                    no
+                  </v-btn>
+                  <v-btn
+                    small
+                    fab
+                    class="slide sign-up"
+                    @click="deleteData(item)"
+                    :loading="item.permission_id == currentPermission && si"
+                  >
+                    si
+                  </v-btn>
+                </v-layout>
+              </v-layout>
+              <span class="my-1">
+                Justificación:
+                <span class="font-weight-bold" contenteditable>
+                  {{ item.body }}
+                </span>
+              </span>
+              <span class="my-1">
+                Nombre del solicitante:
+                <span class="font-weight-bold">{{ item.name }}</span>
+              </span>
+              <span class="my-1">
+                Desde:
+                <span class="font-weight-bold">
+                  {{ dateFormater(item.starts) }}
+                </span>
+              </span>
+              <span class="my-1">
+                Hasta:
+                <span class="font-weight-bold">
+                  {{ dateFormater(item.ends) }}
+                </span>
+              </span>
+              <v-card>
+                <span class="my-1">
+                  Enlace para descargar documento:
+                  <span class="font-weight-bold">
+                    <a :href="item.location" target="_blank">aqui</a>
+                  </span>
+                </span>
+              </v-card>
+
+              <span class="my-1">
+                Dia que fue solicitado:
+                <span class="font-weight-bold">
+                  {{ dateFormater(item.date) }}
+                </span>
+              </span>
+            </v-layout>
           </v-card>
+        </v-layout>
       </v-layout>
     </aside>
     <figure>
@@ -225,21 +317,54 @@ export default {
       menu2: false,
       menu1: false,
       file: null,
-      permissions: []
+      permissions: [],
+      editingMode: false,
+      deleteMode: false,
+      si: false,
+      currentPermission: ""
     };
   },
   methods: {
-    localPostSugerencia() {
+    localPostPermission() {
       if (this.validate()) {
         try {
-          this.postRequest()
+          this.createPermissions()
             .then(res => {
-              this.snackbarMessage = res.data;
+              this.snackbarMessage = res.data.message;
               this.snackbar = true;
               this.loading = false;
+              return res;
             })
-            .then(() => {
-              this.timeOut = setTimeout(this.reset, 6000);
+            .then(res => {
+              if (res.data.status == 200) {
+                this.permissions.push(this.request);
+                window.scrollTo(0, 1000);
+                this.timeOut = setTimeout(this.reset, 6000);
+              }
+            })
+            .catch(err => {
+              throw new Error(`there was an Error ${err}`);
+            });
+          this.getPermissions();
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
+    editPermission() {
+      if (this.validate()) {
+        try {
+          this.requestEdit()
+            .then(async res => {
+              this.snackbarMessage = await res.data.message;
+              this.snackbar = true;
+              this.loading = false;
+              return res;
+            })
+            .then(res => {
+              if (res.data.status == 200) {
+                this.timeOut = setTimeout(this.reset, 6000);
+              }
             })
             .catch(err => {
               throw new Error(`there was an Error ${err}`);
@@ -249,7 +374,32 @@ export default {
         }
       }
     },
+    deleteData(permission) {
+      this.currentPermission = permission.permission_id;
+      this.si = true;
+      try {
+        this.deletePermission(permission)
+          .then(res => {
+            this.snackbarMessage = res.data.message;
+            this.snackbar = true;
+            this.loading = false;
+            return res;
+          })
+          .then(res => {
+            if (res.data.status == 200) {
+              const index = this.permissions.findIndex(s => s == permission);
+              this.permissions.splice(index, 1);
 
+              this.timeOut = setTimeout(this.reset, 6000);
+            }
+          })
+          .catch(err => {
+            throw new Error(`there was an Error ${err}`);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
     validate() {
       let valid = true;
       this.errors = [];
@@ -257,7 +407,7 @@ export default {
         this.errors.push("Tiene que incluir su nombre completo.");
         valid = false;
       }
-      if (!this.path) {
+      if (!this.path && !this.editingMode) {
         this.errors.push("Tiene que escoger un archivo para solicitar permiso");
         valid = false;
       }
@@ -293,10 +443,13 @@ export default {
     },
     reset() {
       this.loading = false;
+      this.editingMode = false;
       this.path = "";
-      this.request.starts = "";
-      this.request.ends = "";
-      this.request.body = "";
+      this.request = {};
+      this.request.name = this.auth().currentUser.displayName;
+      this.request.email = this.auth().currentUser.email;
+      this.request.uid = this.auth().currentUser.uid;
+      this.request.date = new Date();
     },
     showPath() {
       this.file = document.getElementById("file1").files[0];
@@ -315,7 +468,11 @@ export default {
         return filename;
       }
     },
-    postRequest() {
+    /**
+     * @create
+     * @function createPermissions
+     */
+    createPermissions() {
       return new Promise((resolve, reject) => {
         this.loading = true;
         var reader = new FileReader();
@@ -323,7 +480,9 @@ export default {
           try {
             this.request.file = await reader.result;
             this.request.file = this.request.file.split("base64,")[1];
-            this.request.filename = `${this.request.name}_${this.request.date}`;
+            this.request.filename = `Solicitud_de_permiso_${
+              this.request.name
+            }_${this.dateFormater(this.request.date)}`;
             this.request.fileSize = this.file.size;
             this.request.format = this.getFileName()
               .split(".")
@@ -341,9 +500,61 @@ export default {
         reader.readAsDataURL(this.file);
       });
     },
-  async  fetchPermissions() {
-        this.permissions. = await axios.get(
-              `https://script.google.com/macros/s/AKfycbxXk9Y8hRkF7sgyT3UAmpyZkaeQK9yONtsEc40nRFYKRduZWss/exec?uid=${this.auth().currentUser.uid}`)
+    /**
+     * @update
+     * @function requestEdit
+     */
+    requestEdit() {
+      return new Promise(async (resolve, reject) => {
+        this.loading = true;
+        try {
+          this.request.res = await axios.post(
+            `https://script.google.com/macros/s/AKfycbxXk9Y8hRkF7sgyT3UAmpyZkaeQK9yONtsEc40nRFYKRduZWss/exec?edit=true&permission_id=${
+              this.request.permission_id
+            }&uid=${this.auth().currentUser.uid}&name=${
+              this.request.name
+            }&body=${this.request.body}&starts=${this.request.starts}&ends=${
+              this.request.ends
+            }`
+          );
+          resolve(this.request.res);
+        } catch (error) {
+          this.loading = false;
+          reject(error);
+        }
+      });
+    },
+    /**
+     * @read
+     * @function getPermissions
+     */
+    async getPermissions() {
+      this.permissions = await axios.get(
+        `https://script.google.com/macros/s/AKfycbxXk9Y8hRkF7sgyT3UAmpyZkaeQK9yONtsEc40nRFYKRduZWss/exec?uid=${
+          this.auth().currentUser.uid
+        }`
+      );
+      this.permissions = this.permissions.data;
+    },
+    /**
+     * @delete
+     * @function deletePermission
+     */
+    deletePermission(permission) {
+      return new Promise(async (resolve, reject) => {
+        this.loading = true;
+        try {
+          this.request.res = await axios.post(
+            `https://script.google.com/macros/s/AKfycbxXk9Y8hRkF7sgyT3UAmpyZkaeQK9yONtsEc40nRFYKRduZWss/exec?delete=true&permission_id=${
+              permission.permission_id
+            }&uid=${this.auth().currentUser.uid}`
+          );
+          resolve(this.request.res);
+        } catch (error) {
+          this.loading = false;
+          reject(error);
+        }
+      });
     },
     dateFormater(d) {
       return d
@@ -354,6 +565,24 @@ export default {
     },
     compareDates() {
       return this.request.starts >= this.request.ends;
+    },
+
+    async setEditingMode(permission) {
+      if (permission.starts && permission.ends) {
+        permission.starts = await moment(permission.starts)
+          .toISOString()
+          .substr(0, 10);
+        permission.ends = await moment(permission.ends)
+          .toISOString()
+          .substr(0, 10);
+      }
+      this.request = permission;
+      this.editingMode = true;
+      window.scrollTo(0, 0);
+    },
+    setDeleteMode(permission) {
+      this.deleteMode = true;
+      this.currentPermission = permission.permission_id;
     }
   },
   beforeDestroy() {
@@ -362,13 +591,12 @@ export default {
   computed: {
     ...mapGetters(["auth", "storage"])
   },
- async created() {
+  async created() {
     this.request.name = this.auth().currentUser.displayName;
     this.request.email = this.auth().currentUser.email;
     this.request.uid = this.auth().currentUser.uid;
     this.request.date = new Date();
-  await  this.fetchPermissions();
-    console.log(this.permissions)
+    await this.getPermissions();
   }
 };
 </script>
