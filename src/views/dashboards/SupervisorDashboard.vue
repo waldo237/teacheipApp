@@ -1,5 +1,5 @@
 <template>
-  <v-layout class="my-5 px-2 py-5 grey lighten-2" wrap>
+  <v-layout class="my-5 px-2 py-4 grey lighten-2" wrap>
     <v-layout class="mx-2 px-1 justify-center" flat wrap>
       <!-- send notification starts -->
       <v-card
@@ -27,16 +27,16 @@
       <servicesScreen :services-for-supervisor="servicesForSupervisor" />
       <!--******** services ends ********-->
 
-      <v-layout row wrap justify-space-around class="mx-5 px-2 mb-5 pb-5" align-end>
+      <v-layout row wrap justify-space-around align-end class="mx-2">
            <!--  TASKS STARTS -->
       <Tasks />
       <!--  TASKS ENDS -->
-      </v-layout><v-layout row wrap justify-space-around class="mx-5 px-2 mb-5 pb-5" align-end>
+      </v-layout><v-layout row wrap justify-space-around class="mx-5 px-2 mb-5 pb-5" align-center>
         <!-- centers starts -->
         <v-card
-          class="justify-center mx-1 elevation-24 grids"
+          class="justify-center mx-1 elevation-24 grids mt-4 "
           raised
-          max-height="350px"
+          max-height="345px"
           max-width="240px"
           min-width="240px"
         >
@@ -54,7 +54,7 @@
             style="overflow:auto;"
           >
             <v-layout column v-for="(item, index) in centers" :key="item.uuid">
-              <v-card flat class="text-truncate" style="max-width:190px">
+              <v-card flat class="text-truncate grey lighten-4" style="max-width:190px">
                 <router-link
                   tag="v-btn"
                   class="px-2 py-0 ma-0 caption"

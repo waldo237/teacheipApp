@@ -3,6 +3,7 @@
     <v-card
       fluid
       dark
+      flat
       color="grey lighten-2"
     >
       <v-layout
@@ -406,8 +407,14 @@
         </v-layout>
       </transition>
       <!-- call attendance ends -->
-      <memberCarousel class="mb-5 dashboard-component" />
+      <memberCarousel class=" dashboard-component" />
+      
     </v-card>
+      <v-layout row wrap justify-space-around align-end class="px-2 pb-5 grey lighten-2">
+           <!--  TASKS STARTS -->
+      <Tasks  />
+      <!--  TASKS ENDS -->
+      </v-layout>
   </v-content>
 </template>
 
@@ -415,12 +422,13 @@
 import { mapGetters, mapActions } from "vuex";
 import servicesScreen from "@/components/utilities/servicesScreen.vue";
 import memberCarousel from "@/components/utilities/memberCarousel.vue";
-
+import Tasks from "@/components/utilities/tasks.vue";
 import moment from "moment";
 export default {
   components: {
     servicesScreen,
-    memberCarousel
+    memberCarousel,
+    Tasks
   },
   data: () => ({
     dataTable: false,

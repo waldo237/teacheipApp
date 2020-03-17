@@ -1,11 +1,11 @@
 <template>
   <v-card
-    class="justify-center mx-1 elevation-24 grids grey lighten-4"
+    class="justify-center mx-1 elevation-24 grids grey lighten-4 tasks"
     raised
   
    
   >
-  <!--  max-width="400px" -->
+
     <!--  SNACKBAR STARTS -->
     <!-- snackbar to notify completion starts -->
     <v-snackbar
@@ -91,8 +91,7 @@
       v-if="tasks.length > 0"
     >
       <v-card
-        width="100%"
-        max-height="135px"
+      
         flat
         style="overflow:auto;"
         class="scrollbar bigger"
@@ -107,7 +106,7 @@
             wrap
             justify-start
             align-center
-            class="ml-2 my-0 py-0"
+            :class="(i%2==0)? 'my-0 py-0 px-3': 'grey lighten-3  my-0 py-0 px-3'"
           >
             <span>{{ i+1 }}-</span>
             <!-- <div @click="$emit('checkbox', task)"> -->
@@ -119,14 +118,14 @@
               @change="editTask"
             />
             <!-- </div> -->
-            <v-tooltip left>
+            <v-tooltip top>
               <template v-slot:activator="{ on }">
                 <span
                   v-on="on"
                   :class="(task.done)? 'strike': ''"
                 >{{ task.message }}</span>
               </template>
-              <span>creado el {{ moment(task.date) }}</span>
+              <span class="caption">creado el {{ moment(task.date) }}</span>
             </v-tooltip>
             <v-btn
               @click="removeTask(task)"
@@ -250,9 +249,14 @@ export default {
     text-decoration: line-through;
 }
 .bigger:hover{
-    width: 600px !important;
- max-height: 280px !important;
+
+ max-height: 480px !important;
 }
+.bigger{
+min-width: 95%;
+ max-height: 360px !important;
+}
+
 .instructions {
   background: rgb(79, 177, 83) !important;
   background: linear-gradient(
@@ -261,5 +265,30 @@ export default {
     rgba(59, 200, 4, 0.904) 100%,
     rgb(28, 28, 218) 100%
   ) !important;
+}
+  .tasks{
+    max-width: 850px;
+  }
+  .bigger{
+
+ max-width: 845px;
+}
+@media screen and (max-width:650px) {
+  .tasks{
+    max-width: 350px;
+  }
+  .bigger{
+
+ max-width: 345px;
+}
+}
+@media screen and (min-width:650px) and (max-width:900px) {
+  .tasks{
+    max-width: 640px;
+  }
+  .bigger{
+
+ max-width: 635px;
+}
 }
 </style>
