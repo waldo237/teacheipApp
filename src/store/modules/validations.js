@@ -227,11 +227,26 @@ const actions = {
       // unlogged
     }
   },
+
   // get token from local cookies
   getToken(cname) {
     return localStorage.getItem(cname);
-
+  },
+/**
+ * @function getCentersList returns an array with the list of all the centers
+ * @returns Array: [{recintos:string}] 
+ * 
+ */
+ async getCentersList(){
+    try {
+      let res = {};
+      res = await axios.get(
+        "https://script.google.com/macros/s/AKfycbynGQjs4wN2_i_2TTFevcGNUoNElCHLI1PX7gY6UeWGyxbZOrL_/exec"
+      );
+      return res.data.centers;
+    } catch (error) {}
   }
+
 };
 const mutations = {
   setValidation: (state, value) => (state.validation = value),

@@ -303,7 +303,7 @@
           <v-layout
             row
             wrap
-          >
+           >
             <v-select
               class="py-1"
               :items="regions"
@@ -386,14 +386,8 @@ export default {
               ageDate.getUTCFullYear() - 1970
             )} años?`;
     },
-    async fetchCenters() {
-      try {
-        let res = {};
-        res = await axios.get(
-          "https://script.google.com/macros/s/AKfycbynGQjs4wN2_i_2TTFevcGNUoNElCHLI1PX7gY6UeWGyxbZOrL_/exec"
-        );
-        this.centers = res.data.centers;
-      } catch (error) {}
+     async fetchCenters() {
+        this.centers = await this.getCentersList();
     },
     onKeydown(event) {
       const char = String.fromCharCode(event.keyCode);
@@ -542,7 +536,7 @@ export default {
         
       }
     },
-    ...mapActions(["fillTeacherInfo", "getProfileInfo"])
+    ...mapActions(["fillTeacherInfo", "getProfileInfo", "getCentersList"])
   },
   watch: {
     phoneNumber() {
@@ -562,14 +556,15 @@ export default {
         }
       });
     },
-    provinceSelect() {
-      this.recintos = this.centers.map(item => {
+ async   provinceSelect() {
+      this.recintos = await this.centers.map(item => {
         if (item.provincia.toUpperCase() == this.provinceSelect.toUpperCase()) {
           return item.recintos;
         } else {
           return "";
         }
       });
+      this.recintos.push('otro')
     }
   },
   computed: {

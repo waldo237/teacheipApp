@@ -2,9 +2,10 @@
   <v-card
     class="justify-center mx-1 elevation-24 grids grey lighten-4"
     raised
-    max-height="390px"
-    max-width="400px"
+  
+   
   >
+  <!--  max-width="400px" -->
     <!--  SNACKBAR STARTS -->
     <!-- snackbar to notify completion starts -->
     <v-snackbar

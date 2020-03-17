@@ -7,8 +7,7 @@
         wrap
         primary-title
         class="display-1 font-weight-light text-xs-center main-title mt-5 pt-5 mx-4 px-1"
-        >Solicitud de permisos</v-layout
-      >
+      >Solicitud de permisos</v-layout>
     </header>
     <main>
       <v-container grid-list-sm class="pa-3">
@@ -17,13 +16,14 @@
             row
             justify-center
             class="grey lighten-4 title text-uppercase"
-            >Solicitar Permisos</v-layout
-          >
+          >Solicitar Permisos</v-layout>
           <v-layout justify-center align-center class="grey lighten-4">
             <span class="orange--text lighten-3 upper">En funcionamiento</span>
-            <v-icon background-color="orange lighten-3" color="orange"
-              >mood</v-icon
-            >
+            <v-icon background-color="orange lighten-3" color="orange">fiber_new
+</v-icon>
+          </v-layout>
+          <v-layout row wrap class="red--text caption">
+            Tomar en cuenta: No se puede editar ni borrar una solicitud despues de dos dias de haber sido creada.
           </v-layout>
           <!-- WAITING STARTS -->
           <v-layout row wrap justify-center v-if="loading" class="slide">
@@ -56,12 +56,7 @@
 
             <!-- ================================== -->
             <v-layout row wrap justify-start class="mx-0" v-if="!editingMode">
-              <v-btn
-                small
-                round
-                color="sign-up"
-                @click="$refs.inputUpload.click()"
-              >
+              <v-btn small round color="sign-up" @click="$refs.inputUpload.click()">
                 <v-icon small>description</v-icon>Subir constancia para el
                 permiso
               </v-btn>
@@ -87,11 +82,7 @@
             </v-flex>
             <!-- date picker starts -->
             <v-layout row wrap>
-              <v-menu
-                v-model="menu2"
-                :close-on-content-click="false"
-                max-width="290"
-              >
+              <v-menu v-model="menu2" :close-on-content-click="false" max-width="290">
                 <template v-slot:activator="{ on }">
                   <v-layout column wrap>
                     <v-text-field
@@ -104,18 +95,10 @@
                     />
                   </v-layout>
                 </template>
-                <v-date-picker
-                  v-model="request.starts"
-                  color="#c6192a"
-                  @change="menu2 = false"
-                />
+                <v-date-picker v-model="request.starts" color="#c6192a" @change="menu2 = false" />
               </v-menu>
 
-              <v-menu
-                v-model="menu1"
-                :close-on-content-click="false"
-                max-width="290"
-              >
+              <v-menu v-model="menu1" :close-on-content-click="false" max-width="290">
                 <template v-slot:activator="{ on }">
                   <v-layout column wrap>
                     <v-text-field
@@ -128,11 +111,7 @@
                     />
                   </v-layout>
                 </template>
-                <v-date-picker
-                  v-model="request.ends"
-                  color="#c6192a"
-                  @change="menu1 = false"
-                />
+                <v-date-picker v-model="request.ends" color="#c6192a" @change="menu1 = false" />
               </v-menu>
             </v-layout>
             <!-- date picker ends -->
@@ -155,9 +134,7 @@
           </div>
           <v-card-actions>
             <v-spacer />
-            <v-btn small flat round class="sign-up" @click="reset"
-              >cancelar</v-btn
-            >
+            <v-btn small flat round class="sign-up" @click="reset">cancelar</v-btn>
             <v-btn
               small
               round
@@ -166,8 +143,7 @@
               class="green font-weight-bold slide"
               :loading="loading"
               v-if="editingMode"
-              >Editar solicitud</v-btn
-            >
+            >Editar solicitud</v-btn>
             <v-btn
               v-else
               small
@@ -176,65 +152,46 @@
               @click="localPostPermission"
               class="sign-in slide"
               :loading="loading"
-              >Enviar solicitud</v-btn
-            >
+            >Enviar solicitud</v-btn>
           </v-card-actions>
         </v-card>
       </v-container>
     </main>
+    <!-- PERMISSION HISTORY STARTS -->
     <aside>
       <v-layout column wrap class="my-2 mx-4 mb-5" justify-center align-center>
         <v-card-title
           class="title font-weight-light text-xs-center main-title mx-4 px-1"
-          >Historial de permisos</v-card-title
-        >
+        >Historial de permisos</v-card-title>
         <v-layout wrap>
           <v-card
             v-for="item in permissions"
             :key="item.permission_id"
-            class="ma-2 pa-4 elevation-24 grey lighten-2"
+            class="ma-2 pa-4 elevation-24 grey lighten-2 slide"
           >
             <v-layout column>
               <v-layout row wrap justify-end>
                 <v-btn flat small fab @click="setEditingMode(item)">
                   <v-icon color="green">edit</v-icon>
                 </v-btn>
-                <v-btn
-                  class="slide"
-                  flat
-                  small
-                  fab
-                  @click="setDeleteMode(item)"
-                  v-if="!deleteMode"
-                >
+                <v-btn class="slide" flat small fab @click="setDeleteMode(item)" v-if="!deleteMode">
                   <v-icon color="red">delete</v-icon>
                 </v-btn>
                 <v-layout row wrap v-if="deleteMode && currentPermission == item.permission_id">
                   Esta seguro que quieres borrar la informacion?
-                  <v-btn
-                    small
-                    fab
-                    class="slide sign-in"
-                    @click="deleteMode = false;"
-                  >
-                    no
-                  </v-btn>
+                  <v-btn small fab class="slide sign-in" @click="deleteMode = false;">no</v-btn>
                   <v-btn
                     small
                     fab
                     class="slide sign-up"
                     @click="deleteData(item)"
                     :loading="item.permission_id == currentPermission && si"
-                  >
-                    si
-                  </v-btn>
+                  >si</v-btn>
                 </v-layout>
               </v-layout>
               <span class="my-1">
                 Justificación:
-                <span class="font-weight-bold" contenteditable>
-                  {{ item.body }}
-                </span>
+                <span class="font-weight-bold" contenteditable>{{ item.body }}</span>
               </span>
               <span class="my-1">
                 Nombre del solicitante:
@@ -242,15 +199,11 @@
               </span>
               <span class="my-1">
                 Desde:
-                <span class="font-weight-bold">
-                  {{ dateFormater(item.starts) }}
-                </span>
+                <span class="font-weight-bold">{{ dateFormater(item.starts) }}</span>
               </span>
               <span class="my-1">
                 Hasta:
-                <span class="font-weight-bold">
-                  {{ dateFormater(item.ends) }}
-                </span>
+                <span class="font-weight-bold">{{ dateFormater(item.ends) }}</span>
               </span>
               <v-card>
                 <span class="my-1">
@@ -263,15 +216,14 @@
 
               <span class="my-1">
                 Dia que fue solicitado:
-                <span class="font-weight-bold">
-                  {{ dateFormater(item.date) }}
-                </span>
+                <span class="font-weight-bold">{{ dateFormater(item.date) }}</span>
               </span>
             </v-layout>
           </v-card>
         </v-layout>
       </v-layout>
     </aside>
+    <!-- PERMISSION HISTORY ENDS -->
     <figure>
       <!--  ERROR ALERT STARTS -->
       <v-alert
@@ -335,11 +287,11 @@ export default {
               this.loading = false;
               return res;
             })
-            .then(res => {
+            .then(async res => {
               if (res.data.status == 200) {
-                this.permissions.push(this.request);
+                await this.getPermissions();
+                this.timeOut = await setTimeout(this.reset, 6000);
                 window.scrollTo(0, 1000);
-                this.timeOut = setTimeout(this.reset, 6000);
               }
             })
             .catch(err => {
@@ -361,9 +313,11 @@ export default {
               this.loading = false;
               return res;
             })
-            .then(res => {
+            .then(async res => {
               if (res.data.status == 200) {
-                this.timeOut = setTimeout(this.reset, 6000);
+                await this.getPermissions();
+                this.timeOut = await setTimeout(this.reset, 6000);
+                window.scrollTo(0, 1000);
               }
             })
             .catch(err => {
@@ -377,20 +331,20 @@ export default {
     deleteData(permission) {
       this.currentPermission = permission.permission_id;
       this.si = true;
+      window.scrollTo(0, 0);
       try {
         this.deletePermission(permission)
           .then(res => {
             this.snackbarMessage = res.data.message;
             this.snackbar = true;
-            this.loading = false;
+            this.si = false;
             return res;
           })
-          .then(res => {
+          .then(async res => {
             if (res.data.status == 200) {
-              const index = this.permissions.findIndex(s => s == permission);
-              this.permissions.splice(index, 1);
-
-              this.timeOut = setTimeout(this.reset, 6000);
+               await this.getPermissions();
+              this.timeOut = await setTimeout(this.reset, 6000);
+             
             }
           })
           .catch(err => {
@@ -444,6 +398,7 @@ export default {
     reset() {
       this.loading = false;
       this.editingMode = false;
+      this.deleteMode = false;
       this.path = "";
       this.request = {};
       this.request.name = this.auth().currentUser.displayName;
@@ -469,8 +424,9 @@ export default {
       }
     },
     /**
-     * @create
-     * @function createPermissions
+     * @CREATE
+     * @function createPermissions creates new a new permission
+     * @returns a promise with the confirmation
      */
     createPermissions() {
       return new Promise((resolve, reject) => {
@@ -501,8 +457,9 @@ export default {
       });
     },
     /**
-     * @update
-     * @function requestEdit
+     * @UPDATE
+     * @function requestEdit send a request to edit a permission
+     * @returns a promise with the confirmation
      */
     requestEdit() {
       return new Promise(async (resolve, reject) => {
@@ -525,20 +482,25 @@ export default {
       });
     },
     /**
-     * @read
-     * @function getPermissions
+     * @READ
+     * @function getPermissions send a request to get all permissions
+     * @returns an array with all the permissions and sets it to local permissions
      */
     async getPermissions() {
-      this.permissions = await axios.get(
-        `https://script.google.com/macros/s/AKfycbxXk9Y8hRkF7sgyT3UAmpyZkaeQK9yONtsEc40nRFYKRduZWss/exec?uid=${
-          this.auth().currentUser.uid
-        }`
-      );
-      this.permissions = this.permissions.data;
+      try {
+        this.permissions = await axios.get(
+          `https://script.google.com/macros/s/AKfycbxXk9Y8hRkF7sgyT3UAmpyZkaeQK9yONtsEc40nRFYKRduZWss/exec?uid=${
+            this.auth().currentUser.uid
+          }`
+        );
+        this.permissions = this.permissions.data;
+      } catch (error) {}
     },
     /**
-     * @delete
+     * @DELETE send a request to delete a permission
+     * @param permission an object of type permission
      * @function deletePermission
+     * @returns   a promise with an object the confirmation
      */
     deletePermission(permission) {
       return new Promise(async (resolve, reject) => {
@@ -577,6 +539,7 @@ export default {
           .substr(0, 10);
       }
       this.request = permission;
+      this.deleteMode = false;
       this.editingMode = true;
       window.scrollTo(0, 0);
     },
