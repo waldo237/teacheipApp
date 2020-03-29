@@ -87,6 +87,7 @@ export default {
           localStorage.removeItem('sessionToken')
           localStorage.removeItem('serverToken')
           await this.$store.commit("setAlert", false);
+           this.$emit('drawerRefresh');
           if (this.$route.path != "/") await this.$router.push("/");
         })
         .catch(error => {

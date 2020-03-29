@@ -1,5 +1,10 @@
 <template>
-  <v-layout class="mb-5 pb-5 grey lighten-4" justify-center wrap column>
+  <v-layout
+    class="mb-5 pb-5 grey lighten-4"
+    justify-center
+    wrap
+    column
+  >
     <header>
       <v-layout
         justify-center
@@ -7,37 +12,79 @@
         wrap
         primary-title
         class="display-1 font-weight-light text-xs-center main-title mt-5 pt-5 mx-4 px-1"
-      >Solicitud de permisos</v-layout>
+      >
+        Solicitud de permisos
+      </v-layout>
     </header>
     <main>
-      <v-container grid-list-sm class="pa-3">
+      <v-container
+        grid-list-sm
+        class="pa-3"
+      >
         <v-card class="round mx-2 pa-2 mb-5 pb-5 grey lighten-4 elevation-9">
           <v-layout
             row
             justify-center
             class="grey lighten-4 title text-uppercase"
-          >Solicitar Permisos</v-layout>
-          <v-layout justify-center align-center class="grey lighten-4">
-            <span class="orange--text lighten-3 upper">En funcionamiento</span>
-            <v-icon background-color="orange lighten-3" color="orange">fiber_new
-</v-icon>
+          >
+            Solicitar Permisos
           </v-layout>
-          <v-layout row wrap class="red--text caption">
+          <v-layout
+            justify-center
+            align-center
+            class="grey lighten-4"
+          >
+            <span class="orange--text lighten-3 upper">En funcionamiento</span>
+            <v-icon
+              background-color="orange lighten-3"
+              color="orange"
+            >
+              fiber_new
+            </v-icon>
+          </v-layout>
+          <v-layout
+            row
+            wrap
+            class="red--text caption"
+          >
             Tomar en cuenta: No se puede editar ni borrar una solicitud despues de dos dias de haber sido creada.
           </v-layout>
           <!-- WAITING STARTS -->
-          <v-layout row wrap justify-center v-if="loading" class="slide">
+          <v-layout
+            row
+            wrap
+            justify-center
+            v-if="loading"
+            class="slide"
+          >
             <waiting />
           </v-layout>
           <!-- WAITING ENDS -->
 
-          <div @click="errors = []" v-else class="slide">
-            <v-layout row wrap justify-start>
+          <div
+            @click="errors = []"
+            v-else
+            class="slide"
+          >
+            <v-layout
+              row
+              wrap
+              justify-start
+            >
               <v-layout align-center>
-                <v-avatar size="40px" class="mr-3">
-                  <img :src="this.auth().currentUser.photoURL" alt />
+                <v-avatar
+                  size="40px"
+                  class="mr-3"
+                >
+                  <img
+                    :src="this.auth().currentUser.photoURL"
+                    alt
+                  >
                 </v-avatar>
-                <v-text-field placeholder="Name" v-model="request.name" />
+                <v-text-field
+                  placeholder="Name"
+                  v-model="request.name"
+                />
               </v-layout>
               <v-text-field
                 prepend-icon="mail"
@@ -55,9 +102,22 @@
             </v-layout>
 
             <!-- ================================== -->
-            <v-layout row wrap justify-start class="mx-0" v-if="!editingMode">
-              <v-btn small round color="sign-up" @click="$refs.inputUpload.click()">
-                <v-icon small>description</v-icon>Subir constancia para el
+            <v-layout
+              row
+              wrap
+              justify-start
+              class="mx-0"
+              v-if="!editingMode"
+            >
+              <v-btn
+                small
+                round
+                color="sign-up"
+                @click="$refs.inputUpload.click()"
+              >
+                <v-icon small>
+                  description
+                </v-icon>Subir constancia para el
                 permiso
               </v-btn>
               <input
@@ -67,8 +127,14 @@
                 @change="showPath"
                 id="file1"
                 accept="application/msword, application/pdf, image/*"
-              />
-              <v-card class="ma-3" flat v-model="path">{{ path }}</v-card>
+              >
+              <v-card
+                class="ma-3"
+                flat
+                v-model="path"
+              >
+                {{ path }}
+              </v-card>
             </v-layout>
 
             <v-flex xs12>
@@ -81,10 +147,20 @@
               />
             </v-flex>
             <!-- date picker starts -->
-            <v-layout row wrap>
-              <v-menu v-model="menu2" :close-on-content-click="false" max-width="290">
+            <v-layout
+              row
+              wrap
+            >
+              <v-menu
+                v-model="menu2"
+                :close-on-content-click="false"
+                max-width="290"
+              >
                 <template v-slot:activator="{ on }">
-                  <v-layout column wrap>
+                  <v-layout
+                    column
+                    wrap
+                  >
                     <v-text-field
                       :value="dateFormater(request.starts)"
                       label="Cuando empiezar este permiso"
@@ -95,12 +171,23 @@
                     />
                   </v-layout>
                 </template>
-                <v-date-picker v-model="request.starts" color="#c6192a" @change="menu2 = false" />
+                <v-date-picker
+                  v-model="request.starts"
+                  color="#c6192a"
+                  @change="menu2 = false"
+                />
               </v-menu>
 
-              <v-menu v-model="menu1" :close-on-content-click="false" max-width="290">
+              <v-menu
+                v-model="menu1"
+                :close-on-content-click="false"
+                max-width="290"
+              >
                 <template v-slot:activator="{ on }">
-                  <v-layout column wrap>
+                  <v-layout
+                    column
+                    wrap
+                  >
                     <v-text-field
                       :value="dateFormater(request.ends)"
                       label="Cuando termina este permiso"
@@ -111,12 +198,20 @@
                     />
                   </v-layout>
                 </template>
-                <v-date-picker v-model="request.ends" color="#c6192a" @change="menu1 = false" />
+                <v-date-picker
+                  v-model="request.ends"
+                  color="#c6192a"
+                  @change="menu1 = false"
+                />
               </v-menu>
             </v-layout>
             <!-- date picker ends -->
 
-            <v-layout justify-center wrap row>
+            <v-layout
+              justify-center
+              wrap
+              row
+            >
               <!-- snackbar to notify completion starts -->
               <v-snackbar
                 class="error"
@@ -127,14 +222,29 @@
                 top="top"
               >
                 {{ snackbarMessage }}
-                <v-btn small dark text @click="snackbar = false">Close</v-btn>
+                <v-btn
+                  small
+                  dark
+                  text
+                  @click="snackbar = false"
+                >
+                  Close
+                </v-btn>
               </v-snackbar>
               <!-- snackbar to notify completion ends -->
             </v-layout>
           </div>
           <v-card-actions>
             <v-spacer />
-            <v-btn small flat round class="sign-up" @click="reset">cancelar</v-btn>
+            <v-btn
+              small
+              flat
+              round
+              class="sign-up"
+              @click="reset"
+            >
+              cancelar
+            </v-btn>
             <v-btn
               small
               round
@@ -143,7 +253,9 @@
               class="green font-weight-bold slide"
               :loading="loading"
               v-if="editingMode"
-            >Editar solicitud</v-btn>
+            >
+              Editar solicitud
+            </v-btn>
             <v-btn
               v-else
               small
@@ -152,17 +264,27 @@
               @click="localPostPermission"
               class="sign-in slide"
               :loading="loading"
-            >Enviar solicitud</v-btn>
+            >
+              Enviar solicitud
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-container>
     </main>
     <!-- PERMISSION HISTORY STARTS -->
     <aside>
-      <v-layout column wrap class="my-2 mx-4 mb-5" justify-center align-center>
+      <v-layout
+        column
+        wrap
+        class="my-2 mx-4 mb-5"
+        justify-center
+        align-center
+      >
         <v-card-title
           class="title font-weight-light text-xs-center main-title mx-4 px-1"
-        >Historial de permisos</v-card-title>
+        >
+          Historial de permisos
+        </v-card-title>
         <v-layout wrap>
           <v-card
             v-for="item in permissions"
@@ -170,28 +292,64 @@
             class="ma-2 pa-4 elevation-24 grey lighten-2 slide"
           >
             <v-layout column>
-              <v-layout row wrap justify-end>
-                <v-btn flat small fab @click="setEditingMode(item)">
-                  <v-icon color="green">edit</v-icon>
+              <v-layout
+                row
+                wrap
+                justify-end
+                >
+                <v-btn
+                  flat
+                  small
+                  fab
+                  @click="setEditingMode(item)"
+                >
+                  <v-icon color="green">
+                    edit
+                  </v-icon>
                 </v-btn>
-                <v-btn class="slide" flat small fab @click="setDeleteMode(item)" v-if="!deleteMode">
-                  <v-icon color="red">delete</v-icon>
+                <v-btn
+                  class="slide"
+                  flat
+                  small
+                  fab
+                  @click="setDeleteMode(item)"
+                  v-if="!deleteMode"
+                >
+                  <v-icon color="red">
+                    delete
+                  </v-icon>
                 </v-btn>
-                <v-layout row wrap v-if="deleteMode && currentPermission == item.permission_id">
+                <v-layout
+                  row
+                  wrap
+                  v-if="deleteMode && currentPermission == item.permission_id"
+                >
                   Esta seguro que quieres borrar la informacion?
-                  <v-btn small fab class="slide sign-in" @click="deleteMode = false;">no</v-btn>
+                  <v-btn
+                    small
+                    fab
+                    class="slide sign-in"
+                    @click="deleteMode = false;"
+                  >
+                    no
+                  </v-btn>
                   <v-btn
                     small
                     fab
                     class="slide sign-up"
                     @click="deleteData(item)"
                     :loading="item.permission_id == currentPermission && si"
-                  >si</v-btn>
+                  >
+                    si
+                  </v-btn>
                 </v-layout>
               </v-layout>
               <span class="my-1">
                 Justificación:
-                <span class="font-weight-bold" contenteditable>{{ item.body }}</span>
+                <span
+                  class="font-weight-bold"
+                  contenteditable
+                >{{ item.body }}</span>
               </span>
               <span class="my-1">
                 Nombre del solicitante:
@@ -209,7 +367,10 @@
                 <span class="my-1">
                   Enlace para descargar documento:
                   <span class="font-weight-bold">
-                    <a :href="item.location" target="_blank">aqui</a>
+                    <a
+                      :href="item.location"
+                      target="_blank"
+                    >aqui</a>
                   </span>
                 </span>
               </v-card>
@@ -237,7 +398,12 @@
       >
         No fue posible seguir por las siguientes razones:
         <ul>
-          <li v-for="(error, i) in errors" :key="i">{{ error }}</li>
+          <li
+            v-for="(error, i) in errors"
+            :key="i"
+          >
+            {{ error }}
+          </li>
         </ul>
       </v-alert>
       <!--  ERROR ALERT ENDS -->

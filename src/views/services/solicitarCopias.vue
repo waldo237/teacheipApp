@@ -1,5 +1,10 @@
 <template>
-  <v-layout class="mb-5 pb-5 grey lighten-4" justify-center wrap column>
+  <v-layout
+    class="mb-5 pb-5 grey lighten-4"
+    justify-center
+    wrap
+    column
+  >
     <header>
       <v-layout
         justify-center
@@ -7,32 +12,72 @@
         wrap
         primary-title
         class="display-1 font-weight-light text-xs-center main-title mt-5 pt-5 mx-4 px-1"
-      >Solicitud de copias de examenes</v-layout>
+      >
+        Solicitud de copias de examenes
+      </v-layout>
     </header>
     <main>
-      <v-container grid-list-sm class="pa-3">
+      <v-container
+        grid-list-sm
+        class="pa-3"
+      >
         <v-card class="round mx-2 pa-2 mb-5 pb-5 grey lighten-4 elevation-9">
-          <v-layout justify-center align-center class="grey lighten-4">
+          <v-layout
+            justify-center
+            align-center
+            class="grey lighten-4"
+          >
             <span class="orange--text lighten-3 upper">En funcionamiento</span>
-            <v-icon background-color="orange lighten-3" color="orange">fiber_new
-</v-icon>
+            <v-icon
+              background-color="orange lighten-3"
+              color="orange"
+            >
+              fiber_new
+            </v-icon>
           </v-layout>
-             <v-layout row wrap class="red--text caption">
+          <v-layout
+            row
+            wrap
+            class="red--text caption"
+          >
             Tomar en cuenta: No se puede editar ni borrar una solicitud despues de dos dias de haber sido creada.
           </v-layout>
           <!-- WAITING STARTS -->
-          <v-layout row wrap justify-center v-if="loading" class="slide">
+          <v-layout
+            row
+            wrap
+            justify-center
+            v-if="loading"
+            class="slide"
+          >
             <waiting />
           </v-layout>
           <!-- WAITING ENDS -->
 
-          <div @click="errors = []" v-else class="slide">
-            <v-layout row wrap justify-start>
+          <div
+            @click="errors = []"
+            v-else
+            class="slide"
+          >
+            <v-layout
+              row
+              wrap
+              justify-start
+            >
               <v-layout align-center>
-                <v-avatar size="40px" class="mr-3">
-                  <img :src="this.auth().currentUser.photoURL" alt />
+                <v-avatar
+                  size="40px"
+                  class="mr-3"
+                >
+                  <img
+                    :src="this.auth().currentUser.photoURL"
+                    alt
+                  >
                 </v-avatar>
-                <v-text-field placeholder="Name" v-model="request.name" />
+                <v-text-field
+                  placeholder="Name"
+                  v-model="request.name"
+                />
               </v-layout>
               <v-text-field
                 prepend-icon="mail"
@@ -49,7 +94,11 @@
               />
             </v-layout>
             <!-- NUMBER OF STUDENTS STARTS -->
-            <v-layout column wrap justify-start>
+            <v-layout
+              column
+              wrap
+              justify-start
+            >
               NUMERO DE ESTUDIANTES
               <v-text-field
                 prepend-icon="local_florist"
@@ -79,7 +128,10 @@
             <!-- NUMBER OF STUDENTS ENDS -->
 
             <!-- LEVEL STARTS -->
-            <v-layout row wrap>
+            <v-layout
+              row
+              wrap
+            >
               <v-select
                 class="py-1"
                 :items="level"
@@ -90,11 +142,20 @@
             </v-layout>
             <!-- LEVEL ENDS -->
             <!-- date picker starts -->
-            <v-layout row wrap>
-
-              <v-menu v-model="menu2" :close-on-content-click="false" max-width="290">
+            <v-layout
+              row
+              wrap
+            >
+              <v-menu
+                v-model="menu2"
+                :close-on-content-click="false"
+                max-width="290"
+              >
                 <template v-slot:activator="{ on }">
-                  <v-layout column wrap>
+                  <v-layout
+                    column
+                    wrap
+                  >
                     <v-text-field
                       :value="dateFormater(request.test_date)"
                       label="Fecha del examen"
@@ -105,12 +166,19 @@
                     />
                   </v-layout>
                 </template>
-                <v-date-picker v-model="request.test_date" color="#c6192a" @change="menu2 = false" />
+                <v-date-picker
+                  v-model="request.test_date"
+                  color="#c6192a"
+                  @change="menu2 = false"
+                />
               </v-menu>
             </v-layout>
             <!-- date picker ends -->
             <!-- information about the center starts -->
-            <v-layout row wrap>
+            <v-layout
+              row
+              wrap
+            >
               <v-select
                 class="py-1"
                 :items="regions"
@@ -135,11 +203,10 @@
                 label="Recinto"
                 @change="extra=(request.center == 'otro')?true:false"
               />
-                <v-text-field
-                 v-if="extra"
+              <v-text-field
+                v-if="extra"
                 placeholder="Otro centro"
-                 v-model="request.center"
-        
+                v-model="request.center"
               />
             </v-layout>
 
@@ -147,7 +214,15 @@
           </div>
           <v-card-actions>
             <v-spacer />
-            <v-btn small flat round class="sign-up" @click="reset">cancelar</v-btn>
+            <v-btn
+              small
+              flat
+              round
+              class="sign-up"
+              @click="reset"
+            >
+              cancelar
+            </v-btn>
             <v-btn
               small
               round
@@ -156,7 +231,9 @@
               class="green font-weight-bold slide"
               :loading="loading"
               v-if="editingMode"
-            >Editar solicitud</v-btn>
+            >
+              Editar solicitud
+            </v-btn>
             <v-btn
               v-else
               small
@@ -165,17 +242,27 @@
               @click="localPostCopy_req"
               class="sign-in slide"
               :loading="loading"
-            >Enviar solicitud</v-btn>
+            >
+              Enviar solicitud
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-container>
     </main>
     <!-- COPY_REQ HISTORY STARTS -->
     <aside>
-      <v-layout column wrap class="my-2 mx-4 mb-5" justify-center align-center>
+      <v-layout
+        column
+        wrap
+        class="my-2 mx-4 mb-5"
+        justify-center
+        align-center
+      >
         <v-card-title
           class="title font-weight-light text-xs-center main-title mx-4 px-1"
-        >Historial de copias de examenes</v-card-title>
+        >
+          Historial de copias de examenes
+        </v-card-title>
         <v-layout wrap>
           <v-card
             v-for="item in copy_reqs"
@@ -183,23 +270,56 @@
             class="ma-2 pa-4 elevation-24 grey lighten-2 slide"
           >
             <v-layout column>
-              <v-layout row wrap justify-end>
-                <v-btn flat small fab @click="setEditingMode(item)">
-                  <v-icon color="green">edit</v-icon>
+              <v-layout
+                row
+                wrap
+                justify-end
+              >
+                <v-btn
+                  flat
+                  small
+                  fab
+                  @click="setEditingMode(item)"
+                >
+                  <v-icon color="green">
+                    edit
+                  </v-icon>
                 </v-btn>
-                <v-btn class="slide" flat small fab @click="setDeleteMode(item)" v-if="!deleteMode">
-                  <v-icon color="red">delete</v-icon>
+                <v-btn
+                  class="slide"
+                  flat
+                  small
+                  fab
+                  @click="setDeleteMode(item)"
+                  v-if="!deleteMode"
+                >
+                  <v-icon color="red">
+                    delete
+                  </v-icon>
                 </v-btn>
-                <v-layout row wrap v-if="deleteMode && currentCopy_req == item.item_id">
+                <v-layout
+                  row
+                  wrap
+                  v-if="deleteMode && currentCopy_req == item.item_id"
+                >
                   Esta seguro que quieres borrar la informacion?
-                  <v-btn small fab class="slide sign-in" @click="deleteMode = false;">no</v-btn>
+                  <v-btn
+                    small
+                    fab
+                    class="slide sign-in"
+                    @click="deleteMode = false;"
+                  >
+                    no
+                  </v-btn>
                   <v-btn
                     small
                     fab
                     class="slide sign-up"
                     @click="deleteData(item)"
                     :loading="item.item_id == currentCopy_req && si"
-                  >si</v-btn>
+                  >
+                    si
+                  </v-btn>
                 </v-layout>
               </v-layout>
          
@@ -207,36 +327,36 @@
                 Nombre del solicitante:
                 <span class="font-weight-bold">{{ item.name }}</span>
               </span>
-                <span class="my-1">
+              <span class="my-1">
                 Nivel:
                 <span class="font-weight-bold">{{ item.level }}</span>
               </span>
-                   <span class="my-1">
+              <span class="my-1">
                 Fecha del examen:
                 <span class="font-weight-bold">{{ dateFormater(item.test_date) }}</span>
               </span>
         
-                 <span class="my-1">
+              <span class="my-1">
                 Numero en tanda matutina:
                 <span class="font-weight-bold">{{ item.ss_num_morn }}</span>
               </span>
-                <span class="my-1">
+              <span class="my-1">
                 Numero en tanda vepertina:
                 <span class="font-weight-bold">{{ item.ss_num_aft }}</span>
               </span>
-                <span class="my-1">
+              <span class="my-1">
                 Numero en tanda nocturna:
                 <span class="font-weight-bold">{{ item.ss_num_eve }}</span>
               </span>
-                 <span class="my-1">
+              <span class="my-1">
                 Centro:
                 <span class="font-weight-bold">{{ item.center }}</span>
               </span>
-               <span class="my-1">
+              <span class="my-1">
                 Provincia:
                 <span class="font-weight-bold">{{ item.province }}</span>
               </span>
-                <span class="my-1">
+              <span class="my-1">
                 Region:
                 <span class="font-weight-bold">{{ item.region }}</span>
               </span>
@@ -265,17 +385,40 @@
       >
         No fue posible seguir por las siguientes razones:
         <ul>
-          <li v-for="(error, i) in errors" :key="i">{{ error }}</li>
+          <li
+            v-for="(error, i) in errors"
+            :key="i"
+          >
+            {{ error }}
+          </li>
         </ul>
       </v-alert>
       <!--  ERROR ALERT ENDS -->
     </figure>
     <figure>
       <!-- snackbar to notify completion starts -->
-      <v-layout justify-center wrap row>
-        <v-snackbar class="error" v-model="snackbar" color multi-line :timeout="6000" top="top">
+      <v-layout
+        justify-center
+        wrap
+        row
+      >
+        <v-snackbar
+          class="error"
+          v-model="snackbar"
+          color
+          multi-line
+          :timeout="6000"
+          top="top"
+        >
           {{ snackbarMessage }}
-          <v-btn small dark text @click="snackbar = false">Close</v-btn>
+          <v-btn
+            small
+            dark
+            text
+            @click="snackbar = false"
+          >
+            Close
+          </v-btn>
         </v-snackbar>
       </v-layout>
       <!-- snackbar to notify completion ends -->
@@ -584,7 +727,7 @@ export default {
     clearInterval(this.timeOut);
   },
   computed: {
-    ...mapGetters(["auth", "storage"])
+    ...mapGetters(["auth"])
   },
   async created() {
     this.request.name = this.auth().currentUser.displayName;

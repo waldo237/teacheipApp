@@ -40,7 +40,12 @@
             class="my-1 white--text grey darken-4"
             v-if="item.link"
           >
-      <v-icon color="white" class="mx-2">{{item.icon}}</v-icon>
+            <v-icon
+              color="white"
+              class="mx-2"
+            >
+              {{ item.icon }}
+            </v-icon>
             {{
               item.title
             }}

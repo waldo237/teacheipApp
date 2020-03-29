@@ -1,4 +1,5 @@
 <template>
+<v-navigation-drawer app  disable-resize-watcher class="grey lighten-2" v-model="isCoordinator">
   <v-list dense>
     <template v-for="item in items">
       <v-layout
@@ -54,10 +55,12 @@
       </v-list-tile>
     </template>
   </v-list>
+</v-navigation-drawer>
 </template>
 <script>
 import {mapGetters} from "vuex";
 export default {
+  props:['isCoordinator'],
   data() {
     return {
       items: [

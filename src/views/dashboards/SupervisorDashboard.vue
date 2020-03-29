@@ -1,6 +1,13 @@
 <template>
-  <v-layout class="my-5 px-2 py-4 grey lighten-2" wrap>
-    <v-layout class="mx-2 px-1 justify-center" flat wrap>
+  <v-layout
+    class="my-5 px-2 py-4 grey lighten-2"
+    wrap
+  >
+    <v-layout
+      class="mx-2 px-1 justify-center"
+      flat
+      wrap
+    >
       <!-- send notification starts -->
       <v-card
         class="justify-center mx-1 elevation-24 grids grey lighten-4 dashboard-component"
@@ -8,8 +15,16 @@
         max-height="350px"
         max-width="400px"
       >
-        <v-card-title primary-title class="justify-center orangish py-1 white--text">
-          <v-icon color="white" class="mr-2">alarm</v-icon>Publicar notificación para coordinadores y maestros
+        <v-card-title
+          primary-title
+          class="justify-center orangish py-1 white--text"
+        >
+          <v-icon
+            color="white"
+            class="mr-2"
+          >
+            alarm
+          </v-icon>Publicar notificación para coordinadores y maestros
         </v-card-title>
         <v-card-text>
           <SendNotification />
@@ -17,9 +32,9 @@
       </v-card>
       <!-- send notification ends -->
 
-                  <!--******** solicitudes starts ********-->
-            <solicitudesScreen :all-solicitudes="allSolicitudes" />
-            <!--******** solicitudes ends ********-->
+      <!--******** solicitudes starts ********-->
+      <solicitudesScreen :all-solicitudes="allSolicitudes" />
+      <!--******** solicitudes ends ********-->
 
       <!-- intructions end -->
 
@@ -27,11 +42,23 @@
       <servicesScreen :services-for-supervisor="servicesForSupervisor" />
       <!--******** services ends ********-->
 
-      <v-layout row wrap justify-space-around align-end class="mx-2">
-           <!--  TASKS STARTS -->
-      <Tasks />
+      <v-layout
+        row
+        wrap
+        justify-space-around
+        align-end
+        class="mx-2"
+      >
+        <!--  TASKS STARTS -->
+        <Tasks />
       <!--  TASKS ENDS -->
-      </v-layout><v-layout row wrap justify-space-around class="mx-5 px-2 mb-5 pb-5" align-center>
+      </v-layout><v-layout
+        row
+        wrap
+        justify-space-around
+        class="mx-5 px-2 mb-5 pb-5"
+        align-center
+      >
         <!-- centers starts -->
         <v-card
           class="justify-center mx-1 elevation-24 grids mt-4 "
@@ -44,7 +71,12 @@
             primary-title
             class="justify-center centers darken-4 elevation-12 py-1 white--text"
           >
-            <v-icon color="white" class="mr-2 white--text">location_city</v-icon>Mis centros
+            <v-icon
+              color="white"
+              class="mr-2 white--text"
+            >
+              location_city
+            </v-icon>Mis centros
           </v-card-title>
 
           <v-card
@@ -53,26 +85,41 @@
             class="mb-2 grey lighten-4 scrollbar"
             style="overflow:auto;"
           >
-            <v-layout column v-for="(item, index) in centers" :key="item.uuid">
-              <v-card flat class="text-truncate grey lighten-4" style="max-width:190px">
+            <v-layout
+              column
+              v-for="(item, index) in centers"
+              :key="item.uuid"
+            >
+              <v-card
+                flat
+                class="text-truncate grey lighten-4"
+                style="max-width:190px"
+              >
                 <router-link
                   tag="v-btn"
                   class="px-2 py-0 ma-0 caption"
                   flat
                   :to="'/center/'+ item.uuid"
-                >{{ index+1 }} - {{ item.centro }}</router-link>
+                >
+                  {{ index+1 }} - {{ item.centro }}
+                </router-link>
               </v-card>
             </v-layout>
           </v-card>
         </v-card>
         <!-- centers ends -->
-        <v-card flat width="700px " class="grey lighten-2 dashboard-component">
+        <v-card
+          flat
+          width="700px "
+          class="grey lighten-2 dashboard-component"
+        >
           <memberCarousel class="mb-5" />
         </v-card>
         <aside>
-          <v-layout row justify-start>
-
-          </v-layout>
+          <v-layout
+            row
+            justify-start
+          />
         </aside>
       </v-layout>
     </v-layout>

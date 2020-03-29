@@ -2,10 +2,7 @@
   <v-card
     class="justify-center mx-1 elevation-24 grids grey lighten-4 tasks"
     raised
-  
-   
   >
-
     <!--  SNACKBAR STARTS -->
     <!-- snackbar to notify completion starts -->
     <v-snackbar

@@ -118,6 +118,19 @@ let router = new Router({
       }
     },
     {
+      path: "/attendanceForm",
+      name: "attendanceForm",
+      component: () =>
+        import(
+          /* webpackChunkName: "about" */ "./views/services/attendanceForm.vue"
+        ),
+      meta: {
+        title: 'Solicitud de formulario de Asistencia - DLE MESCyT',
+        requiresAuth: true,
+        resquiresValidation: true
+      }
+    },
+    {
       path: "/solicitarCopias",
       name: "solicitarCopias",
       component: () =>

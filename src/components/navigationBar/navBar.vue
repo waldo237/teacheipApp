@@ -1,27 +1,16 @@
 <template>
   <div>
     <!-- side menu starts -->
-    <div v-on-clickaway="away">
-      <v-navigation-drawer
-        app
-        v-model="drawer"
-        disable-resize-watcher
-        class="grey lighten-2"
-      >
-        <supervisorsideMenu v-if="isSupervisor" />
-        <coordinatorsideMenu v-else-if="isCoordinator" />
-        <teachersideMenu v-else-if="isTeacher" />
-      </v-navigation-drawer>
+    <div v-on-clickaway="away" v-if="drawer">
+      
+        <supervisorsideMenu :isSupervisor="isSupervisor" />
+        <coordinatorsideMenu :isCoordinator="isCoordinator"/>
+        <teachersideMenu :isTeacher="isTeacher"/>
+
     </div>
     <!-- side menu ends -->
     <!-- complete navigation starts -->
-    <v-toolbar
-      app
-      style="background-color:white"
-      class="pa-0"
-      dense
-      sticky
-    >
+    <v-toolbar app style="background-color:white" class="pa-0" dense sticky>
       <!--  sandwich menu for side bar/menu-->
 
       <v-btn
@@ -31,56 +20,29 @@
         flat
         class="ma-0 pa-0 leftIcon"
       >
-        <v-icon
-          medium
-          slot
-        >
-          menu
-        </v-icon>
+        <v-icon medium slot>menu</v-icon>
       </v-btn>
 
       <!-- sandwich menu -->
 
       <!-- logo starts -->
-      <div
-        class="logo-text px-0 my-0 mx-0"
-        :class="(checkIsLoggedIn)? 'leftIcon': ''"
-      >
-        <router-link
-          to="/"
-          flat
-          round
-          class="px-0 my-0 mx-0 font-weight-bold"
-        >
+      <div class="logo-text px-0 my-0 mx-0" :class="(checkIsLoggedIn)? 'leftIcon': ''">
+        <router-link to="/" flat round class="px-0 my-0 mx-0 font-weight-bold">
           <span class="teach font-weight-regular">Teach</span>
           <span class="acronym">EIP | version 1.2</span>
         </router-link>
-        <span class="full-title mt-0">with The English Immersion Program</span>
+        <span class="full-title mt-0"> with The English Immersion Program</span>
       </div>
       <!-- logo ends -->
 
       <v-spacer />
 
       <!-- expanded navigation bar  starts-->
-      <navBtnMax
-        @hideMenu="hideMenu"
-        @toggleProfile="profileModel = true"
-        @rolePath="rolePath"
-      />
+      <navBtnMax @hideMenu="hideMenu" @toggleProfile="profileModel = true" @rolePath="rolePath" />
       <!-- expanded navigation bar ends-->
       <!--  minimized menu starts-->
-      <v-btn
-        @click="sandwich = true"
-        fab
-        flat
-        class="hidden-md-and-up rightIcon"
-      >
-        <v-icon
-          medium
-          slot
-        >
-          menu
-        </v-icon>
+      <v-btn @click="sandwich = true" fab flat class="hidden-md-and-up rightIcon">
+        <v-icon medium slot>menu</v-icon>
       </v-btn>
       <navBtnMin
         :sandwich="sandwich"
@@ -173,6 +135,11 @@ export default {
             await this.$store.commit("setLoggedIn", false);
             await this.$store.commit("setValidated", {});
             await this.$store.commit("setAlert", false);
+            localStorage.removeItem("superUid");
+            localStorage.removeItem("sessionRole");
+            localStorage.removeItem("sessionToken");
+            localStorage.removeItem("serverToken");
+            this.$emit("drawerRefresh");
           })
           .catch(error => {
             console.log(`there was an issue logging out:${error}`);
@@ -183,11 +150,11 @@ export default {
       }
     },
     refreshDrawer() {
-      if (this.auth().currentUser && session.fetchRole()) {
+      if (this.auth().currentUser) {
         this.$store.commit("setLoggedIn", true);
-        if (session.fetchRole() == "supervisor") this.isSupervisor = true;
-        if (session.fetchRole() == "coordinator") this.isCoordinator = true;
-        if (session.fetchRole() == "teacher") this.isTeacher = true;
+        this.isSupervisor = session.fetchRole() == "supervisor" ? true : false;
+        this.isCoordinator = session.fetchRole() == "coordinator" ? true : false;
+        this.isTeacher = session.fetchRole() == "teacher" ? true : false;
         this.$root.$emit("loggedIn");
       }
     },
@@ -208,13 +175,9 @@ export default {
       "auth"
     ])
   },
-
-  beforeMount() {
-    this.refreshDrawer();
-    this.$on("drawerRefresh", this.refreshDrawer());
-  },
   created() {
     this.onResize();
+    this.$on("drawerRefresh", this.refreshDrawer());
   }
 };
 </script>
@@ -316,9 +279,5 @@ export default {
   .logo-text:hover .teach {
     font-size: 70%;
   }
-  /* .logo-text:hover img {
-    height: 50px;
-    width: 50px;
-  } */
 }
 </style>

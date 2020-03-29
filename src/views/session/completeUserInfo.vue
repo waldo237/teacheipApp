@@ -303,7 +303,7 @@
           <v-layout
             row
             wrap
-           >
+          >
             <v-select
               class="py-1"
               :items="regions"

@@ -1,4 +1,5 @@
 <template>
+<v-navigation-drawer app  disable-resize-watcher class="grey lighten-2" v-model="isSupervisor">
   <v-card
     class="mx-auto"
     width="300"
@@ -169,6 +170,7 @@
     <!-- ADMINISTRATIVE ends -->
     </div>
   </v-card>
+</v-navigation-drawer>
 </template>
 
 
@@ -187,6 +189,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  props:["isSupervisor"],
   data() {
     return {
       value: false,     

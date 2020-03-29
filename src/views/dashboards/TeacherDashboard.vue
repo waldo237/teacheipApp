@@ -408,13 +408,18 @@
       </transition>
       <!-- call attendance ends -->
       <memberCarousel class=" dashboard-component" />
-      
     </v-card>
-      <v-layout row wrap justify-space-around align-end class="px-2 pb-5 grey lighten-2">
-           <!--  TASKS STARTS -->
-      <Tasks  />
+    <v-layout
+      row
+      wrap
+      justify-space-around
+      align-end
+      class="px-2 pb-5 grey lighten-2"
+    >
+      <!--  TASKS STARTS -->
+      <Tasks />
       <!--  TASKS ENDS -->
-      </v-layout>
+    </v-layout>
   </v-content>
 </template>
 

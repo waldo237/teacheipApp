@@ -11,7 +11,6 @@
       <v-icon class="mr-2">
         signal_wifi_off
       </v-icon>estás desconectado en este momento
-
     </v-alert>
     <v-alert
       v-model="online"

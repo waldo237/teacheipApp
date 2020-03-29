@@ -69,6 +69,7 @@ export default {
           await this.$store.commit('setAlert', false)
           localStorage.removeItem('serverToken')
           localStorage.removeItem('permission')
+          this.$emit('drawerRefresh');
         })
         .catch((error)=>{
           console.log(`there was an issue logging out`)

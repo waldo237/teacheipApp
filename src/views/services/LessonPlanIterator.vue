@@ -5,36 +5,20 @@
       row
       wrap
       primary-title
-      class="display-1 font-weight-light  text-xs-center main-title mt-5 pt-5 mx-4 px-1 grey lighten-5"
-    >
-      Lesson Plans
-    </v-layout>
-    <!-- alternative circular loading starts -->
-    <v-layout
-      row
-      wrap
-      justify-center
-      v-if="stillLoading"
-      class="ma-5 pa-5 grey lighten-5"
-    >
+      class="display-1 font-weight-light text-xs-center main-title mt-5 pt-5 mx-4 px-1 grey lighten-5"
+    >Lesson Plans</v-layout>
+    <!-- LOADING STARTS -->
+    <v-layout row wrap justify-center v-if="stillLoading" class="ma-5 pa-5 grey lighten-5">
       <loading />
     </v-layout>
-    <!-- alternative circular loading endsd -->
-    <v-container
-      v-else
-      fluid
-      grid-list-md
-      class="py-5"
-    >
-      <v-layout
-        wrap
-        class="mx-5 px-5 round"
-        justify-center
-        color=" lighten-5 "
-      >
+    <!-- LOADING ENDS -->
+
+    <v-container v-else fluid grid-list-md class="py-5">
+      <!-- SEARCH STARTS -->
+      <v-layout wrap class="mx-5 px-5 round" justify-center color=" lighten-5 ">
         <v-text-field
           class="mx-4 mt-3"
-          label="Go ahead! find your lesson plan"
+          label="Buscar Planes de clase"
           single-line
           prepend-icon="search"
           color="#c6192a"
@@ -42,119 +26,148 @@
           v-model="searchTerms"
         />
       </v-layout>
-      <v-layout
-        row
-        wrap
-        align-center
-        justify-center
-        class="mx-3 grey lighten-5"
-      >
-        <v-overflow-btn
-          class=" px-auto mx-5 grey lighten-5 round"
+      <!-- SEARCH ENDS -->
+
+      <!-- SELECTS STARTS -->
+      <v-layout row wrap align-center justify-center class="mx-5 grey lighten-5">
+        <v-select
+          class="px-auto mx-5 grey lighten-5 round"
           :items="series"
-          label="Select a Series"
+          label="Selecciona serie de libro"
           color="#c6192a"
           prepend-icon="book"
-          solo
+          clearable
           flat
           v-model="dropdownSeries"
         />
-        <v-overflow-btn
-          class=" px-auto mx-5 grey lighten-5 "
+        <v-select
+          class="px-auto mx-5 grey lighten-5"
           :items="level"
-          label="Select a Level"
+          label="Selecciona el nivel"
           color="#c6192a"
           prepend-icon="trending_up"
-          solo
           flat
+          clearable
           v-model="dropdownLevel"
         />
-        <v-overflow-btn
-          class=" px-auto mx-5 grey lighten-5 "
-          :items="unit"
-          label="Select a Unit"
+        <v-text-field
+          class="px-auto mx-5 grey lighten-5"
+          type="number"
+          min="1"
+          max="16"
+          label="Selecciona la unidad"
           prepend-icon="format_list_numbered_rtl"
           color="#c6192a"
-          solo
           flat
+          clearable
           v-model="dropdownUnit"
         />
       </v-layout>
-
+      <!-- SELECTS ENDS -->
+      <!-- NUMBER AND SORT STARTS -->
       <v-layout
         wrap
         class="mx-3 px-4"
         justify-center
+        align-center
+        v-if="searchTerms || dropdownLevel || dropdownSeries || dropdownUnit"
       >
+        <span>{{ displayedLessonPlans.length }} archivos</span>
+        <div>
+          <v-btn class="my-0" small fab flat @click="filterDir = 'asc'">
+            <v-icon size="30">arrow_downward</v-icon>
+          </v-btn>
+          <v-btn class="my-0" small flat fab @click="filterDir = 'desc'">
+            <v-icon size="30">arrow_upward</v-icon>
+          </v-btn>
+        </div>
+      </v-layout>
+      <!-- NUMBER AND SORT ENDS -->
+      <!-- LESSON PLANS STARTS -->
+      <v-layout wrap class="mx-3 px-4" justify-center v-if="displayedLessonPlans.length > 0">
         <v-card
           v-for="item in displayedLessonPlans"
           :key="item.download"
           max-width="350px"
           min-width="350px"
-         
-          class="my-2 mx-auto elevation-10 round justify-center mx-1 elevation-24 grids mt-2 hovered grey lighten-3"
-          :class="(is2020(item.LastUpdated)? 'turnwhite': 'grey--text')"
+          class="my-2 mx-auto elevation-10 round justify-center mx-1 elevation-24 grids mt-2 grey lighten-3 slide hovered"
+          :class="is2020(item.last_update) ? 'turnwhite' : 'grey--text'"
         >
           <v-card-title
             class="py-1"
-            :class="(is2020(item.LastUpdated)?'subtitle-1 deep font-weight-bold white--text': 'subtitle-1 blue-cards font-weight-bold white--text')"
+            :class="
+              is2020(item.last_update)
+                ? 'subtitle-1 deep font-weight-bold white--text'
+                : 'subtitle-1 blue-cards font-weight-bold white--text'
+            "
           >
-            <v-badge 
-              color="#c6192a"
-              width="100%"
-            >
-              <template
-                v-slot:badge
-                v-if="is2020(item.LastUpdated)"
-              >
-                <span style="font-size: 70%; font-weight: bold"> New</span>
-              </template>
-              <v-icon
-                medium
-                v-if="is2020(item.LastUpdated)"
-              >
-                star
-              </v-icon>
-              <span>{{ item.parents }}</span>
-            </v-badge>
+            <v-icon color="orange" medium v-if="is2020(item.last_update)">fiber_new</v-icon>
+            <span class="mx-3">{{ item.file_name.split(".")[0] }}</span>
           </v-card-title>
 
           <v-card-text>
-            <span class="font-weight-bold">Book Series </span> {{ item.Name }}
-            <br>
-            <span class="font-weight-bold">Level: </span> {{ item.level }}
-            <br><span class="font-weight-bold">Type:</span> {{ item.Type }}
-            <br><span class="font-weight-bold">Size: </span>{{ item.Size }}
-            <br><span class="font-weight-bold">Last Updated: </span>{{ ago(item.LastUpdated) }} <br><span
-              class="font-weight-bold"
-            >Posted by:
-            </span>
-            {{ item.Owner }}
+            <span class="font-weight-bold">Book Series</span>
+            {{ item.book_series }}
+            <br />
+            <span class="font-weight-bold">Level:</span>
+            {{ item.level }}
+            <br />
+            <span class="font-weight-bold">format:</span>
+            {{ item.format }}
+            <br />
+            <span class="font-weight-bold">size:</span>
+            {{ item.size }}
+            <br />
+            <span class="font-weight-bold">Last Updated:</span>
+            {{ ago(item.last_update) }}
+            <br />
+            <span class="font-weight-bold">Posted by:</span>
+            {{ item.created_by }}
           </v-card-text>
           <v-card-actions class="mx-4">
-            <a
-              :href="item.Link"
-              target="blank"
-            >
-              <v-icon color="#c6192a">open_in_new</v-icon><span :class="(is2020(item.LastUpdated))? 'black--text ':'white--text'"> View online</span></a>
-            <v-spacer /><a :href="item.download">
-              <span :class="(is2020(item.LastUpdated))? 'black--text':'white--text'"> download</span>
-              <v-icon color="#c6192a">get_app</v-icon></a>
+            <a :href="item.link" target="blank">
+              <v-icon color="#c6192a">open_in_new</v-icon>
+              <span
+                :class="
+                  is2020(item.last_update) ? 'black--text ' : 'white--text'
+                "
+              >View online</span>
+            </a>
+            <v-spacer />
+            <a :href="item.download">
+              <span
+                :class="
+                  is2020(item.last_update) ? 'black--text' : 'white--text'
+                "
+              >download</span>
+              <v-icon color="#c6192a">get_app</v-icon>
+            </a>
           </v-card-actions>
         </v-card>
       </v-layout>
-      <v-layout
-        align-center
-        class="mb-5 pb-5 mx-auto px-auto"
-      >
+      <v-layout row wrap class="mx-3 px-4 slide" v-else>
+        <v-layout
+          justify-center
+          primary-title
+          class="title font-weight-light main-title my-5 py-5 mx-4 px-1 grey lighten-5"
+        >No hay planes de clase con estas caracteristicas</v-layout>
+      </v-layout>
+      <!-- LESSON PLANS ENDS -->
+      <!-- PAGINATION STARTS -->
+      <v-layout align-center class="mb-5 pb-5 mx-auto px-auto">
         <v-pagination
           class="mx-auto px-auto"
           v-model="page"
           :length="pages.length"
           color="#c6192a"
           circle
+          v-if="
+            !searchTerms && !dropdownLevel && !dropdownSeries && !dropdownUnit
+          "
         />
       </v-layout>
+
+      <!-- PAGINATION ENDS -->
     </v-container>
   </div>
 </template>
@@ -167,17 +180,10 @@ import loading from "@/components/loading.vue";
 export default {
   components: { loading },
   data: () => ({
-    newFormat: {
-      id: "15fTIx93wAkKTC-HfLk9aDGqCEZ19Qb2zXtTwMOGIctU",
-      link:
-        "https://docs.google.com/document/d/15fTIx93wAkKTC-HfLk9aDGqCEZ19Qb2zXtTwMOGIctU/view?usp=drivesdk",
-      download:
-        "https://docs.google.com/uc?export=download&confirm=no_antivirus&id=15fTIx93wAkKTC-HfLk9aDGqCEZ19Qb2zXtTwMOGIctU"
-    },
     stillLoading: true,
-    newPlan:true,
+    newPlan: true,
     page: 1,
-    perPage: 9,
+    perPage: 10,
     pages: [],
     lPs: [],
     searchTerms: "",
@@ -186,14 +192,14 @@ export default {
     dropdownUnit: "",
     filterDir: "asc",
     search: "",
-
-    series: ["Interchange", "Double Click", "Passages", "World Link"],
+    series: ["Interchange", "Double Click", "Passages", "World link"],
     level: [
       "Basic 1",
       "Basic 2",
       "Intermediate 1",
       "Intermediate 2",
-      "Advanced 1"
+      "Advanced 1",
+      "others"
     ],
     unit: [
       "1",
@@ -222,9 +228,6 @@ export default {
     }
   },
   methods: {
-    frame(url) {
-      return `https://drive.google.com/thumbnail?authuser=0&sz=w180& z=h140&id=${url}`;
-    },
     ...mapActions(["fetchLessonPlans"]),
     setReady() {
       this.stillLoading = false;
@@ -232,8 +235,8 @@ export default {
     ago(time) {
       return moment(time, "YYYYMMDD").fromNow();
     },
-    is2020(time){
-      return new Date(time).getFullYear() == 2020
+    is2020(time) {
+      return new Date(time).getFullYear() == 2020;
     },
     // set the number of pages based on the result of the calculation
     setPages() {
@@ -242,43 +245,72 @@ export default {
         this.pages.push(index);
       }
     },
+    orderByDate() {
+      // asc and desc order
+      if (this.filterDir == "desc") {
+        return this.lPs.sort(
+          (a, b) => new Date(a.last_update) - new Date(b.last_update)
+        );
+      }
+      if (this.filterDir == "asc") {
+        return this.lPs.sort(
+          (a, b) => new Date(b.last_update) - new Date(a.last_update)
+        );
+      }
+    },
     // calculate based on the lesson Plans and return
     // a copy with the narrowed search
     paginate(lPs) {
       //  dropdowns
-      if (this.dropdownSeries || this.dropdownLevel || this.dropdownUnit) {
-        return this.lPs.filter(
-          function(item) {
-            return (
-              item.Name.toLowerCase().match(
-                this.dropdownSeries.toLowerCase()
-              ) &&
-              item.level
-                .toLowerCase()
-                .match(this.dropdownLevel.toLowerCase()) &&
-              item.parents.toLowerCase().match(this.dropdownUnit.toLowerCase())
-            );
-          }.bind(this)
-        );
+      try {
+        const unit = this.dropdownUnit.toLowerCase()
+          ? `unit ${this.dropdownUnit.toLowerCase()}`
+          : "";
+        if (this.dropdownSeries || this.dropdownLevel || this.dropdownUnit) {
+          return this.lPs
+            .filter(item => {
+              return (
+                item.book_series
+                  .toLowerCase()
+                  .match(this.dropdownSeries.toLowerCase()) &&
+                item.level
+                  .toLowerCase()
+                  .match(this.dropdownLevel.toLowerCase()) &&
+                item.unit.toLowerCase().match(unit.toLowerCase())
+              );
+            })
+            .filter(this.orderByDate);
+        }
+        // //  searching
+        if (this.searchTerms) {
+          return this.lPs
+            .filter(
+              function(item) {
+                return (
+                  item.book_series
+                    .toLowerCase()
+                    .match(this.searchTerms.toLowerCase()) ||
+                  item.level
+                    .toLowerCase()
+                    .match(this.searchTerms.toLowerCase()) ||
+                  item.file_name
+                    .toLowerCase()
+                    .match(this.searchTerms.toLowerCase())
+                );
+              }.bind(this)
+            )
+            .filter(this.orderByDate);
+        }
+
+        // pagination
+        const page = this.page;
+        const perPage = this.perPage;
+        let from = page * perPage - perPage;
+        let to = page * perPage;
+        return lPs.slice(from, to);
+      } catch (error) {
+        console.log(error);
       }
-      //  searching
-      if (this.searchTerms) {
-        return this.lPs.filter(
-          function(item) {
-            return (
-              item.Name.toLowerCase().match(this.searchTerms.toLowerCase()) ||
-              item.level.toLowerCase().match(this.searchTerms.toLowerCase()) ||
-              item.parents.toLowerCase().match(this.searchTerms.toLowerCase())
-            );
-          }.bind(this)
-        );
-      }
-      // pagination
-      const page = this.page;
-      const perPage = this.perPage;
-      let from = page * perPage - perPage;
-      let to = page * perPage;
-      return lPs.slice(from, to);
     }
   },
   watch: {
@@ -291,6 +323,22 @@ export default {
       this.dropdownSeries = "";
       this.dropdownLevel = "";
       this.dropdownUnit = "";
+      this.filterDir= "asc";
+    },
+    dropdownUnit() {
+      if (this.dropdownUnit == undefined) this.dropdownUnit = "";
+      this.searchTerms = "";
+      this.filterDir= "asc";
+    },
+    dropdownSeries() {
+      if (this.dropdownSeries == undefined) this.dropdownSeries = "";
+      this.searchTerms = "";
+      this.filterDir= "asc";
+    },
+    dropdownLevel() {
+      if (this.dropdownLevel == undefined) this.dropdownLevel = "";
+      this.searchTerms = "";
+      this.filterDir= "asc";
     }
   },
 
@@ -309,14 +357,11 @@ export default {
     rgb(140, 144, 151) 74.6%
   );
 }
-.turnwhite:hover{
-  color: rgba(255, 255, 249, 0.6) 0%,
+.turnwhite:hover {
+  color: rgba(255, 255, 249, 0.6) 0%;
 }
 .hovered:hover {
   background: #51647c !important;
-  animation-duration: 0.1s;
-  animation-name: pulse;
-  animation-timing-function: ease-in-out;
 }
 .deep {
   background: #1488cc; /* fallback for old browsers */

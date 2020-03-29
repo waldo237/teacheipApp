@@ -12,7 +12,7 @@
       <v-card
         class="feeds mt-4 round scrollbar"
         lazy
-      >
+        >
         <v-list
           tw0-line
           class="pt-1 "
