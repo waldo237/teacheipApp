@@ -16,12 +16,34 @@
             <span class="orange--text lighten-3 upper">En funcionamiento</span>
             <v-icon background-color="orange lighten-3" color="orange">fiber_new</v-icon>
           </v-layout>
-          <v-layout row wrap class="red--text caption">
-            Tomar en cuenta: No se puede editar esta solicitud despues de dos
-            dias de haber sido creada.
+          <v-btn small outline color="green" @click="detalles = !detalles">Ver detalles</v-btn>
+          <transition name="fadeInDown">
+          <v-layout row wrap class=" ma-3 px-2 " v-if="detalles">
+            “Formulario de Asistencia”: como coordinador o profesor encargado, esta aplicación le permite crear un formulario de asistencia para cada nivel. El “Formulario de Asistencia” este hecho en una Hoja de cálculo de Google (googlesheet).
+           <br /> Al completar la información siguiente podrás iniciar la creación de “Formulario de Asistencia” que se adapte a el numero de grupos que se manejan en tu centro.
+           <br /> Al llenar la información se te preguntará:
+            <ul>
+              <li>Si hay grupos en una determinada tanda.</li>
+              <li>El color que deseas que tengan las pestañas de las tandas; esto ayuda a diferenciarlas en la hoja de calculo.</li>
+              <li>La cantidad de grupos en una determinada tanda.</li>
+              <li>El nivel para el que estas creando la hoja de asistencia. *nota al momento de publicar esta función, todavía hay una persona encargada de editar el blueprint de la hoja de asistencia; esta es actualizada dos semanas antes de entrar el nuevo nivel. Para evitar obtener una versión desactualizada (del nivel anterior), por favor crea la hoja de asistencia una semana antes de comenzar el nuevo nivel.</li>
+              <li>Quien supervisa su centró</li>
+              <li>La región, provincia y nombre del centro(recinto). *nota: si no escoge la región primero no podrá visualizar la provincia o el recinto.</li>
+              <li>Al insertar los correos electrónicos de los miembros de tu equipo en la opción “+ MIEMBROS DE TU EQUIPO”, puedes definir quienes tendrán acceso a editar el formulario. *nota: los correos que no sean de Gmail solo tendrán acceso a ver el “Formulario de Asistencia”.</li>
+            </ul>
+Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálculos para esta operación, esta puede durar entre 30 y 50 segundos antes de recibir confirmación de su creación.
+            <br />Para evitar la posible pérdida de información, una vez el formulario es creado, se bloqueará la opción de editar la estructura del formulario dos días después.
+            <br />Tan pronto el formulario es creado, el supervisor, los miembros de tu equipo, y tu recibirán un correo electrónico con el enlace para comenzar a trabajar con este.
+            <br />En la parte posterior de esta página podrá ver de forma automática el nuevo formulario.
+           <br /> Si por alguna razón, desea editarlo, puede hacer click en el icono del lápiz verde, llenar los cambios y enviarlos.
           </v-layout>
+          </transition>
           <!-- WAITING STARTS -->
           <v-layout row wrap justify-center v-if="loading" class="slide">
+            <v-layout row wrap class="mx-5 px-5 title">
+            Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálculos para esta operación, esta puede durar entre 30 y 50 segundos antes de recibir confirmación de su creación.
+              
+            </v-layout>
             <waiting />
           </v-layout>
           <!-- WAITING ENDS -->
@@ -169,6 +191,7 @@
                 :items="level"
                 :placeholder="request.level"
                 v-model="request.level"
+                :disabled="editingMode"
                 label="Nivel"
               />
               <v-select
@@ -189,6 +212,7 @@
                 :items="regions"
                 :placeholder="request.region"
                 v-model="request.region"
+                :disabled="editingMode"
                 label="Region"
                 @change="regionSelect"
               />
@@ -197,6 +221,7 @@
                 :items="provinces"
                 :placeholder="request.province"
                 v-model="request.province"
+                :disabled="editingMode"
                 label="Provincia"
                 @change="provinceSelect"
               />
@@ -205,6 +230,7 @@
                 :items="recintos"
                 :placeholder="request.center"
                 v-model="request.center"
+                :disabled="editingMode"
                 label="Recinto"
                 @change="extra = request.center == 'otro' ? true : false"
               />
@@ -229,9 +255,10 @@
               >
                 <v-icon color="grey">add</v-icon>miembros de tu equipo
               </v-btn>
-              <v-layout column v-if="request.thereIsEmailList">
-                <v-layout row class="mx-4">
-                  <v-icon class="mx-3" color="green" @click.stop="addEmail">add</v-icon>
+               <transition name="fadeInDown">
+              <v-layout column v-if="request.thereIsEmailList" >
+                <v-layout row class="mx-4 mb-5">
+                  <v-icon class="mx-3" color="red" @click="emailList.pop(emailIn)">remove</v-icon>
                   <v-text-field
                     clearable
                     prepend-icon="email"
@@ -241,7 +268,7 @@
                     :maxlength="40"
                     @keydown.enter="addEmail"
                   ></v-text-field>
-                  <v-icon class="mx-3" color="red" @click="emailList.pop(emailIn)">remove</v-icon>
+                  <v-icon class="mx-3" color="green" @click.stop="addEmail">add</v-icon>
                 </v-layout>
                 <v-layout column class="mx-4">
                   <ul v-for="(email, i) in emailList" :key="i">
@@ -252,6 +279,7 @@
                   </ul>
                 </v-layout>
               </v-layout>
+               </transition>
             </v-layout>
             <!-- ADD TEAM MEMBERS  ENDS-->
           </div>
@@ -377,7 +405,7 @@
               </span>
               <span class="my-1">
                 ir al formulario
-                <a :href="item.att_form_URL">
+                <a :href="item.att_form_URL" target="_blank">
                   <span class="font-weight-bold caption">aqui</span>
                 </a>
               </span>
@@ -465,14 +493,16 @@ export default {
       extra: false,
       supervisors: [],
       emailIn: "",
-      emailList: []
+      emailList: [],
+      detalles: false
     };
   },
   methods: {
     fillSupervisorInfo() {
-       this.getSupervisors()
-       .then(async res=> {
-      const supervisorInfo = await  res.data.filter(s => s.name == this.request.supervisor)[0];
+      this.getSupervisors().then(async res => {
+        const supervisorInfo = await res.data.filter(
+          s => s.name == this.request.supervisor
+        )[0];
         this.request.supervisorUid = supervisorInfo.uid;
         this.request.supervisorName = supervisorInfo.name;
         this.request.supervisorEmail = supervisorInfo.email;
@@ -774,3 +804,13 @@ export default {
   }
 };
 </script>
+<style>
+.fadeInDown-enter-active{
+animation: fadeInDown;
+animation-duration: 0.3s
+}
+.fadeInDown-leave-active{
+animation: fadeOutUp;
+animation-duration: 0.2s
+}
+</style>

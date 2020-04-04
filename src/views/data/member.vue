@@ -66,7 +66,7 @@
             <v-btn
               color="green"
               small
-              @click="$root.$emit('createRoom', member)"
+              @click="$root.$emit('createRoom', member);$root.$emit('closeIM')"
             >
               Enviar mensaje
             </v-btn>

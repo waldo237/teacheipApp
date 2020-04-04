@@ -30,9 +30,11 @@
     <IM
       v-if="IMComponent"
       :i-m="IM"
+      :closeIM="closeIM"
       :participant="participant"
       @openIM="IM=true"
-      @closeIM="IM=false"
+      @minimizeIM="IM=false"
+      @closeIM ="closeIM=true"
     />
     <!-- IM ends -->
     <NavBar />
@@ -66,6 +68,7 @@ export default {
       online: false,
       timeOut: {},
       IM: false,
+      closeIM: false,
       IMComponent: false,
       participant: {},
     };
@@ -93,6 +96,7 @@ export default {
       this.IMComponent = true;
       this.IM = true;
     })
+    this.$root.$on('closeIM',()=>{this.closeIM = false})
     this.init();
   },
   beforeDestroy() {

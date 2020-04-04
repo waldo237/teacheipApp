@@ -39,8 +39,6 @@
         <v-btn
           text
           block
-          
-          
           class="info sign-up darken-3 white--text round"
           @click="toggleSU"
         >
