@@ -544,7 +544,6 @@ export default {
               return res;
             })
             .then(async res => {
-              console.log(res.data);
               if (res.data.status == 200) {
                 await this.getAttendance_forms();
                 window.scrollTo(0, 1000);
@@ -667,7 +666,7 @@ export default {
         this.request.supervisor = null;
         this.request.emailList = this.emailList;
         this.request.post = true;
-        console.log(this.request); // TODO
+       
         try {
           this.request.res = await axios.post(
             `https://script.google.com/macros/s/AKfycbyNjIq0XeHJKNnF6OL9mngBX4cTiQGvCG2yVQcuP_drFhy0wRc/exec`,
@@ -693,7 +692,7 @@ export default {
         this.request.supervisor = null;
         this.request.emailList = this.emailList;
         this.request.edit = true;
-        console.log(this.request); // TODO
+
         try {
           this.request.res = await axios.post(
             `https://script.google.com/macros/s/AKfycbyNjIq0XeHJKNnF6OL9mngBX4cTiQGvCG2yVQcuP_drFhy0wRc/exec`,

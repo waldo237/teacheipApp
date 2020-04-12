@@ -3,7 +3,7 @@
     row
     v-if="notiFeeds"
     v-on-clickaway="closeNotification"
-  >
+   >
     <v-flex
       xs12
       sm6
@@ -96,20 +96,20 @@ export default {
     moment(date){
       return moment(date).fromNow();
     },
-    ...mapActions([ "markAsRead"])
+    ...mapActions([ "markAsRead", 'fetchFeeds'])
   },
   computed: {
     ...mapGetters(["feeds", "auth", "notiFeeds","haveNotRead" ])
   },
   async created() {
 
- this.$root.$on('loggedIn', async ()=>{
+//  this.$root.$on('loggedIn', async ()=>{
+   await this.fetchFeeds();
    this.$store.commit("setCUEmail", this.auth().currentUser.email);
-    await this.$store.dispatch('fetchFeeds');
     this.items = this.feeds.sort((a, b) =>new Date(b.date) - new Date(a.date));
      this.closeNotification();
 
-     })
+    //  })
  
  }
 };

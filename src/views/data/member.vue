@@ -1,12 +1,7 @@
 <template>
   <v-content class="my-2">
     <v-container class="mb-5 pb-5">
-      <v-layout
-        row
-        wrap
-        class="mx-1 px-3"
-        justify-center
-      >
+      <v-layout row wrap class="mx-1 px-3" justify-center>
         <v-card-title
           primary-title
           class="display-1 font-weight-light main-title"
@@ -14,41 +9,15 @@
           Uno de los nuestros
         </v-card-title>
       </v-layout>
-      <v-layout
-        column
-        wrap
-        justify-center
-      >
-        <v-btn
-          outline
-          block
-          @click="goBack"
-          round
-          color="black"
-          class="mt-2"
-        >
+      <v-layout column wrap justify-center>
+        <v-btn outline block @click="goBack" round color="black" class="mt-2">
           Volver atrás
         </v-btn>
-      
-        <v-card
-          class=" pr-4 py-4 pl-2 mb-5 grey darken-4 round font-95"
-          dark
-        >
-          <v-layout
-            row
-            wrap
-            align-center
-            justify-start
-            class="mx-4"
-          >
-            <v-avatar
-              v-if="member.photoURL"
-              size="70"
-            >
-              <v-img
-                :src="member.photoURL"
-                :lazy-src="member.photoURL"
-              />
+
+        <v-card class=" pr-4 py-4 pl-2 mb-5 grey darken-4 round font-95" dark>
+          <v-layout row wrap align-center justify-start class="mx-4">
+            <v-avatar v-if="member.photoURL" size="70">
+              <v-img :src="member.photoURL" :lazy-src="member.photoURL" />
             </v-avatar>
             <v-avatar
               v-else
@@ -57,47 +26,61 @@
               size="70"
             >
               <div v-if="member.firstName">
-                {{ member.firstName.split(' ')
-                  .map(n => n[0])
-                  .join("")
-                  .toUpperCase() }}
+                {{
+                  member.firstName
+                    .split(" ")
+                    .map(n => n[0])
+                    .join("")
+                    .toUpperCase()
+                }}
               </div>
             </v-avatar>
             <v-btn
               color="green"
               small
-              @click="$root.$emit('createRoom', member);$root.$emit('closeIM')"
+              @click="$root.$emit('openIM', member); 
+              "
             >
               Enviar mensaje
             </v-btn>
           </v-layout>
-          <v-layout
-            column
-            wrap
-            justify-space-around
-          >
+          <v-layout column wrap justify-space-around>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95">Nombre:</span>
-              <span class="mx-2 text-uppercase">{{ member.firstName }} {{ member.lastName }}</span>
+              <span class="ml-4 title text-uppercase main-title font-95"
+                >Nombre:</span
+              >
+              <span class="mx-2 text-uppercase"
+                >{{ member.firstName }} {{ member.lastName }}</span
+              >
             </div>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95">Centro:</span>
+              <span class="ml-4 title text-uppercase main-title font-95"
+                >Centro:</span
+              >
               <span class="mx-2 text-uppercase">{{ member.center }}</span>
             </div>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95">Provincia:</span>
+              <span class="ml-4 title text-uppercase main-title font-95"
+                >Provincia:</span
+              >
               <span class="mx-2 text-uppercase">{{ member.province }}</span>
             </div>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95">Region:</span>
+              <span class="ml-4 title text-uppercase main-title font-95"
+                >Region:</span
+              >
               <span class="mx-2 text-uppercase">{{ member.region }}</span>
             </div>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95">Edad:</span>
+              <span class="ml-4 title text-uppercase main-title font-95"
+                >Edad:</span
+              >
               <span class="mx-2 text-uppercase">{{ calculateAge() }}</span>
             </div>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95">Desde:</span>
+              <span class="ml-4 title text-uppercase main-title font-95"
+                >Desde:</span
+              >
               <span class="mx-2 text-uppercase">{{ fromNow() }}</span>
             </div>
           </v-layout>
@@ -109,26 +92,30 @@
 <script>
 import { mapActions } from "vuex";
 import moment from "moment";
+import socket from "socket.io-client";
+
 export default {
   data() {
     return {
-      member: {}
+      member: {},
+      io: socket.connect("http://localhost:3001")
     };
   },
   methods: {
     ...mapActions(["getMember"]),
-    fromNow(){
-      return  moment(this.member.created_date, "YYYYMMDD").locale('es').fromNow()
+    fromNow() {
+      return moment(this.member.created_date, "YYYYMMDD")
+        .locale("es")
+        .fromNow();
     },
-     calculateAge() {
+    calculateAge() {
       let ageDifMs = Date.now() - Date.parse(this.member.birthday);
       let ageDate = new Date(ageDifMs);
       return Math.abs(ageDate.getUTCFullYear() - 1970);
     },
-    
     goBack() {
       this.$router.go(-1);
-    }
+    },
   },
   async created() {
     this.member = await this.getMember(this.$route.params.id);
