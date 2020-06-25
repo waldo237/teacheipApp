@@ -23,6 +23,7 @@
 
       <!--  CONVERSATION BODY STARTS -->
       <v-card height="260px" class="scrollbar chatCard grey " id="thread" v-if="conversation">
+        <v-btn flat light small>ver más<v-icon class="mx-2">cached</v-icon></v-btn>
         <v-card-text class="scrollbar" v-for="message in messages" :key="message._id">
           <v-tooltip top v-if="message.from == currentUser.uid">
             <template v-slot:activator="{ on }">
@@ -123,12 +124,13 @@ export default {
       message: "",
       messages: [],
       chatRoom_id: "",
-      timeOut: null
+      timeOut: null,
+      invitationWasAccepted: false,
     };
   },
   methods: {
     /**
-     * @function formatDate(date) formats the date to day/month/year
+     * Formats the date to day/month/year
      * @param date:Date
      */
     formatDate(date) {
@@ -161,10 +163,10 @@ export default {
       this.chatRoom_id = "";
     },
     /**
-     * @function startPrivateChat() emits a message socket with
-     * opens the channel for the first time {to: uid, from:uid, body: String}
+     * Emits a message socket with opens the channel for the first time {to: uid, from:uid, body: String}
      */
     startPrivateChat() {
+      console.log('startPrivateChat')
       this.io.emit("startPrivateChat", {
         to: this.participant.cu_id,
         from: this.currentUser.uid,
@@ -173,8 +175,7 @@ export default {
       this.input = "";
     },
     /**
-     * @function onInvitationToPrivateChat() listens to socket call
-     * to the currentUser.userId to start a privateChat.
+     * Listens to socket call to the currentUser.userId to start a privateChat.
      * the parameter received is an array: message[sender:Object, body:String, chatRoom_id]
      * it launches the IM to start the chat, and emits acceptInvitationToPrivateChat(chatroom_id)
      */
@@ -189,33 +190,31 @@ export default {
       });
     },
     /**
-     * @function onIstyping listens a socket, receives a boolean,
+     * Listens a socket, receives a boolean,
      * toggles isTyping to show that the participant is typing
      */
     onIstyping() {
       this.io.on("isTyping", answer => {
         console.log(answer);
         this.isTyping = answer;
-        const thread = document.getElementById('thread');
-        thread.scrollTop = thread.scrollHeight;
-        this.timeOut = setTimeout(() => (this.isTyping = false), 100);
+        this.timeOut = setTimeout(() => (this.isTyping = false), 10);
       });
     },
     /**
-     * @function sendMessage decides whether it is the first time
-     * a message is sent, it then decides to call startPrivateChat
-     * or sendToChat
+     * Decides whether it is the first time a message is sent, 
+     * it then decides to call startPrivateChat or sendToChat
      */
     sendMessage() {
-      if (!this.messages.length && !this.chatRoom_id) {
+      console.log('this.messages.length:',this.messages.length);
+      console.log('this.chatRoom_id:', this.chatRoom_id);
+      if (!this.invitationWasAccepted) {
         this.startPrivateChat();
       } else {
         this.sendToExistingChat();
       }
     },
     /**
-     * @function sendToExistingChat composes a message:
-     * {from: uid, to: uid,  message:String, chatRoom_id: uid}
+     * Composes a message:{from: uid, to: uid,  message:String, chatRoom_id: uid}
      * emits the message to emiSendToExistingChat, then triggers emitMessageThread on the server
      */
     sendToExistingChat() {
@@ -230,29 +229,34 @@ export default {
         this.messages.push(newMessage);
         this.input = "";
       }
-      
     },
     /**
-     * @function onMessageThread expects an array and saves it locally if the local array is empty,
+     * Expects an array and saves it locally if the local array is empty,
      * if the incomming array is longer, it pushes the last values to this.messages[];
      * ; this will prevent refreshing the template iteration.
      */
     onMessageThread() {
-      this.io.on("messageThread", messages => {
-        if (!this.messages.length) {
-          this.messages = messages;
-          } else {
-            for (let i = this.messages.length; i < messages.length; i++) {
-              this.messages.push(messages[i]);
-            }
-          }
+      this.io.on("messageThread",async inComingMessages => {
+          await inComingMessages.sort((a,b)=> new Date(a.date)- new Date(b.date)) //reverse the array 
+          this.messages = inComingMessages;
         });
-     
     },
     /**
-     * @function refreshMessageThread emits a message requesting what's on the database
+     * Expects an array and saves it locally if the local array is empty
+     * ; this will prevent refreshing the template iteration.
+     */
+    onFirstMessageThread() {
+      this.io.on(`${this.currentUser.uid}firstRefresh`,async messages => {
+         await messages.sort((a,b)=> new Date(a.date)- new Date(b.date))
+          this.messages =  messages;
+          // set local chatRoom_id  since the messages carry the chatRoom_id
+          this.chatRoom_id = messages[0].chatRoom_id;
+        });
+    },
+    /**
+     * Emits a message requesting what's on the database
      * from a conversation between these two participants. {from:uid, to:uid, JWT}
-     * @param withChatRoomId:boolean to determine the method to get the data (participants or chatRoomIDyy)
+     * @param withChatRoomId:boolean to determine the method to get the data (participants or chatRoomID)
      */
     refreshMessageThread(withChatRoomId) {
       if (this.participant.cu_id) {
@@ -260,38 +264,49 @@ export default {
           to: this.participant.cu_id,
           from: this.currentUser.uid,
           chatRoom_id: this.chatRoom_id,
-          JWT: localStorage.getItem("serverToken"),
+          // JWT: localStorage.getItem("serverToken"),
           withChatRoomId: withChatRoomId
         });
       }
     },
     /**
-     * @function disconnectFromChatRoom emits a request to disconnect the user from the current channel
+     * Listens to invitationToPrivateChatWasAccepted saves it locally
+     * to make the decision in sendMessage()
+     */
+    onInvitationToPrivateChatWasAccepted(){
+      this.io.on('invitationToPrivateChatWasAccepted',(respose)=>{
+        this.invitationWasAccepted = respose;
+      });
+    },
+    /**
+     * Emits a request to disconnect the user from the current channel
      */
     disconnectFromChatRoom() {
-      this.io.emit("disconnectFromChatRoom", this.currentUser.uid);
+      this.io.emit("removeFromChatRoom", this.currentUser.uid);
     }
   },
   watch: {
     input() {
       // emits a socket when currentUser types
       this.io.emit("isTyping", this.chatRoom_id);
-        const thread = document.getElementById('thread');
-          thread.scrollTop = thread.scrollHeight;
     }
   },
-
   created() {
     this.io = socket.connect("http://localhost:3001"); //start a socket connection
-    this.onInvitationToPrivateChat();
+    this.onFirstMessageThread();
     this.onMessageThread();
+    this.onInvitationToPrivateChat();
     this.onIstyping();
-       //get chatRoomId when starting conversation and  save it locally
-    this.io.on("getChatRoomId", chatRoom_id => this.chatRoom_id = chatRoom_id );
+    this.onInvitationToPrivateChatWasAccepted();
     this.$root.$on("openIM", participant => {
       this.openIM(participant).then(this.refreshMessageThread(false));
     });
-    this.refreshMessageThread(false)
+  },
+  updated(){
+    if(document.getElementById('thread')){
+      document.getElementById('thread').scrollTop =  (document.getElementById('thread')) ? document.getElementById('thread').scrollHeight : 0;
+
+    }
   },
   beforeDestroy() {
     clearTimeout(this.timeOut);
@@ -301,7 +316,7 @@ export default {
 
 <style>
 .typing {
-  animation: rubberBand 2s infinite;
+  animation: rubberBand 1s infinite;
 }
 .chat {
   width: 300px;
