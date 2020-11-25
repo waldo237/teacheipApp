@@ -292,7 +292,7 @@ export default {
     }
   },
   created() {
-    this.io = socket.connect("http://localhost:3001"); //start a socket connection
+    this.io = socket.connect("https://eip-server.herokuapp.com/"); //start a socket connection
     this.onFirstMessageThread();
     this.onMessageThread();
     this.onInvitationToPrivateChat();

@@ -233,7 +233,9 @@
 // @ is an alias to /src
 import { mapGetters, mapActions } from "vuex";
 import Carousel from "@/components/carousel.vue";
-
+import tes1 from '../assets/photos/testimony1.jpg'
+import tes2 from '../assets/photos/testimony2.jpg'
+import tes3 from '../assets/photos/testimony3.jpg'
 export default {
   name: "Home",
   components: {
@@ -242,7 +244,7 @@ export default {
   data() {
     return {
       snackbar: true,
-      tesPhotos: [],
+   
       principles: [
         {
           title: "History of the Program",
@@ -260,23 +262,23 @@ export default {
             "To provide foreign language learning opportunities to the Dominican university population, to improve their communication ability and increase their competitiveness level, allowing greater professional and cultural growth, and better chances of entering the labor market."
         }
       ],
-      testimonies: [
+      tesPhotos: [
         {
-          photo: "testimony1.jpg",
+          url: tes1,
           name: "Jennifer Tavarez",
           position: "Student",
           testimony:
             "It is so encouraging to see how many graduates are here today: of all different ages, status, and with different goals. However, we are all linked by personal and professional growth. <br> Learning a new language is not an easy task; in the beginning, we surely met some classmates that knew very little English aside from 'hello', 'goodbye', and some numbers, but now, they can easily have a conversation with a native English speaker. I have seen it happen in a matter of months, and I can say that being a witness of this process has been amazing."
         },
         {
-          photo: "testimony2.jpg",
+          url: tes2,
           name: "Roberto Alcantara",
           position: "Coordinator",
           testimony:
             "When I started this program, one of the things that called my attention was the teachers. I have always had this general idea of teaching as a career where people were not enough motivated about what they were doing. The first day of classes in the E.I.P., I saw these people being so energetic, organized and willing to give the best of them to make us learn. I am not going to lie, I was amazed,  happy and with high expectations since that day. I am the type of person who appreciates teaching and when is done with effort. I think that a good teacher can have a huge influence on his/her students. This was what happened in the English Immersion Program: part of the discipline we put into this was a consequence teachers’ effort. Now, many of us have cultivated the motivation to become teachers, as well."
         },
         {
-          photo: "testimony3.jfif",
+          url: tes3,
           name: "Luisa M. Rodríguez",
           position: "Teacher",
           testimony: `Seeing my classmates working so hard to take advantage of every lesson, or something as simple as receiving WhatsApp messages from them exclusively in English, or the mere fact that many of them used to use their English dictionaries outside class time inspired me a lot, and I know that many of you feel the same. <br>10 months have passed, and I can say without any doubt that each of you did not see this program as another normal, or perhaps "boring" university course or subject, it was more than that. We met different people and we got involved with them 5 days a week for almost one year, and after all this time, we feel that we that we are like family. Sharing with every classmate was an experience per se, and learning with them has been a wonderful part of our lives and a meaningful memory to keep.`
@@ -294,10 +296,10 @@ export default {
     ...mapGetters(["storage"])
   },
   async created() {
-    if (this.tesPhotos.length == 0) {
-      this.$store.commit("setArrayObjsWPhotos", this.testimonies);
-      this.tesPhotos = await this.initializeFetch();
-    }
+    // if (this.tesPhotos.length == 0) {
+    //   this.$store.commit("setArrayObjsWPhotos", this.testimonies);
+    //   this.tesPhotos = await this.initializeFetch();
+    // }
   }
 };
 </script>

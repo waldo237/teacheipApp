@@ -98,7 +98,7 @@ export default {
   data() {
     return {
       member: {},
-      io: socket.connect("http://localhost:3001")
+      io: socket.connect("https://eip-server.herokuapp.com/")
     };
   },
   methods: {

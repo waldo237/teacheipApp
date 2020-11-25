@@ -1,4 +1,5 @@
-import { storage } from "firebase/app";
+// import { storage } from "firebase/app";
+
 const state = {
   photoURl: {},
   arrayObjsWPhotos: []
@@ -21,14 +22,17 @@ const actions = {
    * @return a promise with a new array of objects with property {photo: ref, url: photourl}
    */
   async initializeFetch() {
-    const newArrayObjs = [];
-    state.arrayObjsWPhotos.forEach(async item => {
-      let tempObject = {};
-      tempObject = item;
-      state.photoURl = tempObject;
-      tempObject.url = await actions.fetchPhoto(item.photo);
-      newArrayObjs.push(tempObject);
-    });
+    const newArrayObjs = [
+
+    ];
+
+    // state.arrayObjsWPhotos.forEach(async item => {
+    //   let tempObject = {};
+    //   tempObject = item;
+    //   state.photoURl = tempObject;
+    //   tempObject.url = await actions.fetchPhoto(item.photo);
+    //   newArrayObjs.push(tempObject);
+    // });
     return newArrayObjs;
   }
 

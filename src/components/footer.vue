@@ -56,7 +56,7 @@
               flat
               class="black white--text mx-1 px-3 credits elevation-9"
             >
-              <v-icon size="40">fab fa-facebook</v-icon>
+               <Facebook />
             </v-btn>
           </span>
           <span class="subtitle-1 credits">
@@ -68,7 +68,7 @@
               flat
               class="black white--text mx-1 px-3 credits elevation-9"
             >
-              <v-icon size="40">fab fa-instagram</v-icon>
+              <Instagram/>
             </v-btn>
           </span>
 
@@ -81,10 +81,7 @@
               flat
               class="black white--text mx-1 px-3 credits elevation-9"
             >
-              <v-icon
-                size="40"
-                class="mb-0"
-              >fab fa-twitter</v-icon>
+             <Twitter/>
             </v-btn>
           </span>
 
@@ -97,8 +94,12 @@
               flat
               class="black white--text mx-1 px-3 credits elevation-9"
             >
-              <v-icon size="40">fab fa-linkedin</v-icon>
+              
+                <LinkedIn />
+               
+              
             </v-btn>
+        
           </span>
         </v-layout>
         <!-- social media ends -->
@@ -190,6 +191,10 @@
 
 <script>
 import Policy from "@/components/Useterms.vue";
+import LinkedIn from '../assets/icons/linkedin'
+import Facebook from '../assets/icons/facebook'
+import Instagram from '../assets/icons/instagram'
+import Twitter from '../assets/icons/twitter'
 export default {
   data() {
     return {
@@ -197,7 +202,11 @@ export default {
     };
   },
   components: {
-    Policy
+    Policy,
+    LinkedIn,
+    Facebook,
+    Instagram,
+    Twitter
   }
 };
 </script>

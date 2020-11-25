@@ -178,7 +178,7 @@ const actions = {
   async getMember({commit},id) {
     try {
       // https://eip-server.herokuapp.com
-      const response = await axios.get(`http://localhost:3001/member/${id}`, {
+      const response = await axios.get(`https://eip-server.herokuapp.com/member/${id}`, {
         headers: {
           Authorization: 'JWT ' + localStorage.getItem('serverToken')
         }

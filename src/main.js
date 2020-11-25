@@ -5,6 +5,8 @@ import router from './router'
 import Vuetify from 'vuetify'
 import {auth} from 'firebase/app';
 import './store/modules/firebaseInit'; 
+
+
 // import VueSocketIO from 'vue-socket.io'
 // import socketio from 'socket.io-client'
 // export const SocketInstance = socketio('http://localhost:3001');
@@ -24,7 +26,7 @@ auth().onAuthStateChanged((user)=>{
   }
 })
 Vue.use(Vuetify, {
-  iconfont: 'sm'
+  iconfont: 'md',
 }) 
 
 

@@ -12,6 +12,8 @@
     <!-- GLOBAL COMPONENTS END -->
   </div>
 </template>
+
+
 <script>
 import "vuetify/dist/vuetify.min.css";
 import { mapGetters } from "vuex";
@@ -34,6 +36,8 @@ export default {
   computed: mapGetters(["checkIsLoggedIn"])
 };
 </script>
+
+
 <style>
 [v-cloak] {
   display: none !important;
