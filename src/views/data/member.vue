@@ -1,7 +1,12 @@
 <template>
   <v-content class="my-2">
     <v-container class="mb-5 pb-5">
-      <v-layout row wrap class="mx-1 px-3" justify-center>
+      <v-layout
+        row
+        wrap
+        class="mx-1 px-3"
+        justify-center
+      >
         <v-card-title
           primary-title
           class="display-1 font-weight-light main-title"
@@ -9,15 +14,41 @@
           Uno de los nuestros
         </v-card-title>
       </v-layout>
-      <v-layout column wrap justify-center>
-        <v-btn outline block @click="goBack" round color="black" class="mt-2">
+      <v-layout
+        column
+        wrap
+        justify-center
+      >
+        <v-btn
+          outline
+          block
+          @click="goBack"
+          round
+          color="black"
+          class="mt-2"
+        >
           Volver atrás
         </v-btn>
 
-        <v-card class=" pr-4 py-4 pl-2 mb-5 grey darken-4 round font-95" dark>
-          <v-layout row wrap align-center justify-start class="mx-4">
-            <v-avatar v-if="member.photoURL" size="70">
-              <v-img :src="member.photoURL" :lazy-src="member.photoURL" />
+        <v-card
+          class=" pr-4 py-4 pl-2 mb-5 grey darken-4 round font-95"
+          dark
+        >
+          <v-layout
+            row
+            wrap
+            align-center
+            justify-start
+            class="mx-4"
+          >
+            <v-avatar
+              v-if="member.photoURL"
+              size="70"
+            >
+              <v-img
+                :src="member.photoURL"
+                :lazy-src="member.photoURL"
+              />
             </v-avatar>
             <v-avatar
               v-else
@@ -44,43 +75,47 @@
               Enviar mensaje
             </v-btn>
           </v-layout>
-          <v-layout column wrap justify-space-around>
+          <v-layout
+            column
+            wrap
+            justify-space-around
+          >
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95"
-                >Nombre:</span
-              >
-              <span class="mx-2 text-uppercase"
-                >{{ member.firstName }} {{ member.lastName }}</span
-              >
+              <span
+                class="ml-4 title text-uppercase main-title font-95"
+              >Nombre:</span>
+              <span
+                class="mx-2 text-uppercase"
+              >{{ member.firstName }} {{ member.lastName }}</span>
             </div>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95"
-                >Centro:</span
-              >
+              <span
+                class="ml-4 title text-uppercase main-title font-95"
+              >Centro:</span>
               <span class="mx-2 text-uppercase">{{ member.center }}</span>
             </div>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95"
-                >Provincia:</span
-              >
+              <span
+                class="ml-4 title text-uppercase main-title font-95"
+              >Provincia:</span>
               <span class="mx-2 text-uppercase">{{ member.province }}</span>
             </div>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95"
-                >Region:</span
-              >
+              <span
+                class="ml-4 title text-uppercase main-title font-95"
+              >Region:</span>
               <span class="mx-2 text-uppercase">{{ member.region }}</span>
             </div>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95"
-                >Edad:</span
-              >
+              <span
+                class="ml-4 title text-uppercase main-title font-95"
+              >Edad:</span>
               <span class="mx-2 text-uppercase">{{ calculateAge() }}</span>
             </div>
             <div class="py-1">
-              <span class="ml-4 title text-uppercase main-title font-95"
-                >Desde:</span
-              >
+              <span
+                class="ml-4 title text-uppercase main-title font-95"
+              >Desde:</span>
               <span class="mx-2 text-uppercase">{{ fromNow() }}</span>
             </div>
           </v-layout>
@@ -95,7 +130,7 @@ import moment from "moment";
 import socket from "socket.io-client";
 
 export default {
-  data() {
+  data() { 
     return {
       member: {},
       io: socket.connect("https://eip-server.herokuapp.com/")
