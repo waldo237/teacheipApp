@@ -1,20 +1,59 @@
 <template>
-  <v-layout column v-if="IMComponent" :class="conversation ? 'chat my-0 py-0 elevation-15' : ''">
+  <v-layout
+    column
+    v-if="IMComponent"
+    :class="conversation ? 'chat my-0 py-0 elevation-15' : ''"
+  >
     <!-- CONVERSATION ROOM STARTS -->
-    <v-card dark v-show="conversation" class>
+    <v-card
+      dark
+      v-show="conversation"
+      class
+    >
       <!-- CONVERSATION TITLE STARTS -->
       <v-card-title class="my-0 py-0 grey darken-4">
-        <v-layout row justify-space-between align-center>
-          <v-avatar size="35" color="red" class="mr-2">
-            <img :src="participant.photoURL" alt="alt" />
+        <v-layout
+          row
+          justify-space-between
+          align-center
+        >
+          <v-avatar
+            size="35"
+            color="red"
+            class="mr-2"
+          >
+            <img
+              :src="participant.photoURL"
+              alt="alt"
+            >
           </v-avatar>
           {{ participant.firstName }}
-          <v-layout row justify-end align-center>
-            <v-btn round icon small class="mx-1 pa-0" @click="conversation = false">
-              <v-icon small>minimize</v-icon>
+          <v-layout
+            row
+            justify-end
+            align-center
+          >
+            <v-btn
+              round
+              icon
+              small
+              class="mx-1 pa-0"
+              @click="conversation = false"
+            >
+              <v-icon small>
+                minimize
+              </v-icon>
             </v-btn>
-            <v-btn round icon small class="ma-0 pa-0" @click="closeIM">
-              <v-icon small>close</v-icon>
+            <v-btn
+              round
+              icon
+              small
+              class="ma-0 pa-0"
+              @click="closeIM"
+            >
+              <v-icon small>
+                close
+              </v-icon>
             </v-btn>
           </v-layout>
         </v-layout>
@@ -22,55 +61,128 @@
       <!-- CONVERSATION TITLE ENDS -->
 
       <!--  CONVERSATION BODY STARTS -->
-      <v-card height="260px" class="scrollbar chatCard grey " id="thread" v-if="conversation">
-        <v-btn flat light small>ver más<v-icon class="mx-2">cached</v-icon></v-btn>
-        <v-card-text class="scrollbar" v-for="message in messages" :key="message._id">
-          <v-tooltip top v-if="message.from == currentUser.uid">
+      <v-card
+        height="260px"
+        class="scrollbar chatCard grey "
+        id="thread"
+        v-if="conversation"
+      >
+        <v-btn
+          flat
+          light
+          small
+        >
+          ver más<v-icon class="mx-2">
+            cached
+          </v-icon>
+        </v-btn>
+        <v-card-text
+          class="scrollbar"
+          v-for="message in messages"
+          :key="message._id"
+        >
+          <v-tooltip
+            top
+            v-if="message.from == currentUser.uid"
+          >
             <template v-slot:activator="{ on }">
-              <v-layout v-on="on" row justify-start align-start>
-                <v-card class="mr-3 sent mx-1" light>
+              <v-layout
+                v-on="on"
+                row
+                justify-start
+                align-start
+              >
+                <v-card
+                  class="mr-3 sent mx-1"
+                  light
+                >
                   <span class="mr-5">{{ message.body }}</span>
                   <span class="caption timestamp ml-5">
                     {{ formatTime(message.date) }}
-                    <v-icon v-if="message.sent" small>done</v-icon>
-                    <v-icon v-if="message.delivered" small>done_all</v-icon>
-                    <v-icon v-if="message.read" small color="#c6192a">done_all</v-icon>
+                    <v-icon
+                      v-if="message.sent"
+                      small
+                    >done</v-icon>
+                    <v-icon
+                      v-if="message.delivered"
+                      small
+                    >done_all</v-icon>
+                    <v-icon
+                      v-if="message.read"
+                      small
+                      color="#c6192a"
+                    >done_all</v-icon>
                   </span>
                 </v-card>
-                <v-avatar size="30" color="red" class="my-3">
-                  <img :src="currentUser.photoURL" alt="alt" />
+                <v-avatar
+                  size="30"
+                  color="red"
+                  class="my-3"
+                >
+                  <img
+                    :src="currentUser.photoURL"
+                    alt="alt"
+                  >
                 </v-avatar>
               </v-layout>
             </template>
 
-            <span>{{formatDate(message.date)}}</span>
+            <span>{{ formatDate(message.date) }}</span>
           </v-tooltip>
 
-          <v-tooltip top v-else>
+          <v-tooltip
+            top
+            v-else
+          >
             <template v-slot:activator="{ on }">
-              <v-layout row justify-end align-start v-on="on">
-                <v-avatar size="30" color="red" class="my-3">
-                  <img :src="participant.photoURL" alt="alt" />
+              <v-layout
+                row
+                justify-end
+                align-start
+                v-on="on"
+              >
+                <v-avatar
+                  size="30"
+                  color="red"
+                  class="my-3"
+                >
+                  <img
+                    :src="participant.photoURL"
+                    alt="alt"
+                  >
                 </v-avatar>
-                <v-card class="ml-3 received px-1" light>
+                <v-card
+                  class="ml-3 received px-1"
+                  light
+                >
                   <span class="mr-5">{{ message.body }}</span>
-                  <br />
-                  <span class="caption timestamp mr-1" flat>
+                  <br>
+                  <span
+                    class="caption timestamp mr-1"
+                    flat
+                  >
                     {{
-                    formatTime(message.date)
+                      formatTime(message.date)
                     }}
                   </span>
                 </v-card>
               </v-layout>
             </template>
 
-            <span>{{formatDate(message.date)}}</span>
+            <span>{{ formatDate(message.date) }}</span>
           </v-tooltip>
         </v-card-text>
         <!-- ISWRTING STARTS -->
-        <v-layout row justify-end align-end>
+        <v-layout
+          row
+          justify-end
+          align-end
+        >
           <transition name="slideDown">
-            <span v-if="isTyping" class="py-0 typing title font-weight-bold black--text">. . .</span>
+            <span
+              v-if="isTyping"
+              class="py-0 typing title font-weight-bold black--text"
+            >. . .</span>
           </transition>
         </v-layout>
         <!-- ISWRTING ENDS -->
@@ -86,8 +198,15 @@
             type="text"
             autofocus
           />
-          <v-btn @click="sendMessage" small fab class="mx-0 px-0">
-            <v-icon small>send</v-icon>
+          <v-btn
+            @click="sendMessage"
+            small
+            fab
+            class="mx-0 px-0"
+          >
+            <v-icon small>
+              send
+            </v-icon>
           </v-btn>
         </v-layout>
       </v-card>
@@ -95,10 +214,26 @@
     </v-card>
     <!-- CONVERSATION  ENDS -->
     <!-- MINIMIZED VERSION STARTS -->
-    <v-card v-if="!conversation" class="btn grey darken-4">
-      <v-btn v-if="!conversation" x-large dark flat @click="openIM(participant)">
-        <v-avatar size="40" color="red" class="mx-2">
-          <img :src="participant.photoURL" alt="alt" />
+    <v-card
+      v-if="!conversation"
+      class="btn grey darken-4"
+    >
+      <v-btn
+        v-if="!conversation"
+        x-large
+        dark
+        flat
+        @click="openIM(participant)"
+      >
+        <v-avatar
+          size="40"
+          color="red"
+          class="mx-2"
+        >
+          <img
+            :src="participant.photoURL"
+            alt="alt"
+          >
         </v-avatar>
         {{ participant.firstName }} {{ participant.lastName }}
       </v-btn>

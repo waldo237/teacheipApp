@@ -13,24 +13,59 @@
       >
         No fue posible seguir por las siguientes razones:
         <ul>
-          <li v-for="(error, i) in errors" :key="i">{{ error }}</li>
+          <li
+            v-for="(error, i) in errors"
+            :key="i"
+          >
+            {{ error }}
+          </li>
         </ul>
       </v-alert>
       <!-- error show ends  -->
     </figure>
     <figure>
       <!-- snackbar to notify completion starts -->
-      <v-snackbar class="error" v-model="snackbar" color multi-line :timeout="6000" top="top">
+      <v-snackbar
+        class="error"
+        v-model="snackbar"
+        color
+        multi-line
+        :timeout="6000"
+        top="top"
+      >
         {{ snackbarMessage }}
-        <v-btn dark text @click="snackbar = false">Close</v-btn>
+        <v-btn
+          dark
+          text
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
       </v-snackbar>
       <!-- snackbar to notify completion ends -->
     </figure>
-    <v-card flat class="grey lighten-4">
-      <div id="notificationForm" v-if="!historyMode" class="slideRight">
-        <v-layout row align-center class="my-0">
-          <v-avatar size="40px" class="mr-2 my-0">
-            <img :src="this.auth().currentUser.photoURL" alt />
+    <v-card
+      flat
+      class="grey lighten-4"
+    >
+      <div
+        id="notificationForm"
+        v-if="!historyMode"
+        class="slideRight"
+      >
+        <v-layout
+          row
+          align-center
+          class="my-0"
+        >
+          <v-avatar
+            size="40px"
+            class="mr-2 my-0"
+          >
+            <img
+              :src="this.auth().currentUser.photoURL"
+              alt
+            >
           </v-avatar>
           <v-text-field
             v-model="request.name"
@@ -49,8 +84,18 @@
         </v-layout>
 
         <!-- ================================== -->
-        <v-layout justify-center wrap column class="my-0" @click="errors = []">
-          <v-layout justify-center row class="my-0">
+        <v-layout
+          justify-center
+          wrap
+          column
+          class="my-0"
+          @click="errors = []"
+        >
+          <v-layout
+            justify-center
+            row
+            class="my-0"
+          >
             <v-text-field
               class="my-0 mx-1"
               prepend-icon="notifications"
@@ -72,8 +117,19 @@
             v-model="request.body"
           />
         </v-layout>
-        <v-layout row justify-end>
-          <v-btn small flat round class="limpiar white--text" @click="reset">limpiar</v-btn>
+        <v-layout
+          row
+          justify-end
+        >
+          <v-btn
+            small
+            flat
+            round
+            class="limpiar white--text"
+            @click="reset"
+          >
+            limpiar
+          </v-btn>
           <v-btn
             small
             round
@@ -83,7 +139,9 @@
             class="orangish elevation-24"
             :loading="loading"
             v-if="deleteMode == false && editingMode == false && historyMode == false"
-          >Enviar</v-btn>
+          >
+            Enviar
+          </v-btn>
           <v-btn
             small
             round
@@ -93,19 +151,30 @@
             class="green elevation-24"
             :loading="loading"
             v-else
-          >editar</v-btn>
+          >
+            editar
+          </v-btn>
         </v-layout>
-        <v-layout row justify-start>
+        <v-layout
+          row
+          justify-start
+        >
           <v-btn
             small
             flat
             round
             class="elevation-24 deep-purple darken-3 accent-5 white--text"
             @click="historyMode = true"
-          >ver historial de mis notificaciones</v-btn>
+          >
+            ver historial de mis notificaciones
+          </v-btn>
         </v-layout>
       </div>
-      <div id="notificationHistory" v-else class="slide">
+      <div
+        id="notificationHistory"
+        v-else
+        class="slide"
+      >
         <v-btn
           small
           round
@@ -118,26 +187,50 @@
         </v-btn>
 
         <aside>
-          <v-card-title class="font-weight-light main-title px-1">Historial de mis notificaciones</v-card-title>
-          <v-card max-height="200px" style="overflow:auto;">
-            <v-card v-for="(item, index) in notifications" :key="index" class="pa-2 elevation-20">
-              <v-layout row align-center>
+          <v-card-title class="font-weight-light main-title px-1">
+            Historial de mis notificaciones
+          </v-card-title>
+          <v-card
+            max-height="200px"
+            style="overflow:auto;"
+          >
+            <v-card
+              v-for="(item, index) in notifications"
+              :key="index"
+              class="pa-2 elevation-20"
+            >
+              <v-layout
+                row
+                align-center
+              >
                 <v-avatar
                   v-if="item.avatar && item.avatar != 'undefined' && !isFromFire(item)"
                   size="30"
                 >
-                  <img :src="item.avatar" />
+                  <img :src="item.avatar">
                 </v-avatar>
                 <v-avatar
                   v-if="!item.avatar || item.avatar== 'undefined' || isFromFire(item)"
                   size="30"
                   class="sign-up"
-                >{{ initialize(item.name) }}</v-avatar>
+                >
+                  {{ initialize(item.name) }}
+                </v-avatar>
                 <span class="mx-2 font-weight-bold black--text">{{ item.title }}</span>
                 <!-- ACTIONS START -->
-                <v-layout row justify-end>
-                  <v-btn flat small fab @click="setEditingMode(item)">
-                    <v-icon color="green">edit</v-icon>
+                <v-layout
+                  row
+                  justify-end
+                >
+                  <v-btn
+                    flat
+                    small
+                    fab
+                    @click="setEditingMode(item)"
+                  >
+                    <v-icon color="green">
+                      edit
+                    </v-icon>
                   </v-btn>
                   <v-btn
                     class="slide"
@@ -147,30 +240,49 @@
                     @click="setDeleteMode(item)"
                     v-if="!deleteMode"
                   >
-                    <v-icon color="red">delete</v-icon>
+                    <v-icon color="red">
+                      delete
+                    </v-icon>
                   </v-btn>
-                  <v-layout row wrap v-if="deleteMode && currentNotification == item.item_id">
+                  <v-layout
+                    row
+                    wrap
+                    v-if="deleteMode && currentNotification == item.item_id"
+                  >
                     Esta seguro que quieres borrar la informacion?
-                    <v-btn small fab class="slide sign-in" @click="deleteMode = false;">no</v-btn>
+                    <v-btn
+                      small
+                      fab
+                      class="slide sign-in"
+                      @click="deleteMode = false;"
+                    >
+                      no
+                    </v-btn>
                     <v-btn
                       small
                       fab
                       class="slide sign-up"
                       @click="callDelete(item)"
                       :loading="item.item_id == currentNotification && si"
-                    >si</v-btn>
+                    >
+                      si
+                    </v-btn>
                   </v-layout>
                 </v-layout>
                 <!-- ACTIONS ENDS -->
               </v-layout>
-              <a :href="item.link" target="_blank" :class="item.haveNotRead ? 'greyForce' : ''">
+              <a
+                :href="item.link"
+                target="_blank"
+                :class="item.haveNotRead ? 'greyForce' : ''"
+              >
                 <span class="black--text caption">
                   <span>{{ item.name }}</span>
                   |
                   {{ moment(item.date) }}
                 </span>
-                <br />
-                <span class="pt-2 black--text">{{item.body}}</span>
+                <br>
+                <span class="pt-2 black--text">{{ item.body }}</span>
               </a>
             </v-card>
           </v-card>

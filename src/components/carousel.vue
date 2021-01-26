@@ -3,7 +3,7 @@
     id="carousel"
     class="mb-0 pt-2"
   >
-    <v-carousel height="350px" >
+    <v-carousel height="350px">
       <div
         v-for="(item,i) in itemsWPhotos"
         :key="i"

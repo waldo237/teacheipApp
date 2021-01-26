@@ -1,14 +1,17 @@
 <template>
-  <div id="app" data-app>
+  <div
+    id="app"
+    data-app
+  >
     <NavBar />
     <router-view />
     <Footer />
     
     <!-- GLOBAL COMPONENTS START -->
-      <feeds />
-      <IM />
-      <connectionStatusAlert />
-      <Sugerencias v-if="checkIsLoggedIn" />
+    <feeds />
+    <IM />
+    <connectionStatusAlert />
+    <Sugerencias v-if="checkIsLoggedIn" />
     <!-- GLOBAL COMPONENTS END -->
   </div>
 </template>

@@ -1,12 +1,24 @@
 <template>
   <div>
     <!-- alerts online/offline -->
-    <v-alert dense v-model="offline" class="connection-off sign-up mt-3">
-      <v-icon class="mr-2"> signal_wifi_off </v-icon>estás desconectado en este
+    <v-alert
+      dense
+      v-model="offline"
+      class="connection-off sign-up mt-3"
+    >
+      <v-icon class="mr-2">
+        signal_wifi_off
+      </v-icon>estás desconectado en este
       momento
     </v-alert>
-    <v-alert v-model="online" color="green" class="connection-on mt-3">
-      <v-icon class="mr-2"> check_circle_outline </v-icon>Estás de vuelta en
+    <v-alert
+      v-model="online"
+      color="green"
+      class="connection-on mt-3"
+    >
+      <v-icon class="mr-2">
+        check_circle_outline
+      </v-icon>Estás de vuelta en
       línea!
     </v-alert>
     <!-- alerts online/offline ends-->

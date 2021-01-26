@@ -1,16 +1,23 @@
 <template>
   <div>
     <!-- side menu starts -->
-    <div v-on-clickaway="away" v-if="drawer">
-      
-        <supervisorsideMenu :isSupervisor="isSupervisor" />
-        <coordinatorsideMenu :isCoordinator="isCoordinator"/>
-        <teachersideMenu :isTeacher="isTeacher"/>
-
+    <div
+      v-on-clickaway="away"
+      v-if="drawer"
+    >
+      <supervisorsideMenu :is-supervisor="isSupervisor" />
+      <coordinatorsideMenu :is-coordinator="isCoordinator" />
+      <teachersideMenu :is-teacher="isTeacher" />
     </div>
     <!-- side menu ends -->
     <!-- complete navigation starts -->
-    <v-toolbar app style="background-color:white" class="pa-0" dense sticky>
+    <v-toolbar
+      app
+      style="background-color:white"
+      class="pa-0"
+      dense
+      sticky
+    >
       <!--  sandwich menu for side bar/menu-->
 
       <v-btn
@@ -20,14 +27,27 @@
         flat
         class="ma-0 pa-0 leftIcon"
       >
-        <v-icon medium slot>menu</v-icon>
+        <v-icon
+          medium
+          slot
+        >
+          menu
+        </v-icon>
       </v-btn>
 
       <!-- sandwich menu -->
 
       <!-- logo starts -->
-      <div class="logo-text px-0 my-0 mx-0" :class="(checkIsLoggedIn)? 'leftIcon': ''">
-        <router-link to="/" flat round class="px-0 my-0 mx-0 font-weight-bold">
+      <div
+        class="logo-text px-0 my-0 mx-0"
+        :class="(checkIsLoggedIn)? 'leftIcon': ''"
+      >
+        <router-link
+          to="/"
+          flat
+          round
+          class="px-0 my-0 mx-0 font-weight-bold"
+        >
           <span class="teach font-weight-regular">Teach</span>
           <span class="acronym">EIP | version 1.2</span>
         </router-link>
@@ -38,11 +58,25 @@
       <v-spacer />
 
       <!-- expanded navigation bar  starts-->
-      <navBtnMax @hideMenu="hideMenu" @toggleProfile="profileModel = true" @rolePath="rolePath" />
+      <navBtnMax
+        @hideMenu="hideMenu"
+        @toggleProfile="profileModel = true"
+        @rolePath="rolePath"
+      />
       <!-- expanded navigation bar ends-->
       <!--  minimized menu starts-->
-      <v-btn @click="sandwich = true" fab flat class="hidden-md-and-up rightIcon">
-        <v-icon medium slot>menu</v-icon>
+      <v-btn
+        @click="sandwich = true"
+        fab
+        flat
+        class="hidden-md-and-up rightIcon"
+      >
+        <v-icon
+          medium
+          slot
+        >
+          menu
+        </v-icon>
       </v-btn>
       <navBtnMin
         :sandwich="sandwich"

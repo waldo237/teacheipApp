@@ -1,5 +1,10 @@
 <template>
-  <v-layout class="mb-5 pb-5 grey lighten-4" justify-center wrap column>
+  <v-layout
+    class="mb-5 pb-5 grey lighten-4"
+    justify-center
+    wrap
+    column
+  >
     <header>
       <v-layout
         justify-center
@@ -7,54 +12,107 @@
         wrap
         primary-title
         class="display-1 font-weight-light text-xs-center main-title mt-5 pt-5 mx-4 px-1"
-      >Formulario de Asistencia</v-layout>
+      >
+        Formulario de Asistencia
+      </v-layout>
     </header>
     <main>
-      <v-container grid-list-sm class="pa-3">
+      <v-container
+        grid-list-sm
+        class="pa-3"
+      >
         <v-card class="round mx-2 pa-2 mb-5 pb-5 grey lighten-4 elevation-9">
-          <v-layout justify-center align-center class="grey lighten-4">
+          <v-layout
+            justify-center
+            align-center
+            class="grey lighten-4"
+          >
             <span class="orange--text lighten-3 upper">En funcionamiento</span>
-            <v-icon background-color="orange lighten-3" color="orange">fiber_new</v-icon>
+            <v-icon
+              background-color="orange lighten-3"
+              color="orange"
+            >
+              fiber_new
+            </v-icon>
           </v-layout>
-          <v-btn small outline color="green" @click="detalles = !detalles">Ver detalles</v-btn>
+          <v-btn
+            small
+            outline
+            color="green"
+            @click="detalles = !detalles"
+          >
+            Ver detalles
+          </v-btn>
           <transition name="fadeInDown">
-          <v-layout row wrap class=" ma-3 px-2 " v-if="detalles">
-            “Formulario de Asistencia”: como coordinador o profesor encargado, esta aplicación le permite crear un formulario de asistencia para cada nivel. El “Formulario de Asistencia” este hecho en una Hoja de cálculo de Google (googlesheet).
-           <br /> Al completar la información siguiente podrás iniciar la creación de “Formulario de Asistencia” que se adapte a el numero de grupos que se manejan en tu centro.
-           <br /> Al llenar la información se te preguntará:
-            <ul>
-              <li>Si hay grupos en una determinada tanda.</li>
-              <li>El color que deseas que tengan las pestañas de las tandas; esto ayuda a diferenciarlas en la hoja de calculo.</li>
-              <li>La cantidad de grupos en una determinada tanda.</li>
-              <li>El nivel para el que estas creando la hoja de asistencia. *nota al momento de publicar esta función, todavía hay una persona encargada de editar el blueprint de la hoja de asistencia; esta es actualizada dos semanas antes de entrar el nuevo nivel. Para evitar obtener una versión desactualizada (del nivel anterior), por favor crea la hoja de asistencia una semana antes de comenzar el nuevo nivel.</li>
-              <li>Quien supervisa su centró</li>
-              <li>La región, provincia y nombre del centro(recinto). *nota: si no escoge la región primero no podrá visualizar la provincia o el recinto.</li>
-              <li>Al insertar los correos electrónicos de los miembros de tu equipo en la opción “+ MIEMBROS DE TU EQUIPO”, puedes definir quienes tendrán acceso a editar el formulario. *nota: los correos que no sean de Gmail solo tendrán acceso a ver el “Formulario de Asistencia”.</li>
-            </ul>
-Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálculos para esta operación, esta puede durar entre 30 y 50 segundos antes de recibir confirmación de su creación.
-            <br />Para evitar la posible pérdida de información, una vez el formulario es creado, se bloqueará la opción de editar la estructura del formulario dos días después.
-            <br />Tan pronto el formulario es creado, el supervisor, los miembros de tu equipo, y tu recibirán un correo electrónico con el enlace para comenzar a trabajar con este.
-            <br />En la parte posterior de esta página podrá ver de forma automática el nuevo formulario.
-           <br /> Si por alguna razón, desea editarlo, puede hacer click en el icono del lápiz verde, llenar los cambios y enviarlos.
-          </v-layout>
+            <v-layout
+              row
+              wrap
+              class=" ma-3 px-2 "
+              v-if="detalles"
+            >
+              “Formulario de Asistencia”: como coordinador o profesor encargado, esta aplicación le permite crear un formulario de asistencia para cada nivel. El “Formulario de Asistencia” este hecho en una Hoja de cálculo de Google (googlesheet).
+              <br> Al completar la información siguiente podrás iniciar la creación de “Formulario de Asistencia” que se adapte a el numero de grupos que se manejan en tu centro.
+              <br> Al llenar la información se te preguntará:
+              <ul>
+                <li>Si hay grupos en una determinada tanda.</li>
+                <li>El color que deseas que tengan las pestañas de las tandas; esto ayuda a diferenciarlas en la hoja de calculo.</li>
+                <li>La cantidad de grupos en una determinada tanda.</li>
+                <li>El nivel para el que estas creando la hoja de asistencia. *nota al momento de publicar esta función, todavía hay una persona encargada de editar el blueprint de la hoja de asistencia; esta es actualizada dos semanas antes de entrar el nuevo nivel. Para evitar obtener una versión desactualizada (del nivel anterior), por favor crea la hoja de asistencia una semana antes de comenzar el nuevo nivel.</li>
+                <li>Quien supervisa su centró</li>
+                <li>La región, provincia y nombre del centro(recinto). *nota: si no escoge la región primero no podrá visualizar la provincia o el recinto.</li>
+                <li>Al insertar los correos electrónicos de los miembros de tu equipo en la opción “+ MIEMBROS DE TU EQUIPO”, puedes definir quienes tendrán acceso a editar el formulario. *nota: los correos que no sean de Gmail solo tendrán acceso a ver el “Formulario de Asistencia”.</li>
+              </ul>
+              Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálculos para esta operación, esta puede durar entre 30 y 50 segundos antes de recibir confirmación de su creación.
+              <br>Para evitar la posible pérdida de información, una vez el formulario es creado, se bloqueará la opción de editar la estructura del formulario dos días después.
+              <br>Tan pronto el formulario es creado, el supervisor, los miembros de tu equipo, y tu recibirán un correo electrónico con el enlace para comenzar a trabajar con este.
+              <br>En la parte posterior de esta página podrá ver de forma automática el nuevo formulario.
+              <br> Si por alguna razón, desea editarlo, puede hacer click en el icono del lápiz verde, llenar los cambios y enviarlos.
+            </v-layout>
           </transition>
           <!-- WAITING STARTS -->
-          <v-layout row wrap justify-center v-if="loading" class="slide">
-            <v-layout row wrap class="mx-5 px-5 title">
-            Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálculos para esta operación, esta puede durar entre 30 y 50 segundos antes de recibir confirmación de su creación.
-              
+          <v-layout
+            row
+            wrap
+            justify-center
+            v-if="loading"
+            class="slide"
+          >
+            <v-layout
+              row
+              wrap
+              class="mx-5 px-5 title"
+            >
+              Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálculos para esta operación, esta puede durar entre 30 y 50 segundos antes de recibir confirmación de su creación.
             </v-layout>
             <waiting />
           </v-layout>
           <!-- WAITING ENDS -->
 
-          <div @click="errors = []" v-else class="slide">
-            <v-layout row wrap justify-start>
+          <div
+            @click="errors = []"
+            v-else
+            class="slide"
+          >
+            <v-layout
+              row
+              wrap
+              justify-start
+            >
               <v-layout align-center>
-                <v-avatar size="40px" class="mr-3">
-                  <img :src="this.auth().currentUser.photoURL" alt />
+                <v-avatar
+                  size="40px"
+                  class="mr-3"
+                >
+                  <img
+                    :src="this.auth().currentUser.photoURL"
+                    alt
+                  >
                 </v-avatar>
-                <v-text-field placeholder="Name" :maxlength="40" v-model="request.name" />
+                <v-text-field
+                  placeholder="Name"
+                  :maxlength="40"
+                  v-model="request.name"
+                />
               </v-layout>
               <v-text-field
                 prepend-icon="mail"
@@ -72,12 +130,31 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
             </v-layout>
 
             <!-- MORNING STARTS -->
-            <v-layout column wrap justify-start class="mx-4 green lighten-4 px-2">
+            <v-layout
+              column
+              wrap
+              justify-start
+              class="mx-4 green lighten-4 px-2"
+            >
               <span class="font-weight-bold grey--text caption mt-1">
-                <v-icon color="green" small>local_florist</v-icon>TANDA MATUTINA
+                <v-icon
+                  color="green"
+                  small
+                >local_florist</v-icon>TANDA MATUTINA
               </span>
-              <v-layout row wrap justify-center align-center>
-                <v-layout column class="ma-0 pa-0" justify-center align-center wrap>
+              <v-layout
+                row
+                wrap
+                justify-center
+                align-center
+              >
+                <v-layout
+                  column
+                  class="ma-0 pa-0"
+                  justify-center
+                  align-center
+                  wrap
+                >
                   <v-checkbox
                     v-model="request.isThereMorning"
                     color="green"
@@ -89,8 +166,17 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                   />
                   <label for="head">Hay grupo matutino?</label>
                 </v-layout>
-                <v-layout column class="ma-0 pa-0" justify-center align-center wrap>
-                  <input v-model="request.mornColor" type="color" />
+                <v-layout
+                  column
+                  class="ma-0 pa-0"
+                  justify-center
+                  align-center
+                  wrap
+                >
+                  <input
+                    v-model="request.mornColor"
+                    type="color"
+                  >
                   <label for="head">tab color</label>
                 </v-layout>
                 <v-text-field
@@ -109,12 +195,31 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
             </v-layout>
             <!-- MORNING ENDS -->
             <!-- AFTERNOON STARTS -->
-            <v-layout column wrap justify-start class="mx-4 red lighten-4 px-2">
+            <v-layout
+              column
+              wrap
+              justify-start
+              class="mx-4 red lighten-4 px-2"
+            >
               <span class="font-weight-bold grey--text caption mt-1">
-                <v-icon small color="red">wb_sunny</v-icon>TANDA VESPERTINA
+                <v-icon
+                  small
+                  color="red"
+                >wb_sunny</v-icon>TANDA VESPERTINA
               </span>
-              <v-layout row wrap justify-center align-center>
-                <v-layout column class="ma-0 pa-0" justify-center align-center wrap>
+              <v-layout
+                row
+                wrap
+                justify-center
+                align-center
+              >
+                <v-layout
+                  column
+                  class="ma-0 pa-0"
+                  justify-center
+                  align-center
+                  wrap
+                >
                   <v-checkbox
                     v-model="request.isThereAfternoon"
                     color="red"
@@ -127,8 +232,17 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                   />
                   <label for="head">Hay grupo vespertino?</label>
                 </v-layout>
-                <v-layout column class="ma-0 pa-0" justify-center align-center wrap>
-                  <input v-model="request.aftColor" type="color" />
+                <v-layout
+                  column
+                  class="ma-0 pa-0"
+                  justify-center
+                  align-center
+                  wrap
+                >
+                  <input
+                    v-model="request.aftColor"
+                    type="color"
+                  >
                   <label for="head">tab color</label>
                 </v-layout>
                 <v-text-field
@@ -147,12 +261,31 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
             </v-layout>
             <!-- AFTERNOON ENDS -->
             <!-- EVENING STARTS -->
-            <v-layout column wrap justify-start class="mx-4 blue lighten-4 px-2">
+            <v-layout
+              column
+              wrap
+              justify-start
+              class="mx-4 blue lighten-4 px-2"
+            >
               <span class="font-weight-bold grey--text caption mt-1">
-                <v-icon small color="blue">nights_stay</v-icon>TANDA NOCTURNA
+                <v-icon
+                  small
+                  color="blue"
+                >nights_stay</v-icon>TANDA NOCTURNA
               </span>
-              <v-layout row wrap justify-center align-center>
-                <v-layout column class="ma-0 pa-0" justify-center align-center wrap>
+              <v-layout
+                row
+                wrap
+                justify-center
+                align-center
+              >
+                <v-layout
+                  column
+                  class="ma-0 pa-0"
+                  justify-center
+                  align-center
+                  wrap
+                >
                   <v-checkbox
                     v-model="request.isThereEvening"
                     color="blue"
@@ -164,8 +297,17 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                   />
                   <label for="head">Hay grupo nocturno?</label>
                 </v-layout>
-                <v-layout column class="ma-0 pa-0" justify-center align-center wrap>
-                  <input v-model="request.eveColor" type="color" />
+                <v-layout
+                  column
+                  class="ma-0 pa-0"
+                  justify-center
+                  align-center
+                  wrap
+                >
+                  <input
+                    v-model="request.eveColor"
+                    type="color"
+                  >
                   <label for="head">tab color</label>
                 </v-layout>
                 <v-text-field
@@ -185,7 +327,12 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
             <!-- EVENING ENDS -->
 
             <!-- LEVEL STARTS -->
-            <v-layout row wrap justify-center align-center>
+            <v-layout
+              row
+              wrap
+              justify-center
+              align-center
+            >
               <v-select
                 class="py-1 mx-2"
                 :items="level"
@@ -206,7 +353,11 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
             <!-- LEVEL ENDS -->
 
             <!-- information about the center starts -->
-            <v-layout row wrap align-center>
+            <v-layout
+              row
+              wrap
+              align-center
+            >
               <v-select
                 class="py-1"
                 :items="regions"
@@ -245,7 +396,10 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
             </v-layout>
             <!-- information about the center ends -->
             <!-- ADD TEAM MEMBERS  STARTS-->
-            <v-layout column v-if="!editingMode">
+            <v-layout
+              column
+              v-if="!editingMode"
+            >
               <v-btn
                 outline
                 round
@@ -253,39 +407,73 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                 class="grey"
                 @click="request.thereIsEmailList = !request.thereIsEmailList; request.emailList=[]"
               >
-                <v-icon color="grey">add</v-icon>miembros de tu equipo
+                <v-icon color="grey">
+                  add
+                </v-icon>miembros de tu equipo
               </v-btn>
-               <transition name="fadeInDown">
-              <v-layout column v-if="request.thereIsEmailList" >
-                <v-layout row class="mx-4 mb-5">
-                  <v-icon class="mx-3" color="red" @click="emailList.pop(emailIn)">remove</v-icon>
-                  <v-text-field
-                    clearable
-                    prepend-icon="email"
-                    v-model="emailIn"
-                    label="email"
-                    size="30"
-                    :maxlength="40"
-                    @keydown.enter="addEmail"
-                  ></v-text-field>
-                  <v-icon class="mx-3" color="green" @click.stop="addEmail">add</v-icon>
+              <transition name="fadeInDown">
+                <v-layout
+                  column
+                  v-if="request.thereIsEmailList"
+                >
+                  <v-layout
+                    row
+                    class="mx-4 mb-5"
+                  >
+                    <v-icon
+                      class="mx-3"
+                      color="red"
+                      @click="emailList.pop(emailIn)"
+                    >
+                      remove
+                    </v-icon>
+                    <v-text-field
+                      clearable
+                      prepend-icon="email"
+                      v-model="emailIn"
+                      label="email"
+                      size="30"
+                      :maxlength="40"
+                      @keydown.enter="addEmail"
+                    />
+                    <v-icon
+                      class="mx-3"
+                      color="green"
+                      @click.stop="addEmail"
+                    >
+                      add
+                    </v-icon>
+                  </v-layout>
+                  <v-layout
+                    column
+                    class="mx-4"
+                  >
+                    <ul
+                      v-for="(email, i) in emailList"
+                      :key="i"
+                    >
+                      <li>
+                        <span>{{ i+1 }}-</span>
+                        <span>{{ email }}</span>
+                      </li>
+                    </ul>
+                  </v-layout>
                 </v-layout>
-                <v-layout column class="mx-4">
-                  <ul v-for="(email, i) in emailList" :key="i">
-                    <li>
-                      <span>{{ i+1}}-</span>
-                      <span>{{email}}</span>
-                    </li>
-                  </ul>
-                </v-layout>
-              </v-layout>
-               </transition>
+              </transition>
             </v-layout>
             <!-- ADD TEAM MEMBERS  ENDS-->
           </div>
           <v-card-actions>
             <v-spacer />
-            <v-btn small flat round class="sign-up" @click="reset">cancelar</v-btn>
+            <v-btn
+              small
+              flat
+              round
+              class="sign-up"
+              @click="reset"
+            >
+              cancelar
+            </v-btn>
             <v-btn
               small
               round
@@ -294,7 +482,9 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
               class="green font-weight-bold caption slide"
               :loading="loading"
               v-if="editingMode"
-            >Editar solicitud</v-btn>
+            >
+              Editar solicitud
+            </v-btn>
             <v-btn
               v-else
               small
@@ -303,17 +493,27 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
               @click="localPostAttendance_form"
               class="sign-in slide"
               :loading="loading"
-            >Enviar solicitud</v-btn>
+            >
+              Enviar solicitud
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-container>
     </main>
     <!-- ATTENDANCE_FORM HISTORY STARTS -->
     <aside>
-      <v-layout column wrap class="my-2 mx-4 mb-5" justify-center align-center>
+      <v-layout
+        column
+        wrap
+        class="my-2 mx-4 mb-5"
+        justify-center
+        align-center
+      >
         <v-card-title
           class="title font-weight-light text-xs-center main-title mx-4 px-1"
-        >Historial de formularios de Asistencia</v-card-title>
+        >
+          Historial de formularios de Asistencia
+        </v-card-title>
         <v-layout wrap>
           <v-card
             v-for="item in attendance_forms"
@@ -321,9 +521,20 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
             class="ma-2 pa-4 elevation-24 grey lighten-2 slide"
           >
             <v-layout column>
-              <v-layout row wrap justify-end>
-                <v-btn flat small fab @click="setEditingMode(item)">
-                  <v-icon color="green">edit</v-icon>
+              <v-layout
+                row
+                wrap
+                justify-end
+              >
+                <v-btn
+                  flat
+                  small
+                  fab
+                  @click="setEditingMode(item)"
+                >
+                  <v-icon color="green">
+                    edit
+                  </v-icon>
                 </v-btn>
               </v-layout>
 
@@ -331,7 +542,7 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                 Nombre del solicitante:
                 <span class="font-weight-bold grey--text caption">
                   {{
-                  item.name
+                    item.name
                   }}
                 </span>
               </span>
@@ -339,7 +550,7 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                 Nivel:
                 <span class="font-weight-bold grey--text caption">
                   {{
-                  item.level
+                    item.level
                   }}
                 </span>
               </span>
@@ -348,34 +559,43 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                 Grupos en tanda matutina:
                 <span class="font-weight-bold grey--text caption">
                   {{
-                  item.morningGroups
+                    item.morningGroups
                   }}
                 </span>
-                <v-icon small :color="item.mornColor">color_lens</v-icon>
+                <v-icon
+                  small
+                  :color="item.mornColor"
+                >color_lens</v-icon>
               </span>
               <span class="my-1">
                 Grupos en tanda vepertina:
                 <span class="font-weight-bold grey--text caption">
                   {{
-                  item.afternoonGroups
+                    item.afternoonGroups
                   }}
                 </span>
-                <v-icon small :color="item.aftColor">color_lens</v-icon>
+                <v-icon
+                  small
+                  :color="item.aftColor"
+                >color_lens</v-icon>
               </span>
               <span class="my-1">
                 Grupos en tanda nocturna:
                 <span class="font-weight-bold grey--text caption">
                   {{
-                  item.eveningGroups
+                    item.eveningGroups
                   }}
                 </span>
-                <v-icon small :color="item.eveColor">color_lens</v-icon>
+                <v-icon
+                  small
+                  :color="item.eveColor"
+                >color_lens</v-icon>
               </span>
               <span class="my-1">
                 Centro:
                 <span class="font-weight-bold grey--text caption">
                   {{
-                  item.center
+                    item.center
                   }}
                 </span>
               </span>
@@ -383,7 +603,7 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                 Provincia:
                 <span class="font-weight-bold grey--text caption">
                   {{
-                  item.province
+                    item.province
                   }}
                 </span>
               </span>
@@ -391,7 +611,7 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                 Region:
                 <span class="font-weight-bold grey--text caption">
                   {{
-                  item.region
+                    item.region
                   }}
                 </span>
               </span>
@@ -399,13 +619,16 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                 Supervisor:
                 <span class="font-weight-bold grey--text caption">
                   {{
-                  item.supervisorName
+                    item.supervisorName
                   }}
                 </span>
               </span>
               <span class="my-1">
                 ir al formulario
-                <a :href="item.att_form_URL" target="_blank">
+                <a
+                  :href="item.att_form_URL"
+                  target="_blank"
+                >
                   <span class="font-weight-bold caption">aqui</span>
                 </a>
               </span>
@@ -414,7 +637,7 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
                 Dia que fue solicitado:
                 <span class="font-weight-bold grey--text caption">
                   {{
-                  dateFormater(item.date)
+                    dateFormater(item.date)
                   }}
                 </span>
               </span>
@@ -437,17 +660,40 @@ Después de pulsar "ENVIAR SOLICITUD", dada a la cantidad de fórmulas y cálcul
       >
         No fue posible seguir por las siguientes razones:
         <ul>
-          <li v-for="(error, i) in errors" :key="i">{{ error }}</li>
+          <li
+            v-for="(error, i) in errors"
+            :key="i"
+          >
+            {{ error }}
+          </li>
         </ul>
       </v-alert>
       <!--  ERROR ALERT ENDS -->
     </figure>
     <figure>
       <!-- snackbar to notify completion starts -->
-      <v-layout justify-center wrap row>
-        <v-snackbar class="error" v-model="snackbar" color multi-line :timeout="6000" top="top">
+      <v-layout
+        justify-center
+        wrap
+        row
+      >
+        <v-snackbar
+          class="error"
+          v-model="snackbar"
+          color
+          multi-line
+          :timeout="6000"
+          top="top"
+        >
           {{ snackbarMessage }}
-          <v-btn small dark text @click="snackbar = false">Close</v-btn>
+          <v-btn
+            small
+            dark
+            text
+            @click="snackbar = false"
+          >
+            Close
+          </v-btn>
         </v-snackbar>
       </v-layout>
       <!-- snackbar to notify completion ends -->

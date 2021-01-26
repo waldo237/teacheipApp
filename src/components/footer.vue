@@ -56,7 +56,7 @@
               flat
               class="black white--text mx-1 px-3 credits elevation-9"
             >
-               <Facebook />
+              <Facebook />
             </v-btn>
           </span>
           <span class="subtitle-1 credits">
@@ -68,7 +68,7 @@
               flat
               class="black white--text mx-1 px-3 credits elevation-9"
             >
-              <Instagram/>
+              <Instagram />
             </v-btn>
           </span>
 
@@ -81,7 +81,7 @@
               flat
               class="black white--text mx-1 px-3 credits elevation-9"
             >
-             <Twitter/>
+              <Twitter />
             </v-btn>
           </span>
 
@@ -95,7 +95,7 @@
               class="black white--text mx-1 px-3 credits elevation-9"
             >
               
-                <LinkedIn />
+              <LinkedIn />
                
               
             </v-btn>

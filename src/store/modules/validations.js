@@ -62,7 +62,7 @@ const actions = {
   async fillTeacherInfo() {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await axios.post(`https://eip-server.herokuapp.com/contacts`, state.contactInfo, {
+        const response = await axios.post(`http://localhost:30001/contacts`, state.contactInfo, {
           headers: {
             Authorization: 'JWT ' + localStorage.getItem('serverToken')
           }
@@ -70,6 +70,7 @@ const actions = {
         localStorage.setItem('sessionRole', response.data);
         resolve(response.data)
       } catch (error) {
+        console.log(error)
         reject(error)
       }
     })

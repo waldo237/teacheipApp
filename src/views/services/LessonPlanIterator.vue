@@ -6,16 +6,34 @@
       wrap
       primary-title
       class="display-1 font-weight-light text-xs-center main-title mt-5 pt-5 mx-4 px-1 grey lighten-5"
-    >Lesson Plans</v-layout>
+    >
+      Lesson Plans
+    </v-layout>
     <!-- LOADING STARTS -->
-    <v-layout row wrap justify-center v-if="stillLoading" class="ma-5 pa-5 grey lighten-5">
+    <v-layout
+      row
+      wrap
+      justify-center
+      v-if="stillLoading"
+      class="ma-5 pa-5 grey lighten-5"
+    >
       <loading />
     </v-layout>
     <!-- LOADING ENDS -->
 
-    <v-container v-else fluid grid-list-md class="py-5">
+    <v-container
+      v-else
+      fluid
+      grid-list-md
+      class="py-5"
+    >
       <!-- SEARCH STARTS -->
-      <v-layout wrap class="mx-5 px-5 round" justify-center color=" lighten-5 ">
+      <v-layout
+        wrap
+        class="mx-5 px-5 round"
+        justify-center
+        color=" lighten-5 "
+      >
         <v-text-field
           class="mx-4 mt-3"
           label="Buscar Planes de clase"
@@ -29,7 +47,13 @@
       <!-- SEARCH ENDS -->
 
       <!-- SELECTS STARTS -->
-      <v-layout row wrap align-center justify-center class="mx-5 grey lighten-5">
+      <v-layout
+        row
+        wrap
+        align-center
+        justify-center
+        class="mx-5 grey lighten-5"
+      >
         <v-select
           class="px-auto mx-5 grey lighten-5 round"
           :items="series"
@@ -74,17 +98,38 @@
       >
         <span>{{ displayedLessonPlans.length }} archivos</span>
         <div>
-          <v-btn class="my-0" small fab flat @click="filterDir = 'asc'">
-            <v-icon size="30">arrow_downward</v-icon>
+          <v-btn
+            class="my-0"
+            small
+            fab
+            flat
+            @click="filterDir = 'asc'"
+          >
+            <v-icon size="30">
+              arrow_downward
+            </v-icon>
           </v-btn>
-          <v-btn class="my-0" small flat fab @click="filterDir = 'desc'">
-            <v-icon size="30">arrow_upward</v-icon>
+          <v-btn
+            class="my-0"
+            small
+            flat
+            fab
+            @click="filterDir = 'desc'"
+          >
+            <v-icon size="30">
+              arrow_upward
+            </v-icon>
           </v-btn>
         </div>
       </v-layout>
       <!-- NUMBER AND SORT ENDS -->
       <!-- LESSON PLANS STARTS -->
-      <v-layout wrap class="mx-3 px-4" justify-center v-if="displayedLessonPlans.length > 0">
+      <v-layout
+        wrap
+        class="mx-3 px-4"
+        justify-center
+        v-if="displayedLessonPlans.length > 0"
+      >
         <v-card
           v-for="item in displayedLessonPlans"
           :key="item.download"
@@ -101,31 +146,40 @@
                 : 'subtitle-1 blue-cards font-weight-bold white--text'
             "
           >
-            <v-icon color="orange" medium v-if="is2020(item.last_update)">fiber_new</v-icon>
+            <v-icon
+              color="orange"
+              medium
+              v-if="is2020(item.last_update)"
+            >
+              fiber_new
+            </v-icon>
             <span class="mx-3">{{ item.file_name.split(".")[0] }}</span>
           </v-card-title>
 
           <v-card-text>
             <span class="font-weight-bold">Book Series</span>
             {{ item.book_series }}
-            <br />
+            <br>
             <span class="font-weight-bold">Level:</span>
             {{ item.level }}
-            <br />
+            <br>
             <span class="font-weight-bold">format:</span>
             {{ item.format }}
-            <br />
+            <br>
             <span class="font-weight-bold">size:</span>
             {{ item.size }}
-            <br />
+            <br>
             <span class="font-weight-bold">Last Updated:</span>
             {{ ago(item.last_update) }}
-            <br />
+            <br>
             <span class="font-weight-bold">Posted by:</span>
             {{ item.created_by }}
           </v-card-text>
           <v-card-actions class="mx-4">
-            <a :href="item.link" target="blank">
+            <a
+              :href="item.link"
+              target="blank"
+            >
               <v-icon color="#c6192a">open_in_new</v-icon>
               <span
                 :class="
@@ -145,16 +199,26 @@
           </v-card-actions>
         </v-card>
       </v-layout>
-      <v-layout row wrap class="mx-3 px-4 slide" v-else>
+      <v-layout
+        row
+        wrap
+        class="mx-3 px-4 slide"
+        v-else
+      >
         <v-layout
           justify-center
           primary-title
           class="title font-weight-light main-title my-5 py-5 mx-4 px-1 grey lighten-5"
-        >No hay planes de clase con estas caracteristicas</v-layout>
+        >
+          No hay planes de clase con estas caracteristicas
+        </v-layout>
       </v-layout>
       <!-- LESSON PLANS ENDS -->
       <!-- PAGINATION STARTS -->
-      <v-layout align-center class="mb-5 pb-5 mx-auto px-auto">
+      <v-layout
+        align-center
+        class="mb-5 pb-5 mx-auto px-auto"
+      >
         <v-pagination
           class="mx-auto px-auto"
           v-model="page"

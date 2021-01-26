@@ -296,7 +296,7 @@
                 row
                 wrap
                 justify-end
-                >
+              >
                 <v-btn
                   flat
                   small
